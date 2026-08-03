@@ -115,7 +115,7 @@ function clue(item, row = false) {
         <span class="dot ${item.type}"></span>
         <span>${escapeHtml(item.label)}</span>
       </div>
-      <span class="info-icon" title="${escapeHtml(item.description)}">ⓘ</span>
+      <span class="info-icon" data-tooltip="${escapeHtml(item.description)}" tabindex="0" role="button" aria-label="${escapeHtml(item.description)}">ⓘ</span>
     </div>
   `;
 }
