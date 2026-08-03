@@ -170,27 +170,47 @@ button, input {
 .intro-desc {
   font-size: 15px;
   color: var(--ink-secondary);
-  max-width: 600px;
+  max-width: 580px;
   margin-top: 6px;
 }
 
-.progress-box {
+.info-badge {
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lives-box, .progress-box {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
   background: var(--bg-card);
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
 
-.progress-label {
+.lives-label, .progress-label {
   font-size: 11px;
   font-weight: 600;
   color: var(--ink-muted);
   letter-spacing: 0.8px;
+}
+
+.hearts-list {
+  font-size: 16px;
+  letter-spacing: 2px;
 }
 
 .progress-value {
@@ -236,6 +256,7 @@ button, input {
   height: 10px;
   border-radius: 50%;
   display: inline-block;
+  flex-shrink: 0;
 }
 
 .dot.geography { background-color: var(--cat-geography); }
@@ -267,25 +288,51 @@ button, input {
 .clue {
   background: var(--bg-subtle);
   border-radius: var(--radius-sm);
-  padding: 14px;
-  font-size: 14px;
+  padding: 12px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.25;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 6px;
   color: var(--ink-primary);
   border: 1px solid transparent;
+  position: relative;
+}
+
+.clue-label-area {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-icon {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  background: rgba(0,0,0,0.06);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.info-icon:hover {
+  background: var(--accent-primary);
+  color: white;
 }
 
 .clue.geography { background: var(--cat-geography-bg); border-color: rgba(43, 108, 176, 0.15); }
 .clue.language { background: var(--cat-language-bg); border-color: rgba(213, 63, 140, 0.15); }
 .clue.economy { background: var(--cat-economy-bg); border-color: rgba(221, 107, 32, 0.15); }
 .clue.history { background: var(--cat-history-bg); border-color: rgba(56, 161, 105, 0.15); }
-
-.clue.row {
-  justify-content: flex-start;
-}
 
 /* Case de Réponse */
 .cell {
@@ -363,7 +410,7 @@ button, input {
 
 .answer-name {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--ink-primary);
   line-height: 1.2;
 }
@@ -404,6 +451,7 @@ button, input {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -414,7 +462,7 @@ button, input {
   border-color: var(--ink-primary);
 }
 
-/* Search Modal façon MetroDoku */
+/* Search Modal */
 .search-dialog {
   max-width: 540px;
 }
@@ -429,6 +477,7 @@ button, input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .eyebrow-tag {
@@ -442,6 +491,17 @@ button, input {
   border-radius: 4px;
 }
 
+.candidates-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: #2b6cb0;
+  background: #ebf4ff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
 .search-dialog h2 {
   font-size: 22px;
   font-weight: 800;
@@ -449,13 +509,14 @@ button, input {
 }
 
 .search-dialog-sub {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--ink-secondary);
   background: var(--bg-app);
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-light);
+  line-height: 1.4;
 }
 
 .search-input-wrapper {
@@ -559,6 +620,10 @@ button, input {
   gap: 16px;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .close-dialog-btn {
   background: transparent;
   border: none;
@@ -628,7 +693,7 @@ button, input {
   transform: translateY(-1px);
 }
 
-.primary-button.full-width {
+.primary-button.full-width, .secondary-button.full-width {
   width: 100%;
 }
 
@@ -642,7 +707,7 @@ button, input {
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .board {
-    grid-template-columns: 100px repeat(3, 1fr);
+    grid-template-columns: 105px repeat(3, 1fr);
     grid-template-rows: 64px repeat(3, minmax(95px, 1fr));
     gap: 6px;
   }
@@ -658,5 +723,10 @@ button, input {
 
   .countries-list {
     grid-template-columns: 1fr;
+  }
+
+  .intro-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

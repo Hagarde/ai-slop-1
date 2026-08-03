@@ -6,40 +6,68 @@ const searchDialog = document.querySelector('#search-dialog');
 const searchDialogTitle = document.querySelector('#search-dialog-title');
 const searchDialogClues = document.querySelector('#search-dialog-clues');
 const cellTargetTag = document.querySelector('#cell-target-tag');
+const candidatesCountEl = document.querySelector('#candidates-count');
 const closeSearch = document.querySelector('#close-search');
 const progressEl = document.querySelector('#progress');
+const heartsListEl = document.querySelector('#hearts-list');
+
+const gameoverDialog = document.querySelector('#gameover-dialog');
+const retrySameBtn = document.querySelector('#retry-same-btn');
+const newGridBtn = document.querySelector('#new-grid-btn');
 
 let countries = [];
 let rows = [];
 let columns = [];
 let selectedCell = null;
 let answers = Array(9).fill(null);
+let lives = 3;
 
 const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 const escapeHtml = (value) => String(value || '').replace(/[&<>'"]/g, (character) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[character]));
 
-const isRed = (hex) => Number.parseInt(hex.slice(1, 3), 16) > 130 && Number.parseInt(hex.slice(1, 3), 16) > Number.parseInt(hex.slice(3, 5), 16) * 1.3;
-const isBlue = (hex) => Number.parseInt(hex.slice(5, 7), 16) > 100 && Number.parseInt(hex.slice(5, 7), 16) > Number.parseInt(hex.slice(1, 3), 16) * 1.25;
-const isGreen = (hex) => Number.parseInt(hex.slice(3, 5), 16) > 80 && Number.parseInt(hex.slice(3, 5), 16) > Number.parseInt(hex.slice(1, 3), 16) * 1.18;
-
-function criterion(label, type, test) { return { label, type, test }; }
+function criterion(label, type, description, test) { return { label, type, description, test }; }
 
 function buildCriteria(data) {
   const hasLanguage = (language) => (country) => country.languages.some((value) => fold(value) === fold(language));
+  const hasColor = (hex) => (country) => (country.flagColors || []).includes(hex);
+
   return [
-    criterion('Dans l’hémisphère Nord', 'geography', (country) => country.hemisphere === 'Nord'),
-    criterion('Dans l’hémisphère Sud', 'geography', (country) => country.hemisphere === 'Sud'),
-    ...['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'].map((region) => criterion(`En ${({ Africa:'Afrique', Americas:'Amériques', Asia:'Asie', Europe:'Europe', Oceania:'Océanie' })[region]}`, 'geography', (country) => country.region === region)),
-    ...['English', 'French', 'Spanish', 'Arabic', 'Portuguese', 'Russian', 'Chinese'].map((language) => criterion(`Langue : ${({ English:'anglais', French:'français', Spanish:'espagnol', Arabic:'arabe', Portuguese:'portugais', Russian:'russe', Chinese:'chinois' })[language]}`, 'language', hasLanguage(language))),
-    criterion('Drapeau avec du rouge', 'history', (country) => country.flagColors.some(isRed)),
-    criterion('Drapeau avec du bleu', 'history', (country) => country.flagColors.some(isBlue)),
-    criterion('Drapeau avec du vert', 'history', (country) => country.flagColors.some(isGreen)),
-    criterion('Plus de 100M d’habitants', 'economy', (country) => country.population >= 100_000_000),
-    criterion('Entre 10M et 100M d’habitants', 'economy', (country) => country.population >= 10_000_000 && country.population < 100_000_000),
-    criterion('Moins de 10M d’habitants', 'economy', (country) => country.population > 0 && country.population < 10_000_000),
-    ...['USD', 'EUR', 'XOF'].map((currency) => criterion(`Devise : ${currency}`, 'economy', (country) => country.currencies.some((item) => item.code === currency))),
-    criterion('Au moins 3 pays frontaliers', 'geography', (country) => country.borders.length >= 3),
-    criterion('Sans frontière terrestre', 'geography', (country) => country.borders.length === 0),
+    // Géographie
+    criterion('Dans l’hémisphère Nord', 'geography', 'Le territoire du pays se situe dans l’hémisphère Nord (latitude >= 0).', (c) => c.hemisphere === 'Nord'),
+    criterion('Dans l’hémisphère Sud', 'geography', 'Le territoire du pays se situe dans l’hémisphère Sud (latitude < 0).', (c) => c.hemisphere === 'Sud'),
+    criterion('En Afrique', 'geography', 'Le pays se situe sur le continent africain.', (c) => c.region === 'Africa'),
+    criterion('En Europe', 'geography', 'Le pays se situe en Europe.', (c) => c.region === 'Europe'),
+    criterion('En Asie', 'geography', 'Le pays se situe en Asie.', (c) => c.region === 'Asia'),
+    criterion('En Amérique', 'geography', 'Le pays se situe sur le continent américain.', (c) => c.region === 'Americas'),
+    criterion('En Océanie', 'geography', 'Le pays se situe en Océanie.', (c) => c.region === 'Oceania'),
+    criterion('Pays enclavé (sans mer)', 'geography', 'Le pays n’a aucun accès direct à la mer ou à un océan.', (c) => c.landlocked === true),
+    criterion('Possède un accès à la mer', 'geography', 'Le pays possède une côte ou un accès maritime direct.', (c) => c.landlocked === false),
+    criterion('Traversé par l’Équateur', 'geography', 'La ligne imaginaire de l’Équateur traverse le territoire du pays.', (c) => c.equator === true),
+    criterion('Au moins 3 pays frontaliers', 'geography', 'Le pays partage ses frontières terrestres avec 3 voisins ou plus.', (c) => c.borders.length >= 3),
+    criterion('Sans frontière terrestre', 'geography', 'Le pays est situé sur une ou plusieurs îles (0 frontière terrestre).', (c) => c.borders.length === 0),
+
+    // Superficie & Démographie
+    criterion('Superficie > 1 000 000 km²', 'economy', 'La superficie totale du pays dépasse 1 million de km² (ex: Canada, Chine, Algérie, Brésil...).', (c) => (c.area || 0) >= 1_000_000),
+    criterion('Superficie < 50 000 km²', 'economy', 'La superficie totale du pays est inférieure à 50 000 km² (ex: Belgique, Suisse, Luxembourg...).', (c) => (c.area || 0) > 0 && (c.area || 0) < 50_000),
+    criterion('Plus de 100M d’habitants', 'economy', 'La population du pays dépasse 100 millions d’habitants.', (c) => c.population >= 100_000_000),
+    criterion('Entre 10M et 100M d’habitants', 'economy', 'La population est comprise entre 10 et 100 millions d’habitants.', (c) => c.population >= 10_000_000 && c.population < 100_000_000),
+    criterion('Moins de 10M d’habitants', 'economy', 'La population du pays est inférieure à 10 millions d’habitants.', (c) => c.population > 0 && c.population < 10_000_000),
+
+    // Langues & Monnaies
+    ...['English', 'French', 'Spanish', 'Arabic', 'Portuguese', 'Russian', 'Chinese'].map((language) => {
+      const nameFr = { English:'l’anglais', French:'le français', Spanish:'l’espagnol', Arabic:'l’arabe', Portuguese:'le portugais', Russian:'le russe', Chinese:'le chinois' }[language];
+      return criterion(`Langue : ${nameFr}`, 'language', `Une des langues officielles ou nationales du pays est ${nameFr}.`, hasLanguage(language));
+    }),
+    ...['USD', 'EUR', 'XOF'].map((currency) => criterion(`Devise : ${currency}`, 'economy', `Le pays utilise la devise ${currency}.`, (c) => c.currencies.some((item) => item.code === currency))),
+
+    // Drapeau & Nom
+    criterion('Drapeau avec du rouge', 'history', 'Le drapeau officiel comporte de la couleur rouge.', hasColor('#d21034')),
+    criterion('Drapeau avec du bleu', 'history', 'Le drapeau officiel comporte de la couleur bleue.', hasColor('#005eb8')),
+    criterion('Drapeau avec du vert', 'history', 'Le drapeau officiel comporte de la couleur verte.', hasColor('#007a3d')),
+    criterion('Drapeau avec du jaune / or', 'history', 'Le drapeau officiel comporte de la couleur jaune ou or.', hasColor('#ffd100')),
+    criterion('Drapeau avec du noir', 'history', 'Le drapeau officiel comporte de la couleur noire.', hasColor('#000000')),
+    criterion('Nom en 5 lettres ou moins', 'history', 'Le nom du pays en français comporte 5 lettres ou moins (ex: Cuba, Mali, Pérou, Inde...).', (c) => c.name.length <= 5),
+    criterion('Nom se terminant par -ia ou -ie', 'history', 'Le nom courant du pays en français se termine par les lettres "ia" ou "ie" (ex: Algérie, Italie, Australie...).', (c) => /i[ae]$/i.test(c.name)),
   ].filter((item) => data.filter(item.test).length >= 5);
 }
 
@@ -81,7 +109,19 @@ function generateGrid() {
 }
 
 function clue(item, row = false) {
-  return `<div class="clue ${item.type} ${row ? 'row' : ''}"><span class="dot ${item.type}"></span>${escapeHtml(item.label)}</div>`;
+  return `
+    <div class="clue ${item.type} ${row ? 'row' : ''}">
+      <div class="clue-label-area">
+        <span class="dot ${item.type}"></span>
+        <span>${escapeHtml(item.label)}</span>
+      </div>
+      <span class="info-icon" title="${escapeHtml(item.description)}">ⓘ</span>
+    </div>
+  `;
+}
+
+function updateLivesUI() {
+  heartsListEl.textContent = '❤️'.repeat(lives) + '🖤'.repeat(3 - lives);
 }
 
 function renderBoard() {
@@ -116,13 +156,16 @@ function renderBoard() {
 
   board.querySelectorAll('.cell').forEach((cell) => cell.addEventListener('click', () => {
     const id = Number(cell.dataset.cell);
-    if (answers[id]) return;
+    if (answers[id] || lives <= 0) return;
 
     selectedCell = id;
     const rowIndex = Math.floor(id / 3);
     const columnIndex = id % 3;
     const row = rows[rowIndex];
     const column = columns[columnIndex];
+
+    const availableCandidates = cellCandidates(row, column).filter((c) => !answers.filter(Boolean).map(a=>a.code).includes(c.code));
+    candidatesCountEl.textContent = `💡 ${availableCandidates.length} pays possible${availableCandidates.length > 1 ? 's' : ''}`;
 
     cellTargetTag.textContent = `CASE ${id + 1}`;
     searchDialogTitle.textContent = `Choisir un pays pour la case ${id + 1}`;
@@ -182,11 +225,23 @@ function choose(code) {
   searchDialog.close();
 
   if (!isMatch || !solveGrid(lists, locked)) {
-    feedback.textContent = `❌ ${country.name} ne convient pas pour ce croisement ou bloquerait la grille. Réessayez !`;
+    lives -= 1;
+    updateLivesUI();
+    
     if (targetCellEl) {
       targetCellEl.classList.add('wrong');
       setTimeout(() => targetCellEl.classList.remove('wrong'), 450);
     }
+    
+    if (lives <= 0) {
+      feedback.textContent = `❌ ${country.name} est incorrect. Vous n'avez plus de vies !`;
+      selectedCell = null;
+      renderBoard();
+      setTimeout(() => gameoverDialog.showModal(), 300);
+      return;
+    }
+
+    feedback.textContent = `❌ ${country.name} est incorrect pour ce croisement (-1 vie). Plus que ${lives} vie${lives > 1 ? 's' : ''} !`;
     selectedCell = null;
     renderBoard();
     return;
@@ -207,11 +262,17 @@ function choose(code) {
   renderBoard();
 }
 
-function resetGame() {
+function resetGame(newSeed = true) {
   answers = Array(9).fill(null);
   selectedCell = null;
   search.value = '';
-  generateGrid();
+  lives = 3;
+  updateLivesUI();
+
+  if (newSeed) {
+    generateGrid();
+  }
+  
   progressEl.textContent = '0';
   feedback.textContent = 'Cliquez sur une case de la grille pour commencer.';
   renderBoard();
@@ -224,7 +285,15 @@ closeSearch.addEventListener('click', () => {
   renderBoard();
 });
 
-document.querySelector('#reset-button').addEventListener('click', resetGame);
+document.querySelector('#reset-button').addEventListener('click', () => resetGame(true));
+retrySameBtn.addEventListener('click', () => {
+  gameoverDialog.close();
+  resetGame(false);
+});
+newGridBtn.addEventListener('click', () => {
+  gameoverDialog.close();
+  resetGame(true);
+});
 
 const help = document.querySelector('#help-dialog');
 document.querySelector('#help-button').addEventListener('click', () => help.showModal());
@@ -237,7 +306,7 @@ fetch('data/countries.json')
   .then((response) => response.json())
   .then((data) => {
     countries = data.countries;
-    resetGame();
+    resetGame(true);
   })
   .catch(() => {
     feedback.textContent = 'Erreur lors du chargement des données.';

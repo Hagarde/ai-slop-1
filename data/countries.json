@@ -11,9 +11,9 @@
       "flag": "🇦🇫",
       "flagUrl": "https://flagcdn.com/w80/af.png",
       "flagColors": [
-        "#d32011",
-        "#007a36",
-        "#fffffd"
+        "#d21034",
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 33,
@@ -57,7 +57,10 @@
           "name": "Afghan afghani",
           "symbol": "؋"
         }
-      ]
+      ],
+      "area": 652230,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "ZAF",
@@ -67,9 +70,8 @@
       "flag": "🇿🇦",
       "flagUrl": "https://flagcdn.com/w80/za.png",
       "flagColors": [
-        "#e03c31",
-        "#001489",
-        "#000000"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -29,
@@ -121,7 +123,10 @@
           "name": "South African rand",
           "symbol": "R"
         }
-      ]
+      ],
+      "area": 1221037,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ALB",
@@ -130,9 +135,7 @@
       "nameEnglish": "Albania",
       "flag": "🇦🇱",
       "flagUrl": "https://flagcdn.com/w80/al.png",
-      "flagColors": [
-        "#d21034"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 41,
       "region": "Europe",
@@ -165,7 +168,10 @@
           "name": "Albanian lek",
           "symbol": "L"
         }
-      ]
+      ],
+      "area": 28748,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "DZA",
@@ -175,8 +181,6 @@
       "flag": "🇩🇿",
       "flagUrl": "https://flagcdn.com/w80/dz.png",
       "flagColors": [
-        "#ffffff",
-        "#006633",
         "#d21034"
       ],
       "hemisphere": "Nord",
@@ -223,7 +227,10 @@
           "name": "Algerian dinar",
           "symbol": "د.ج"
         }
-      ]
+      ],
+      "area": 2381741,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "DEU",
@@ -233,8 +240,9 @@
       "flag": "🇩🇪",
       "flagUrl": "https://flagcdn.com/w80/de.png",
       "flagColors": [
-        "#dd0000",
-        "#ffce00"
+        "#000000",
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 51,
@@ -288,7 +296,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 357114,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "AND",
@@ -298,10 +309,7 @@
       "flag": "🇦🇩",
       "flagUrl": "https://flagcdn.com/w80/ad.png",
       "flagColors": [
-        "#d50032",
-        "#10069f",
-        "#713f2a",
-        "#ffffff",
+        "#d21034",
         "#005eb8"
       ],
       "hemisphere": "Nord",
@@ -328,7 +336,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 468,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "AGO",
@@ -338,8 +349,8 @@
       "flag": "🇦🇴",
       "flagUrl": "https://flagcdn.com/w80/ao.png",
       "flagColors": [
-        "#cc092f",
-        "#ffcb00"
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -12.5,
@@ -373,7 +384,10 @@
           "name": "Angolan kwanza",
           "symbol": "Kz"
         }
-      ]
+      ],
+      "area": 1246700,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ATG",
@@ -383,10 +397,9 @@
       "flag": "🇦🇬",
       "flagUrl": "https://flagcdn.com/w80/ag.png",
       "flagColors": [
-        "#ffffff",
-        "#fcd116",
-        "#0072c6",
-        "#ce1126"
+        "#ffd100",
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 17.05,
@@ -403,7 +416,10 @@
           "name": "Eastern Caribbean dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 442,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SAU",
@@ -413,8 +429,7 @@
       "flag": "🇸🇦",
       "flagUrl": "https://flagcdn.com/w80/sa.png",
       "flagColors": [
-        "#005430",
-        "#ffffff"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 25,
@@ -460,7 +475,10 @@
           "name": "Saudi riyal",
           "symbol": "ر.س"
         }
-      ]
+      ],
+      "area": 2149690,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ARG",
@@ -470,11 +488,9 @@
       "flag": "🇦🇷",
       "flagUrl": "https://flagcdn.com/w80/ar.png",
       "flagColors": [
-        "#74acdf",
-        "#ffffff",
-        "#f6b40e",
-        "#85340a",
-        "#843511"
+        "#005eb8",
+        "#ffd100",
+        "#f58220"
       ],
       "hemisphere": "Sud",
       "latitude": -34,
@@ -513,7 +529,10 @@
           "name": "Argentine peso",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 2780400,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ARM",
@@ -523,9 +542,9 @@
       "flag": "🇦🇲",
       "flagUrl": "https://flagcdn.com/w80/am.png",
       "flagColors": [
-        "#f2a800",
-        "#0033a0",
-        "#d90012"
+        "#ffd100",
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 40,
@@ -559,7 +578,10 @@
           "name": "Armenian dram",
           "symbol": "֏"
         }
-      ]
+      ],
+      "area": 29743,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "AUS",
@@ -569,8 +591,7 @@
       "flag": "🇦🇺",
       "flagUrl": "https://flagcdn.com/w80/au.png",
       "flagColors": [
-        "#012169",
-        "#ffffff"
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -27,
@@ -587,7 +608,10 @@
           "name": "Australian dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 7692024,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "AUT",
@@ -597,8 +621,7 @@
       "flag": "🇦🇹",
       "flagUrl": "https://flagcdn.com/w80/at.png",
       "flagColors": [
-        "#c8102e",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 47.33333333,
@@ -648,7 +671,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 83871,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "AZE",
@@ -658,10 +684,9 @@
       "flag": "🇦🇿",
       "flagUrl": "https://flagcdn.com/w80/az.png",
       "flagColors": [
-        "#509e2f",
-        "#ef3340",
-        "#00b5e2",
-        "#ffffff"
+        "#007a3d",
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 40.5,
@@ -700,7 +725,10 @@
           "name": "Azerbaijani manat",
           "symbol": "₼"
         }
-      ]
+      ],
+      "area": 86600,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "BHS",
@@ -710,8 +738,7 @@
       "flag": "🇧🇸",
       "flagUrl": "https://flagcdn.com/w80/bs.png",
       "flagColors": [
-        "#00778b",
-        "#ffc72c"
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 24.25,
@@ -733,7 +760,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 13943,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BHR",
@@ -743,8 +773,7 @@
       "flag": "🇧🇭",
       "flagUrl": "https://flagcdn.com/w80/bh.png",
       "flagColors": [
-        "#ffffff",
-        "#da291c"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 26,
@@ -761,7 +790,10 @@
           "name": "Bahraini dinar",
           "symbol": ".د.ب"
         }
-      ]
+      ],
+      "area": 765,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BGD",
@@ -771,8 +803,8 @@
       "flag": "🇧🇩",
       "flagUrl": "https://flagcdn.com/w80/bd.png",
       "flagColors": [
-        "#006a4e",
-        "#f42a41"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 24,
@@ -798,7 +830,10 @@
           "name": "Bangladeshi taka",
           "symbol": "৳"
         }
-      ]
+      ],
+      "area": 147570,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BRB",
@@ -808,9 +843,8 @@
       "flag": "🇧🇧",
       "flagUrl": "https://flagcdn.com/w80/bb.png",
       "flagColors": [
-        "#00267f",
-        "#ffc726",
-        "#000000"
+        "#005eb8",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 13.16666666,
@@ -827,7 +861,10 @@
           "name": "Barbadian dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 430,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BEL",
@@ -837,8 +874,8 @@
       "flag": "🇧🇪",
       "flagUrl": "https://flagcdn.com/w80/be.png",
       "flagColors": [
-        "#ef3340",
-        "#fdda25"
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 50.83333333,
@@ -874,7 +911,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 30528,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BLZ",
@@ -884,14 +924,13 @@
       "flag": "🇧🇿",
       "flagUrl": "https://flagcdn.com/w80/bz.png",
       "flagColors": [
-        "#d90f19",
-        "#171696",
+        "#d21034",
+        "#005eb8",
+        "#f58220",
+        "#007a3d",
+        "#ffd100",
         "#ffffff",
-        "#ad7d5a",
-        "#5ac800",
-        "#66ff66",
-        "#d67c59",
-        "#338a00"
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 17.25,
@@ -919,7 +958,10 @@
           "name": "Belize dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 22966,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BEN",
@@ -929,9 +971,9 @@
       "flag": "🇧🇯",
       "flagUrl": "https://flagcdn.com/w80/bj.png",
       "flagColors": [
-        "#e8112d",
-        "#fcd116",
-        "#008751"
+        "#d21034",
+        "#ffd100",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 9.5,
@@ -965,7 +1007,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 112622,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BTN",
@@ -975,9 +1020,8 @@
       "flag": "🇧🇹",
       "flagUrl": "https://flagcdn.com/w80/bt.png",
       "flagColors": [
-        "#ffcd00",
-        "#ff671f",
-        "#ffffff"
+        "#ffd100",
+        "#f58220"
       ],
       "hemisphere": "Nord",
       "latitude": 27.5,
@@ -1008,7 +1052,10 @@
           "name": "Indian rupee",
           "symbol": "₹"
         }
-      ]
+      ],
+      "area": 38394,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "BLR",
@@ -1018,9 +1065,8 @@
       "flag": "🇧🇾",
       "flagUrl": "https://flagcdn.com/w80/by.png",
       "flagColors": [
-        "#ce1720",
-        "#ffffff",
-        "#007c30"
+        "#d21034",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 53,
@@ -1059,7 +1105,10 @@
           "name": "Belarusian ruble",
           "symbol": "Br"
         }
-      ]
+      ],
+      "area": 207600,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MMR",
@@ -1069,10 +1118,9 @@
       "flag": "🇲🇲",
       "flagUrl": "https://flagcdn.com/w80/mm.png",
       "flagColors": [
-        "#fecb00",
-        "#34b233",
-        "#ea2839",
-        "#ffffff"
+        "#ffd100",
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 22,
@@ -1110,7 +1158,10 @@
           "name": "Burmese kyat",
           "symbol": "Ks"
         }
-      ]
+      ],
+      "area": 676578,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BOL",
@@ -1120,14 +1171,13 @@
       "flag": "🇧🇴",
       "flagUrl": "https://flagcdn.com/w80/bo.png",
       "flagColors": [
-        "#00702d",
-        "#f0e53c",
-        "#d32011",
-        "#473125",
-        "#cacaca",
-        "#292723",
-        "#ced0d1",
-        "#ffffff"
+        "#007a3d",
+        "#ffd100",
+        "#d21034",
+        "#f58220",
+        "#ffffff",
+        "#000000",
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -17,
@@ -1168,7 +1218,10 @@
           "name": "Bolivian boliviano",
           "symbol": "Bs."
         }
-      ]
+      ],
+      "area": 1098581,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "BIH",
@@ -1178,9 +1231,8 @@
       "flag": "🇧🇦",
       "flagUrl": "https://flagcdn.com/w80/ba.png",
       "flagColors": [
-        "#002395",
-        "#fecb00",
-        "#ffffff"
+        "#005eb8",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 44,
@@ -1212,7 +1264,10 @@
           "name": "Bosnia and Herzegovina convertible mark",
           "symbol": "KM"
         }
-      ]
+      ],
+      "area": 51209,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BWA",
@@ -1222,8 +1277,7 @@
       "flag": "🇧🇼",
       "flagUrl": "https://flagcdn.com/w80/bw.png",
       "flagColors": [
-        "#6da9d2",
-        "#ffffff"
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -22,
@@ -1258,7 +1312,10 @@
           "name": "Botswana pula",
           "symbol": "P"
         }
-      ]
+      ],
+      "area": 582000,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "BRA",
@@ -1268,10 +1325,9 @@
       "flag": "🇧🇷",
       "flagUrl": "https://flagcdn.com/w80/br.png",
       "flagColors": [
-        "#ffffff",
-        "#009440",
-        "#ffcb00",
-        "#302681"
+        "#007a3d",
+        "#ffd100",
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -10,
@@ -1329,7 +1385,10 @@
           "name": "Brazilian real",
           "symbol": "R$"
         }
-      ]
+      ],
+      "area": 8515767,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "BRN",
@@ -1339,9 +1398,8 @@
       "flag": "🇧🇳",
       "flagUrl": "https://flagcdn.com/w80/bn.png",
       "flagColors": [
-        "#f7e017",
-        "#ffffff",
-        "#cf1126"
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 4.5,
@@ -1368,7 +1426,10 @@
           "name": "Singapore dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 5765,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BGR",
@@ -1378,9 +1439,8 @@
       "flag": "🇧🇬",
       "flagUrl": "https://flagcdn.com/w80/bg.png",
       "flagColors": [
-        "#ffffff",
-        "#00966e",
-        "#d62612"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 43,
@@ -1418,7 +1478,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 110879,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "BFA",
@@ -1428,9 +1491,9 @@
       "flag": "🇧🇫",
       "flagUrl": "https://flagcdn.com/w80/bf.png",
       "flagColors": [
-        "#009e49",
-        "#ef2b2d",
-        "#fcd116"
+        "#007a3d",
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 13,
@@ -1472,7 +1535,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 272967,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "BDI",
@@ -1482,9 +1548,8 @@
       "flag": "🇧🇮",
       "flagUrl": "https://flagcdn.com/w80/bi.png",
       "flagColors": [
-        "#c8102e",
-        "#43b02a",
-        "#ffffff"
+        "#d21034",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -3.5,
@@ -1515,7 +1580,10 @@
           "name": "Burundian franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 27834,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "KHM",
@@ -1525,9 +1593,8 @@
       "flag": "🇰🇭",
       "flagUrl": "https://flagcdn.com/w80/kh.png",
       "flagColors": [
-        "#032ea1",
-        "#e00025",
-        "#ffffff"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 13,
@@ -1562,7 +1629,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 181035,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CMR",
@@ -1572,9 +1642,9 @@
       "flag": "🇨🇲",
       "flagUrl": "https://flagcdn.com/w80/cm.png",
       "flagColors": [
-        "#ce1126",
-        "#007a5e",
-        "#fcd116"
+        "#d21034",
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 6,
@@ -1617,7 +1687,10 @@
           "name": "Central African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 475442,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CAN",
@@ -1626,10 +1699,7 @@
       "nameEnglish": "Canada",
       "flag": "🇨🇦",
       "flagUrl": "https://flagcdn.com/w80/ca.png",
-      "flagColors": [
-        "#d21034",
-        "#ffffff"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 60,
       "region": "Americas",
@@ -1651,7 +1721,10 @@
           "name": "Canadian dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 9984670,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CHL",
@@ -1661,9 +1734,8 @@
       "flag": "🇨🇱",
       "flagUrl": "https://flagcdn.com/w80/cl.png",
       "flagColors": [
-        "#ffffff",
-        "#0032a0",
-        "#da291c"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -30,
@@ -1693,7 +1765,10 @@
           "name": "Chilean peso",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 756102,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CHN",
@@ -1703,8 +1778,7 @@
       "flag": "🇨🇳",
       "flagUrl": "https://flagcdn.com/w80/cn.png",
       "flagColors": [
-        "#ee1c25",
-        "#ffff00"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 35,
@@ -1786,7 +1860,10 @@
           "name": "Chinese yuan",
           "symbol": "¥"
         }
-      ]
+      ],
+      "area": 9706961,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CYP",
@@ -1796,9 +1873,7 @@
       "flag": "🇨🇾",
       "flagUrl": "https://flagcdn.com/w80/cy.png",
       "flagColors": [
-        "#ffffff",
-        "#d67900",
-        "#4d5b2d"
+        "#f58220"
       ],
       "hemisphere": "Nord",
       "latitude": 35,
@@ -1816,7 +1891,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 9251,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "COL",
@@ -1826,9 +1904,9 @@
       "flag": "🇨🇴",
       "flagUrl": "https://flagcdn.com/w80/co.png",
       "flagColors": [
-        "#ffcd00",
-        "#003087",
-        "#c8102e"
+        "#ffd100",
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 4,
@@ -1866,7 +1944,10 @@
           "name": "Colombian peso",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 1141748,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "COM",
@@ -1876,11 +1957,10 @@
       "flag": "🇰🇲",
       "flagUrl": "https://flagcdn.com/w80/km.png",
       "flagColors": [
-        "#ffffff",
         "#ffd100",
-        "#ef3340",
-        "#003da5",
-        "#009639"
+        "#d21034",
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -12.16666666,
@@ -1899,7 +1979,10 @@
           "name": "Comorian franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 1862,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "COG",
@@ -1909,9 +1992,9 @@
       "flag": "🇨🇬",
       "flagUrl": "https://flagcdn.com/w80/cg.png",
       "flagColors": [
-        "#009543",
-        "#fbde4a",
-        "#dc241f"
+        "#007a3d",
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -1,
@@ -1951,7 +2034,10 @@
           "name": "Central African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 342000,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "COD",
@@ -2017,7 +2103,10 @@
           "name": "Congolese franc",
           "symbol": "FC"
         }
-      ]
+      ],
+      "area": 2344858,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "PRK",
@@ -2027,9 +2116,8 @@
       "flag": "🇰🇵",
       "flagUrl": "https://flagcdn.com/w80/kp.png",
       "flagColors": [
-        "#034da2",
-        "#ffffff",
-        "#ec1d25"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 40,
@@ -2059,7 +2147,10 @@
           "name": "North Korean won",
           "symbol": "₩"
         }
-      ]
+      ],
+      "area": 120538,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "KOR",
@@ -2069,9 +2160,8 @@
       "flag": "🇰🇷",
       "flagUrl": "https://flagcdn.com/w80/kr.png",
       "flagColors": [
-        "#ffffff",
-        "#cd2e3a",
-        "#0047a0"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 37,
@@ -2093,7 +2183,10 @@
           "name": "South Korean won",
           "symbol": "₩"
         }
-      ]
+      ],
+      "area": 100210,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CRI",
@@ -2103,14 +2196,11 @@
       "flag": "🇨🇷",
       "flagUrl": "https://flagcdn.com/w80/cr.png",
       "flagColors": [
-        "#fbd55f",
-        "#cb8e32",
-        "#cea849",
-        "#dca842",
-        "#825123",
-        "#fcdd09",
-        "#0f47af",
-        "#509164"
+        "#ffd100",
+        "#f58220",
+        "#005eb8",
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 10,
@@ -2136,7 +2226,10 @@
           "name": "Costa Rican colón",
           "symbol": "₡"
         }
-      ]
+      ],
+      "area": 51100,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CIV",
@@ -2146,9 +2239,8 @@
       "flag": "🇨🇮",
       "flagUrl": "https://flagcdn.com/w80/ci.png",
       "flagColors": [
-        "#009e60",
-        "#ffffff",
-        "#f77f00"
+        "#007a3d",
+        "#f58220"
       ],
       "hemisphere": "Nord",
       "latitude": 8,
@@ -2186,7 +2278,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 322463,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "HRV",
@@ -2196,11 +2291,8 @@
       "flag": "🇭🇷",
       "flagUrl": "https://flagcdn.com/w80/hr.png",
       "flagColors": [
-        "#171796",
-        "#ffffff",
-        "#d21034",
-        "#0093dd",
-        "#f7db17"
+        "#005eb8",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 45.16666666,
@@ -2238,7 +2330,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 56594,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CUB",
@@ -2248,9 +2343,8 @@
       "flag": "🇨🇺",
       "flagUrl": "https://flagcdn.com/w80/cu.png",
       "flagColors": [
-        "#ffffff",
-        "#002a8f",
-        "#cb1515"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 21.5,
@@ -2272,7 +2366,10 @@
           "name": "Cuban peso",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 109884,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "DNK",
@@ -2282,7 +2379,7 @@
       "flag": "🇩🇰",
       "flagUrl": "https://flagcdn.com/w80/dk.png",
       "flagColors": [
-        "#c8102e"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 56,
@@ -2304,7 +2401,10 @@
           "name": "Danish krone",
           "symbol": "kr"
         }
-      ]
+      ],
+      "area": 43094,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "DJI",
@@ -2314,10 +2414,9 @@
       "flag": "🇩🇯",
       "flagUrl": "https://flagcdn.com/w80/dj.png",
       "flagColors": [
-        "#6ab2e7",
-        "#12ad2b",
-        "#ffffff",
-        "#d7141a"
+        "#005eb8",
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 11.5,
@@ -2348,7 +2447,10 @@
           "name": "Djiboutian franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 23200,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "DMA",
@@ -2358,13 +2460,11 @@
       "flag": "🇩🇲",
       "flagUrl": "https://flagcdn.com/w80/dm.png",
       "flagColors": [
-        "#046a38",
-        "#ffcd00",
-        "#ffffff",
-        "#000000",
-        "#d50032",
-        "#9c4a00",
-        "#9063cd"
+        "#007a3d",
+        "#ffd100",
+        "#d21034",
+        "#f58220",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 15.41666666,
@@ -2381,7 +2481,10 @@
           "name": "Eastern Caribbean dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 751,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "EGY",
@@ -2391,8 +2494,10 @@
       "flag": "🇪🇬",
       "flagUrl": "https://flagcdn.com/w80/eg.png",
       "flagColors": [
+        "#d21034",
         "#ffffff",
-        "#ce1126"
+        "#000000",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 27,
@@ -2426,7 +2531,10 @@
           "name": "Egyptian pound",
           "symbol": "£"
         }
-      ]
+      ],
+      "area": 1002450,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ARE",
@@ -2436,9 +2544,8 @@
       "flag": "🇦🇪",
       "flagUrl": "https://flagcdn.com/w80/ae.png",
       "flagColors": [
-        "#00843d",
-        "#ffffff",
-        "#c8102e"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 24,
@@ -2464,7 +2571,10 @@
           "name": "United Arab Emirates dirham",
           "symbol": "د.إ"
         }
-      ]
+      ],
+      "area": 83600,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ECU",
@@ -2474,14 +2584,13 @@
       "flag": "🇪🇨",
       "flagUrl": "https://flagcdn.com/w80/ec.png",
       "flagColors": [
+        "#005eb8",
+        "#d21034",
         "#ffffff",
-        "#1ea8d1",
-        "#c1d3e8",
-        "#88b0d5",
-        "#5998c6",
-        "#2c87bc",
-        "#007db5",
-        "#0077b0"
+        "#ffd100",
+        "#007a3d",
+        "#f58220",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -2,
@@ -2507,7 +2616,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 276841,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "ERI",
@@ -2517,10 +2629,10 @@
       "flag": "🇪🇷",
       "flagUrl": "https://flagcdn.com/w80/er.png",
       "flagColors": [
-        "#e4002b",
-        "#43b02a",
-        "#418fde",
-        "#ffc72c"
+        "#d21034",
+        "#007a3d",
+        "#005eb8",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -2552,7 +2664,10 @@
           "name": "Eritrean nakfa",
           "symbol": "Nfk"
         }
-      ]
+      ],
+      "area": 117600,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ESP",
@@ -2562,14 +2677,12 @@
       "flag": "🇪🇸",
       "flagUrl": "https://flagcdn.com/w80/es.png",
       "flagColors": [
-        "#ad1519",
-        "#fabd00",
-        "#b50027",
-        "#9f7e00",
+        "#d21034",
+        "#ffd100",
+        "#007a3d",
+        "#005eb8",
         "#ffffff",
-        "#006f46",
-        "#0044ad",
-        "#c8b100"
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 40,
@@ -2607,7 +2720,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 505992,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "EST",
@@ -2617,8 +2733,7 @@
       "flag": "🇪🇪",
       "flagUrl": "https://flagcdn.com/w80/ee.png",
       "flagColors": [
-        "#0072ce",
-        "#ffffff"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 59,
@@ -2644,7 +2759,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 45227,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SWZ",
@@ -2654,12 +2772,9 @@
       "flag": "🇸🇿",
       "flagUrl": "https://flagcdn.com/w80/sz.png",
       "flagColors": [
-        "#3e5eb9",
-        "#ffd900",
-        "#b10c0c",
-        "#ffffff",
-        "#a70000",
-        "#3d5da7"
+        "#005eb8",
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -26.5,
@@ -2691,7 +2806,10 @@
           "name": "South African rand",
           "symbol": "R"
         }
-      ]
+      ],
+      "area": 17364,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "USA",
@@ -2701,9 +2819,8 @@
       "flag": "🇺🇸",
       "flagUrl": "https://flagcdn.com/w80/us.png",
       "flagColors": [
-        "#b31942",
-        "#0a3161",
-        "#ffffff"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 38,
@@ -2729,7 +2846,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 9372610,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ETH",
@@ -2739,10 +2859,10 @@
       "flag": "🇪🇹",
       "flagUrl": "https://flagcdn.com/w80/et.png",
       "flagColors": [
-        "#da121a",
-        "#fcdd09",
-        "#078930",
-        "#0f47af"
+        "#d21034",
+        "#ffd100",
+        "#007a3d",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 8,
@@ -2784,7 +2904,10 @@
           "name": "Ethiopian birr",
           "symbol": "Br"
         }
-      ]
+      ],
+      "area": 1104300,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "FJI",
@@ -2794,12 +2917,9 @@
       "flag": "🇫🇯",
       "flagUrl": "https://flagcdn.com/w80/fj.png",
       "flagColors": [
-        "#012169",
-        "#62b5e5",
-        "#ffffff",
-        "#c8102e",
-        "#fedd00",
-        "#000000"
+        "#005eb8",
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -18,
@@ -2818,7 +2938,10 @@
           "name": "Fijian dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 18272,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "FIN",
@@ -2827,9 +2950,7 @@
       "nameEnglish": "Finland",
       "flag": "🇫🇮",
       "flagUrl": "https://flagcdn.com/w80/fi.png",
-      "flagColors": [
-        "#ffffff"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 64,
       "region": "Europe",
@@ -2859,7 +2980,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 338424,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "FRA",
@@ -2869,9 +2993,9 @@
       "flag": "🇫🇷",
       "flagUrl": "https://flagcdn.com/w80/fr.png",
       "flagColors": [
-        "#ce1126",
+        "#005eb8",
         "#ffffff",
-        "#002654"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 46,
@@ -2921,7 +3045,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 551695,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GAB",
@@ -2931,9 +3058,9 @@
       "flag": "🇬🇦",
       "flagUrl": "https://flagcdn.com/w80/ga.png",
       "flagColors": [
-        "#3a75c4",
-        "#fcd116",
-        "#009e60"
+        "#005eb8",
+        "#ffd100",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -1,
@@ -2963,7 +3090,10 @@
           "name": "Central African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 267668,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "GMB",
@@ -2973,10 +3103,9 @@
       "flag": "🇬🇲",
       "flagUrl": "https://flagcdn.com/w80/gm.png",
       "flagColors": [
-        "#ffffff",
-        "#ce1126",
-        "#0c1c8c",
-        "#3a7728"
+        "#d21034",
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 13.46666666,
@@ -2998,7 +3127,10 @@
           "name": "dalasi",
           "symbol": "D"
         }
-      ]
+      ],
+      "area": 10689,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GEO",
@@ -3007,10 +3139,7 @@
       "nameEnglish": "Georgia",
       "flag": "🇬🇪",
       "flagUrl": "https://flagcdn.com/w80/ge.png",
-      "flagColors": [
-        "#d21034",
-        "#ffffff"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 42,
       "region": "Asia",
@@ -3043,7 +3172,10 @@
           "name": "lari",
           "symbol": "₾"
         }
-      ]
+      ],
+      "area": 69700,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GHA",
@@ -3053,9 +3185,9 @@
       "flag": "🇬🇭",
       "flagUrl": "https://flagcdn.com/w80/gh.png",
       "flagColors": [
-        "#006b3f",
-        "#fcd116",
-        "#ce1126"
+        "#007a3d",
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 8,
@@ -3085,7 +3217,10 @@
           "name": "Ghanaian cedi",
           "symbol": "₵"
         }
-      ]
+      ],
+      "area": 238533,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GRC",
@@ -3095,7 +3230,7 @@
       "flag": "🇬🇷",
       "flagUrl": "https://flagcdn.com/w80/gr.png",
       "flagColors": [
-        "#0d5eaf"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 39,
@@ -3129,7 +3264,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 131990,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GRD",
@@ -3139,9 +3277,9 @@
       "flag": "🇬🇩",
       "flagUrl": "https://flagcdn.com/w80/gd.png",
       "flagColors": [
-        "#ce1126",
-        "#007a5e",
-        "#fcd116"
+        "#d21034",
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 12.11666666,
@@ -3158,7 +3296,10 @@
           "name": "Eastern Caribbean dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 344,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GTM",
@@ -3168,14 +3309,11 @@
       "flag": "🇬🇹",
       "flagUrl": "https://flagcdn.com/w80/gt.png",
       "flagColors": [
-        "#f9f0aa",
-        "#b07e09",
-        "#a50a0a",
-        "#4c0505",
+        "#ffd100",
+        "#d21034",
+        "#005eb8",
         "#ffffff",
-        "#4997d0",
-        "#ba1f3e",
-        "#8c959d"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 15.5,
@@ -3209,7 +3347,10 @@
           "name": "Guatemalan quetzal",
           "symbol": "Q"
         }
-      ]
+      ],
+      "area": 108889,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GIN",
@@ -3219,9 +3360,9 @@
       "flag": "🇬🇳",
       "flagUrl": "https://flagcdn.com/w80/gn.png",
       "flagColors": [
-        "#ce1126",
-        "#fcd116",
-        "#009460"
+        "#d21034",
+        "#ffd100",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 11,
@@ -3263,7 +3404,10 @@
           "name": "Guinean franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 245857,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GNQ",
@@ -3273,14 +3417,10 @@
       "flag": "🇬🇶",
       "flagUrl": "https://flagcdn.com/w80/gq.png",
       "flagColors": [
-        "#e32118",
-        "#ffffff",
-        "#3e9a00",
-        "#0073ce",
-        "#dddddd",
-        "#73452b",
-        "#a36629",
-        "#009900"
+        "#d21034",
+        "#007a3d",
+        "#005eb8",
+        "#f58220"
       ],
       "hemisphere": "Nord",
       "latitude": 2,
@@ -3308,7 +3448,10 @@
           "name": "Central African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 28051,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GNB",
@@ -3318,10 +3461,9 @@
       "flag": "🇬🇼",
       "flagUrl": "https://flagcdn.com/w80/gw.png",
       "flagColors": [
-        "#fcd116",
-        "#009e49",
-        "#ce1126",
-        "#000000"
+        "#ffd100",
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 12,
@@ -3348,7 +3490,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 36125,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GUY",
@@ -3358,9 +3503,9 @@
       "flag": "🇬🇾",
       "flagUrl": "https://flagcdn.com/w80/gy.png",
       "flagColors": [
-        "#2a936a",
-        "#ffc20e",
-        "#be1e2d"
+        "#007a3d",
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 5,
@@ -3390,7 +3535,10 @@
           "name": "Guyanese dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 214969,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "HTI",
@@ -3401,13 +3549,9 @@
       "flagUrl": "https://flagcdn.com/w80/ht.png",
       "flagColors": [
         "#d21034",
-        "#00209f",
-        "#ffffff",
-        "#016a16",
-        "#f1b517",
-        "#f4cf0e",
-        "#f1b617",
-        "#007a3d"
+        "#005eb8",
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 19,
@@ -3430,7 +3574,10 @@
           "name": "Haitian gourde",
           "symbol": "G"
         }
-      ]
+      ],
+      "area": 27750,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "HND",
@@ -3440,8 +3587,7 @@
       "flag": "🇭🇳",
       "flagUrl": "https://flagcdn.com/w80/hn.png",
       "flagColors": [
-        "#00bce4",
-        "#ffffff"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -3471,7 +3617,10 @@
           "name": "Honduran lempira",
           "symbol": "L"
         }
-      ]
+      ],
+      "area": 112492,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "HUN",
@@ -3481,9 +3630,8 @@
       "flag": "🇭🇺",
       "flagUrl": "https://flagcdn.com/w80/hu.png",
       "flagColors": [
-        "#477050",
-        "#ffffff",
-        "#ce2939"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 47,
@@ -3529,7 +3677,10 @@
           "name": "Hungarian forint",
           "symbol": "Ft"
         }
-      ]
+      ],
+      "area": 93028,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MUS",
@@ -3539,10 +3690,10 @@
       "flag": "🇲🇺",
       "flagUrl": "https://flagcdn.com/w80/mu.png",
       "flagColors": [
-        "#00a551",
-        "#ffd500",
-        "#1a206d",
-        "#ea2839"
+        "#007a3d",
+        "#ffd100",
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -20.28333333,
@@ -3561,7 +3712,10 @@
           "name": "Mauritian rupee",
           "symbol": "₨"
         }
-      ]
+      ],
+      "area": 2040,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CPV",
@@ -3571,10 +3725,9 @@
       "flag": "🇨🇻",
       "flagUrl": "https://flagcdn.com/w80/cv.png",
       "flagColors": [
-        "#003893",
-        "#ffffff",
-        "#cf2027",
-        "#f7d116"
+        "#005eb8",
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 16,
@@ -3591,7 +3744,10 @@
           "name": "Cape Verdean escudo",
           "symbol": "Esc"
         }
-      ]
+      ],
+      "area": 4033,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MHL",
@@ -3601,9 +3757,8 @@
       "flag": "🇲🇭",
       "flagUrl": "https://flagcdn.com/w80/mh.png",
       "flagColors": [
-        "#ffffff",
-        "#dd7500",
-        "#003893"
+        "#f58220",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 9,
@@ -3621,7 +3776,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 181,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SLB",
@@ -3631,9 +3789,8 @@
       "flag": "🇸🇧",
       "flagUrl": "https://flagcdn.com/w80/sb.png",
       "flagColors": [
-        "#215b33",
-        "#0051ba",
-        "#ffffff"
+        "#007a3d",
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -8,
@@ -3650,7 +3807,10 @@
           "name": "Solomon Islands dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 28896,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "IND",
@@ -3660,10 +3820,9 @@
       "flag": "🇮🇳",
       "flagUrl": "https://flagcdn.com/w80/in.png",
       "flagColors": [
-        "#07038d",
-        "#ffffff",
-        "#ff6820",
-        "#046a38"
+        "#005eb8",
+        "#f58220",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 20,
@@ -3707,7 +3866,10 @@
           "name": "Indian rupee",
           "symbol": "₹"
         }
-      ]
+      ],
+      "area": 3287590,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "IDN",
@@ -3716,10 +3878,7 @@
       "nameEnglish": "Indonesia",
       "flag": "🇮🇩",
       "flagUrl": "https://flagcdn.com/w80/id.png",
-      "flagColors": [
-        "#ffffff",
-        "#d21034"
-      ],
+      "flagColors": [],
       "hemisphere": "Sud",
       "latitude": -5,
       "region": "Asia",
@@ -3748,7 +3907,10 @@
           "name": "Indonesian rupiah",
           "symbol": "Rp"
         }
-      ]
+      ],
+      "area": 1904569,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "IRQ",
@@ -3758,9 +3920,8 @@
       "flag": "🇮🇶",
       "flagUrl": "https://flagcdn.com/w80/iq.png",
       "flagColors": [
-        "#ffffff",
-        "#cd1125",
-        "#017b3d"
+        "#d21034",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 33,
@@ -3804,7 +3965,10 @@
           "name": "Iraqi dinar",
           "symbol": "ع.د"
         }
-      ]
+      ],
+      "area": 438317,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "IRN",
@@ -3814,9 +3978,8 @@
       "flag": "🇮🇷",
       "flagUrl": "https://flagcdn.com/w80/ir.png",
       "flagColors": [
-        "#da0000",
-        "#ffffff",
-        "#239f40"
+        "#d21034",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 32,
@@ -3862,7 +4025,10 @@
           "name": "Iranian rial",
           "symbol": "﷼"
         }
-      ]
+      ],
+      "area": 1648195,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "IRL",
@@ -3872,9 +4038,8 @@
       "flag": "🇮🇪",
       "flagUrl": "https://flagcdn.com/w80/ie.png",
       "flagColors": [
-        "#169b62",
-        "#ffffff",
-        "#ff883e"
+        "#007a3d",
+        "#f58220"
       ],
       "hemisphere": "Nord",
       "latitude": 53,
@@ -3897,7 +4062,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 70273,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ISL",
@@ -3907,7 +4075,7 @@
       "flag": "🇮🇸",
       "flagUrl": "https://flagcdn.com/w80/is.png",
       "flagColors": [
-        "#02529c"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 65,
@@ -3924,7 +4092,10 @@
           "name": "Icelandic króna",
           "symbol": "kr"
         }
-      ]
+      ],
+      "area": 103000,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ISR",
@@ -3934,8 +4105,7 @@
       "flag": "🇮🇱",
       "flagUrl": "https://flagcdn.com/w80/il.png",
       "flagColors": [
-        "#ffffff",
-        "#0038b8"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 31.47,
@@ -3974,7 +4144,10 @@
           "name": "Israeli new shekel",
           "symbol": "₪"
         }
-      ]
+      ],
+      "area": 20770,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ITA",
@@ -3984,9 +4157,9 @@
       "flag": "🇮🇹",
       "flagUrl": "https://flagcdn.com/w80/it.png",
       "flagColors": [
-        "#009246",
+        "#007a3d",
         "#ffffff",
-        "#ce2b37"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 42.83333333,
@@ -4028,7 +4201,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 301336,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "JAM",
@@ -4038,7 +4214,7 @@
       "flag": "🇯🇲",
       "flagUrl": "https://flagcdn.com/w80/jm.png",
       "flagColors": [
-        "#007749"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 18.25,
@@ -4056,7 +4232,10 @@
           "name": "Jamaican dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 10991,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "JPN",
@@ -4066,8 +4245,7 @@
       "flag": "🇯🇵",
       "flagUrl": "https://flagcdn.com/w80/jp.png",
       "flagColors": [
-        "#ffffff",
-        "#bc002d"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 36,
@@ -4084,7 +4262,10 @@
           "name": "Japanese yen",
           "symbol": "¥"
         }
-      ]
+      ],
+      "area": 377930,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "JOR",
@@ -4094,9 +4275,8 @@
       "flag": "🇯🇴",
       "flagUrl": "https://flagcdn.com/w80/jo.png",
       "flagColors": [
-        "#ffffff",
         "#007a3d",
-        "#ce1126"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 31,
@@ -4134,7 +4314,10 @@
           "name": "Jordanian dinar",
           "symbol": "د.ا"
         }
-      ]
+      ],
+      "area": 89342,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "KAZ",
@@ -4144,8 +4327,7 @@
       "flag": "🇰🇿",
       "flagUrl": "https://flagcdn.com/w80/kz.png",
       "flagColors": [
-        "#00abc2",
-        "#ffec2d"
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 48,
@@ -4184,7 +4366,10 @@
           "name": "Kazakhstani tenge",
           "symbol": "₸"
         }
-      ]
+      ],
+      "area": 2724900,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "KEN",
@@ -4193,11 +4378,7 @@
       "nameEnglish": "Kenya",
       "flag": "🇰🇪",
       "flagUrl": "https://flagcdn.com/w80/ke.png",
-      "flagColors": [
-        "#ffffff",
-        "#006600",
-        "#bb0000"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 1,
       "region": "Africa",
@@ -4235,7 +4416,10 @@
           "name": "Kenyan shilling",
           "symbol": "Sh"
         }
-      ]
+      ],
+      "area": 580367,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "KGZ",
@@ -4244,10 +4428,7 @@
       "nameEnglish": "Kyrgyzstan",
       "flag": "🇰🇬",
       "flagUrl": "https://flagcdn.com/w80/kg.png",
-      "flagColors": [
-        "#d21034",
-        "#ffff00"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 41,
       "region": "Asia",
@@ -4281,7 +4462,10 @@
           "name": "Kyrgyzstani som",
           "symbol": "с"
         }
-      ]
+      ],
+      "area": 199951,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "KIR",
@@ -4291,9 +4475,9 @@
       "flag": "🇰🇮",
       "flagUrl": "https://flagcdn.com/w80/ki.png",
       "flagColors": [
-        "#c81010",
-        "#f8d000",
-        "#183070"
+        "#d21034",
+        "#ffd100",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 1.41666666,
@@ -4316,7 +4500,10 @@
           "name": "Kiribati dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 811,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "KWT",
@@ -4327,8 +4514,7 @@
       "flagUrl": "https://flagcdn.com/w80/kw.png",
       "flagColors": [
         "#007a3d",
-        "#ffffff",
-        "#ce1126"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 29.5,
@@ -4354,7 +4540,10 @@
           "name": "Kuwaiti dinar",
           "symbol": "د.ك"
         }
-      ]
+      ],
+      "area": 17818,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "LAO",
@@ -4364,9 +4553,8 @@
       "flag": "🇱🇦",
       "flagUrl": "https://flagcdn.com/w80/la.png",
       "flagColors": [
-        "#ce1126",
-        "#002868",
-        "#ffffff"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 18,
@@ -4404,7 +4592,10 @@
           "name": "Lao kip",
           "symbol": "₭"
         }
-      ]
+      ],
+      "area": 236800,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "LSO",
@@ -4414,9 +4605,8 @@
       "flag": "🇱🇸",
       "flagUrl": "https://flagcdn.com/w80/ls.png",
       "flagColors": [
-        "#ffffff",
-        "#001489",
-        "#009a44"
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -29.5,
@@ -4444,7 +4634,10 @@
           "name": "South African rand",
           "symbol": "R"
         }
-      ]
+      ],
+      "area": 30355,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "LVA",
@@ -4454,8 +4647,7 @@
       "flag": "🇱🇻",
       "flagUrl": "https://flagcdn.com/w80/lv.png",
       "flagColors": [
-        "#9d2235",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 57,
@@ -4489,7 +4681,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 64559,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "LBN",
@@ -4499,9 +4694,8 @@
       "flag": "🇱🇧",
       "flagUrl": "https://flagcdn.com/w80/lb.png",
       "flagColors": [
-        "#d31624",
-        "#ffffff",
-        "#008c3e"
+        "#d21034",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 33.83333333,
@@ -4528,7 +4722,10 @@
           "name": "Lebanese pound",
           "symbol": "ل.ل"
         }
-      ]
+      ],
+      "area": 10452,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "LBR",
@@ -4538,9 +4735,8 @@
       "flag": "🇱🇷",
       "flagUrl": "https://flagcdn.com/w80/lr.png",
       "flagColors": [
-        "#bf0a30",
-        "#002868",
-        "#ffffff"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 6.5,
@@ -4570,7 +4766,10 @@
           "name": "Liberian dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 111369,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "LBY",
@@ -4580,9 +4779,8 @@
       "flag": "🇱🇾",
       "flagUrl": "https://flagcdn.com/w80/ly.png",
       "flagColors": [
-        "#239e46",
-        "#e70013",
-        "#ffffff"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 25,
@@ -4624,7 +4822,10 @@
           "name": "Libyan dinar",
           "symbol": "ل.د"
         }
-      ]
+      ],
+      "area": 1759540,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "LIE",
@@ -4634,10 +4835,9 @@
       "flag": "🇱🇮",
       "flagUrl": "https://flagcdn.com/w80/li.png",
       "flagColors": [
-        "#002b7f",
-        "#ce1126",
-        "#ffd83d",
-        "#000000"
+        "#005eb8",
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 47.26666666,
@@ -4663,7 +4863,10 @@
           "name": "Swiss franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 160,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "LTU",
@@ -4673,9 +4876,9 @@
       "flag": "🇱🇹",
       "flagUrl": "https://flagcdn.com/w80/lt.png",
       "flagColors": [
-        "#c1272d",
-        "#006a44",
-        "#fdb913"
+        "#d21034",
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 56,
@@ -4709,7 +4912,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 65300,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "LUX",
@@ -4719,9 +4925,8 @@
       "flag": "🇱🇺",
       "flagUrl": "https://flagcdn.com/w80/lu.png",
       "flagColors": [
-        "#00a1de",
-        "#ed2939",
-        "#ffffff"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 49.75,
@@ -4753,7 +4958,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 2586,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MKD",
@@ -4763,8 +4971,8 @@
       "flag": "🇲🇰",
       "flagUrl": "https://flagcdn.com/w80/mk.png",
       "flagColors": [
-        "#f8e92e",
-        "#d82126"
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 41.83333333,
@@ -4802,7 +5010,10 @@
           "name": "denar",
           "symbol": "den"
         }
-      ]
+      ],
+      "area": 25713,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MDG",
@@ -4812,9 +5023,8 @@
       "flag": "🇲🇬",
       "flagUrl": "https://flagcdn.com/w80/mg.png",
       "flagColors": [
-        "#007e3a",
-        "#fc3d32",
-        "#ffffff"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -20,
@@ -4832,7 +5042,10 @@
           "name": "Malagasy ariary",
           "symbol": "Ar"
         }
-      ]
+      ],
+      "area": 587041,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MYS",
@@ -4841,11 +5054,7 @@
       "nameEnglish": "Malaysia",
       "flag": "🇲🇾",
       "flagUrl": "https://flagcdn.com/w80/my.png",
-      "flagColors": [
-        "#ffffff",
-        "#000066",
-        "#ffcc00"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 2.5,
       "region": "Asia",
@@ -4875,7 +5084,10 @@
           "name": "Malaysian ringgit",
           "symbol": "RM"
         }
-      ]
+      ],
+      "area": 330803,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MWI",
@@ -4885,8 +5097,8 @@
       "flag": "🇲🇼",
       "flagUrl": "https://flagcdn.com/w80/mw.png",
       "flagColors": [
-        "#ce1126",
-        "#339e35"
+        "#d21034",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -13.5,
@@ -4917,7 +5129,10 @@
           "name": "Malawian kwacha",
           "symbol": "MK"
         }
-      ]
+      ],
+      "area": 118484,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MDV",
@@ -4927,8 +5142,7 @@
       "flag": "🇲🇻",
       "flagUrl": "https://flagcdn.com/w80/mv.png",
       "flagColors": [
-        "#007e3a",
-        "#ffffff"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 3.25,
@@ -4945,7 +5159,10 @@
           "name": "Maldivian rufiyaa",
           "symbol": ".ރ"
         }
-      ]
+      ],
+      "area": 300,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "MLI",
@@ -4955,9 +5172,9 @@
       "flag": "🇲🇱",
       "flagUrl": "https://flagcdn.com/w80/ml.png",
       "flagColors": [
-        "#ce1126",
-        "#fcd116",
-        "#14b53a"
+        "#d21034",
+        "#ffd100",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 17,
@@ -5003,7 +5220,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 1240192,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MLT",
@@ -5013,8 +5233,7 @@
       "flag": "🇲🇹",
       "flagUrl": "https://flagcdn.com/w80/mt.png",
       "flagColors": [
-        "#ffffff",
-        "#cf142b"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 35.83333333,
@@ -5032,7 +5251,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 316,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MAR",
@@ -5042,7 +5264,7 @@
       "flag": "🇲🇦",
       "flagUrl": "https://flagcdn.com/w80/ma.png",
       "flagColors": [
-        "#c1272d"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 32,
@@ -5073,7 +5295,10 @@
           "name": "Moroccan dirham",
           "symbol": "د.م."
         }
-      ]
+      ],
+      "area": 446550,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MRT",
@@ -5083,9 +5308,8 @@
       "flag": "🇲🇷",
       "flagUrl": "https://flagcdn.com/w80/mr.png",
       "flagColors": [
-        "#d01c1f",
-        "#00a95c",
-        "#ffd100"
+        "#d21034",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 20,
@@ -5119,7 +5343,10 @@
           "name": "Mauritanian ouguiya",
           "symbol": "UM"
         }
-      ]
+      ],
+      "area": 1030700,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MEX",
@@ -5129,14 +5356,12 @@
       "flag": "🇲🇽",
       "flagUrl": "https://flagcdn.com/w80/mx.png",
       "flagColors": [
-        "#ffffff",
-        "#f15770",
-        "#ce1126",
-        "#006847",
-        "#9ca168",
-        "#717732",
-        "#016848",
-        "#cd202a"
+        "#d21034",
+        "#007a3d",
+        "#ffd100",
+        "#f58220",
+        "#000000",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 23,
@@ -5166,7 +5391,10 @@
           "name": "Mexican peso",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 1964375,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "FSM",
@@ -5176,8 +5404,7 @@
       "flag": "🇫🇲",
       "flagUrl": "https://flagcdn.com/w80/fm.png",
       "flagColors": [
-        "#75b2dd",
-        "#ffffff"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 6.91666666,
@@ -5194,7 +5421,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 702,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MDA",
@@ -5204,11 +5434,11 @@
       "flag": "🇲🇩",
       "flagUrl": "https://flagcdn.com/w80/md.png",
       "flagColors": [
-        "#cc092f",
-        "#ffd200",
-        "#0046ae",
-        "#b07e5b",
-        "#007a50"
+        "#d21034",
+        "#ffd100",
+        "#005eb8",
+        "#f58220",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 47,
@@ -5234,7 +5464,10 @@
           "name": "Moldovan leu",
           "symbol": "L"
         }
-      ]
+      ],
+      "area": 33846,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MCO",
@@ -5244,8 +5477,7 @@
       "flag": "🇲🇨",
       "flagUrl": "https://flagcdn.com/w80/mc.png",
       "flagColors": [
-        "#ffffff",
-        "#ce1126"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 43.73333333,
@@ -5267,7 +5499,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 2.02,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MNG",
@@ -5277,10 +5512,9 @@
       "flag": "🇲🇳",
       "flagUrl": "https://flagcdn.com/w80/mn.png",
       "flagColors": [
-        "#ffd300",
-        "#da2031",
-        "#0066b2",
-        "#da2032"
+        "#ffd100",
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 46,
@@ -5306,7 +5540,10 @@
           "name": "Mongolian tögrög",
           "symbol": "₮"
         }
-      ]
+      ],
+      "area": 1564110,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "MNE",
@@ -5316,11 +5553,11 @@
       "flag": "🇲🇪",
       "flagUrl": "https://flagcdn.com/w80/me.png",
       "flagColors": [
-        "#e30000",
-        "#d17624",
-        "#ffc000",
-        "#0071bc",
-        "#39b54a"
+        "#d21034",
+        "#f58220",
+        "#ffd100",
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 42.5,
@@ -5358,7 +5595,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 13812,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "MOZ",
@@ -5368,9 +5608,7 @@
       "flag": "🇲🇿",
       "flagUrl": "https://flagcdn.com/w80/mz.png",
       "flagColors": [
-        "#ffffff",
-        "#007168",
-        "#fce100",
+        "#ffd100",
         "#d21034"
       ],
       "hemisphere": "Sud",
@@ -5413,7 +5651,10 @@
           "name": "Mozambican metical",
           "symbol": "MT"
         }
-      ]
+      ],
+      "area": 801590,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "NAM",
@@ -5423,9 +5664,9 @@
       "flag": "🇳🇦",
       "flagUrl": "https://flagcdn.com/w80/na.png",
       "flagColors": [
-        "#003580",
-        "#009543",
-        "#ffce00"
+        "#005eb8",
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -22,
@@ -5472,7 +5713,10 @@
           "name": "South African rand",
           "symbol": "R"
         }
-      ]
+      ],
+      "area": 825615,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "NRU",
@@ -5482,9 +5726,8 @@
       "flag": "🇳🇷",
       "flagUrl": "https://flagcdn.com/w80/nr.png",
       "flagColors": [
-        "#002b7f",
-        "#ffc61e",
-        "#ffffff"
+        "#005eb8",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -0.53333333,
@@ -5502,7 +5745,10 @@
           "name": "Australian dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 21,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "NPL",
@@ -5512,8 +5758,7 @@
       "flag": "🇳🇵",
       "flagUrl": "https://flagcdn.com/w80/np.png",
       "flagColors": [
-        "#dc143c",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 28,
@@ -5539,7 +5784,10 @@
           "name": "Nepalese rupee",
           "symbol": "₨"
         }
-      ]
+      ],
+      "area": 147181,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "NIC",
@@ -5549,14 +5797,9 @@
       "flag": "🇳🇮",
       "flagUrl": "https://flagcdn.com/w80/ni.png",
       "flagColors": [
-        "#510000",
-        "#8a0000",
-        "#aa0000",
-        "#ff2a2a",
         "#d21034",
-        "#f5f549",
-        "#97c924",
-        "#002255"
+        "#ffd100",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 13,
@@ -5582,7 +5825,10 @@
           "name": "Nicaraguan córdoba",
           "symbol": "C$"
         }
-      ]
+      ],
+      "area": 130373,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "NER",
@@ -5592,9 +5838,8 @@
       "flag": "🇳🇪",
       "flagUrl": "https://flagcdn.com/w80/ne.png",
       "flagColors": [
-        "#0db02b",
-        "#ffffff",
-        "#e05206"
+        "#007a3d",
+        "#f58220"
       ],
       "hemisphere": "Nord",
       "latitude": 16,
@@ -5640,7 +5885,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 1267000,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "NGA",
@@ -5650,8 +5898,7 @@
       "flag": "🇳🇬",
       "flagUrl": "https://flagcdn.com/w80/ng.png",
       "flagColors": [
-        "#008751",
-        "#ffffff"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 10,
@@ -5685,7 +5932,10 @@
           "name": "Nigerian naira",
           "symbol": "₦"
         }
-      ]
+      ],
+      "area": 923768,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "NOR",
@@ -5695,7 +5945,7 @@
       "flag": "🇳🇴",
       "flagUrl": "https://flagcdn.com/w80/no.png",
       "flagColors": [
-        "#ba0c2f"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 62,
@@ -5727,7 +5977,10 @@
           "name": "Norwegian krone",
           "symbol": "kr"
         }
-      ]
+      ],
+      "area": 323802,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "NZL",
@@ -5737,9 +5990,8 @@
       "flag": "🇳🇿",
       "flagUrl": "https://flagcdn.com/w80/nz.png",
       "flagColors": [
-        "#012169",
-        "#ffffff",
-        "#c8102e"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -41,
@@ -5758,7 +6010,10 @@
           "name": "New Zealand dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 270467,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "OMN",
@@ -5768,9 +6023,8 @@
       "flag": "🇴🇲",
       "flagUrl": "https://flagcdn.com/w80/om.png",
       "flagColors": [
-        "#007e3c",
-        "#df1a23",
-        "#ffffff"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 21,
@@ -5800,7 +6054,10 @@
           "name": "Omani rial",
           "symbol": "ر.ع."
         }
-      ]
+      ],
+      "area": 309500,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "UGA",
@@ -5810,10 +6067,9 @@
       "flag": "🇺🇬",
       "flagUrl": "https://flagcdn.com/w80/ug.png",
       "flagColors": [
-        "#fcdc04",
-        "#d90000",
-        "#ffffff",
-        "#9ca69c"
+        "#ffd100",
+        "#d21034",
+        "#ffffff"
       ],
       "hemisphere": "Nord",
       "latitude": 1,
@@ -5852,7 +6108,10 @@
           "name": "Ugandan shilling",
           "symbol": "Sh"
         }
-      ]
+      ],
+      "area": 241550,
+      "landlocked": true,
+      "equator": true
     },
     {
       "code": "UZB",
@@ -5862,10 +6121,9 @@
       "flag": "🇺🇿",
       "flagUrl": "https://flagcdn.com/w80/uz.png",
       "flagColors": [
-        "#308738",
-        "#3081f7",
-        "#ee162e",
-        "#ffffff"
+        "#007a3d",
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 41,
@@ -5904,7 +6162,10 @@
           "name": "Uzbekistani soʻm",
           "symbol": "so'm"
         }
-      ]
+      ],
+      "area": 447400,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "PAK",
@@ -5914,8 +6175,7 @@
       "flag": "🇵🇰",
       "flagUrl": "https://flagcdn.com/w80/pk.png",
       "flagColors": [
-        "#ffffff",
-        "#01411c"
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 30,
@@ -5950,7 +6210,10 @@
           "name": "Pakistani rupee",
           "symbol": "₨"
         }
-      ]
+      ],
+      "area": 881912,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "PLW",
@@ -5959,10 +6222,7 @@
       "nameEnglish": "Palau",
       "flag": "🇵🇼",
       "flagUrl": "https://flagcdn.com/w80/pw.png",
-      "flagColors": [
-        "#0099ff",
-        "#ffff00"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 7.5,
       "region": "Oceania",
@@ -5979,7 +6239,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 459,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "PAN",
@@ -5989,9 +6252,8 @@
       "flag": "🇵🇦",
       "flagUrl": "https://flagcdn.com/w80/pa.png",
       "flagColors": [
-        "#ffffff",
-        "#da121a",
-        "#072357"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 9,
@@ -6022,7 +6284,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 75417,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "PNG",
@@ -6032,9 +6297,8 @@
       "flag": "🇵🇬",
       "flagUrl": "https://flagcdn.com/w80/pg.png",
       "flagColors": [
-        "#ce1126",
-        "#fcd116",
-        "#ffffff"
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -6,
@@ -6058,7 +6322,10 @@
           "name": "Papua New Guinean kina",
           "symbol": "K"
         }
-      ]
+      ],
+      "area": 462840,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "PRY",
@@ -6068,11 +6335,10 @@
       "flag": "🇵🇾",
       "flagUrl": "https://flagcdn.com/w80/py.png",
       "flagColors": [
-        "#0038a8",
-        "#ffffff",
-        "#d52b1e",
-        "#009b3a",
-        "#fedf00"
+        "#005eb8",
+        "#d21034",
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -23,
@@ -6103,7 +6369,10 @@
           "name": "Paraguayan guaraní",
           "symbol": "₲"
         }
-      ]
+      ],
+      "area": 406752,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "NLD",
@@ -6113,9 +6382,8 @@
       "flag": "🇳🇱",
       "flagUrl": "https://flagcdn.com/w80/nl.png",
       "flagColors": [
-        "#21468b",
-        "#ffffff",
-        "#ae1c28"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 52.5,
@@ -6141,7 +6409,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 41850,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "PER",
@@ -6151,8 +6422,7 @@
       "flag": "🇵🇪",
       "flagUrl": "https://flagcdn.com/w80/pe.png",
       "flagColors": [
-        "#d91023",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -10,
@@ -6192,7 +6462,10 @@
           "name": "Peruvian sol",
           "symbol": "S/."
         }
-      ]
+      ],
+      "area": 1285216,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "PHL",
@@ -6202,10 +6475,9 @@
       "flag": "🇵🇭",
       "flagUrl": "https://flagcdn.com/w80/ph.png",
       "flagColors": [
-        "#fcd116",
-        "#0038a8",
-        "#ce1126",
-        "#ffffff"
+        "#ffd100",
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 13,
@@ -6223,7 +6495,10 @@
           "name": "Philippine peso",
           "symbol": "₱"
         }
-      ]
+      ],
+      "area": 342353,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "POL",
@@ -6233,8 +6508,7 @@
       "flag": "🇵🇱",
       "flagUrl": "https://flagcdn.com/w80/pl.png",
       "flagColors": [
-        "#dc143c",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 52,
@@ -6280,7 +6554,10 @@
           "name": "Polish złoty",
           "symbol": "zł"
         }
-      ]
+      ],
+      "area": 312679,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "PRT",
@@ -6289,14 +6566,7 @@
       "nameEnglish": "Portugal",
       "flag": "🇵🇹",
       "flagUrl": "https://flagcdn.com/w80/pt.png",
-      "flagColors": [
-        "#d21034",
-        "#006600",
-        "#ffff00",
-        "#ffffff",
-        "#000000",
-        "#003399"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 39.5,
       "region": "Europe",
@@ -6317,7 +6587,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 92090,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "QAT",
@@ -6327,8 +6600,7 @@
       "flag": "🇶🇦",
       "flagUrl": "https://flagcdn.com/w80/qa.png",
       "flagColors": [
-        "#8a1538",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 25.5,
@@ -6350,7 +6622,10 @@
           "name": "Qatari riyal",
           "symbol": "ر.ق"
         }
-      ]
+      ],
+      "area": 11586,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CAF",
@@ -6360,10 +6635,9 @@
       "flag": "🇨🇫",
       "flagUrl": "https://flagcdn.com/w80/cf.png",
       "flagColors": [
-        "#ffffff",
-        "#003082",
-        "#ffce00",
-        "#289728",
+        "#005eb8",
+        "#ffd100",
+        "#007a3d",
         "#d21034"
       ],
       "hemisphere": "Nord",
@@ -6407,7 +6681,10 @@
           "name": "Central African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 622984,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "DOM",
@@ -6417,14 +6694,11 @@
       "flag": "🇩🇴",
       "flagUrl": "https://flagcdn.com/w80/do.png",
       "flagColors": [
-        "#ffffff",
-        "#002d62",
-        "#ce1126",
-        "#201b18",
-        "#eac102",
-        "#006300",
-        "#ffff00",
-        "#008f4c"
+        "#005eb8",
+        "#d21034",
+        "#000000",
+        "#ffd100",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 19,
@@ -6446,7 +6720,10 @@
           "name": "Dominican peso",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 48671,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ROU",
@@ -6456,9 +6733,9 @@
       "flag": "🇷🇴",
       "flagUrl": "https://flagcdn.com/w80/ro.png",
       "flagColors": [
-        "#002b7f",
-        "#fcd116",
-        "#ce1126"
+        "#005eb8",
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 46,
@@ -6496,7 +6773,10 @@
           "name": "Romanian leu",
           "symbol": "lei"
         }
-      ]
+      ],
+      "area": 238391,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "GBR",
@@ -6506,7 +6786,7 @@
       "flag": "🇬🇧",
       "flagUrl": "https://flagcdn.com/w80/gb.png",
       "flagColors": [
-        "#012169"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 54,
@@ -6528,7 +6808,10 @@
           "name": "British pound",
           "symbol": "£"
         }
-      ]
+      ],
+      "area": 242900,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "RUS",
@@ -6538,9 +6821,8 @@
       "flag": "🇷🇺",
       "flagUrl": "https://flagcdn.com/w80/ru.png",
       "flagColors": [
-        "#ffffff",
-        "#d52b1e",
-        "#0039a6"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 60,
@@ -6614,7 +6896,10 @@
           "name": "Russian ruble",
           "symbol": "₽"
         }
-      ]
+      ],
+      "area": 17098242,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "RWA",
@@ -6624,10 +6909,9 @@
       "flag": "🇷🇼",
       "flagUrl": "https://flagcdn.com/w80/rw.png",
       "flagColors": [
-        "#fad201",
-        "#00a3e0",
-        "#20603d",
-        "#e5be01"
+        "#ffd100",
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -2,
@@ -6663,7 +6947,10 @@
           "name": "Rwandan franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 26338,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "KNA",
@@ -6673,9 +6960,8 @@
       "flag": "🇰🇳",
       "flagUrl": "https://flagcdn.com/w80/kn.png",
       "flagColors": [
-        "#009739",
-        "#c8102e",
-        "#ffffff"
+        "#007a3d",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 17.33333333,
@@ -6692,7 +6978,10 @@
           "name": "Eastern Caribbean dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 261,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SMR",
@@ -6702,14 +6991,10 @@
       "flag": "🇸🇲",
       "flagUrl": "https://flagcdn.com/w80/sm.png",
       "flagColors": [
-        "#5eb6e4",
+        "#005eb8",
+        "#ffd100",
         "#ffffff",
-        "#000000",
-        "#f1bf31",
-        "#d99f31",
-        "#f1f1f2",
-        "#a0cfeb",
-        "#94bb79"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 43.76666666,
@@ -6731,7 +7016,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 61,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "VCT",
@@ -6741,9 +7029,9 @@
       "flag": "🇻🇨",
       "flagUrl": "https://flagcdn.com/w80/vc.png",
       "flagColors": [
-        "#fcd022",
-        "#002674",
-        "#007c2e"
+        "#ffd100",
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 13.25,
@@ -6760,7 +7048,10 @@
           "name": "Eastern Caribbean dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 389,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "LCA",
@@ -6770,9 +7061,7 @@
       "flag": "🇱🇨",
       "flagUrl": "https://flagcdn.com/w80/lc.png",
       "flagColors": [
-        "#66ccff",
-        "#ffffff",
-        "#fcd116"
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 13.88333333,
@@ -6789,7 +7078,10 @@
           "name": "Eastern Caribbean dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 616,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SLV",
@@ -6799,14 +7091,8 @@
       "flag": "🇸🇻",
       "flagUrl": "https://flagcdn.com/w80/sv.png",
       "flagColors": [
-        "#ffffff",
-        "#0047ab",
-        "#ffcc00",
-        "#009900",
-        "#e60000",
-        "#004bb3",
-        "#000033",
-        "#00004b"
+        "#005eb8",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 13.83333333,
@@ -6832,7 +7118,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 21041,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "WSM",
@@ -6842,9 +7131,8 @@
       "flag": "🇼🇸",
       "flagUrl": "https://flagcdn.com/w80/ws.png",
       "flagColors": [
-        "#ffffff",
-        "#ce1126",
-        "#002b7f"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -13.58333333,
@@ -6862,7 +7150,10 @@
           "name": "Samoan tālā",
           "symbol": "T"
         }
-      ]
+      ],
+      "area": 2842,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "STP",
@@ -6872,9 +7163,9 @@
       "flag": "🇸🇹",
       "flagUrl": "https://flagcdn.com/w80/st.png",
       "flagColors": [
-        "#009739",
+        "#007a3d",
         "#ffd100",
-        "#ef3340"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 1,
@@ -6891,7 +7182,10 @@
           "name": "São Tomé and Príncipe dobra",
           "symbol": "Db"
         }
-      ]
+      ],
+      "area": 964,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "SEN",
@@ -6901,9 +7195,9 @@
       "flag": "🇸🇳",
       "flagUrl": "https://flagcdn.com/w80/sn.png",
       "flagColors": [
-        "#e31b23",
-        "#fdef42",
-        "#00853f"
+        "#d21034",
+        "#ffd100",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 14,
@@ -6941,7 +7235,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 196722,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SRB",
@@ -6951,11 +7248,10 @@
       "flag": "🇷🇸",
       "flagUrl": "https://flagcdn.com/w80/rs.png",
       "flagColors": [
-        "#ffffff",
-        "#0c4076",
-        "#c6363c",
-        "#edb92e",
-        "#21231e"
+        "#005eb8",
+        "#d21034",
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 44,
@@ -7005,7 +7301,10 @@
           "name": "Serbian dinar",
           "symbol": "дин."
         }
-      ]
+      ],
+      "area": 88361,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "SYC",
@@ -7015,11 +7314,10 @@
       "flag": "🇸🇨",
       "flagUrl": "https://flagcdn.com/w80/sc.png",
       "flagColors": [
-        "#ffffff",
-        "#d22730",
-        "#fed141",
-        "#002f6c",
-        "#007a33"
+        "#d21034",
+        "#ffd100",
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -4.58333333,
@@ -7038,7 +7336,10 @@
           "name": "Seychellois rupee",
           "symbol": "₨"
         }
-      ]
+      ],
+      "area": 452,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SLE",
@@ -7048,9 +7349,8 @@
       "flag": "🇸🇱",
       "flagUrl": "https://flagcdn.com/w80/sl.png",
       "flagColors": [
-        "#0072c6",
-        "#ffffff",
-        "#1eb53a"
+        "#005eb8",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 8.5,
@@ -7076,7 +7376,10 @@
           "name": "Sierra Leonean leone",
           "symbol": "Le"
         }
-      ]
+      ],
+      "area": 71740,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SGP",
@@ -7086,8 +7389,7 @@
       "flag": "🇸🇬",
       "flagUrl": "https://flagcdn.com/w80/sg.png",
       "flagColors": [
-        "#ffffff",
-        "#ed2939"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 1.36666666,
@@ -7107,7 +7409,10 @@
           "name": "Singapore dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 710,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SVK",
@@ -7117,9 +7422,8 @@
       "flag": "🇸🇰",
       "flagUrl": "https://flagcdn.com/w80/sk.png",
       "flagColors": [
-        "#ee1c25",
-        "#ffffff",
-        "#0b4ea2"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 48.66666666,
@@ -7157,7 +7461,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 49037,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "SVN",
@@ -7166,12 +7473,7 @@
       "nameEnglish": "Slovenia",
       "flag": "🇸🇮",
       "flagUrl": "https://flagcdn.com/w80/si.png",
-      "flagColors": [
-        "#0000ff",
-        "#d21034",
-        "#ffffff",
-        "#ffff00"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 46.11666666,
       "region": "Europe",
@@ -7204,7 +7506,10 @@
           "name": "Euro",
           "symbol": "€"
         }
-      ]
+      ],
+      "area": 20273,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SOM",
@@ -7213,9 +7518,7 @@
       "nameEnglish": "Somalia",
       "flag": "🇸🇴",
       "flagUrl": "https://flagcdn.com/w80/so.png",
-      "flagColors": [
-        "#ffffff"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 10,
       "region": "Africa",
@@ -7245,7 +7548,10 @@
           "name": "Somali shilling",
           "symbol": "Sh"
         }
-      ]
+      ],
+      "area": 637657,
+      "landlocked": false,
+      "equator": true
     },
     {
       "code": "SDN",
@@ -7255,9 +7561,8 @@
       "flag": "🇸🇩",
       "flagUrl": "https://flagcdn.com/w80/sd.png",
       "flagColors": [
-        "#ffffff",
         "#d21034",
-        "#007229"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -7304,7 +7609,10 @@
           "name": "Sudanese pound",
           "symbol": "PT"
         }
-      ]
+      ],
+      "area": 1886068,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SSD",
@@ -7314,11 +7622,10 @@
       "flag": "🇸🇸",
       "flagUrl": "https://flagcdn.com/w80/ss.png",
       "flagColors": [
-        "#00914c",
-        "#e22028",
-        "#ffffff",
-        "#00b6f2",
-        "#ffe51a"
+        "#007a3d",
+        "#d21034",
+        "#005eb8",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 7,
@@ -7360,7 +7667,10 @@
           "name": "South Sudanese pound",
           "symbol": "£"
         }
-      ]
+      ],
+      "area": 619745,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "LKA",
@@ -7370,11 +7680,9 @@
       "flag": "🇱🇰",
       "flagUrl": "https://flagcdn.com/w80/lk.png",
       "flagColors": [
-        "#ffbe29",
-        "#eb7400",
-        "#00534e",
-        "#8d153a",
-        "#000000"
+        "#ffd100",
+        "#f58220",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 7,
@@ -7397,7 +7705,10 @@
           "name": "Sri Lankan rupee",
           "symbol": "Rs රු"
         }
-      ]
+      ],
+      "area": 65610,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SWE",
@@ -7407,7 +7718,7 @@
       "flag": "🇸🇪",
       "flagUrl": "https://flagcdn.com/w80/se.png",
       "flagColors": [
-        "#005293"
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 62,
@@ -7433,7 +7744,10 @@
           "name": "Swedish krona",
           "symbol": "kr"
         }
-      ]
+      ],
+      "area": 450295,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "CHE",
@@ -7442,10 +7756,7 @@
       "nameEnglish": "Switzerland",
       "flag": "🇨🇭",
       "flagUrl": "https://flagcdn.com/w80/ch.png",
-      "flagColors": [
-        "#d21034",
-        "#ffffff"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 47,
       "region": "Europe",
@@ -7485,7 +7796,10 @@
           "name": "Swiss franc",
           "symbol": "Fr."
         }
-      ]
+      ],
+      "area": 41284,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "SUR",
@@ -7495,10 +7809,9 @@
       "flag": "🇸🇷",
       "flagUrl": "https://flagcdn.com/w80/sr.png",
       "flagColors": [
-        "#377e3f",
-        "#ffffff",
-        "#b40a2d",
-        "#ecc81d"
+        "#007a3d",
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 4,
@@ -7528,7 +7841,10 @@
           "name": "Surinamese dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 163820,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "SYR",
@@ -7538,9 +7854,8 @@
       "flag": "🇸🇾",
       "flagUrl": "https://flagcdn.com/w80/sy.png",
       "flagColors": [
-        "#ffffff",
         "#007a3d",
-        "#ce1126"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 35,
@@ -7578,7 +7893,10 @@
           "name": "Syrian pound",
           "symbol": "£"
         }
-      ]
+      ],
+      "area": 185180,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TJK",
@@ -7588,10 +7906,7 @@
       "flag": "🇹🇯",
       "flagUrl": "https://flagcdn.com/w80/tj.png",
       "flagColors": [
-        "#006600",
-        "#ffffff",
-        "#cc0000",
-        "#f8c300"
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 39,
@@ -7626,7 +7941,10 @@
           "name": "Tajikistani somoni",
           "symbol": "ЅМ"
         }
-      ]
+      ],
+      "area": 143100,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "TZA",
@@ -7636,8 +7954,8 @@
       "flag": "🇹🇿",
       "flagUrl": "https://flagcdn.com/w80/tz.png",
       "flagColors": [
-        "#1eb53a",
-        "#00a3dd"
+        "#007a3d",
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -6,
@@ -7688,7 +8006,10 @@
           "name": "Tanzanian shilling",
           "symbol": "Sh"
         }
-      ]
+      ],
+      "area": 945087,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TCD",
@@ -7698,9 +8019,9 @@
       "flag": "🇹🇩",
       "flagUrl": "https://flagcdn.com/w80/td.png",
       "flagColors": [
-        "#c60c30",
-        "#fecb00",
-        "#002664"
+        "#d21034",
+        "#ffd100",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -7743,7 +8064,10 @@
           "name": "Central African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 1284000,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "CZE",
@@ -7753,9 +8077,8 @@
       "flag": "🇨🇿",
       "flagUrl": "https://flagcdn.com/w80/cz.png",
       "flagColors": [
-        "#d7141a",
-        "#ffffff",
-        "#11457e"
+        "#d21034",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 49.75,
@@ -7790,7 +8113,10 @@
           "name": "Czech koruna",
           "symbol": "Kč"
         }
-      ]
+      ],
+      "area": 78865,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "THA",
@@ -7800,9 +8126,9 @@
       "flag": "🇹🇭",
       "flagUrl": "https://flagcdn.com/w80/th.png",
       "flagColors": [
-        "#a51931",
-        "#f4f5f8",
-        "#2d2a4a"
+        "#d21034",
+        "#ffffff",
+        "#005eb8"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -7836,7 +8162,10 @@
           "name": "Thai baht",
           "symbol": "฿"
         }
-      ]
+      ],
+      "area": 513120,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TLS",
@@ -7846,9 +8175,8 @@
       "flag": "🇹🇱",
       "flagUrl": "https://flagcdn.com/w80/tl.png",
       "flagColors": [
-        "#da291c",
-        "#ffc72c",
-        "#ffffff"
+        "#d21034",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -8.83333333,
@@ -7871,7 +8199,10 @@
           "name": "United States dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 14874,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TGO",
@@ -7881,10 +8212,9 @@
       "flag": "🇹🇬",
       "flagUrl": "https://flagcdn.com/w80/tg.png",
       "flagColors": [
-        "#006a4e",
-        "#ffce00",
-        "#d21034",
-        "#ffffff"
+        "#007a3d",
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 8,
@@ -7914,7 +8244,10 @@
           "name": "West African CFA franc",
           "symbol": "Fr"
         }
-      ]
+      ],
+      "area": 56785,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TON",
@@ -7924,8 +8257,7 @@
       "flag": "🇹🇴",
       "flagUrl": "https://flagcdn.com/w80/to.png",
       "flagColors": [
-        "#c10000",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -20,
@@ -7943,7 +8275,10 @@
           "name": "Tongan paʻanga",
           "symbol": "T$"
         }
-      ]
+      ],
+      "area": 747,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TTO",
@@ -7953,8 +8288,7 @@
       "flag": "🇹🇹",
       "flagUrl": "https://flagcdn.com/w80/tt.png",
       "flagColors": [
-        "#da1a35",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 11,
@@ -7971,7 +8305,10 @@
           "name": "Trinidad and Tobago dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 5130,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TUN",
@@ -7981,8 +8318,7 @@
       "flag": "🇹🇳",
       "flagUrl": "https://flagcdn.com/w80/tn.png",
       "flagColors": [
-        "#e70013",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 34,
@@ -8008,7 +8344,10 @@
           "name": "Tunisian dinar",
           "symbol": "د.ت"
         }
-      ]
+      ],
+      "area": 163610,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TKM",
@@ -8018,8 +8357,7 @@
       "flag": "🇹🇲",
       "flagUrl": "https://flagcdn.com/w80/tm.png",
       "flagColors": [
-        "#00843d",
-        "#ffffff"
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 40,
@@ -8054,7 +8392,10 @@
           "name": "Turkmenistan manat",
           "symbol": "m"
         }
-      ]
+      ],
+      "area": 488100,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "TUR",
@@ -8064,8 +8405,7 @@
       "flag": "🇹🇷",
       "flagUrl": "https://flagcdn.com/w80/tr.png",
       "flagColors": [
-        "#e30a17",
-        "#ffffff"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 39,
@@ -8115,7 +8455,10 @@
           "name": "Turkish lira",
           "symbol": "₺"
         }
-      ]
+      ],
+      "area": 783562,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "TUV",
@@ -8125,9 +8468,8 @@
       "flag": "🇹🇻",
       "flagUrl": "https://flagcdn.com/w80/tv.png",
       "flagColors": [
-        "#fedd00",
-        "#012169",
-        "#009cde"
+        "#ffd100",
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -8,
@@ -8150,7 +8492,10 @@
           "name": "Tuvaluan dollar",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 26,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "UKR",
@@ -8160,8 +8505,8 @@
       "flag": "🇺🇦",
       "flagUrl": "https://flagcdn.com/w80/ua.png",
       "flagColors": [
-        "#005bbb",
-        "#ffd500"
+        "#005eb8",
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 49,
@@ -8207,7 +8552,10 @@
           "name": "Ukrainian hryvnia",
           "symbol": "₴"
         }
-      ]
+      ],
+      "area": 603500,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "URY",
@@ -8217,8 +8565,7 @@
       "flag": "🇺🇾",
       "flagUrl": "https://flagcdn.com/w80/uy.png",
       "flagColors": [
-        "#ffffff",
-        "#0038a8"
+        "#005eb8"
       ],
       "hemisphere": "Sud",
       "latitude": -33,
@@ -8244,7 +8591,10 @@
           "name": "Uruguayan peso",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 181034,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "VUT",
@@ -8255,8 +8605,8 @@
       "flagUrl": "https://flagcdn.com/w80/vu.png",
       "flagColors": [
         "#d21034",
-        "#009543",
-        "#fdce12"
+        "#007a3d",
+        "#ffd100"
       ],
       "hemisphere": "Sud",
       "latitude": -16,
@@ -8275,7 +8625,10 @@
           "name": "Vanuatu vatu",
           "symbol": "Vt"
         }
-      ]
+      ],
+      "area": 12189,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "VEN",
@@ -8284,9 +8637,7 @@
       "nameEnglish": "Venezuela",
       "flag": "🇻🇪",
       "flagUrl": "https://flagcdn.com/w80/ve.png",
-      "flagColors": [
-        "#ffffff"
-      ],
+      "flagColors": [],
       "hemisphere": "Nord",
       "latitude": 8,
       "region": "Americas",
@@ -8315,7 +8666,10 @@
           "name": "Venezuelan bolívar soberano",
           "symbol": "Bs.S."
         }
-      ]
+      ],
+      "area": 916445,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "VNM",
@@ -8325,8 +8679,7 @@
       "flag": "🇻🇳",
       "flagUrl": "https://flagcdn.com/w80/vn.png",
       "flagColors": [
-        "#d21034",
-        "#ffeb00"
+        "#ffd100"
       ],
       "hemisphere": "Nord",
       "latitude": 16.16666666,
@@ -8356,7 +8709,10 @@
           "name": "Vietnamese đồng",
           "symbol": "₫"
         }
-      ]
+      ],
+      "area": 331212,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "YEM",
@@ -8366,8 +8722,7 @@
       "flag": "🇾🇪",
       "flagUrl": "https://flagcdn.com/w80/ye.png",
       "flagColors": [
-        "#ffffff",
-        "#ce1126"
+        "#d21034"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -8393,7 +8748,10 @@
           "name": "Yemeni rial",
           "symbol": "﷼"
         }
-      ]
+      ],
+      "area": 527968,
+      "landlocked": false,
+      "equator": false
     },
     {
       "code": "ZMB",
@@ -8403,9 +8761,9 @@
       "flag": "🇿🇲",
       "flagUrl": "https://flagcdn.com/w80/zm.png",
       "flagColors": [
-        "#de2010",
-        "#ef7d00",
-        "#198a00"
+        "#d21034",
+        "#f58220",
+        "#007a3d"
       ],
       "hemisphere": "Sud",
       "latitude": -15,
@@ -8455,7 +8813,10 @@
           "name": "Zambian kwacha",
           "symbol": "ZK"
         }
-      ]
+      ],
+      "area": 752612,
+      "landlocked": true,
+      "equator": false
     },
     {
       "code": "ZWE",
@@ -8465,10 +8826,9 @@
       "flag": "🇿🇼",
       "flagUrl": "https://flagcdn.com/w80/zw.png",
       "flagColors": [
-        "#006400",
-        "#ffd200",
-        "#d40000",
-        "#ffffff"
+        "#007a3d",
+        "#ffd100",
+        "#d21034"
       ],
       "hemisphere": "Sud",
       "latitude": -20,
@@ -8556,7 +8916,10 @@
           "name": "Zimbabwean bonds",
           "symbol": "$"
         }
-      ]
+      ],
+      "area": 390757,
+      "landlocked": true,
+      "equator": false
     }
   ]
 }
