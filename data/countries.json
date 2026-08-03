@@ -60,7 +60,13 @@
       ],
       "area": 652230,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "ZAF",
@@ -126,7 +132,13 @@
       ],
       "area": 1221037,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "ALB",
@@ -171,7 +183,13 @@
       ],
       "area": 28748,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "DZA",
@@ -230,7 +248,13 @@
       ],
       "area": 2381741,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": true
     },
     {
       "code": "DEU",
@@ -299,7 +323,13 @@
       ],
       "area": 357114,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "AND",
@@ -339,7 +369,13 @@
       ],
       "area": 468,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 2,
+      "capitalSameLetter": true
     },
     {
       "code": "AGO",
@@ -387,7 +423,13 @@
       ],
       "area": 1246700,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "ATG",
@@ -419,7 +461,13 @@
       ],
       "area": 442,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "SAU",
@@ -478,7 +526,13 @@
       ],
       "area": 2149690,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "ARG",
@@ -532,7 +586,13 @@
       ],
       "area": 2780400,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "ARM",
@@ -581,7 +641,13 @@
       ],
       "area": 29743,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "AUS",
@@ -611,7 +677,13 @@
       ],
       "area": 7692024,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "AUT",
@@ -674,7 +746,13 @@
       ],
       "area": 83871,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "AZE",
@@ -728,7 +806,13 @@
       ],
       "area": 86600,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "BHS",
@@ -763,7 +847,13 @@
       ],
       "area": 13943,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "BHR",
@@ -793,7 +883,13 @@
       ],
       "area": 765,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "BGD",
@@ -833,7 +929,13 @@
       ],
       "area": 147570,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "BRB",
@@ -864,7 +966,13 @@
       ],
       "area": 430,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "BEL",
@@ -914,7 +1022,13 @@
       ],
       "area": 30528,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "vertical",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "BLZ",
@@ -961,7 +1075,13 @@
       ],
       "area": 22966,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 7,
+      "capitalSameLetter": false
     },
     {
       "code": "BEN",
@@ -1010,7 +1130,13 @@
       ],
       "area": 112622,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "BTN",
@@ -1055,7 +1181,13 @@
       ],
       "area": 38394,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "BLR",
@@ -1108,7 +1240,13 @@
       ],
       "area": 207600,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "MMR",
@@ -1161,7 +1299,13 @@
       ],
       "area": 676578,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "BOL",
@@ -1221,7 +1365,13 @@
       ],
       "area": 1098581,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 7,
+      "capitalSameLetter": false
     },
     {
       "code": "BIH",
@@ -1267,7 +1417,13 @@
       ],
       "area": 51209,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "BWA",
@@ -1315,7 +1471,13 @@
       ],
       "area": 582000,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "BRA",
@@ -1388,7 +1550,13 @@
       ],
       "area": 8515767,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": true
     },
     {
       "code": "BRN",
@@ -1429,7 +1597,13 @@
       ],
       "area": 5765,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "BGR",
@@ -1481,7 +1655,13 @@
       ],
       "area": 110879,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "BFA",
@@ -1538,7 +1718,13 @@
       ],
       "area": 272967,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "BDI",
@@ -1583,7 +1769,13 @@
       ],
       "area": 27834,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "KHM",
@@ -1632,7 +1824,13 @@
       ],
       "area": 181035,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "CMR",
@@ -1690,7 +1888,13 @@
       ],
       "area": 475442,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "CAN",
@@ -1724,7 +1928,13 @@
       ],
       "area": 9984670,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "CHL",
@@ -1768,7 +1978,13 @@
       ],
       "area": 756102,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "CHN",
@@ -1863,7 +2079,13 @@
       ],
       "area": 9706961,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "CYP",
@@ -1894,7 +2116,13 @@
       ],
       "area": 9251,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "COL",
@@ -1947,7 +2175,13 @@
       ],
       "area": 1141748,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "COM",
@@ -1982,7 +2216,13 @@
       ],
       "area": 1862,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "COG",
@@ -2037,7 +2277,13 @@
       ],
       "area": 342000,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "COD",
@@ -2106,7 +2352,13 @@
       ],
       "area": 2344858,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "PRK",
@@ -2150,7 +2402,13 @@
       ],
       "area": 120538,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "KOR",
@@ -2186,7 +2444,13 @@
       ],
       "area": 100210,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "CRI",
@@ -2229,7 +2493,13 @@
       ],
       "area": 51100,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 5,
+      "capitalSameLetter": false
     },
     {
       "code": "CIV",
@@ -2281,7 +2551,13 @@
       ],
       "area": 322463,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "vertical",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "HRV",
@@ -2333,7 +2609,13 @@
       ],
       "area": 56594,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "CUB",
@@ -2369,7 +2651,13 @@
       ],
       "area": 109884,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "DNK",
@@ -2404,7 +2692,13 @@
       ],
       "area": 43094,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "DJI",
@@ -2450,7 +2744,13 @@
       ],
       "area": 23200,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": true
     },
     {
       "code": "DMA",
@@ -2484,7 +2784,13 @@
       ],
       "area": 751,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 5,
+      "capitalSameLetter": false
     },
     {
       "code": "EGY",
@@ -2534,7 +2840,13 @@
       ],
       "area": 1002450,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "ARE",
@@ -2574,7 +2886,13 @@
       ],
       "area": 83600,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "ECU",
@@ -2619,7 +2937,13 @@
       ],
       "area": 276841,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 7,
+      "capitalSameLetter": false
     },
     {
       "code": "ERI",
@@ -2667,7 +2991,13 @@
       ],
       "area": 117600,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "ESP",
@@ -2723,7 +3053,13 @@
       ],
       "area": 505992,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 6,
+      "capitalSameLetter": false
     },
     {
       "code": "EST",
@@ -2762,7 +3098,13 @@
       ],
       "area": 45227,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "SWZ",
@@ -2809,7 +3151,13 @@
       ],
       "area": 17364,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "USA",
@@ -2849,7 +3197,13 @@
       ],
       "area": 9372610,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "ETH",
@@ -2907,7 +3261,13 @@
       ],
       "area": 1104300,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "FJI",
@@ -2941,7 +3301,13 @@
       ],
       "area": 18272,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "FIN",
@@ -2983,7 +3349,13 @@
       ],
       "area": 338424,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "FRA",
@@ -3048,7 +3420,13 @@
       ],
       "area": 551695,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": false,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GAB",
@@ -3093,7 +3471,13 @@
       ],
       "area": 267668,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GMB",
@@ -3130,7 +3514,13 @@
       ],
       "area": 10689,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GEO",
@@ -3175,7 +3565,13 @@
       ],
       "area": 69700,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "GHA",
@@ -3220,7 +3616,13 @@
       ],
       "area": 238533,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GRC",
@@ -3267,7 +3669,13 @@
       ],
       "area": 131990,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "GRD",
@@ -3299,7 +3707,13 @@
       ],
       "area": 344,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GTM",
@@ -3350,7 +3764,13 @@
       ],
       "area": 108889,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 5,
+      "capitalSameLetter": true
     },
     {
       "code": "GIN",
@@ -3407,7 +3827,13 @@
       ],
       "area": 245857,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GNQ",
@@ -3451,7 +3877,13 @@
       ],
       "area": 28051,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "GNB",
@@ -3493,7 +3925,13 @@
       ],
       "area": 36125,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GUY",
@@ -3538,7 +3976,13 @@
       ],
       "area": 214969,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "HTI",
@@ -3577,7 +4021,13 @@
       ],
       "area": 27750,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "HND",
@@ -3620,7 +4070,13 @@
       ],
       "area": 112492,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "HUN",
@@ -3680,7 +4136,13 @@
       ],
       "area": 93028,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "MUS",
@@ -3715,7 +4177,13 @@
       ],
       "area": 2040,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "CPV",
@@ -3747,7 +4215,13 @@
       ],
       "area": 4033,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "MHL",
@@ -3779,7 +4253,13 @@
       ],
       "area": 181,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "SLB",
@@ -3810,7 +4290,13 @@
       ],
       "area": 28896,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "IND",
@@ -3869,7 +4355,13 @@
       ],
       "area": 3287590,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "IDN",
@@ -3910,7 +4402,13 @@
       ],
       "area": 1904569,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "IRQ",
@@ -3968,7 +4466,13 @@
       ],
       "area": 438317,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "IRN",
@@ -4028,7 +4532,13 @@
       ],
       "area": 1648195,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "IRL",
@@ -4065,7 +4575,13 @@
       ],
       "area": 70273,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "ISL",
@@ -4095,7 +4611,13 @@
       ],
       "area": 103000,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "ISR",
@@ -4147,7 +4669,13 @@
       ],
       "area": 20770,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "ITA",
@@ -4204,7 +4732,13 @@
       ],
       "area": 301336,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "JAM",
@@ -4235,7 +4769,13 @@
       ],
       "area": 10991,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "JPN",
@@ -4265,7 +4805,13 @@
       ],
       "area": 377930,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "JOR",
@@ -4317,7 +4863,13 @@
       ],
       "area": 89342,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "KAZ",
@@ -4369,7 +4921,13 @@
       ],
       "area": 2724900,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "KEN",
@@ -4419,7 +4977,13 @@
       ],
       "area": 580367,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "KGZ",
@@ -4465,7 +5029,13 @@
       ],
       "area": 199951,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "KIR",
@@ -4503,7 +5073,13 @@
       ],
       "area": 811,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "KWT",
@@ -4543,7 +5119,13 @@
       ],
       "area": 17818,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "LAO",
@@ -4595,7 +5177,13 @@
       ],
       "area": 236800,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "LSO",
@@ -4637,7 +5225,13 @@
       ],
       "area": 30355,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "LVA",
@@ -4684,7 +5278,13 @@
       ],
       "area": 64559,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "LBN",
@@ -4725,7 +5325,13 @@
       ],
       "area": 10452,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "LBR",
@@ -4769,7 +5375,13 @@
       ],
       "area": 111369,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "LBY",
@@ -4825,7 +5437,13 @@
       ],
       "area": 1759540,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "LIE",
@@ -4866,7 +5484,13 @@
       ],
       "area": 160,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "LTU",
@@ -4915,7 +5539,13 @@
       ],
       "area": 65300,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "LUX",
@@ -4961,7 +5591,13 @@
       ],
       "area": 2586,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": true
     },
     {
       "code": "MKD",
@@ -5013,7 +5649,13 @@
       ],
       "area": 25713,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "MDG",
@@ -5045,7 +5687,13 @@
       ],
       "area": 587041,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "MYS",
@@ -5087,7 +5735,13 @@
       ],
       "area": 330803,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "MWI",
@@ -5132,7 +5786,13 @@
       ],
       "area": 118484,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "MDV",
@@ -5162,7 +5822,13 @@
       ],
       "area": 300,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "MLI",
@@ -5223,7 +5889,13 @@
       ],
       "area": 1240192,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "MLT",
@@ -5254,7 +5926,13 @@
       ],
       "area": 316,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "MAR",
@@ -5298,7 +5976,13 @@
       ],
       "area": 446550,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "MRT",
@@ -5346,7 +6030,13 @@
       ],
       "area": 1030700,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "MEX",
@@ -5394,7 +6084,13 @@
       ],
       "area": 1964375,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 6,
+      "capitalSameLetter": true
     },
     {
       "code": "FSM",
@@ -5424,7 +6120,13 @@
       ],
       "area": 702,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "MDA",
@@ -5467,7 +6169,13 @@
       ],
       "area": 33846,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 5,
+      "capitalSameLetter": false
     },
     {
       "code": "MCO",
@@ -5502,7 +6210,13 @@
       ],
       "area": 2.02,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "vertical",
+      "flagColorCount": 1,
+      "capitalSameLetter": true
     },
     {
       "code": "MNG",
@@ -5543,7 +6257,13 @@
       ],
       "area": 1564110,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "MNE",
@@ -5598,7 +6318,13 @@
       ],
       "area": 13812,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 5,
+      "capitalSameLetter": false
     },
     {
       "code": "MOZ",
@@ -5654,7 +6380,13 @@
       ],
       "area": 801590,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "NAM",
@@ -5716,7 +6448,13 @@
       ],
       "area": 825615,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "NRU",
@@ -5748,7 +6486,13 @@
       ],
       "area": 21,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "NPL",
@@ -5787,7 +6531,13 @@
       ],
       "area": 147181,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "NIC",
@@ -5828,7 +6578,13 @@
       ],
       "area": 130373,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "NER",
@@ -5888,7 +6644,13 @@
       ],
       "area": 1267000,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "NGA",
@@ -5935,7 +6697,13 @@
       ],
       "area": 923768,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "NOR",
@@ -5980,7 +6748,13 @@
       ],
       "area": 323802,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "NZL",
@@ -6013,7 +6787,13 @@
       ],
       "area": 270467,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "OMN",
@@ -6057,7 +6837,13 @@
       ],
       "area": 309500,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "UGA",
@@ -6111,7 +6897,13 @@
       ],
       "area": 241550,
       "landlocked": true,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "UZB",
@@ -6165,7 +6957,13 @@
       ],
       "area": 447400,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "PAK",
@@ -6213,7 +7011,13 @@
       ],
       "area": 881912,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "PLW",
@@ -6242,7 +7046,13 @@
       ],
       "area": 459,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "PAN",
@@ -6287,7 +7097,13 @@
       ],
       "area": 75417,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": true
     },
     {
       "code": "PNG",
@@ -6325,7 +7141,13 @@
       ],
       "area": 462840,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "PRY",
@@ -6372,7 +7194,13 @@
       ],
       "area": 406752,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "NLD",
@@ -6412,7 +7240,13 @@
       ],
       "area": 41850,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "PER",
@@ -6465,7 +7299,13 @@
       ],
       "area": 1285216,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "PHL",
@@ -6498,7 +7338,13 @@
       ],
       "area": 342353,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "POL",
@@ -6557,7 +7403,13 @@
       ],
       "area": 312679,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "PRT",
@@ -6590,7 +7442,13 @@
       ],
       "area": 92090,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "QAT",
@@ -6625,7 +7483,13 @@
       ],
       "area": 11586,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "CAF",
@@ -6684,7 +7548,13 @@
       ],
       "area": 622984,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "DOM",
@@ -6723,7 +7593,13 @@
       ],
       "area": 48671,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 5,
+      "capitalSameLetter": false
     },
     {
       "code": "ROU",
@@ -6776,7 +7652,13 @@
       ],
       "area": 238391,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "GBR",
@@ -6811,7 +7693,13 @@
       ],
       "area": 242900,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "RUS",
@@ -6899,7 +7787,13 @@
       ],
       "area": 17098242,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "RWA",
@@ -6950,7 +7844,13 @@
       ],
       "area": 26338,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "KNA",
@@ -6981,7 +7881,13 @@
       ],
       "area": 261,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": true
     },
     {
       "code": "SMR",
@@ -7019,7 +7925,13 @@
       ],
       "area": 61,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": true
     },
     {
       "code": "VCT",
@@ -7051,7 +7963,13 @@
       ],
       "area": 389,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "LCA",
@@ -7081,7 +7999,13 @@
       ],
       "area": 616,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": true
     },
     {
       "code": "SLV",
@@ -7121,7 +8045,13 @@
       ],
       "area": 21041,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "WSM",
@@ -7153,7 +8083,13 @@
       ],
       "area": 2842,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "STP",
@@ -7185,7 +8121,13 @@
       ],
       "area": 964,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": true
     },
     {
       "code": "SEN",
@@ -7238,7 +8180,13 @@
       ],
       "area": 196722,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "SRB",
@@ -7304,7 +8252,13 @@
       ],
       "area": 88361,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "SYC",
@@ -7339,7 +8293,13 @@
       ],
       "area": 452,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "SLE",
@@ -7379,7 +8339,13 @@
       ],
       "area": 71740,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "vertical",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "SGP",
@@ -7412,7 +8378,13 @@
       ],
       "area": 710,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": true
     },
     {
       "code": "SVK",
@@ -7464,7 +8436,13 @@
       ],
       "area": 49037,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "SVN",
@@ -7509,7 +8487,13 @@
       ],
       "area": 20273,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "SOM",
@@ -7551,7 +8535,13 @@
       ],
       "area": 637657,
       "landlocked": false,
-      "equator": true
+      "equator": true,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "SDN",
@@ -7612,7 +8602,13 @@
       ],
       "area": 1886068,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "SSD",
@@ -7670,7 +8666,13 @@
       ],
       "area": 619745,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 4,
+      "capitalSameLetter": false
     },
     {
       "code": "LKA",
@@ -7708,7 +8710,13 @@
       ],
       "area": 65610,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "SWE",
@@ -7747,7 +8755,13 @@
       ],
       "area": 450295,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "CHE",
@@ -7799,7 +8813,13 @@
       ],
       "area": 41284,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "SUR",
@@ -7844,7 +8864,13 @@
       ],
       "area": 163820,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "SYR",
@@ -7896,7 +8922,13 @@
       ],
       "area": 185180,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "TJK",
@@ -7944,7 +8976,13 @@
       ],
       "area": 143100,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "TZA",
@@ -8009,7 +9047,13 @@
       ],
       "area": 945087,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "TCD",
@@ -8067,7 +9111,13 @@
       ],
       "area": 1284000,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "CZE",
@@ -8116,7 +9166,13 @@
       ],
       "area": 78865,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "THA",
@@ -8165,7 +9221,13 @@
       ],
       "area": 513120,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": false,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "TLS",
@@ -8202,7 +9264,13 @@
       ],
       "area": 14874,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "TGO",
@@ -8247,7 +9315,13 @@
       ],
       "area": 56785,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "TON",
@@ -8278,7 +9352,13 @@
       ],
       "area": 747,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "TTO",
@@ -8308,7 +9388,13 @@
       ],
       "area": 5130,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "TUN",
@@ -8347,7 +9433,13 @@
       ],
       "area": 163610,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": true
     },
     {
       "code": "TKM",
@@ -8395,7 +9487,13 @@
       ],
       "area": 488100,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "TUR",
@@ -8458,7 +9556,13 @@
       ],
       "area": 783562,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": true,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "TUV",
@@ -8495,7 +9599,13 @@
       ],
       "area": 26,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "UKR",
@@ -8555,7 +9665,13 @@
       ],
       "area": 603500,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 2,
+      "capitalSameLetter": false
     },
     {
       "code": "URY",
@@ -8594,7 +9710,13 @@
       ],
       "area": 181034,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "VUT",
@@ -8628,7 +9750,13 @@
       ],
       "area": 12189,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "VEN",
@@ -8669,7 +9797,13 @@
       ],
       "area": 916445,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": true,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 0,
+      "capitalSameLetter": false
     },
     {
       "code": "VNM",
@@ -8712,7 +9846,13 @@
       ],
       "area": 331212,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "YEM",
@@ -8751,7 +9891,13 @@
       ],
       "area": 527968,
       "landlocked": false,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
+      "capitalSameLetter": false
     },
     {
       "code": "ZMB",
@@ -8816,7 +9962,13 @@
       ],
       "area": 752612,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     },
     {
       "code": "ZWE",
@@ -8919,7 +10071,13 @@
       ],
       "area": 390757,
       "landlocked": true,
-      "equator": false
+      "equator": false,
+      "oecd": false,
+      "peak4000": false,
+      "symbolOnFlag": true,
+      "flagStripes": "other",
+      "flagColorCount": 3,
+      "capitalSameLetter": false
     }
   ]
 }
