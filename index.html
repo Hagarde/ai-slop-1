@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CountryDoku, le jeu quotidien de géographie." />
+    <title>CountryDoku — Le jeu quotidien de géographie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="CountryDoku, accueil">Country<span>Doku</span></a>
+      <p class="tagline">Le jeu quotidien de géographie</p>
+      <button class="icon-button" id="help-button" aria-label="Voir les règles">?</button>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="game-title">
+        <p class="eyebrow" id="puzzle-date">DÉFI DU JOUR</p>
+        <h1 id="game-title">Trouvez les pays qui relient les indices.</h1>
+        <p>Choisissez un pays pour chaque intersection. Un pays ne peut être utilisé qu’une fois.</p>
+      </section>
+
+      <section class="game-layout" aria-label="Grille de jeu">
+        <aside class="criteria-panel">
+          <h2>Critères</h2>
+          <ul>
+            <li><span class="dot language"></span> Linguistique</li>
+            <li><span class="dot geography"></span> Géographique</li>
+            <li><span class="dot economy"></span> Économique</li>
+            <li><span class="dot history"></span> Historique</li>
+          </ul>
+        </aside>
+
+        <div class="board-wrap">
+          <div class="board" id="board" role="grid" aria-label="Grille CountryDoku"></div>
+          <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+        </div>
+
+        <aside class="progress-panel">
+          <p class="progress-label">PROGRESSION</p>
+          <p class="progress-value"><span id="progress">0</span> / 9</p>
+          <button class="secondary-button" id="reset-button">Recommencer</button>
+        </aside>
+      </section>
+
+      <section class="country-picker" aria-labelledby="picker-title">
+        <div>
+          <p class="eyebrow">VOTRE CHOIX</p>
+          <h2 id="picker-title">Sélectionnez une case</h2>
+        </div>
+        <div class="countries" id="countries" aria-label="Pays disponibles"></div>
+      </section>
+    </main>
+
+    <dialog id="help-dialog">
+      <button class="close-button" id="close-help" aria-label="Fermer">×</button>
+      <p class="eyebrow">COMMENT JOUER</p>
+      <h2>Deux indices, un pays.</h2>
+      <p>Sélectionnez une case, puis un pays qui correspond aux critères de sa ligne et de sa colonne. Chaque bonne réponse reste placée ; chaque pays ne peut servir qu’une fois.</p>
+      <button class="primary-button" id="start-button">C’est parti</button>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
