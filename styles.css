@@ -17,17 +17,10 @@
   --accent-hover: #17543c;
   --accent-light: #e3f2ed;
   
-  /* Category Colors */
-  --cat-geography: #2b6cb0;
+  /* Category Colors Tints */
   --cat-geography-bg: #ebf4ff;
-  
-  --cat-language: #d53f8c;
   --cat-language-bg: #fff5f7;
-  
-  --cat-economy: #dd6b20;
   --cat-economy-bg: #fffaf0;
-  
-  --cat-history: #38a169;
   --cat-history-bg: #f0fff4;
 
   --shadow-sm: 0 2px 8px rgba(17, 38, 31, 0.04);
@@ -230,54 +223,20 @@ button, input {
   gap: 14px;
 }
 
-.legend-bar {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--bg-card);
-  padding: 8px 14px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
-  flex-wrap: wrap;
-}
-
-.legend-item {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink-secondary);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.dot.geography { background-color: var(--cat-geography); }
-.dot.language { background-color: var(--cat-language); }
-.dot.economy { background-color: var(--cat-economy); }
-.dot.history { background-color: var(--cat-history); }
-
-/* Grille 3x3 */
+/* Grille 3x3 Flexible */
 .board-card {
   background: var(--bg-card);
   padding: 16px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-md);
-  overflow-x: auto;
+  width: 100%;
 }
 
 .board {
   display: grid;
-  grid-template-columns: 130px repeat(3, minmax(0, 1fr));
-  grid-template-rows: 75px repeat(3, minmax(115px, 1fr));
+  grid-template-columns: minmax(80px, 22%) repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto repeat(3, minmax(100px, 1fr));
   gap: 8px;
   width: 100%;
 }
@@ -290,87 +249,49 @@ button, input {
 .clue {
   background: var(--bg-subtle);
   border-radius: var(--radius-sm);
-  padding: 10px;
-  font-size: 13px;
+  padding: 8px 10px;
+  font-size: clamp(11px, 2.5vw, 13px);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
   color: var(--ink-primary);
   border: 1px solid transparent;
   position: relative;
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .clue-label-area {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  flex: 1;
   min-width: 0;
 }
 
-/* Info-bulles personnalisées & réactives */
 .info-icon {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  color: var(--ink-muted);
-  background: rgba(0,0,0,0.07);
-  width: 18px;
-  height: 18px;
+  color: var(--accent-primary);
+  background: var(--accent-light);
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.2s ease;
-  position: relative;
-  outline: none;
+  border: 1px solid rgba(31, 111, 80, 0.2);
 }
 
-.info-icon:hover, .info-icon:focus {
+.info-icon:hover {
   background: var(--accent-primary);
   color: white;
-}
-
-.info-icon[data-tooltip]:hover::after,
-.info-icon[data-tooltip]:focus::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 130%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #11261f;
-  color: #ffffff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-family: var(--font-main);
-  font-weight: 500;
-  white-space: normal;
-  width: max-content;
-  max-width: 220px;
-  z-index: 100;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-  line-height: 1.35;
-  text-align: center;
-}
-
-.info-icon[data-tooltip]:hover::before,
-.info-icon[data-tooltip]:focus::before {
-  content: '';
-  position: absolute;
-  bottom: 115%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 5px 5px 0 5px;
-  border-style: solid;
-  border-color: #11261f transparent transparent transparent;
-  z-index: 101;
+  transform: scale(1.1);
 }
 
 .clue.geography { background: var(--cat-geography-bg); border-color: rgba(43, 108, 176, 0.15); }
@@ -515,8 +436,8 @@ button, input {
   border-color: var(--ink-primary);
 }
 
-/* Search Modal */
-.search-dialog {
+/* Search & Tooltip Dialogs */
+.search-dialog, .tooltip-dialog {
   max-width: 520px;
   width: calc(100% - 24px);
 }
@@ -779,8 +700,8 @@ button, input {
   }
 
   .main-container {
-    padding: 16px 12px 40px;
-    gap: 14px;
+    padding: 14px 10px 36px;
+    gap: 12px;
   }
 
   .intro-header {
@@ -795,71 +716,71 @@ button, input {
   }
 
   .board-card {
-    padding: 10px;
+    padding: 8px;
     border-radius: var(--radius-md);
   }
 
-  /* Adaptation fine de la grille 3x3 sur smartphone */
+  /* Grille 3x3 100% flexible sans aucun débordement */
   .board {
-    grid-template-columns: 85px repeat(3, minmax(0, 1fr));
-    grid-template-rows: 56px repeat(3, minmax(88px, 1fr));
-    gap: 5px;
+    grid-template-columns: minmax(72px, 23%) repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto repeat(3, minmax(82px, 1fr));
+    gap: 4px;
   }
 
   .clue {
-    font-size: 11px;
-    padding: 6px 4px;
+    font-size: clamp(9.5px, 2.7vw, 11px);
+    padding: 6px 3px;
     line-height: 1.15;
   }
 
   .info-icon {
     width: 16px;
     height: 16px;
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .cell {
-    padding: 6px;
-    border-radius: 8px;
+    padding: 5px;
+    border-radius: 6px;
   }
 
   .cell-number {
-    top: 4px;
-    right: 5px;
+    top: 3px;
+    right: 4px;
     font-size: 9px;
   }
 
   .cell-empty-hint {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .answer-card {
-    gap: 3px;
+    gap: 2px;
   }
 
   .answer-flag-img {
-    width: 28px;
-    height: 18px;
+    width: 26px;
+    height: 16px;
   }
 
   .answer-name {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
   .answer-status {
-    font-size: 9px;
+    font-size: 8.5px;
   }
 
   .board-actions {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 8px;
   }
 
   .feedback-banner {
     text-align: center;
-    font-size: 12.5px;
-    padding: 10px;
+    font-size: 12px;
+    padding: 8px 10px;
   }
 
   .countries-list {

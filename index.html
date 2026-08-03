@@ -28,7 +28,7 @@
         <div class="intro-header">
           <div>
             <h1 id="game-title">Reliez les pays aux critères</h1>
-            <p class="intro-desc">Cliquez sur une case pour choisir le pays correspondant aux deux critères croisés. Survolez l'icône <span class="info-badge">ⓘ</span> pour voir les explications.</p>
+            <p class="intro-desc">Cliquez sur une case pour choisir le pays correspondant. Cliquez sur <span class="info-badge">ⓘ</span> pour voir les explications des critères.</p>
           </div>
           <div class="stats-bar">
             <div class="lives-box" id="lives-box" aria-label="Vies restantes">
@@ -44,13 +44,6 @@
       </section>
 
       <section class="game-section" aria-label="Grille de jeu">
-        <div class="legend-bar">
-          <span class="legend-item"><span class="dot geography"></span> Géographie</span>
-          <span class="legend-item"><span class="dot language"></span> Langue</span>
-          <span class="legend-item"><span class="dot economy"></span> Démographie / Taille</span>
-          <span class="legend-item"><span class="dot history"></span> Drapeau & Nom</span>
-        </div>
-
         <div class="board-card">
           <div class="board" id="board" role="grid" aria-label="Grille CountryDoku 3x3"></div>
         </div>
@@ -85,6 +78,19 @@
       </div>
     </dialog>
 
+    <!-- Modal Info-bulle / Explication du critère -->
+    <dialog id="tooltip-dialog" class="custom-dialog tooltip-dialog">
+      <div class="dialog-content">
+        <div class="search-dialog-header">
+          <span class="dialog-eyebrow">EXPLICATION DU CRITÈRE</span>
+          <button class="close-dialog-btn" id="close-tooltip" aria-label="Fermer l'explication">×</button>
+        </div>
+        <h3 id="tooltip-title" style="font-size: 18px; font-weight: 700;">Intitulé du critère</h3>
+        <p id="tooltip-desc" style="font-size: 14px; color: var(--ink-secondary); line-height: 1.45;">Description détaillée...</p>
+        <button class="primary-button full-width" id="confirm-tooltip-btn">J'ai compris</button>
+      </div>
+    </dialog>
+
     <!-- Modal Game Over -->
     <dialog id="gameover-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
@@ -116,7 +122,7 @@
           </div>
           <div class="rule-item">
             <span class="rule-number">3</span>
-            <p><strong>Info-bulles (ⓘ) :</strong> Survolez le symbole ⓘ à côté d'un critère pour voir son explication exacte.</p>
+            <p><strong>Info-bulles (ⓘ) :</strong> Cliquez sur le symbole ⓘ à côté d'un critère pour voir son explication exacte.</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">4</span>

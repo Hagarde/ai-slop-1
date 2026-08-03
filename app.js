@@ -2,15 +2,22 @@ const board = document.querySelector('#board');
 const countriesEl = document.querySelector('#countries');
 const feedback = document.querySelector('#feedback');
 const search = document.querySelector('#country-search');
+
 const searchDialog = document.querySelector('#search-dialog');
 const searchDialogTitle = document.querySelector('#search-dialog-title');
 const searchDialogClues = document.querySelector('#search-dialog-clues');
 const cellTargetTag = document.querySelector('#cell-target-tag');
 const candidatesCountEl = document.querySelector('#candidates-count');
 const closeSearch = document.querySelector('#close-search');
+
+const tooltipDialog = document.querySelector('#tooltip-dialog');
+const tooltipTitle = document.querySelector('#tooltip-title');
+const tooltipDesc = document.querySelector('#tooltip-desc');
+const closeTooltip = document.querySelector('#close-tooltip');
+const confirmTooltipBtn = document.querySelector('#confirm-tooltip-btn');
+
 const progressEl = document.querySelector('#progress');
 const heartsListEl = document.querySelector('#hearts-list');
-
 const gameoverDialog = document.querySelector('#gameover-dialog');
 const retrySameBtn = document.querySelector('#retry-same-btn');
 const newGridBtn = document.querySelector('#new-grid-btn');
@@ -129,12 +136,17 @@ function clue(item, row = false) {
   return `
     <div class="clue ${item.type} ${row ? 'row' : ''}">
       <div class="clue-label-area">
-        <span class="dot ${item.type}"></span>
         <span>${escapeHtml(item.label)}</span>
       </div>
-      <span class="info-icon" data-tooltip="${escapeHtml(item.description)}" tabindex="0" role="button" aria-label="${escapeHtml(item.description)}">ⓘ</span>
+      <button class="info-icon" data-label="${escapeHtml(item.label)}" data-desc="${escapeHtml(item.description)}" aria-label="Explication">ⓘ</button>
     </div>
   `;
+}
+
+function showTooltip(label, description) {
+  tooltipTitle.textContent = label;
+  tooltipDesc.textContent = description;
+  tooltipDialog.showModal();
 }
 
 function updateLivesUI() {
@@ -171,6 +183,15 @@ function renderBoard() {
     });
   });
 
+  // Attach info icon click listeners
+  board.querySelectorAll('.info-icon').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showTooltip(btn.dataset.label, btn.dataset.desc);
+    });
+  });
+
+  // Attach cell click listeners
   board.querySelectorAll('.cell').forEach((cell) => cell.addEventListener('click', () => {
     const id = Number(cell.dataset.cell);
     if (answers[id] || lives <= 0) return;
@@ -187,9 +208,9 @@ function renderBoard() {
     cellTargetTag.textContent = `CASE ${id + 1}`;
     searchDialogTitle.textContent = `Choisir un pays pour la case ${id + 1}`;
     searchDialogClues.innerHTML = `
-      <span class="dot ${row.type}"></span> <strong>${escapeHtml(row.label)}</strong> 
+      <strong>${escapeHtml(row.label)}</strong> 
       <span style="margin: 0 4px; opacity: 0.5;">×</span> 
-      <span class="dot ${column.type}"></span> <strong>${escapeHtml(column.label)}</strong>
+      <strong>${escapeHtml(column.label)}</strong>
     `;
 
     search.value = '';
@@ -301,6 +322,9 @@ closeSearch.addEventListener('click', () => {
   selectedCell = null;
   renderBoard();
 });
+
+closeTooltip.addEventListener('click', () => tooltipDialog.close());
+confirmTooltipBtn.addEventListener('click', () => tooltipDialog.close());
 
 document.querySelector('#reset-button').addEventListener('click', () => resetGame(true));
 retrySameBtn.addEventListener('click', () => {
