@@ -66,7 +66,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kaboul"
     },
     {
       "code": "ZAF",
@@ -138,7 +139,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Pretoria"
     },
     {
       "code": "ALB",
@@ -189,7 +191,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tirana"
     },
     {
       "code": "DZA",
@@ -254,7 +257,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Alger"
     },
     {
       "code": "DEU",
@@ -329,7 +333,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Berlin"
     },
     {
       "code": "AND",
@@ -375,7 +380,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 2,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Andorre-la-Vieille"
     },
     {
       "code": "AGO",
@@ -429,7 +435,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Luanda"
     },
     {
       "code": "ATG",
@@ -467,7 +474,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Saint John's"
     },
     {
       "code": "SAU",
@@ -532,7 +540,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Riyad"
     },
     {
       "code": "ARG",
@@ -592,7 +601,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Buenos Aires"
     },
     {
       "code": "ARM",
@@ -643,11 +653,12 @@
       "landlocked": true,
       "equator": false,
       "oecd": false,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Erevan"
     },
     {
       "code": "AUS",
@@ -683,7 +694,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Canberra"
     },
     {
       "code": "AUT",
@@ -752,7 +764,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Vienne"
     },
     {
       "code": "AZE",
@@ -812,7 +825,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Baku"
     },
     {
       "code": "BHS",
@@ -853,7 +867,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Nassau"
     },
     {
       "code": "BHR",
@@ -889,7 +904,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Manama"
     },
     {
       "code": "BGD",
@@ -935,7 +951,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Dacca"
     },
     {
       "code": "BRB",
@@ -972,7 +989,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Bridgetown"
     },
     {
       "code": "BEL",
@@ -1028,7 +1046,8 @@
       "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Bruxelles"
     },
     {
       "code": "BLZ",
@@ -1081,7 +1100,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 7,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Belmopan"
     },
     {
       "code": "BEN",
@@ -1136,7 +1156,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Porto-Novo"
     },
     {
       "code": "BTN",
@@ -1187,7 +1208,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Thimphou"
     },
     {
       "code": "BLR",
@@ -1246,7 +1268,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Minsk"
     },
     {
       "code": "MMR",
@@ -1301,11 +1324,12 @@
       "landlocked": false,
       "equator": false,
       "oecd": false,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Naypyidaw"
     },
     {
       "code": "BOL",
@@ -1371,7 +1395,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 7,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Sucre"
     },
     {
       "code": "BIH",
@@ -1423,7 +1448,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Sarajevo"
     },
     {
       "code": "BWA",
@@ -1477,7 +1503,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Gaborone"
     },
     {
       "code": "BRA",
@@ -1556,7 +1583,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Brasília"
     },
     {
       "code": "BRN",
@@ -1603,7 +1631,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Bandar Seri Begawan"
     },
     {
       "code": "BGR",
@@ -1661,7 +1690,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Sofia"
     },
     {
       "code": "BFA",
@@ -1724,7 +1754,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Ouagadougou"
     },
     {
       "code": "BDI",
@@ -1775,7 +1806,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Gitega"
     },
     {
       "code": "KHM",
@@ -1830,7 +1862,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Phnom Penh"
     },
     {
       "code": "CMR",
@@ -1894,7 +1927,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Yaoundé"
     },
     {
       "code": "CAN",
@@ -1934,7 +1968,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Ottawa"
     },
     {
       "code": "CHL",
@@ -1984,7 +2019,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Santiago"
     },
     {
       "code": "CHN",
@@ -2085,7 +2121,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Pékin"
     },
     {
       "code": "CYP",
@@ -2122,7 +2159,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Nicosie"
     },
     {
       "code": "COL",
@@ -2181,7 +2219,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bogota"
     },
     {
       "code": "COM",
@@ -2222,7 +2261,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Moroni"
     },
     {
       "code": "COG",
@@ -2283,7 +2323,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Brazzaville"
     },
     {
       "code": "COD",
@@ -2358,7 +2399,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kinshasa"
     },
     {
       "code": "PRK",
@@ -2408,7 +2450,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Pyongyang"
     },
     {
       "code": "KOR",
@@ -2450,7 +2493,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Séoul"
     },
     {
       "code": "CRI",
@@ -2499,7 +2543,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 5,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "San José"
     },
     {
       "code": "CIV",
@@ -2557,7 +2602,8 @@
       "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Yamoussoukro"
     },
     {
       "code": "HRV",
@@ -2615,7 +2661,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Zagreb"
     },
     {
       "code": "CUB",
@@ -2657,7 +2704,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "La Havane"
     },
     {
       "code": "DNK",
@@ -2698,7 +2746,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Copenhague"
     },
     {
       "code": "DJI",
@@ -2750,7 +2799,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Djibouti"
     },
     {
       "code": "DMA",
@@ -2790,7 +2840,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 5,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Roseau"
     },
     {
       "code": "EGY",
@@ -2846,7 +2897,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Le Caire"
     },
     {
       "code": "ARE",
@@ -2892,7 +2944,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Abou Dabi"
     },
     {
       "code": "ECU",
@@ -2943,7 +2996,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 7,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Quito"
     },
     {
       "code": "ERI",
@@ -2997,7 +3051,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Asmara"
     },
     {
       "code": "ESP",
@@ -3059,7 +3114,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 6,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Madrid"
     },
     {
       "code": "EST",
@@ -3104,7 +3160,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tallinn"
     },
     {
       "code": "SWZ",
@@ -3157,7 +3214,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Mbabane"
     },
     {
       "code": "USA",
@@ -3203,7 +3261,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Washington"
     },
     {
       "code": "ETH",
@@ -3267,7 +3326,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Addis-Abeba"
     },
     {
       "code": "FJI",
@@ -3307,7 +3367,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Suva"
     },
     {
       "code": "FIN",
@@ -3355,7 +3416,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Helsinki"
     },
     {
       "code": "FRA",
@@ -3426,7 +3488,8 @@
       "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Paris"
     },
     {
       "code": "GAB",
@@ -3477,7 +3540,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Libreville"
     },
     {
       "code": "GMB",
@@ -3520,7 +3584,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Banjul"
     },
     {
       "code": "GEO",
@@ -3571,7 +3636,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tbilissi"
     },
     {
       "code": "GHA",
@@ -3622,7 +3688,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Accra"
     },
     {
       "code": "GRC",
@@ -3675,7 +3742,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Athènes"
     },
     {
       "code": "GRD",
@@ -3713,7 +3781,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Saint-Georges"
     },
     {
       "code": "GTM",
@@ -3770,7 +3839,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 5,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Guatemala"
     },
     {
       "code": "GIN",
@@ -3833,7 +3903,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Conakry"
     },
     {
       "code": "GNQ",
@@ -3883,7 +3954,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Malabo"
     },
     {
       "code": "GNB",
@@ -3931,7 +4003,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bissau"
     },
     {
       "code": "GUY",
@@ -3982,7 +4055,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Georgetown"
     },
     {
       "code": "HTI",
@@ -4027,7 +4101,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Port-au-Prince"
     },
     {
       "code": "HND",
@@ -4076,7 +4151,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tegucigalpa"
     },
     {
       "code": "HUN",
@@ -4142,7 +4218,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Budapest"
     },
     {
       "code": "MUS",
@@ -4183,7 +4260,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Port-Louis"
     },
     {
       "code": "CPV",
@@ -4221,7 +4299,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Praia"
     },
     {
       "code": "MHL",
@@ -4259,7 +4338,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Majuro"
     },
     {
       "code": "SLB",
@@ -4296,7 +4376,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Honiara"
     },
     {
       "code": "IND",
@@ -4361,7 +4442,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "New Delhi"
     },
     {
       "code": "IDN",
@@ -4408,7 +4490,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Nusantara"
     },
     {
       "code": "IRQ",
@@ -4472,7 +4555,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bagdad"
     },
     {
       "code": "IRN",
@@ -4538,7 +4622,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Téhéran"
     },
     {
       "code": "IRL",
@@ -4581,7 +4666,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Dublin"
     },
     {
       "code": "ISL",
@@ -4617,7 +4703,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Reykjavik"
     },
     {
       "code": "ISR",
@@ -4675,7 +4762,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Jérusalem"
     },
     {
       "code": "ITA",
@@ -4738,7 +4826,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Rome"
     },
     {
       "code": "JAM",
@@ -4775,7 +4864,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kingston"
     },
     {
       "code": "JPN",
@@ -4811,7 +4901,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tokyo"
     },
     {
       "code": "JOR",
@@ -4869,7 +4960,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Amman"
     },
     {
       "code": "KAZ",
@@ -4927,7 +5019,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Astana"
     },
     {
       "code": "KEN",
@@ -4983,7 +5076,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Nairobi"
     },
     {
       "code": "KGZ",
@@ -5035,7 +5129,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bichkek"
     },
     {
       "code": "KIR",
@@ -5079,7 +5174,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tarawa-Sud"
     },
     {
       "code": "KWT",
@@ -5125,7 +5221,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Koweït"
     },
     {
       "code": "LAO",
@@ -5183,7 +5280,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Vientiane"
     },
     {
       "code": "LSO",
@@ -5231,7 +5329,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Maseru"
     },
     {
       "code": "LVA",
@@ -5284,7 +5383,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Riga"
     },
     {
       "code": "LBN",
@@ -5331,7 +5431,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Beyrouth"
     },
     {
       "code": "LBR",
@@ -5381,7 +5482,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Monrovia"
     },
     {
       "code": "LBY",
@@ -5443,7 +5545,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tripoli"
     },
     {
       "code": "LIE",
@@ -5490,7 +5593,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Vaduz"
     },
     {
       "code": "LTU",
@@ -5545,7 +5649,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Vilnius"
     },
     {
       "code": "LUX",
@@ -5597,7 +5702,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Luxembourg"
     },
     {
       "code": "MKD",
@@ -5655,7 +5761,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Skopje"
     },
     {
       "code": "MDG",
@@ -5693,7 +5800,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Antananarivo"
     },
     {
       "code": "MYS",
@@ -5741,7 +5849,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kuala Lumpur"
     },
     {
       "code": "MWI",
@@ -5792,7 +5901,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Lilongwe"
     },
     {
       "code": "MDV",
@@ -5828,7 +5938,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Malé"
     },
     {
       "code": "MLI",
@@ -5895,7 +6006,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bamako"
     },
     {
       "code": "MLT",
@@ -5932,7 +6044,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "La Valette"
     },
     {
       "code": "MAR",
@@ -5982,7 +6095,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Rabat"
     },
     {
       "code": "MRT",
@@ -6036,7 +6150,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Nouakchott"
     },
     {
       "code": "MEX",
@@ -6090,7 +6205,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 6,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Mexico"
     },
     {
       "code": "FSM",
@@ -6126,7 +6242,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Palikir"
     },
     {
       "code": "MDA",
@@ -6175,7 +6292,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 5,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Chisinau"
     },
     {
       "code": "MCO",
@@ -6216,7 +6334,8 @@
       "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 1,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Monaco"
     },
     {
       "code": "MNG",
@@ -6263,7 +6382,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Oulan-Bator"
     },
     {
       "code": "MNE",
@@ -6324,7 +6444,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 5,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Podgorica"
     },
     {
       "code": "MOZ",
@@ -6386,7 +6507,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Maputo"
     },
     {
       "code": "NAM",
@@ -6454,7 +6576,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Windhoek"
     },
     {
       "code": "NRU",
@@ -6492,7 +6615,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Yaren"
     },
     {
       "code": "NPL",
@@ -6537,7 +6661,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Katmandou"
     },
     {
       "code": "NIC",
@@ -6584,7 +6709,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Managua"
     },
     {
       "code": "NER",
@@ -6650,7 +6776,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Niamey"
     },
     {
       "code": "NGA",
@@ -6703,7 +6830,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Abuja"
     },
     {
       "code": "NOR",
@@ -6754,7 +6882,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Oslo"
     },
     {
       "code": "NZL",
@@ -6793,7 +6922,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Wellington"
     },
     {
       "code": "OMN",
@@ -6843,7 +6973,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Mascate"
     },
     {
       "code": "UGA",
@@ -6903,7 +7034,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kampala"
     },
     {
       "code": "UZB",
@@ -6963,7 +7095,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Tachkent"
     },
     {
       "code": "PAK",
@@ -7017,7 +7150,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Islamabad"
     },
     {
       "code": "PLW",
@@ -7052,7 +7186,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Ngerulmud"
     },
     {
       "code": "PAN",
@@ -7103,7 +7238,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Panama"
     },
     {
       "code": "PNG",
@@ -7147,7 +7283,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Port Moresby"
     },
     {
       "code": "PRY",
@@ -7200,7 +7337,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Asuncion"
     },
     {
       "code": "NLD",
@@ -7246,7 +7384,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Amsterdam"
     },
     {
       "code": "PER",
@@ -7305,7 +7444,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Lima"
     },
     {
       "code": "PHL",
@@ -7344,7 +7484,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Manille"
     },
     {
       "code": "POL",
@@ -7409,7 +7550,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Varsovie"
     },
     {
       "code": "PRT",
@@ -7448,7 +7590,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Lisbonne"
     },
     {
       "code": "QAT",
@@ -7489,7 +7632,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Doha"
     },
     {
       "code": "CAF",
@@ -7554,7 +7698,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bangui"
     },
     {
       "code": "DOM",
@@ -7595,11 +7740,12 @@
       "landlocked": false,
       "equator": false,
       "oecd": false,
-      "peak4000": true,
+      "peak4000": false,
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 5,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Saint-Domingue"
     },
     {
       "code": "ROU",
@@ -7658,7 +7804,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bucarest"
     },
     {
       "code": "GBR",
@@ -7699,7 +7846,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Londres"
     },
     {
       "code": "RUS",
@@ -7793,7 +7941,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Moscou"
     },
     {
       "code": "RWA",
@@ -7850,7 +7999,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kigali"
     },
     {
       "code": "KNA",
@@ -7887,7 +8037,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": true
+      "capitalSameLetter": false,
+      "capital": "Basseterre"
     },
     {
       "code": "SMR",
@@ -7931,7 +8082,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Saint-Marin"
     },
     {
       "code": "VCT",
@@ -7969,7 +8121,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kingstown"
     },
     {
       "code": "LCA",
@@ -8005,7 +8158,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": true
+      "capitalSameLetter": false,
+      "capital": "Castries"
     },
     {
       "code": "SLV",
@@ -8051,7 +8205,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "San Salvador"
     },
     {
       "code": "WSM",
@@ -8089,7 +8244,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Apia"
     },
     {
       "code": "STP",
@@ -8127,7 +8283,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "São Tomé"
     },
     {
       "code": "SEN",
@@ -8186,7 +8343,8 @@
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Dakar"
     },
     {
       "code": "SRB",
@@ -8258,7 +8416,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Belgrade"
     },
     {
       "code": "SYC",
@@ -8299,7 +8458,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Victoria"
     },
     {
       "code": "SLE",
@@ -8345,7 +8505,8 @@
       "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Freetown"
     },
     {
       "code": "SGP",
@@ -8384,7 +8545,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Singapour"
     },
     {
       "code": "SVK",
@@ -8442,7 +8604,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bratislava"
     },
     {
       "code": "SVN",
@@ -8493,7 +8656,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Ljubljana"
     },
     {
       "code": "SOM",
@@ -8541,7 +8705,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Mogadiscio"
     },
     {
       "code": "SDN",
@@ -8608,7 +8773,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Khartoum"
     },
     {
       "code": "SSD",
@@ -8672,7 +8838,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 4,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Djouba"
     },
     {
       "code": "LKA",
@@ -8716,7 +8883,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Sri Jayawardenepura Kotte"
     },
     {
       "code": "SWE",
@@ -8761,7 +8929,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": true,
+      "capital": "Stockholm"
     },
     {
       "code": "CHE",
@@ -8819,7 +8988,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Berne"
     },
     {
       "code": "SUR",
@@ -8870,7 +9040,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Paramaribo"
     },
     {
       "code": "SYR",
@@ -8928,7 +9099,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Damas"
     },
     {
       "code": "TJK",
@@ -8982,7 +9154,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Douchanbé"
     },
     {
       "code": "TZA",
@@ -9053,7 +9226,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Dodoma"
     },
     {
       "code": "TCD",
@@ -9117,7 +9291,8 @@
       "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "N'Djamena"
     },
     {
       "code": "CZE",
@@ -9172,7 +9347,8 @@
       "symbolOnFlag": false,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Prague"
     },
     {
       "code": "THA",
@@ -9227,7 +9403,8 @@
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Bangkok"
     },
     {
       "code": "TLS",
@@ -9270,7 +9447,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Dili"
     },
     {
       "code": "TGO",
@@ -9321,7 +9499,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Lomé"
     },
     {
       "code": "TON",
@@ -9358,7 +9537,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Nuku'alofa"
     },
     {
       "code": "TTO",
@@ -9394,7 +9574,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Port-d'Espagne"
     },
     {
       "code": "TUN",
@@ -9439,7 +9620,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": true
+      "capitalSameLetter": true,
+      "capital": "Tunis"
     },
     {
       "code": "TKM",
@@ -9493,7 +9675,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Achgabat"
     },
     {
       "code": "TUR",
@@ -9562,7 +9745,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Ankara"
     },
     {
       "code": "TUV",
@@ -9605,7 +9789,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Funafuti"
     },
     {
       "code": "UKR",
@@ -9671,7 +9856,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Kiev"
     },
     {
       "code": "URY",
@@ -9716,7 +9902,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Montevideo"
     },
     {
       "code": "VUT",
@@ -9756,7 +9943,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Port-Vila"
     },
     {
       "code": "VEN",
@@ -9803,7 +9991,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 0,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Caracas"
     },
     {
       "code": "VNM",
@@ -9852,7 +10041,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Hanoï"
     },
     {
       "code": "YEM",
@@ -9897,7 +10087,8 @@
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 1,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Sanaâ"
     },
     {
       "code": "ZMB",
@@ -9968,7 +10159,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Lusaka"
     },
     {
       "code": "ZWE",
@@ -10077,7 +10269,8 @@
       "symbolOnFlag": true,
       "flagStripes": "other",
       "flagColorCount": 3,
-      "capitalSameLetter": false
+      "capitalSameLetter": false,
+      "capital": "Harare"
     }
   ]
 }
