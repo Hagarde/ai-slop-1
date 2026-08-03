@@ -552,10 +552,24 @@ button, input {
   min-height: 42px;
 }
 
-.country-option-btn:hover {
+.country-option-btn:hover:not(.used) {
   border-color: var(--accent-primary);
   background: var(--accent-light);
   transform: translateY(-1px);
+}
+
+.country-option-btn.used {
+  opacity: 0.45;
+  background: var(--bg-app);
+  cursor: not-allowed;
+  border-color: var(--border-light);
+}
+
+.used-badge {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  margin-left: 4px;
 }
 
 .country-option-flag {

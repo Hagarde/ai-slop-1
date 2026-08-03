@@ -32,6 +32,23 @@ let lives = 3;
 const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 const escapeHtml = (value) => String(value || '').replace(/[&<>'"]/g, (character) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[character]));
 
+// Acronymes et synonymes courants
+const aliases = {
+  USA: ['USA', 'US', 'Etats-Unis', 'United States'],
+  GBR: ['UK', 'Royaume-Uni', 'United Kingdom', 'Angleterre', 'Grande-Bretagne'],
+  ARE: ['UAE', 'EAU', 'Emirats', 'Emirats arabes unis'],
+  COD: ['RDC', 'Congo Kinshasa', 'DRC'],
+  COG: ['Congo Brazzaville'],
+  CAF: ['RCA', 'Centrafrique'],
+  NLD: ['Hollande', 'Pays-Bas'],
+  CZE: ['Tchequie', 'Republique Tcheque'],
+  KOR: ['Coree du Sud', 'South Korea'],
+  PRK: ['Coree du Nord', 'North Korea'],
+  KNA: ['Saint Kitts', 'Saint-Kitts-et-Nevis'],
+  VCT: ['Saint Vincent', 'Saint-Vincent-et-les-Grenadines'],
+  STP: ['Sao Tome', 'Sao Tome et Principe'],
+};
+
 function criterion(label, type, description, test) { return { label, type, description, test }; }
 
 function buildCriteria(data) {
@@ -183,7 +200,6 @@ function renderBoard() {
     });
   });
 
-  // Attach info icon click listeners
   board.querySelectorAll('.info-icon').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -191,7 +207,6 @@ function renderBoard() {
     });
   });
 
-  // Attach cell click listeners
   board.querySelectorAll('.cell').forEach((cell) => cell.addEventListener('click', () => {
     const id = Number(cell.dataset.cell);
     if (answers[id] || lives <= 0) return;
@@ -224,23 +239,49 @@ function renderBoard() {
 function renderCountries() {
   const query = fold(search.value.trim());
   const used = new Set(answers.filter(Boolean).map((country) => country.code));
-  const matches = countries
-    .filter((country) => !used.has(country.code) && (!query || fold(`${country.name} ${country.nameEnglish}`).includes(query)))
-    .slice(0, 24);
+  
+  let matches = countries.map((country) => {
+    const nameFr = fold(country.name);
+    const nameEn = fold(country.nameEnglish);
+    const extraAliases = (aliases[country.code] || []).map(fold);
+    const isUsed = used.has(country.code);
 
-  if (matches.length === 0) {
+    let matchScore = -1;
+    if (!query) {
+      matchScore = 0;
+    } else if (nameFr.startsWith(query) || extraAliases.some(a => a.startsWith(query))) {
+      matchScore = 3; // Top priority: starts with query
+    } else if (nameEn.startsWith(query)) {
+      matchScore = 2;
+    } else if (nameFr.includes(query) || nameEn.includes(query) || extraAliases.some(a => a.includes(query))) {
+      matchScore = 1;
+    }
+
+    return { country, matchScore, isUsed };
+  }).filter((item) => item.matchScore >= 0);
+
+  // Tri intelligent : Score de pertinence ➔ non-utilisé en premier ➔ ordre alphabétique
+  matches.sort((a, b) => {
+    if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
+    if (a.isUsed !== b.isUsed) return a.isUsed ? 1 : -1;
+    return a.country.name.localeCompare(b.country.name, 'fr');
+  });
+
+  const sliced = matches.slice(0, 24);
+
+  if (sliced.length === 0) {
     countriesEl.innerHTML = '<p style="font-size: 13px; color: var(--ink-muted); padding: 8px 0;">Aucun pays trouvé.</p>';
     return;
   }
 
-  countriesEl.innerHTML = matches.map((country) => `
-    <button class="country-option-btn" data-code="${country.code}" role="option">
+  countriesEl.innerHTML = sliced.map(({ country, isUsed }) => `
+    <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
       <img class="country-option-flag" src="${country.flagUrl}" alt="" />
-      <span class="country-option-name">${escapeHtml(country.name)}</span>
+      <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
     </button>
   `).join('');
 
-  countriesEl.querySelectorAll('.country-option-btn').forEach((button) => {
+  countriesEl.querySelectorAll('.country-option-btn:not(.used)').forEach((button) => {
     button.addEventListener('click', () => choose(button.dataset.code));
   });
 }
