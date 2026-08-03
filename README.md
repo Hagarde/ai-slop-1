@@ -2,7 +2,9 @@
 
 Un jeu de logique quotidien inspiré de Metrodoku : placez un pays dans chaque case en respectant les deux critères qui se croisent.
 
-La première version propose une grille de démonstration centrée sur des critères linguistiques, géographiques, économiques et historiques.
+Le site contient une base locale de 193 États membres de l’ONU (les deux États observateurs ne sont pas inclus). Chaque fiche contient le drapeau et sa palette de couleurs, l’hémisphère, les frontières terrestres, les langues officielles, la population, les devises et les régions.
+
+Les grilles sont générées côté navigateur. L’algorithme combine six critères, calcule les candidats à chaque intersection puis utilise une recherche avec retour arrière pour garantir qu’au moins une solution de neuf pays distincts existe. Après chaque réponse, il vérifie aussi qu’une solution reste possible.
 
 ## Lancer le site localement
 
@@ -13,6 +15,16 @@ python -m http.server 8000
 ```
 
 Puis ouvrez <http://localhost:8000>.
+
+## Actualiser les données
+
+`data/countries.json` est l’instantané utilisé par le site. Pour le régénérer après avoir téléchargé les deux sources indiquées dans `scripts/build-country-data.mjs`, exécutez :
+
+```powershell
+node scripts/build-country-data.mjs
+```
+
+Le script filtre les États membres de l’ONU, enrichit les populations et extrait les couleurs dominantes des drapeaux.
 
 ## Déploiement
 

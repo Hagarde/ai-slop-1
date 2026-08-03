@@ -49,10 +49,17 @@
 
       <section class="country-picker" aria-labelledby="picker-title">
         <div>
-          <p class="eyebrow">VOTRE CHOIX</p>
+          <p class="eyebrow">VOTRE RÉPONSE</p>
           <h2 id="picker-title">Sélectionnez une case</h2>
         </div>
-        <div class="countries" id="countries" aria-label="Pays disponibles"></div>
+        <div class="search-area">
+          <label class="sr-only" for="country-search">Rechercher un pays</label>
+          <input id="country-search" type="search" placeholder="Rechercher un pays…" autocomplete="off" disabled />
+          <div class="countries" id="countries" role="listbox" aria-label="Résultats de la recherche"></div>
+        </div>
+        <article class="country-fact" id="country-fact" aria-live="polite">
+          <p class="fact-empty">Les informations du pays apparaîtront ici.</p>
+        </article>
       </section>
     </main>
 
