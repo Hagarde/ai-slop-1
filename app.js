@@ -623,6 +623,20 @@ function copyInviteLink() {
   }, 2500);
 }
 
+const mpStatusDot = document.querySelector('#mp-status-dot');
+
+function updateStatus(msg, state = 'info') {
+  if (mpStatusMsg) mpStatusMsg.textContent = msg;
+  if (mpStatusDot) {
+    switch (state) {
+      case 'connecting': mpStatusDot.textContent = '🔄'; break;
+      case 'success': mpStatusDot.textContent = '🟢'; break;
+      case 'error': mpStatusDot.textContent = '❌'; break;
+      default: mpStatusDot.textContent = '🟡'; break;
+    }
+  }
+}
+
 // Fermeture forcée et sécurisée du modal roomDialog
 function closeRoomDialogSafely(reason = '') {
   console.log(`🚪 [WebRTC Debug] Fermeture de #room-dialog (Raison: "${reason}"). État dialog.open =`, roomDialog.open);
@@ -647,7 +661,7 @@ function initPeer(customCode = null, isCreating = false) {
   const peerId = `cdoku-1v1-${code}`;
 
   console.log(`🌐 [WebRTC Host Debug] Initialisation Peer (Id: "${peerId}", Mode création: ${isCreating})`);
-  mpStatusMsg.textContent = "Initialisation de la connexion WebRTC...";
+  updateStatus("⚙️ Connexion au réseau WebRTC en cours...", "connecting");
 
   if (peer) peer.destroy();
   peer = new Peer(peerId, { debug: 2 });
@@ -666,7 +680,7 @@ function initPeer(customCode = null, isCreating = false) {
       inviteLinkInput.value = newUrl;
       roomOptionsView.classList.add('hidden');
       roomCreatedView.classList.remove('hidden');
-      mpStatusMsg.textContent = "En attente de la connexion du Joueur 2...";
+      updateStatus(`🟢 Salon prêt ! Code : ${code}. En attente du Joueur 2...`, "info");
 
       try {
         navigator.clipboard.writeText(newUrl);
@@ -682,10 +696,14 @@ function initPeer(customCode = null, isCreating = false) {
     console.log(`🤝 [WebRTC Host Debug] Connexion entrante du Joueur 2 (Peer Distant: "${connection.peer}")`);
     conn = connection;
     setupConnectionListeners();
-    mpStatusMsg.textContent = "Joueur 2 connecté ! Lancement...";
-    
-    // Tentative d'envoi immédiat ou différé de sécurité
+    updateStatus("🤝 Joueur 2 détecté ! Négociation de la connexion WebRTC...", "connecting");
     sendInitGameToGuest();
+  });
+
+  peer.on('disconnected', () => {
+    console.warn('⚠️ [WebRTC Debug] Peer déconnecté du serveur de signalisation. Reconnexion...');
+    updateStatus("🔄 Reconnexion au réseau WebRTC...", "connecting");
+    try { peer.reconnect(); } catch (e) {}
   });
 
   peer.on('error', (err) => {
@@ -694,7 +712,7 @@ function initPeer(customCode = null, isCreating = false) {
       connectAsGuest(code);
     } else {
       const msg = translatePeerError(err.type, code);
-      mpStatusMsg.textContent = msg;
+      updateStatus(msg, "error");
       feedback.textContent = msg;
     }
   });
@@ -733,15 +751,15 @@ function connectAsGuest(code) {
   isMultiplayer = true;
 
   console.log(`🌐 [WebRTC Guest Debug] Lancement rejointure Invité vers salon: "${code}"`);
-  mpStatusMsg.textContent = `Connexion au salon (${code}) en cours...`;
+  updateStatus(`🔍 Connexion au réseau WebRTC pour joindre le salon ${code}...`, "connecting");
   if (!roomDialog.open) roomDialog.showModal();
 
   if (peer) peer.destroy();
   peer = new Peer(null, { debug: 2 });
 
   peer.on('open', (id) => {
-    console.log(`✅ [WebRTC Guest Debug] Peer Invité ouvert (ID temporaire: "${id}"). Tentative de connexion vers "cdoku-1v1-${code}"`);
-    mpStatusMsg.textContent = `Connexion établie ! Rejoignage du salon ${code}...`;
+    console.log(`✅ [WebRTC Guest Debug] Peer Invité ouvert (ID temporaire: "${id}"). Connexion vers "cdoku-1v1-${code}"`);
+    updateStatus(`🤝 Recherche de l'Hôte du salon ${code}...`, "connecting");
     conn = peer.connect(`cdoku-1v1-${code}`);
 
     clearGuestTimeout();
@@ -756,7 +774,7 @@ function connectAsGuest(code) {
         isMultiplayer = false;
         myRole = null;
         const msg = `⚠️ Impossible de joindre le salon ${code}. L'hôte a quitté ou fermé la partie.`;
-        mpStatusMsg.textContent = msg;
+        updateStatus(msg, "error");
         feedback.textContent = msg;
         roomOptionsView.classList.remove('hidden');
         roomCreatedView.classList.add('hidden');
@@ -768,13 +786,19 @@ function connectAsGuest(code) {
     setupConnectionListeners();
   });
 
+  peer.on('disconnected', () => {
+    console.warn('⚠️ [WebRTC Debug] Peer Invité déconnecté de la signalisation. Reconnexion...');
+    updateStatus("🔄 Reconnexion au réseau WebRTC...", "connecting");
+    try { peer.reconnect(); } catch (e) {}
+  });
+
   peer.on('error', (err) => {
     console.error(`❌ [WebRTC Guest Error] Erreur PeerJS Invité (Code: "${err.type}") :`, err);
     clearGuestTimeout();
     isMultiplayer = false;
     myRole = null;
     const msg = translatePeerError(err.type, code);
-    mpStatusMsg.textContent = msg;
+    updateStatus(msg, "error");
     feedback.textContent = msg;
     roomOptionsView.classList.remove('hidden');
     roomCreatedView.classList.add('hidden');
