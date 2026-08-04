@@ -16,6 +16,12 @@
   --accent-primary: #1f6f50;
   --accent-hover: #17543c;
   --accent-light: #e3f2ed;
+
+  /* 1v1 Player Colors */
+  --player-host: #2e7d32;
+  --player-host-bg: #e8f5e9;
+  --player-guest: #1565c0;
+  --player-guest-bg: #e3f2fd;
   
   /* Category Colors Tints */
   --cat-geography-bg: #ebf4ff;
@@ -52,6 +58,10 @@ body {
 button, input {
   font-family: inherit;
   color: inherit;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* Header */
@@ -95,7 +105,24 @@ button, input {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+}
+
+.multi-toggle-btn {
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  border: 1px solid rgba(31, 111, 80, 0.25);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.multi-toggle-btn:hover {
+  background: var(--accent-primary);
+  color: white;
 }
 
 .puzzle-badge {
@@ -130,6 +157,122 @@ button, input {
   background: var(--bg-subtle);
   border-color: var(--ink-primary);
   transform: translateY(-1px);
+}
+
+/* Barre Multijoueur 1v1 */
+.multiplayer-bar {
+  background: var(--bg-card);
+  border-bottom: 2px solid var(--accent-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.multiplayer-bar-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mp-room-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mp-badge.live {
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+
+.mp-room-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-primary);
+}
+
+.copy-link-btn {
+  background: var(--bg-app);
+  border: 1px solid var(--border-medium);
+  color: var(--ink-primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-link-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-primary);
+}
+
+.mp-players-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.player-pill.host {
+  background: var(--player-host-bg);
+  color: var(--player-host);
+}
+
+.player-pill.guest {
+  background: var(--player-guest-bg);
+  color: var(--player-guest);
+}
+
+.player-pill.active-turn {
+  border-color: currentColor;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+  font-weight: 800;
+  transform: scale(1.04);
+}
+
+.vs-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.leave-mp-btn {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  color: #d32f2f;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.leave-mp-btn:hover {
+  background: #fdeded;
 }
 
 /* Container Principal */
@@ -299,7 +442,7 @@ button, input {
 .clue.economy { background: var(--cat-economy-bg); border-color: rgba(221, 107, 32, 0.15); }
 .clue.history { background: var(--cat-history-bg); border-color: rgba(56, 161, 105, 0.15); }
 
-/* Case de Réponse */
+/* Case de Réponse & Captures 1v1 */
 .cell {
   background: var(--bg-card);
   border: 2px dashed var(--border-medium);
@@ -322,6 +465,31 @@ button, input {
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
+
+.cell.claimed-host {
+  border-style: solid;
+  border-color: var(--player-host);
+  background: var(--player-host-bg);
+  cursor: default;
+}
+
+.cell.claimed-guest {
+  border-style: solid;
+  border-color: var(--player-guest);
+  background: var(--player-guest-bg);
+  cursor: default;
+}
+
+.player-claim-badge {
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.cell.claimed-host .player-claim-badge { color: var(--player-host); }
+.cell.claimed-guest .player-claim-badge { color: var(--player-guest); }
 
 .cell-number {
   position: absolute;
@@ -436,10 +604,64 @@ button, input {
   border-color: var(--ink-primary);
 }
 
-/* Search & Tooltip Dialogs */
+/* Search & Room Dialogs */
 .search-dialog, .tooltip-dialog {
   max-width: 520px;
   width: calc(100% - 24px);
+}
+
+.room-action-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 10px 0;
+}
+
+.room-card {
+  background: var(--bg-app);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.room-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.room-card p {
+  font-size: 13px;
+  color: var(--ink-secondary);
+  margin-bottom: 10px;
+}
+
+.room-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.room-divider::before, .room-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.room-divider span {
+  padding: 0 10px;
+}
+
+.mp-status-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-align: center;
+  min-height: 20px;
 }
 
 .search-dialog-content {
@@ -696,9 +918,7 @@ button, input {
   40%, 80% { transform: translateX(6px); }
 }
 
-/* ============================================================
-   RESPONSIVE DESIGN OPTIMISÉ MOBILITY (Smartphones & Tablettes)
-   ============================================================ */
+/* RESPONSIVE DESIGN MOBILITY */
 @media (max-width: 640px) {
   .header-container {
     padding: 10px 16px;
@@ -734,7 +954,6 @@ button, input {
     border-radius: var(--radius-md);
   }
 
-  /* Grille 3x3 100% flexible sans aucun débordement */
   .board {
     grid-template-columns: minmax(72px, 23%) repeat(3, minmax(0, 1fr));
     grid-template-rows: auto repeat(3, minmax(82px, 1fr));
@@ -808,5 +1027,16 @@ button, input {
 
   .search-dialog h2 {
     font-size: 18px;
+  }
+
+  .multiplayer-bar-container {
+    padding: 8px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .mp-players-status {
+    justify-content: space-around;
   }
 }

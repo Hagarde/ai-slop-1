@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   </head>
   <body>
     <header class="site-header">
@@ -17,18 +19,44 @@
           <span class="brand-globe">🌍</span> Country<span class="accent">Doku</span>
         </a>
         <div class="header-right">
+          <button class="multi-toggle-btn" id="multi-toggle-btn">🎮 Multijoueur 1v1</button>
           <span class="puzzle-badge" id="puzzle-date">DÉFI DU JOUR</span>
           <button class="icon-button" id="help-button" aria-label="Voir les règles de jeu" title="Règles du jeu">?</button>
         </div>
       </div>
     </header>
 
+    <!-- Barre Multijoueur 1v1 (Masquée en mode Solo) -->
+    <section class="multiplayer-bar hidden" id="multiplayer-bar">
+      <div class="multiplayer-bar-container">
+        <div class="mp-room-info">
+          <span class="mp-badge live">● EN DIRECT</span>
+          <span class="mp-room-code" id="mp-room-code-display">Salon : ---</span>
+          <button class="copy-link-btn" id="copy-link-btn" title="Copier le lien d'invitation">
+            📋 Copier le lien
+          </button>
+        </div>
+        
+        <div class="mp-players-status">
+          <div class="player-pill host" id="player-host-pill">
+            <span class="player-dot host">🟢</span> Joueur 1 (Hôte)
+          </div>
+          <span class="vs-text">VS</span>
+          <div class="player-pill guest" id="player-guest-pill">
+            <span class="player-dot guest">🔵</span> Joueur 2 (Invité)
+          </div>
+        </div>
+
+        <button class="leave-mp-btn" id="leave-mp-btn">Quitter le 1v1</button>
+      </div>
+    </section>
+
     <main class="main-container">
       <section class="intro-section" aria-labelledby="game-title">
         <div class="intro-header">
           <div>
             <h1 id="game-title">Reliez les pays aux critères</h1>
-            <p class="intro-desc">Cliquez sur une case pour choisir le pays correspondant. Cliquez sur <span class="info-badge">ⓘ</span> pour voir les explications des critères.</p>
+            <p class="intro-desc" id="intro-desc-text">Cliquez sur une case pour choisir le pays correspondant. Cliquez sur <span class="info-badge">ⓘ</span> pour voir les explications des critères.</p>
           </div>
           <div class="stats-bar">
             <div class="lives-box" id="lives-box" aria-label="Vies restantes">
@@ -57,6 +85,49 @@
         </div>
       </section>
     </main>
+
+    <!-- Modal de création / rejointure de salon 1v1 -->
+    <dialog id="room-dialog" class="custom-dialog">
+      <div class="dialog-content">
+        <button class="close-dialog-btn" id="close-room" aria-label="Fermer la fenêtre">×</button>
+        <span class="dialog-eyebrow">MODE MULTIJOUEUR 1V1</span>
+        <h2>Morpion Géographique (Tic-Tac-Toe)</h2>
+        <p>Affrontez un ami en temps réel ! Alignez 3 cases (🟢 Joueur 1 ou 🔵 Joueur 2) pour remporter la victoire.</p>
+
+        <div class="room-action-cards">
+          <div class="room-card">
+            <h3>Créer un salon</h3>
+            <p>Générez une partie et envoyez le lien d'invitation à un ami.</p>
+            <button class="primary-button full-width" id="create-room-btn">Créer un salon 1v1</button>
+          </div>
+
+          <div class="room-divider"><span>OU</span></div>
+
+          <div class="room-card">
+            <h3>Rejoindre avec un code</h3>
+            <div class="search-input-wrapper" style="margin-bottom: 8px;">
+              <input id="room-code-input" type="text" placeholder="Code du salon (ex: 8X42K)..." autocomplete="off" />
+            </div>
+            <button class="secondary-button full-width" id="join-room-btn">Rejoindre le salon</button>
+          </div>
+        </div>
+
+        <p class="mp-status-msg" id="mp-status-msg"></p>
+      </div>
+    </dialog>
+
+    <!-- Modal de Victoire 1v1 Tic-Tac-Toe -->
+    <dialog id="mp-victory-dialog" class="custom-dialog">
+      <div class="dialog-content text-center">
+        <span class="dialog-eyebrow" id="mp-victory-eyebrow">PARTIE TERMINÉE</span>
+        <h2 id="mp-victory-title">Victoire ! 🎉</h2>
+        <p id="mp-victory-desc">Le Joueur 1 a aligné 3 cases et remporte le match de Tic-Tac-Toe !</p>
+        <div style="display: flex; gap: 12px; margin-top: 12px;">
+          <button class="secondary-button full-width" id="mp-rematch-btn">Revanche (Même grille)</button>
+          <button class="primary-button full-width" id="mp-new-match-btn">Nouveau Match</button>
+        </div>
+      </div>
+    </dialog>
 
     <!-- Modal de recherche façon MetroDoku -->
     <dialog id="search-dialog" class="custom-dialog search-dialog">
@@ -91,7 +162,7 @@
       </div>
     </dialog>
 
-    <!-- Modal Game Over -->
+    <!-- Modal Game Over Solo -->
     <dialog id="gameover-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
         <span class="dialog-eyebrow" style="color: #d32f2f;">FIN DE PARTIE</span>
@@ -114,19 +185,15 @@
         <div class="rules-list">
           <div class="rule-item">
             <span class="rule-number">1</span>
-            <p><strong>Choisissez une case :</strong> Cliquez sur une case vide de la grille 3×3.</p>
+            <p><strong>Mode Solo :</strong> Complétez les 9 cases de la grille avec 3 vies maximum.</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">2</span>
-            <p><strong>3 Vies (❤️) :</strong> Vous disposez de 3 essais pour compléter la grille. Chaque erreur fait perdre 1 vie.</p>
+            <p><strong>Mode 1v1 (Morpion) :</strong> Jouez avec un ami au tour par tour. Le premier qui aligne 3 cases (🟢 Joueur 1 / 🔵 Joueur 2) gagne la partie !</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">3</span>
             <p><strong>Info-bulles (ⓘ) :</strong> Cliquez sur le symbole ⓘ à côté d'un critère pour voir son explication exacte.</p>
-          </div>
-          <div class="rule-item">
-            <span class="rule-number">4</span>
-            <p><strong>Gagnez la partie :</strong> Remplissez les 9 cases sans tomber à 0 vie !</p>
           </div>
         </div>
 
