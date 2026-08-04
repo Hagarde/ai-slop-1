@@ -13,7 +13,8 @@
       "flagColors": [
         "#d21034",
         "#007a3d",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 33,
@@ -64,8 +65,8 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": "vertical",
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Kaboul"
     },
@@ -78,7 +79,8 @@
       "flagUrl": "https://flagcdn.com/w80/za.png",
       "flagColors": [
         "#d21034",
-        "#005eb8"
+        "#005eb8",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -29,
@@ -137,8 +139,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": null,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Pretoria"
     },
@@ -189,7 +191,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Tirana"
@@ -255,7 +257,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": true,
       "capital": "Alger"
@@ -392,7 +394,8 @@
       "flagUrl": "https://flagcdn.com/w80/ao.png",
       "flagColors": [
         "#d21034",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -12.5,
@@ -433,8 +436,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": null,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Luanda"
     },
@@ -448,7 +451,8 @@
       "flagColors": [
         "#ffd100",
         "#005eb8",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 17.05,
@@ -472,8 +476,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": null,
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Saint John's"
     },
@@ -538,7 +542,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Riyad"
@@ -599,7 +603,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Buenos Aires"
@@ -655,7 +659,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Erevan"
@@ -692,7 +696,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Canberra"
@@ -823,7 +827,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Baku"
@@ -865,7 +869,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Nassau"
@@ -902,7 +906,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Manama"
@@ -949,7 +953,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Dacca"
@@ -963,7 +967,8 @@
       "flagUrl": "https://flagcdn.com/w80/bb.png",
       "flagColors": [
         "#005eb8",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 13.16666666,
@@ -987,8 +992,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": "vertical",
+      "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Bridgetown"
     },
@@ -1001,7 +1006,8 @@
       "flagUrl": "https://flagcdn.com/w80/be.png",
       "flagColors": [
         "#d21034",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 50.83333333,
@@ -1045,7 +1051,7 @@
       "peak4000": false,
       "symbolOnFlag": false,
       "flagStripes": "vertical",
-      "flagColorCount": 2,
+      "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Bruxelles"
     },
@@ -1098,7 +1104,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 7,
       "capitalSameLetter": true,
       "capital": "Belmopan"
@@ -1154,7 +1160,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "vertical",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Porto-Novo"
@@ -1206,7 +1212,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Thimphou"
@@ -1266,7 +1272,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Minsk"
@@ -1326,7 +1332,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Naypyidaw"
@@ -1446,7 +1452,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Sarajevo"
@@ -1459,7 +1465,8 @@
       "flag": "🇧🇼",
       "flagUrl": "https://flagcdn.com/w80/bw.png",
       "flagColors": [
-        "#005eb8"
+        "#005eb8",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -22,
@@ -1502,7 +1509,7 @@
       "peak4000": false,
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
-      "flagColorCount": 1,
+      "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Gaborone"
     },
@@ -1581,7 +1588,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Brasília"
@@ -1629,7 +1636,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Bandar Seri Begawan"
@@ -1688,7 +1695,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Sofia"
@@ -1751,7 +1758,7 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
+      "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
@@ -1804,7 +1811,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Gitega"
@@ -1860,7 +1867,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Phnom Penh"
@@ -1966,7 +1973,7 @@
       "oecd": true,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "vertical",
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Ottawa"
@@ -2017,7 +2024,7 @@
       "oecd": true,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Santiago"
@@ -2119,7 +2126,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Pékin"
@@ -2157,7 +2164,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Nicosie"
@@ -2217,7 +2224,7 @@
       "oecd": true,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bogota"
@@ -2259,7 +2266,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Moroni"
@@ -2321,7 +2328,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Brazzaville"
@@ -2397,7 +2404,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Kinshasa"
@@ -2448,7 +2455,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Pyongyang"
@@ -2491,7 +2498,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Séoul"
@@ -2541,7 +2548,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "San José"
@@ -2659,7 +2666,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Zagreb"
@@ -2702,7 +2709,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "La Havane"
@@ -2743,8 +2750,8 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Copenhague"
@@ -2797,7 +2804,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Djibouti"
@@ -2838,7 +2845,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Roseau"
@@ -2895,7 +2902,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Le Caire"
@@ -2909,7 +2916,8 @@
       "flagUrl": "https://flagcdn.com/w80/ae.png",
       "flagColors": [
         "#007a3d",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 24,
@@ -2943,7 +2951,7 @@
       "peak4000": false,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
-      "flagColorCount": 2,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Abou Dabi"
     },
@@ -2994,7 +3002,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 7,
       "capitalSameLetter": false,
       "capital": "Quito"
@@ -3049,7 +3057,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Asmara"
@@ -3125,7 +3133,8 @@
       "flag": "🇪🇪",
       "flagUrl": "https://flagcdn.com/w80/ee.png",
       "flagColors": [
-        "#005eb8"
+        "#005eb8",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 59,
@@ -3159,7 +3168,7 @@
       "peak4000": false,
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
-      "flagColorCount": 1,
+      "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Tallinn"
     },
@@ -3173,7 +3182,8 @@
       "flagColors": [
         "#005eb8",
         "#ffd100",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -26.5,
@@ -3212,8 +3222,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": "horizontal",
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Mbabane"
     },
@@ -3259,7 +3269,7 @@
       "oecd": true,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Washington"
@@ -3324,7 +3334,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Addis-Abeba"
@@ -3365,7 +3375,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Suva"
@@ -3413,8 +3423,8 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Helsinki"
@@ -3538,7 +3548,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "vertical",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Libreville"
@@ -3581,8 +3591,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "horizontal",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Banjul"
@@ -3634,7 +3644,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Tbilissi"
@@ -3649,7 +3659,8 @@
       "flagColors": [
         "#007a3d",
         "#ffd100",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 8,
@@ -3686,8 +3697,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": "horizontal",
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Accra"
     },
@@ -3739,8 +3750,8 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "horizontal",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Athènes"
@@ -3779,7 +3790,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Saint-Georges"
@@ -3952,7 +3963,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Malabo"
@@ -4001,7 +4012,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bissau"
@@ -4053,7 +4064,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Georgetown"
@@ -4099,7 +4110,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Port-au-Prince"
@@ -4149,7 +4160,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Tegucigalpa"
@@ -4258,7 +4269,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Port-Louis"
@@ -4296,8 +4307,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Praia"
@@ -4336,7 +4347,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Majuro"
@@ -4374,7 +4385,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Honiara"
@@ -4440,7 +4451,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "New Delhi"
@@ -4502,7 +4513,8 @@
       "flagUrl": "https://flagcdn.com/w80/iq.png",
       "flagColors": [
         "#d21034",
-        "#007a3d"
+        "#007a3d",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 33,
@@ -4553,8 +4565,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bagdad"
     },
@@ -4620,7 +4632,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Téhéran"
@@ -4664,7 +4676,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": false,
-      "flagStripes": "horizontal",
+      "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Dublin"
@@ -4701,7 +4713,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": false,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Reykjavik"
@@ -4760,7 +4772,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Jérusalem"
@@ -4837,7 +4849,8 @@
       "flag": "🇯🇲",
       "flagUrl": "https://flagcdn.com/w80/jm.png",
       "flagColors": [
-        "#007a3d"
+        "#007a3d",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 18.25,
@@ -4862,8 +4875,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 1,
+      "flagStripes": null,
+      "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Kingston"
     },
@@ -4899,7 +4912,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Tokyo"
@@ -4913,7 +4926,8 @@
       "flagUrl": "https://flagcdn.com/w80/jo.png",
       "flagColors": [
         "#007a3d",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 31,
@@ -4958,8 +4972,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Amman"
     },
@@ -5017,7 +5031,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Astana"
@@ -5029,7 +5043,9 @@
       "nameEnglish": "Kenya",
       "flag": "🇰🇪",
       "flagUrl": "https://flagcdn.com/w80/ke.png",
-      "flagColors": [],
+      "flagColors": [
+        "#000000"
+      ],
       "hemisphere": "Nord",
       "latitude": 1,
       "region": "Africa",
@@ -5074,8 +5090,8 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 0,
+      "flagStripes": "horizontal",
+      "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Nairobi"
     },
@@ -5127,7 +5143,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Bichkek"
@@ -5172,7 +5188,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Tarawa-Sud"
@@ -5186,7 +5202,8 @@
       "flagUrl": "https://flagcdn.com/w80/kw.png",
       "flagColors": [
         "#007a3d",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 29.5,
@@ -5219,8 +5236,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Koweït"
     },
@@ -5278,7 +5295,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Vientiane"
@@ -5326,8 +5343,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Maseru"
@@ -5429,7 +5446,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Beyrouth"
@@ -5480,7 +5497,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Monrovia"
@@ -5494,7 +5511,8 @@
       "flagUrl": "https://flagcdn.com/w80/ly.png",
       "flagColors": [
         "#007a3d",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 25,
@@ -5543,8 +5561,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": null,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Tripoli"
     },
@@ -5591,7 +5609,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Vaduz"
@@ -5646,7 +5664,7 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
+      "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
@@ -5759,7 +5777,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Skopje"
@@ -5797,8 +5815,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Antananarivo"
@@ -5847,7 +5865,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Kuala Lumpur"
@@ -5861,7 +5879,8 @@
       "flagUrl": "https://flagcdn.com/w80/mw.png",
       "flagColors": [
         "#d21034",
-        "#007a3d"
+        "#007a3d",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -13.5,
@@ -5900,7 +5919,7 @@
       "peak4000": false,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
-      "flagColorCount": 2,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Lilongwe"
     },
@@ -5936,7 +5955,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": true,
       "capital": "Malé"
@@ -6041,8 +6060,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "La Valette"
@@ -6093,7 +6112,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Rabat"
@@ -6148,7 +6167,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Nouakchott"
@@ -6240,7 +6259,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Palikir"
@@ -6380,7 +6399,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Oulan-Bator"
@@ -6442,7 +6461,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "vertical",
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Podgorica"
@@ -6456,7 +6475,8 @@
       "flagUrl": "https://flagcdn.com/w80/mz.png",
       "flagColors": [
         "#ffd100",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -18.25,
@@ -6505,8 +6525,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Maputo"
     },
@@ -6574,7 +6594,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Windhoek"
@@ -6613,7 +6633,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Yaren"
@@ -6659,7 +6679,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Katmandou"
@@ -6707,7 +6727,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Managua"
@@ -6879,8 +6899,8 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Oslo"
@@ -6920,7 +6940,7 @@
       "oecd": true,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Wellington"
@@ -6971,7 +6991,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Mascate"
@@ -6986,7 +7006,8 @@
       "flagColors": [
         "#ffd100",
         "#d21034",
-        "#ffffff"
+        "#ffffff",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 1,
@@ -7033,7 +7054,7 @@
       "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
-      "flagColorCount": 3,
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Kampala"
     },
@@ -7148,7 +7169,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Islamabad"
@@ -7183,8 +7204,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
-      "flagStripes": "other",
+      "symbolOnFlag": false,
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Ngerulmud"
@@ -7236,7 +7257,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Panama"
@@ -7250,7 +7271,8 @@
       "flagUrl": "https://flagcdn.com/w80/pg.png",
       "flagColors": [
         "#d21034",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -6,
@@ -7281,8 +7303,8 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": null,
+      "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Port Moresby"
     },
@@ -7442,7 +7464,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "vertical",
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Lima"
@@ -7482,7 +7504,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Manille"
@@ -7588,7 +7610,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Lisbonne"
@@ -7630,7 +7652,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Doha"
@@ -7695,8 +7717,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Bangui"
@@ -7742,7 +7764,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Saint-Domingue"
@@ -7844,7 +7866,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Londres"
@@ -8011,7 +8033,8 @@
       "flagUrl": "https://flagcdn.com/w80/kn.png",
       "flagColors": [
         "#007a3d",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 17.33333333,
@@ -8035,8 +8058,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": null,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Basseterre"
     },
@@ -8080,7 +8103,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Saint-Marin"
@@ -8095,7 +8118,8 @@
       "flagColors": [
         "#ffd100",
         "#005eb8",
-        "#007a3d"
+        "#007a3d",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 13.25,
@@ -8119,8 +8143,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": "vertical",
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Kingstown"
     },
@@ -8132,7 +8156,8 @@
       "flag": "🇱🇨",
       "flagUrl": "https://flagcdn.com/w80/lc.png",
       "flagColors": [
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 13.88333333,
@@ -8156,8 +8181,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 1,
+      "flagStripes": null,
+      "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Castries"
     },
@@ -8203,7 +8228,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "San Salvador"
@@ -8242,7 +8267,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Apia"
@@ -8257,7 +8282,8 @@
       "flagColors": [
         "#007a3d",
         "#ffd100",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 1,
@@ -8281,8 +8307,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": "vertical",
+      "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "São Tomé"
     },
@@ -8414,7 +8440,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Belgrade"
@@ -8456,7 +8482,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Victoria"
@@ -8502,8 +8528,8 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "vertical",
+      "symbolOnFlag": true,
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Freetown"
@@ -8543,7 +8569,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": true,
       "capital": "Singapour"
@@ -8602,7 +8628,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Bratislava"
@@ -8654,7 +8680,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Ljubljana"
@@ -8703,7 +8729,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Mogadiscio"
@@ -8717,7 +8743,8 @@
       "flagUrl": "https://flagcdn.com/w80/sd.png",
       "flagColors": [
         "#d21034",
-        "#007a3d"
+        "#007a3d",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -8772,7 +8799,7 @@
       "peak4000": false,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
-      "flagColorCount": 2,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Khartoum"
     },
@@ -8787,7 +8814,8 @@
         "#007a3d",
         "#d21034",
         "#005eb8",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 7,
@@ -8836,8 +8864,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 4,
+      "flagStripes": "horizontal",
+      "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Djouba"
     },
@@ -8881,7 +8909,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Sri Jayawardenepura Kotte"
@@ -8926,8 +8954,8 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "horizontal",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": true,
       "capital": "Stockholm"
@@ -8985,8 +9013,8 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Berne"
@@ -9052,7 +9080,8 @@
       "flagUrl": "https://flagcdn.com/w80/sy.png",
       "flagColors": [
         "#007a3d",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 35,
@@ -9097,8 +9126,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": "horizontal",
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Damas"
     },
@@ -9224,7 +9253,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Dodoma"
@@ -9288,7 +9317,7 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
+      "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
@@ -9344,8 +9373,8 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": false,
-      "flagStripes": "other",
+      "symbolOnFlag": true,
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Prague"
@@ -9400,7 +9429,7 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": false,
+      "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
@@ -9415,7 +9444,8 @@
       "flagUrl": "https://flagcdn.com/w80/tl.png",
       "flagColors": [
         "#d21034",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -8.83333333,
@@ -9445,8 +9475,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 2,
+      "flagStripes": null,
+      "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Dili"
     },
@@ -9535,7 +9565,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Nuku'alofa"
@@ -9548,7 +9578,8 @@
       "flag": "🇹🇹",
       "flagUrl": "https://flagcdn.com/w80/tt.png",
       "flagColors": [
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 11,
@@ -9572,8 +9603,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 1,
+      "flagStripes": null,
+      "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Port-d'Espagne"
     },
@@ -9618,7 +9649,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": true,
       "capital": "Tunis"
@@ -9673,7 +9704,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Achgabat"
@@ -9743,7 +9774,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Ankara"
@@ -9787,7 +9818,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Funafuti"
@@ -9853,7 +9884,7 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
@@ -9915,7 +9946,8 @@
       "flagColors": [
         "#d21034",
         "#007a3d",
-        "#ffd100"
+        "#ffd100",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -16,
@@ -9941,8 +9973,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": null,
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Port-Vila"
     },
@@ -9989,7 +10021,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": "horizontal",
       "flagColorCount": 0,
       "capitalSameLetter": false,
       "capital": "Caracas"
@@ -10039,7 +10071,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
+      "flagStripes": null,
       "flagColorCount": 1,
       "capitalSameLetter": false,
       "capital": "Hanoï"
@@ -10052,7 +10084,8 @@
       "flag": "🇾🇪",
       "flagUrl": "https://flagcdn.com/w80/ye.png",
       "flagColors": [
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Nord",
       "latitude": 15,
@@ -10086,7 +10119,7 @@
       "peak4000": false,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
-      "flagColorCount": 1,
+      "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Sanaâ"
     },
@@ -10100,7 +10133,8 @@
       "flagColors": [
         "#d21034",
         "#f58220",
-        "#007a3d"
+        "#007a3d",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -15,
@@ -10157,8 +10191,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": null,
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Lusaka"
     },
@@ -10172,7 +10206,8 @@
       "flagColors": [
         "#007a3d",
         "#ffd100",
-        "#d21034"
+        "#d21034",
+        "#000000"
       ],
       "hemisphere": "Sud",
       "latitude": -20,
@@ -10267,8 +10302,8 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "other",
-      "flagColorCount": 3,
+      "flagStripes": null,
+      "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Harare"
     }
