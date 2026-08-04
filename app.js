@@ -633,10 +633,30 @@ function initPeer(customCode = null, isCreating = false) {
     if (err.type === 'unavailable-id' && !isCreating) {
       connectAsGuest(code);
     } else {
-      mpStatusMsg.textContent = `Erreur de connexion : ${err.type}`;
+      const msg = translatePeerError(err.type, code);
+      mpStatusMsg.textContent = msg;
+      feedback.textContent = msg;
     }
   });
 }
+
+function translatePeerError(errType, code) {
+  switch (errType) {
+    case 'peer-unavailable':
+      return `⚠️ Le salon (${code}) n'existe pas ou a été clôturé par l'hôte. Demandez un nouveau lien d'invitation !`;
+    case 'network':
+    case 'disconnected':
+      return `⚠️ Problème de connexion réseau. Impossible de joindre le serveur 1v1.`;
+    case 'invalid-id':
+      return `⚠️ Le code de salon "${code}" est invalide. Vérifiez les 5 caractères tapés.`;
+    case 'browser-incompatible':
+      return `⚠️ Votre navigateur ne supporte pas le multijoueur WebRTC.`;
+    default:
+      return `⚠️ Impossible de rejoindre le salon (${errType}). L'hôte est hors-ligne ou la partie est fermée.`;
+  }
+}
+
+let connectTimeout = null;
 
 function connectAsGuest(code) {
   currentRoomCode = code;
@@ -644,17 +664,44 @@ function connectAsGuest(code) {
   currentTurn = 'host';
   isMultiplayer = true;
 
+  mpStatusMsg.textContent = `Connexion au salon (${code})...`;
+
   if (peer) peer.destroy();
   peer = new Peer();
 
   peer.on('open', () => {
-    mpStatusMsg.textContent = "Connexion au salon de l'Hôte...";
+    mpStatusMsg.textContent = `Connexion avec l'hôte du salon ${code}...`;
     conn = peer.connect(`cdoku-1v1-${code}`);
+
+    if (connectTimeout) clearTimeout(connectTimeout);
+    connectTimeout = setTimeout(() => {
+      if (!conn || !conn.open) {
+        isMultiplayer = false;
+        myRole = null;
+        const msg = `⚠️ Impossible de joindre le salon ${code}. L'hôte a quitté ou fermé la partie.`;
+        mpStatusMsg.textContent = msg;
+        feedback.textContent = msg;
+        roomOptionsView.classList.remove('hidden');
+        roomCreatedView.classList.add('hidden');
+        if (!roomDialog.open) roomDialog.showModal();
+        window.history.pushState({}, '', window.location.pathname);
+      }
+    }, 7000);
+
     setupConnectionListeners();
   });
 
   peer.on('error', (err) => {
-    mpStatusMsg.textContent = `Impossible de rejoindre le salon : ${err.type}`;
+    if (connectTimeout) clearTimeout(connectTimeout);
+    isMultiplayer = false;
+    myRole = null;
+    const msg = translatePeerError(err.type, code);
+    mpStatusMsg.textContent = msg;
+    feedback.textContent = msg;
+    roomOptionsView.classList.remove('hidden');
+    roomCreatedView.classList.add('hidden');
+    if (!roomDialog.open) roomDialog.showModal();
+    window.history.pushState({}, '', window.location.pathname);
   });
 }
 
