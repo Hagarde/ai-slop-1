@@ -718,6 +718,14 @@ function translatePeerError(errType, code) {
 
 let connectTimeout = null;
 
+function clearGuestTimeout() {
+  if (connectTimeout) {
+    console.log('🧹 [WebRTC Debug] Annulation du connectTimeout 7s (Connexion WebRTC active !)');
+    clearTimeout(connectTimeout);
+    connectTimeout = null;
+  }
+}
+
 function connectAsGuest(code) {
   currentRoomCode = code;
   myRole = 'guest';
@@ -736,8 +744,13 @@ function connectAsGuest(code) {
     mpStatusMsg.textContent = `Connexion établie ! Rejoignage du salon ${code}...`;
     conn = peer.connect(`cdoku-1v1-${code}`);
 
-    if (connectTimeout) clearTimeout(connectTimeout);
+    clearGuestTimeout();
     connectTimeout = setTimeout(() => {
+      if (isMultiplayer && conn && conn.open) {
+        console.log('✅ [WebRTC Debug] Timeout 7s ignoré car le canal 1v1 est déjà actif.');
+        return;
+      }
+
       if (!conn || !conn.open) {
         console.warn(`⚠️ [WebRTC Guest Timeout] Délai de 7s dépassé sans DataChannel ouvert !`);
         isMultiplayer = false;
@@ -757,7 +770,7 @@ function connectAsGuest(code) {
 
   peer.on('error', (err) => {
     console.error(`❌ [WebRTC Guest Error] Erreur PeerJS Invité (Code: "${err.type}") :`, err);
-    if (connectTimeout) clearTimeout(connectTimeout);
+    clearGuestTimeout();
     isMultiplayer = false;
     myRole = null;
     const msg = translatePeerError(err.type, code);
@@ -770,15 +783,39 @@ function connectAsGuest(code) {
   });
 }
 
+function safeSend(data) {
+  if (!conn) {
+    console.warn(`⚠️ [WebRTC safeSend] Impossible d'envoyer: conn est null (Type: ${data ? data.type : 'inconnu'})`);
+    return false;
+  }
+  if (!conn.open) {
+    console.warn(`⏳ [WebRTC safeSend] conn.open est false. Attente de l'événement 'open' pour envoyer "${data.type}"...`);
+    conn.once('open', () => {
+      try {
+        conn.send(data);
+        console.log(`✅ [WebRTC safeSend] Message "${data.type}" envoyé avec succès après événement open !`);
+      } catch (err) {
+        console.error(`❌ [WebRTC safeSend] Erreur lors de conn.send après open :`, err);
+      }
+    });
+    return false;
+  }
+  try {
+    conn.send(data);
+    console.log(`✅ [WebRTC safeSend] Message "${data.type}" envoyé immédiatement !`);
+    return true;
+  } catch (err) {
+    console.error(`❌ [WebRTC safeSend] Erreur lors de conn.send :`, err);
+    return false;
+  }
+}
+
 function sendInitGameToGuest() {
-  const isConnOpen = conn && conn.open;
-  console.log(`📤 [WebRTC Host Debug] Tentative d'envoi INIT_GAME (myRole: "${myRole}", DataChannel Open: ${isConnOpen})`);
-  
-  if (myRole === 'host' && isConnOpen) {
+  if (myRole === 'host') {
     const rowIndices = rows.map(r => allCriteria.indexOf(r));
     const colIndices = columns.map(c => allCriteria.indexOf(c));
-    conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
-    console.log(`✅ [WebRTC Host Debug] Message INIT_GAME envoyé au Joueur 2 !`);
+    console.log(`📤 [WebRTC Host Debug] Lancement envoi INIT_GAME via safeSend...`);
+    safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
     closeRoomDialogSafely('Envoi INIT_GAME par Hôte');
     resetGame(false);
     updateMultiplayerUI();
@@ -791,7 +828,7 @@ function setupConnectionListeners() {
   
   conn.on('open', () => {
     console.log(`🟢 [WebRTC Debug] DataChannel WebRTC 100% OUVERT ! (myRole: "${myRole}", Peer distant: "${conn.peer}")`);
-    if (connectTimeout) clearTimeout(connectTimeout);
+    clearGuestTimeout();
     closeRoomDialogSafely('DataChannel conn.on(open)');
     
     if (myRole === 'host') {
@@ -806,7 +843,7 @@ function setupConnectionListeners() {
     
     if (data.type === 'INIT_GAME') {
       console.log(`🎮 [WebRTC Guest Debug] Reçu INIT_GAME ! Génération de la grille synchronisée...`);
-      if (connectTimeout) clearTimeout(connectTimeout);
+      clearGuestTimeout();
       closeRoomDialogSafely('Réception INIT_GAME chez Invité');
       generateGrid(data.rowIndices, data.colIndices);
       resetGame(false);
