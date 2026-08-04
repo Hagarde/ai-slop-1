@@ -716,7 +716,32 @@ multiToggleBtn.addEventListener('click', () => {
   roomDialog.showModal();
 });
 
-closeRoom.addEventListener('click', () => roomDialog.close());
+function handleRoomClose() {
+  if (isMultiplayer && (!conn || !conn.open)) {
+    const confirmCancel = window.confirm("Voulez-vous annuler la création du salon 1v1 et revenir en mode Solo ?");
+    if (!confirmCancel) return false;
+
+    if (peer) {
+      peer.destroy();
+      peer = null;
+    }
+    conn = null;
+    isMultiplayer = false;
+    myRole = null;
+    currentRoomCode = null;
+    window.history.pushState({}, '', window.location.pathname);
+    resetGame(true);
+    updateMultiplayerUI();
+  }
+  roomDialog.close();
+  return true;
+}
+
+closeRoom.addEventListener('click', handleRoomClose);
+roomDialog.addEventListener('cancel', (e) => {
+  e.preventDefault();
+  handleRoomClose();
+});
 
 createRoomBtn.addEventListener('click', () => {
   initPeer(null, true);
