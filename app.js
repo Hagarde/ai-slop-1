@@ -1315,7 +1315,6 @@ function setupConnectionListeners() {
       console.log(`🧧 [ICE State] → ${icons[state]||'?'} ${state}`);
       if (state === 'connected' || state === 'completed') {
         console.log(`✅ [ICE] P2P établi via ${relayCandidateCount > 0 ? 'TURN relay' : 'STUN/direct'} !`);
-        handleChannelOpen();
       } else if (state === 'failed') {
         console.error(`❌ [ICE Failed] ${candidateCount} candidats testés, ${relayCandidateCount} TURN relais.`);
         if (relayCandidateCount === 0) {
