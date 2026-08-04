@@ -1236,9 +1236,14 @@ function setupConnectionListeners() {
     console.log(`   iceConnectionState : ${pc.iceConnectionState}`);
     console.log(`   iceGatheringState  : ${pc.iceGatheringState}`);
     console.log(`   signalingState     : ${pc.signalingState}`);
+
+    // ⚠️ IMPORTANT : addEventListener au lieu de pc.on* = ...
+    // Assigner pc.onicecandidate = ... écraserait le handler interne de PeerJS
+    // qui utilise les candidats ICE pour la signalisation → 0 candidats collectés.
+    // addEventListener s'ajoute sans remplacer les handlers existants.
+
     if (pc.iceGatheringState === 'complete') {
-      console.warn('⚠️ [ICE Diag] Collecte déjà terminée à l\'attachement — certains candidats peut-être manqués.');
-      // Lire les candidats déjà collectés via getStats
+      console.warn('⚠️ [ICE Diag] Collecte déjà terminée à l\'attachement — lecture via getStats.');
       pc.getStats().then(stats => {
         let found = 0;
         stats.forEach(report => {
@@ -1246,68 +1251,67 @@ function setupConnectionListeners() {
             found++;
             const tag = report.candidateType === 'relay' ? '🔄 TURN RELAIS' :
                         report.candidateType === 'srflx' ? '🌐 STUN PUBLIC' : '🏠 LOCAL';
-            console.log(`🧧 [ICE Stats] ${tag} | Proto: ${(report.protocol || '?').toUpperCase()} | Addr: ${report.address || '?'}`);
+            console.log(`🧧 [ICE Stats] ${tag} | ${(report.protocol||'?').toUpperCase()} | ${report.address || '?'}`);
             if (report.candidateType === 'relay') relayCandidateCount++;
           }
         });
-        console.log(`   Total candidats via getStats: ${found} (dont ${relayCandidateCount} TURN relais)`);
+        console.log(`   getStats: ${found} candidats locaux (dont ${relayCandidateCount} TURN relais)`);
         if (relayCandidateCount === 0) {
-          console.error('❌ [ICE Diag] AUCUN candidat TURN relay trouvé ! Serveurs TURN injoignables depuis ce réseau.');
-          console.error('   → eduroam ou pare-feu d\'entreprise bloque probablement les ports UDP/TCP vers les TURN servers.');
+          console.error('❌ [ICE Stats] Aucun TURN relay — serveurs TURN injoignables depuis ce réseau.');
         }
       }).catch(() => {});
     }
 
-    pc.onicecandidate = (event) => {
+    // Écouter les candidats sans remplacer PeerJS
+    pc.addEventListener('icecandidate', (event) => {
       if (!event.candidate) {
-        console.log(`🧧 [ICE] Collecte terminée. Total: ${candidateCount} candidats (dont ${relayCandidateCount} TURN relais).`);
-        if (relayCandidateCount === 0) {
-          console.error('❌ [ICE] Aucun candidat TURN relay collecté. Ce réseau bloque les serveurs TURN.');
-          console.error('   → Si sur eduroam : le réseau bloque UDP/TCP vers les TURN servers.');
-          console.error('   → Solution : tester sur réseau mobile (4G/5G) ou hotspot personnel.');
+        console.log(`🧧 [ICE] Collecte terminée — ${candidateCount} candidats (dont ${relayCandidateCount} TURN relais).`);
+        if (relayCandidateCount === 0 && candidateCount > 0) {
+          console.error('❌ [ICE] Aucun candidat TURN relay. Serveurs TURN bloqués depuis ce réseau.');
+          console.error('   → Solution : utiliser un réseau mobile (4G/5G) ou hotspot.');
         }
         return;
       }
       candidateCount++;
       const c = event.candidate;
-      const typeLabel = c.type === 'relay' ? '🔄 TURN RELAIS' :
-                        c.type === 'srflx' ? '🌐 STUN PUBLIC' :
-                        c.type === 'prflx' ? '🔀 PEER-REFLEXIVE' : '🏠 LOCAL';
+      const typeLabel = c.type === 'relay'   ? '🔄 TURN RELAIS'    :
+                        c.type === 'srflx'   ? '🌐 STUN PUBLIC'    :
+                        c.type === 'prflx'   ? '🔀 PEER-REFLEXIVE' : '🏠 LOCAL';
       if (c.type === 'relay') relayCandidateCount++;
       console.log(`🧧 [ICE #${candidateCount}] ${typeLabel} | ${(c.protocol||'?').toUpperCase()} | ${c.address || 'mDNS'}:${c.port}`);
-    };
+    });
 
-    pc.oniceconnectionstatechange = () => {
+    pc.addEventListener('iceconnectionstatechange', () => {
       const state = pc.iceConnectionState;
       const icons = { 'new':'⏳','checking':'🔍','connected':'✅','completed':'✅✅','failed':'❌','disconnected':'⚠️','closed':'🔒' };
       console.log(`🧧 [ICE State] → ${icons[state]||'?'} ${state}`);
       if (state === 'connected' || state === 'completed') {
-        console.log(`✅ [ICE] Connexion P2P établie via ${relayCandidateCount > 0 ? 'TURN relay' : 'STUN/direct'} !`);
+        console.log(`✅ [ICE] P2P établi via ${relayCandidateCount > 0 ? 'TURN relay' : 'STUN/direct'} !`);
         handleChannelOpen();
       } else if (state === 'failed') {
-        console.error(`❌ [ICE Failed] Tous les ${candidateCount} candidats ont échoué.`);
-        console.error(`   Candidats TURN relay : ${relayCandidateCount}`);
-        console.error(`   Cause probable : réseau eduroam/entreprise bloquant UDP et TCP/TLS vers les TURN servers.`);
-        console.error(`   → Testez avec les DEUX appareils sur un réseau mobile ou hotspot.`);
+        console.error(`❌ [ICE Failed] ${candidateCount} candidats testés, ${relayCandidateCount} TURN relais.`);
+        if (relayCandidateCount === 0) {
+          console.error('   → Serveurs TURN injoignables : réseau trop restrictif (eduroam, CGNAT strict).');
+        }
         const netMsg = relayCandidateCount === 0
-          ? '❌ Votre réseau bloque tous les serveurs TURN. Testez via 4G ou hotspot personnel.'
-          : '❌ Connexion échouée. Réseau restrictif. Essayez sur un autre réseau.';
+          ? '❌ Réseau trop restrictif : serveurs TURN bloqués. Essayez sur 4G ou hotspot.'
+          : '❌ Connexion P2P échouée. Essayez sur un autre réseau.';
         updateStatus(netMsg, 'error');
         try { pc.restartIce(); } catch (e) {}
       } else if (state === 'disconnected') {
         console.warn('⚠️ [ICE] Connexion temporairement perdue.');
       }
-    };
+    });
 
-    pc.onicegatheringstatechange = () => {
+    pc.addEventListener('icegatheringstatechange', () => {
       console.log(`🧧 [ICE Gather] → ${pc.iceGatheringState}`);
       if (pc.iceGatheringState === 'gathering') {
         updateStatus('📍 Collecte des candidats réseau (STUN/TURN)...', 'connecting');
       }
-    };
+    });
 
-    pc.onsignalingstatechange = () => console.log(`📡 [Signaling] → ${pc.signalingState}`);
-    pc.onconnectionstatechange = () => console.log(`🔗 [Connection] → ${pc.connectionState}`);
+    pc.addEventListener('signalingstatechange', () => console.log(`📡 [Signaling] → ${pc.signalingState}`));
+    pc.addEventListener('connectionstatechange', () => console.log(`🔗 [Connection] → ${pc.connectionState}`));
   }
 
   // Poll à 50ms pour capturer les candidats dès le départ
