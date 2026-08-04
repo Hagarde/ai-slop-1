@@ -823,6 +823,7 @@ function connectAsGuest(code) {
   updateStatus(`🔍 Connexion au réseau WebRTC pour joindre le salon ${code}...`, "connecting");
   if (!roomDialog.open) roomDialog.showModal();
   setupBroadcastChannel(code);
+  safeSend({ type: 'GUEST_JOINED', code });
 
   if (peer) peer.destroy();
   peer = new Peer(null, PEER_CONFIG);
@@ -831,6 +832,7 @@ function connectAsGuest(code) {
     console.log(`✅ [WebRTC Guest Debug] Peer Invité ouvert (ID temporaire: "${id}"). Connexion vers "cdoku-1v1-${code}"`);
     updateStatus(`🤝 Recherche de l'Hôte du salon ${code}...`, "connecting");
     conn = peer.connect(`cdoku-1v1-${code}`, { reliable: true });
+    safeSend({ type: 'GUEST_JOINED', code });
 
     clearGuestTimeout();
     connectTimeout = setTimeout(() => {
@@ -951,6 +953,13 @@ function sendInitGameToGuest() {
 function handleIncomingData(data) {
   if (!data || !data.type) return;
   console.log(`📩 [1v1 Debug] Message reçu (Type: "${data.type}", Rôle: "${myRole}") :`, data);
+
+  if (data.type === 'GUEST_JOINED') {
+    console.log('🙋 [WebRTC Host Debug] L\'invité annonce sa présence (GUEST_JOINED). Envoi de la grille...');
+    if (myRole === 'host') {
+      sendInitGameToGuest();
+    }
+  }
 
   if (data.type === 'GUEST_READY') {
     console.log('✅ [WebRTC Host Debug] Le Joueur 2 a confirmé la réception de la grille (GUEST_READY) !');
