@@ -1115,26 +1115,41 @@ if (modeSoloTab) {
   });
 }
 
+const confirmLeaveDialog = document.querySelector('#confirm-leave-dialog');
+const cancelLeaveBtn = document.querySelector('#cancel-leave-btn');
+const confirmLeaveBtn = document.querySelector('#confirm-leave-btn');
+
 function handleRoomClose() {
   if (isMultiplayer) {
-    const confirmCancel = window.confirm("Voulez-vous quitter le salon 1v1 et revenir au mode Solo ?");
-    if (!confirmCancel) return false;
-
-    if (peer) {
-      peer.destroy();
-      peer = null;
-    }
-    conn = null;
-    isMultiplayer = false;
-    myRole = null;
-    currentRoomCode = null;
-    window.history.pushState({}, '', window.location.pathname);
-    resetGame(true);
-    updateMultiplayerUI();
+    if (confirmLeaveDialog) confirmLeaveDialog.showModal();
+    return false;
   }
-  if (roomDialog.open) roomDialog.close();
+  if (roomDialog && roomDialog.open) roomDialog.close();
   return true;
 }
+
+function forceLeaveRoom() {
+  if (confirmLeaveDialog) confirmLeaveDialog.close();
+  if (peer) {
+    try { peer.destroy(); } catch (e) {}
+    peer = null;
+  }
+  if (roomChannel) {
+    try { roomChannel.close(); } catch (e) {}
+    roomChannel = null;
+  }
+  conn = null;
+  isMultiplayer = false;
+  myRole = null;
+  currentRoomCode = null;
+  window.history.pushState({}, '', window.location.pathname);
+  resetGame(true);
+  updateMultiplayerUI();
+  if (roomDialog && roomDialog.open) roomDialog.close();
+}
+
+if (cancelLeaveBtn) cancelLeaveBtn.addEventListener('click', () => confirmLeaveDialog.close());
+if (confirmLeaveBtn) confirmLeaveBtn.addEventListener('click', forceLeaveRoom);
 
 const brandLogo = document.querySelector('#brand-logo');
 if (brandLogo) {
