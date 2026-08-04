@@ -469,7 +469,7 @@ function choose(code) {
 
   searchDialog.close();
 
-  if (!isMatch || !solveGrid(lists, locked)) {
+  if (!isMatch) {
     if (isMultiplayer) {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
       if (conn && conn.open) {
