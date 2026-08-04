@@ -443,7 +443,6 @@ function renderCountries() {
 
   countriesEl.innerHTML = sliced.map(({ country, isUsed }) => `
     <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
-      <img class="country-option-flag" src="${country.flagUrl}" alt="" />
       <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
     </button>
   `).join('');
