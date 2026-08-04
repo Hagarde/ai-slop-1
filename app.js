@@ -564,12 +564,20 @@ function initPeer(customCode = null, isCreating = false) {
       const newUrl = `${window.location.origin}${window.location.pathname}?room=${code}`;
       window.history.pushState({}, '', newUrl);
 
-      // Afficher l'écran du code généré avec bouton de copie
       createdCodeVal.textContent = code;
       inviteLinkInput.value = newUrl;
       roomOptionsView.classList.add('hidden');
       roomCreatedView.classList.remove('hidden');
       mpStatusMsg.textContent = "En attente de la connexion du Joueur 2...";
+
+      // Auto-copie du lien dans le presse-papier dès la création
+      try {
+        navigator.clipboard.writeText(newUrl);
+        modalCopyLinkBtn.textContent = "✓ Lien d'invitation copié !";
+        setTimeout(() => { modalCopyLinkBtn.textContent = "📋 Copier le lien d'invitation"; }, 3000);
+      } catch (e) {
+        // Fallback silencieux si non autorisé
+      }
     }
   });
 
@@ -849,6 +857,10 @@ function resetGame(newSeed = true) {
 }
 
 search.addEventListener('input', renderCountries);
+searchDialog.addEventListener('cancel', () => {
+  selectedCell = null;
+  renderBoard();
+});
 closeSearch.addEventListener('click', () => {
   searchDialog.close();
   selectedCell = null;
