@@ -21,6 +21,8 @@ const heartsListEl = document.querySelector('#hearts-list');
 const gameoverDialog = document.querySelector('#gameover-dialog');
 const retrySameBtn = document.querySelector('#retry-same-btn');
 const newGridBtn = document.querySelector('#new-grid-btn');
+const resetButton = document.querySelector('#reset-button');
+const resetBtnLabel = document.querySelector('#reset-btn-label');
 
 // Multijoueur Elements
 const multiToggleBtn = document.querySelector('#multi-toggle-btn');
@@ -30,13 +32,24 @@ const copyLinkBtn = document.querySelector('#copy-link-btn');
 const leaveMpBtn = document.querySelector('#leave-mp-btn');
 const playerHostPill = document.querySelector('#player-host-pill');
 const playerGuestPill = document.querySelector('#player-guest-pill');
+const turnTimerDisplay = document.querySelector('#turn-timer-display');
 
 const roomDialog = document.querySelector('#room-dialog');
 const closeRoom = document.querySelector('#close-room');
+const roomOptionsView = document.querySelector('#room-options-view');
+const roomCreatedView = document.querySelector('#room-created-view');
 const createRoomBtn = document.querySelector('#create-room-btn');
 const joinRoomBtn = document.querySelector('#join-room-btn');
 const roomCodeInput = document.querySelector('#room-code-input');
+const createdCodeVal = document.querySelector('#created-code-val');
+const inviteLinkInput = document.querySelector('#invite-link-input');
+const modalCopyLinkBtn = document.querySelector('#modal-copy-link-btn');
 const mpStatusMsg = document.querySelector('#mp-status-msg');
+
+const gridProposalDialog = document.querySelector('#grid-proposal-dialog');
+const gridProposalDesc = document.querySelector('#grid-proposal-desc');
+const acceptGridBtn = document.querySelector('#accept-grid-btn');
+const declineGridBtn = document.querySelector('#decline-grid-btn');
 
 const mpVictoryDialog = document.querySelector('#mp-victory-dialog');
 const mpVictoryTitle = document.querySelector('#mp-victory-title');
@@ -60,16 +73,19 @@ let peer = null;
 let conn = null;
 let currentRoomCode = null;
 
+// Minuteur 30s
+let turnTimerInterval = null;
+let turnTimeLeft = 30;
+
 const winningLines = [
-  [0, 1, 2], [3, 4, 5], [6, 7, 8], // Lignes
-  [0, 3, 6], [1, 4, 7], [2, 5, 8], // Colonnes
-  [0, 4, 8], [2, 4, 6]             // Diagonales
+  [0, 1, 2], [3, 4, 5], [6, 7, 8],
+  [0, 3, 6], [1, 4, 7], [2, 5, 8],
+  [0, 4, 8], [2, 4, 6]
 ];
 
 const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 const escapeHtml = (value) => String(value || '').replace(/[&<>'"]/g, (character) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[character]));
 
-// Acronymes et synonymes courants
 const aliases = {
   USA: ['USA', 'US', 'Etats-Unis', 'United States'],
   GBR: ['UK', 'Royaume-Uni', 'United Kingdom', 'Angleterre', 'Grande-Bretagne'],
@@ -191,7 +207,7 @@ function generateGrid(rowIndices = null, colIndices = null) {
 function checkTicTacToeWin(playerRole) {
   for (const line of winningLines) {
     if (line.every((cellId) => answers[cellId] && answers[cellId].player === playerRole)) {
-      return line; // Retourne la ligne gagnante
+      return line;
     }
   }
   return null;
@@ -223,15 +239,60 @@ function updateLivesUI() {
   }
 }
 
+// Gestion du minuteur 30 secondes par tour
+function startTurnTimer() {
+  stopTurnTimer();
+  turnTimeLeft = 30;
+  updateTimerUI();
+
+  if (!isMultiplayer) return;
+
+  turnTimerInterval = setInterval(() => {
+    turnTimeLeft -= 1;
+    updateTimerUI();
+
+    if (turnTimeLeft <= 0) {
+      stopTurnTimer();
+      if (currentTurn === myRole) {
+        currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+        if (conn && conn.open) {
+          conn.send({ type: 'TIMEOUT_PASS' });
+        }
+        feedback.textContent = `⏱️ Temps écoulé (30s) ! Le tour passe à l'adversaire.`;
+        updateMultiplayerUI();
+      }
+    }
+  }, 1000);
+}
+
+function stopTurnTimer() {
+  if (turnTimerInterval) {
+    clearInterval(turnTimerInterval);
+    turnTimerInterval = null;
+  }
+}
+
+function updateTimerUI() {
+  turnTimerDisplay.textContent = `⏱️ ${turnTimeLeft}s`;
+  if (turnTimeLeft <= 10) {
+    turnTimerDisplay.classList.add('warning');
+  } else {
+    turnTimerDisplay.classList.remove('warning');
+  }
+}
+
 function updateMultiplayerUI() {
   if (!isMultiplayer) {
     multiplayerBar.classList.add('hidden');
+    resetBtnLabel.textContent = "Nouvelle grille";
     document.querySelector('#intro-desc-text').textContent = "Cliquez sur une case pour choisir le pays correspondant. Cliquez sur ⓘ pour voir les explications des critères.";
+    stopTurnTimer();
     return;
   }
 
   multiplayerBar.classList.remove('hidden');
-  mpRoomCodeDisplay.textContent = `Salon : ${currentRoomCode}`;
+  mpRoomCodeDisplay.textContent = `CODE : ${currentRoomCode}`;
+  resetBtnLabel.textContent = "Proposer une nouvelle grille";
   
   if (currentTurn === 'host') {
     playerHostPill.classList.add('active-turn');
@@ -245,10 +306,12 @@ function updateMultiplayerUI() {
   const roleText = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
   
   if (isMyTurn) {
-    feedback.textContent = `🎲 C'est À VOTRE TOUR (${roleText}) ! Choisissez une case.`;
+    feedback.textContent = `🎲 C'est À VOTRE TOUR (${roleText}) ! Choisissez une case (30s).`;
   } else {
-    feedback.textContent = `⏳ En attente de l'adversaire (${currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2'})...`;
+    feedback.textContent = `⏳ En attente du coup de l'adversaire (${currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2'})...`;
   }
+
+  startTurnTimer();
 }
 
 function renderBoard() {
@@ -322,7 +385,7 @@ function renderBoard() {
     candidatesCountEl.textContent = `💡 ${availableCandidates.length} pays possible${availableCandidates.length > 1 ? 's' : ''}`;
 
     cellTargetTag.textContent = `CASE ${id + 1}`;
-    searchDialogTitle.textContent = `Choisir un pays pour la case ${id + 1}`;
+    searchDialogTitle.textContent = `Choisissez un pays pour la case ${id + 1}`;
     searchDialogClues.innerHTML = `
       <strong>${escapeHtml(row.label)}</strong> 
       <span style="margin: 0 4px; opacity: 0.5;">×</span> 
@@ -405,7 +468,6 @@ function choose(code) {
 
   if (!isMatch || !solveGrid(lists, locked)) {
     if (isMultiplayer) {
-      // En 1v1 : mauvais choix ➔ passe le tour à l'adversaire !
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
       if (conn && conn.open) {
         conn.send({ type: 'WRONG_MOVE', cellId: targetCellId, countryCode: code });
@@ -417,7 +479,6 @@ function choose(code) {
       return;
     }
 
-    // Mode Solo : -1 vie
     lives -= 1;
     updateLivesUI();
     if (targetCellEl) {
@@ -446,6 +507,7 @@ function choose(code) {
 
     const winLine = checkTicTacToeWin(myRole);
     if (winLine) {
+      stopTurnTimer();
       const winnerName = myRole === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';
       mpVictoryTitle.textContent = `Victoire du ${winnerName} ! 🎉`;
       mpVictoryDesc.textContent = `Vous avez aligné 3 cases et remporté ce match de Tic-Tac-Toe !`;
@@ -472,6 +534,17 @@ function generateRoomCode() {
   return Math.random().toString(36).substring(2, 7).toUpperCase();
 }
 
+function copyInviteLink() {
+  const url = `${window.location.origin}${window.location.pathname}?room=${currentRoomCode}`;
+  navigator.clipboard.writeText(url);
+  copyLinkBtn.textContent = '✓ Lien copié !';
+  modalCopyLinkBtn.textContent = '✓ Lien d'invitation copié !';
+  setTimeout(() => { 
+    copyLinkBtn.textContent = '📋 Copier le lien'; 
+    modalCopyLinkBtn.textContent = '📋 Copier le lien d'invitation';
+  }, 2500);
+}
+
 function initPeer(customCode = null, isCreating = false) {
   const code = customCode || generateRoomCode();
   currentRoomCode = code;
@@ -487,10 +560,16 @@ function initPeer(customCode = null, isCreating = false) {
       myRole = 'host';
       currentTurn = 'host';
       isMultiplayer = true;
-      mpStatusMsg.textContent = `Salon créé (${code}) ! En attente du Joueur 2...`;
       
       const newUrl = `${window.location.origin}${window.location.pathname}?room=${code}`;
       window.history.pushState({}, '', newUrl);
+
+      // Afficher l'écran du code généré avec bouton de copie
+      createdCodeVal.textContent = code;
+      inviteLinkInput.value = newUrl;
+      roomOptionsView.classList.add('hidden');
+      roomCreatedView.classList.remove('hidden');
+      mpStatusMsg.textContent = "En attente de la connexion du Joueur 2...";
     }
   });
 
@@ -499,7 +578,6 @@ function initPeer(customCode = null, isCreating = false) {
     setupConnectionListeners();
     mpStatusMsg.textContent = "Joueur 2 connecté ! Lancement...";
     
-    // Envoyer la grille actuelle au Joueur 2
     setTimeout(() => {
       const rowIndices = rows.map(r => allCriteria.indexOf(r));
       const colIndices = columns.map(c => allCriteria.indexOf(c));
@@ -507,12 +585,11 @@ function initPeer(customCode = null, isCreating = false) {
       roomDialog.close();
       resetGame(false);
       updateMultiplayerUI();
-    }, 500);
+    }, 400);
   });
 
   peer.on('error', (err) => {
     if (err.type === 'unavailable-id' && !isCreating) {
-      // Tenter de se connecter en tant que Guest au Peer existant
       connectAsGuest(code);
     } else {
       mpStatusMsg.textContent = `Erreur de connexion : ${err.type}`;
@@ -559,6 +636,7 @@ function setupConnectionListeners() {
       
       const winLine = checkTicTacToeWin(data.player);
       if (winLine) {
+        stopTurnTimer();
         const winnerName = data.player === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
         mpVictoryTitle.textContent = `Défaite / Partie terminée !`;
         mpVictoryDesc.textContent = `${winnerName} a aligné 3 cases et remporte ce match !`;
@@ -577,11 +655,41 @@ function setupConnectionListeners() {
       renderBoard();
     }
 
-    if (data.type === 'REMATCH') {
+    if (data.type === 'TIMEOUT_PASS') {
+      currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+      feedback.textContent = `⏱️ Temps écoulé pour l'adversaire ! C'est à VOTRE tour !`;
+      updateMultiplayerUI();
+    }
+
+    if (data.type === 'PROPOSE_NEW_GRID') {
+      const senderName = data.sender === 'host' ? 'Joueur 1 (Hôte)' : 'Joueur 2 (Invité)';
+      gridProposalDesc.textContent = `Le ${senderName} propose de générer une nouvelle grille. Acceptez-vous ?`;
+      gridProposalDialog.showModal();
+    }
+
+    if (data.type === 'ACCEPT_NEW_GRID') {
+      gridProposalDialog.close();
       answers = Array(9).fill(null);
       currentTurn = 'host';
       if (myRole === 'host') {
         generateGrid();
+        const rowIndices = rows.map(r => allCriteria.indexOf(r));
+        const colIndices = columns.map(c => allCriteria.indexOf(c));
+        conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
+      }
+      renderBoard();
+      updateMultiplayerUI();
+    }
+
+    if (data.type === 'DECLINE_NEW_GRID') {
+      gridProposalDialog.close();
+      feedback.textContent = `⚠️ L'adversaire a refusé la demande de nouvelle grille.`;
+    }
+
+    if (data.type === 'REMATCH') {
+      answers = Array(9).fill(null);
+      currentTurn = 'host';
+      if (myRole === 'host') {
         const rowIndices = rows.map(r => allCriteria.indexOf(r));
         const colIndices = columns.map(c => allCriteria.indexOf(c));
         conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
@@ -595,13 +703,16 @@ function setupConnectionListeners() {
   conn.on('close', () => {
     feedback.textContent = "⚠️ L'adversaire a quitté le salon.";
     isMultiplayer = false;
+    stopTurnTimer();
     updateMultiplayerUI();
   });
 }
 
-// Evénements Multijoueur
+// Événements Multijoueur & Boutons
 multiToggleBtn.addEventListener('click', () => {
   mpStatusMsg.textContent = '';
+  roomOptionsView.classList.remove('hidden');
+  roomCreatedView.classList.add('hidden');
   roomDialog.showModal();
 });
 
@@ -616,19 +727,52 @@ joinRoomBtn.addEventListener('click', () => {
   if (code) connectAsGuest(code);
 });
 
-copyLinkBtn.addEventListener('click', () => {
-  const url = `${window.location.origin}${window.location.pathname}?room=${currentRoomCode}`;
-  navigator.clipboard.writeText(url);
-  copyLinkBtn.textContent = '✓ Lien copié !';
-  setTimeout(() => { copyLinkBtn.textContent = '📋 Copier le lien'; }, 2000);
-});
+copyLinkBtn.addEventListener('click', copyInviteLink);
+modalCopyLinkBtn.addEventListener('click', copyInviteLink);
 
 leaveMpBtn.addEventListener('click', () => {
   if (peer) peer.destroy();
   isMultiplayer = false;
+  stopTurnTimer();
   window.history.pushState({}, '', window.location.pathname);
   resetGame(true);
   updateMultiplayerUI();
+});
+
+// Bouton Nouvelle Grille (Mutualisé en 1v1)
+resetButton.addEventListener('click', () => {
+  if (isMultiplayer) {
+    if (conn && conn.open) {
+      conn.send({ type: 'PROPOSE_NEW_GRID', sender: myRole });
+      feedback.textContent = "⏳ Demande de nouvelle grille envoyée à l'adversaire...";
+    }
+  } else {
+    resetGame(true);
+  }
+});
+
+acceptGridBtn.addEventListener('click', () => {
+  gridProposalDialog.close();
+  if (conn && conn.open) {
+    conn.send({ type: 'ACCEPT_NEW_GRID' });
+  }
+  answers = Array(9).fill(null);
+  currentTurn = 'host';
+  if (myRole === 'host') {
+    generateGrid();
+    const rowIndices = rows.map(r => allCriteria.indexOf(r));
+    const colIndices = columns.map(c => allCriteria.indexOf(c));
+    conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
+  }
+  renderBoard();
+  updateMultiplayerUI();
+});
+
+declineGridBtn.addEventListener('click', () => {
+  gridProposalDialog.close();
+  if (conn && conn.open) {
+    conn.send({ type: 'DECLINE_NEW_GRID' });
+  }
 });
 
 mpRematchBtn.addEventListener('click', () => {
@@ -689,7 +833,6 @@ closeSearch.addEventListener('click', () => {
 closeTooltip.addEventListener('click', () => tooltipDialog.close());
 confirmTooltipBtn.addEventListener('click', () => tooltipDialog.close());
 
-document.querySelector('#reset-button').addEventListener('click', () => resetGame(true));
 retrySameBtn.addEventListener('click', () => {
   gameoverDialog.close();
   resetGame(false);

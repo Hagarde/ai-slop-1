@@ -31,7 +31,7 @@
       <div class="multiplayer-bar-container">
         <div class="mp-room-info">
           <span class="mp-badge live">● EN DIRECT</span>
-          <span class="mp-room-code" id="mp-room-code-display">Salon : ---</span>
+          <span class="mp-room-code" id="mp-room-code-display">CODE : ---</span>
           <button class="copy-link-btn" id="copy-link-btn" title="Copier le lien d'invitation">
             📋 Copier le lien
           </button>
@@ -39,15 +39,19 @@
         
         <div class="mp-players-status">
           <div class="player-pill host" id="player-host-pill">
-            <span class="player-dot host">🟢</span> Joueur 1 (Hôte)
+            <span class="player-dot host">🟢</span> Joueur 1
           </div>
-          <span class="vs-text">VS</span>
+          
+          <div class="timer-badge-pill" id="turn-timer-display" title="Temps restant pour le tour">
+            ⏱️ 30s
+          </div>
+
           <div class="player-pill guest" id="player-guest-pill">
-            <span class="player-dot guest">🔵</span> Joueur 2 (Invité)
+            <span class="player-dot guest">🔵</span> Joueur 2
           </div>
         </div>
 
-        <button class="leave-mp-btn" id="leave-mp-btn">Quitter le 1v1</button>
+        <button class="leave-mp-btn" id="leave-mp-btn">Quitter 1v1</button>
       </div>
     </section>
 
@@ -80,7 +84,7 @@
           <p class="feedback-banner" id="feedback" role="status" aria-live="polite">Cliquez sur une case de la grille pour faire votre choix.</p>
           <button class="secondary-button" id="reset-button">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8M22 12.5a10 10 0 0 1-18.8 4.2L2.5 16"/></svg>
-            Nouvelle grille
+            <span id="reset-btn-label">Nouvelle grille</span>
           </button>
         </div>
       </section>
@@ -92,27 +96,63 @@
         <button class="close-dialog-btn" id="close-room" aria-label="Fermer la fenêtre">×</button>
         <span class="dialog-eyebrow">MODE MULTIJOUEUR 1V1</span>
         <h2>Morpion Géographique (Tic-Tac-Toe)</h2>
-        <p>Affrontez un ami en temps réel ! Alignez 3 cases (🟢 Joueur 1 ou 🔵 Joueur 2) pour remporter la victoire.</p>
+        
+        <!-- Écran 1 : Choix Créer / Rejoindre -->
+        <div id="room-options-view">
+          <p style="font-size: 14px; color: var(--ink-secondary);">Affrontez un ami avec un minuteur de 30s par tour ! Alignez 3 cases (🟢 J1 ou 🔵 J2) pour gagner.</p>
 
-        <div class="room-action-cards">
-          <div class="room-card">
-            <h3>Créer un salon</h3>
-            <p>Générez une partie et envoyez le lien d'invitation à un ami.</p>
-            <button class="primary-button full-width" id="create-room-btn">Créer un salon 1v1</button>
-          </div>
-
-          <div class="room-divider"><span>OU</span></div>
-
-          <div class="room-card">
-            <h3>Rejoindre avec un code</h3>
-            <div class="search-input-wrapper" style="margin-bottom: 8px;">
-              <input id="room-code-input" type="text" placeholder="Code du salon (ex: 8X42K)..." autocomplete="off" />
+          <div class="room-action-cards">
+            <div class="room-card">
+              <h3>Créer un salon</h3>
+              <p>Générez un code et envoyez le lien d'invitation à un ami.</p>
+              <button class="primary-button full-width" id="create-room-btn">Créer un salon 1v1</button>
             </div>
-            <button class="secondary-button full-width" id="join-room-btn">Rejoindre le salon</button>
+
+            <div class="room-divider"><span>OU</span></div>
+
+            <div class="room-card">
+              <h3>Rejoindre avec un code</h3>
+              <div class="search-input-wrapper" style="margin-bottom: 8px;">
+                <input id="room-code-input" type="text" placeholder="Code du salon (ex: 8X42K)..." autocomplete="off" style="text-transform: uppercase;" />
+              </div>
+              <button class="secondary-button full-width" id="join-room-btn">Rejoindre le salon</button>
+            </div>
           </div>
         </div>
 
-        <p class="mp-status-msg" id="mp-status-msg"></p>
+        <!-- Écran 2 : Code Créé & Invitation -->
+        <div id="room-created-view" class="hidden text-center">
+          <span class="dialog-eyebrow" style="color: var(--accent-primary);">SALON PRÊT</span>
+          <h3>Envoyez ce lien à votre ami</h3>
+          
+          <div class="created-code-box">
+            <span class="created-code-label">CODE DU SALON</span>
+            <div class="created-code-val" id="created-code-val">---</div>
+          </div>
+
+          <div class="search-input-wrapper" style="margin: 10px 0;">
+            <input id="invite-link-input" type="text" readonly style="font-size: 13px; text-align: center;" />
+          </div>
+
+          <button class="primary-button full-width" id="modal-copy-link-btn" style="font-size: 16px; padding: 14px;">
+            📋 Copier le lien d'invitation
+          </button>
+          
+          <p class="mp-status-msg" id="mp-status-msg" style="margin-top: 10px;">En attente de la connexion du Joueur 2...</p>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Modal d'Accord Nouvelle Grille en 1v1 -->
+    <dialog id="grid-proposal-dialog" class="custom-dialog">
+      <div class="dialog-content text-center">
+        <span class="dialog-eyebrow">DEMANDE DE NOUVELLE GRILLE</span>
+        <h3>Proposer une nouvelle grille ?</h3>
+        <p id="grid-proposal-desc">L'adversaire propose de démarrer une nouvelle grille. Acceptez-vous ?</p>
+        <div style="display: flex; gap: 12px; margin-top: 12px;">
+          <button class="secondary-button full-width" id="decline-grid-btn">Refuser</button>
+          <button class="primary-button full-width" id="accept-grid-btn">Accepter</button>
+        </div>
       </div>
     </dialog>
 
@@ -189,7 +229,7 @@
           </div>
           <div class="rule-item">
             <span class="rule-number">2</span>
-            <p><strong>Mode 1v1 (Morpion) :</strong> Jouez avec un ami au tour par tour. Le premier qui aligne 3 cases (🟢 Joueur 1 / 🔵 Joueur 2) gagne la partie !</p>
+            <p><strong>Mode 1v1 (30s / tour) :</strong> Vous avez 30 secondes par tour. Chaque bonne réponse capture une case. Le premier qui aligne 3 cases (🟢 J1 / 🔵 J2) gagne !</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">3</span>
