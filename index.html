@@ -78,6 +78,13 @@
         </div>
       </section>
 
+      <!-- Bannière de Statut du Tour 1v1 Ultra-Lisible -->
+      <div class="mp-turn-banner hidden" id="mp-turn-banner">
+        <div class="mp-turn-content" id="mp-turn-text">
+          🎲 C'EST À VOTRE TOUR DE JOUER !
+        </div>
+      </div>
+
       <section class="intro-section" aria-labelledby="game-title">
         <div class="intro-header">
           <div>
@@ -98,8 +105,14 @@
       </section>
 
       <section class="game-section" aria-label="Grille de jeu">
-        <div class="board-card">
+        <div class="board-card" id="board-card">
           <div class="board" id="board" role="grid" aria-label="Grille CountryDoku 3x3"></div>
+        </div>
+
+        <!-- Journal de Partie Live Feed 1v1 -->
+        <div class="mp-feed-card hidden" id="mp-feed-card">
+          <span class="mp-feed-title">📢 JOURNAL DE LA PARTIE EN DIRECT</span>
+          <div class="mp-feed-msg" id="mp-feed-msg">🎮 Le match 1v1 commence ! Joueur 1 a la main.</div>
         </div>
 
         <div class="board-actions">

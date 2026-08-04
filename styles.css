@@ -244,6 +244,82 @@ button, input {
   box-shadow: 0 2px 6px rgba(211, 47, 47, 0.3);
 }
 
+/* Bannière de Statut du Tour 1v1 Ultra-Visuelle */
+.mp-turn-banner {
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mp-turn-banner.my-turn {
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  color: #ffffff;
+  border: 2px solid #81c784;
+  animation: pulse-glow 2s infinite;
+}
+
+.mp-turn-banner.opponent-turn {
+  background: #ebf0ed;
+  color: var(--ink-secondary);
+  border: 2px dashed var(--border-medium);
+}
+
+/* State overlay pour la grille quand ce n'est pas votre tour */
+.board-card.opponent-turn {
+  opacity: 0.88;
+  filter: contrast(95%);
+  position: relative;
+}
+
+.board-card.opponent-turn::before {
+  content: "⏳ TOUR DE L'ADVERSAIRE";
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(17, 38, 31, 0.85);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  z-index: 10;
+  letter-spacing: 0.5px;
+}
+
+/* Journal de Partie Feed Live 1v1 */
+.mp-feed-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.mp-feed-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: 0.8px;
+}
+
+.mp-feed-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
 /* Barre Multijoueur 1v1 */
 .multiplayer-bar {
   background: var(--bg-card);
@@ -1057,6 +1133,11 @@ button, input {
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
 }
 
 /* RESPONSIVE DESIGN MOBILITY */

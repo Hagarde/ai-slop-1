@@ -230,6 +230,19 @@ function showTooltip(label, description) {
   tooltipDialog.showModal();
 }
 
+// Eléments Visuels 1v1 Prominents
+const mpTurnBanner = document.querySelector('#mp-turn-banner');
+const mpTurnText = document.querySelector('#mp-turn-text');
+const boardCard = document.querySelector('#board-card');
+const mpFeedCard = document.querySelector('#mp-feed-card');
+const mpFeedMsg = document.querySelector('#mp-feed-msg');
+
+function addGameFeed(msg) {
+  if (mpFeedMsg) {
+    mpFeedMsg.textContent = msg;
+  }
+}
+
 function updateLivesUI() {
   if (isMultiplayer) {
     document.querySelector('#lives-box').classList.add('hidden');
@@ -239,7 +252,6 @@ function updateLivesUI() {
   }
 }
 
-// Gestion du minuteur 30 secondes par tour
 function startTurnTimer() {
   stopTurnTimer();
   turnTimeLeft = 30;
@@ -258,8 +270,12 @@ function startTurnTimer() {
         if (conn && conn.open) {
           conn.send({ type: 'TIMEOUT_PASS' });
         }
-        feedback.textContent = `⏱️ Temps écoulé (30s) ! Le tour passe à l'adversaire.`;
+        const senderName = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
+        const msg = `⏱️ Temps écoulé (30s) pour ${senderName} ! Le tour passe à l'adversaire.`;
+        feedback.textContent = msg;
+        addGameFeed(msg);
         updateMultiplayerUI();
+        renderBoard();
       }
     }
   }, 1000);
@@ -284,6 +300,9 @@ function updateTimerUI() {
 function updateMultiplayerUI() {
   if (!isMultiplayer) {
     multiplayerBar.classList.add('hidden');
+    mpTurnBanner.classList.add('hidden');
+    mpFeedCard.classList.add('hidden');
+    boardCard.classList.remove('opponent-turn');
     resetBtnLabel.textContent = "Nouvelle grille";
     document.querySelector('#intro-desc-text').textContent = "Cliquez sur une case pour choisir le pays correspondant. Cliquez sur ⓘ pour voir les explications des critères.";
     if (modeSoloTab) modeSoloTab.classList.add('active');
@@ -294,14 +313,19 @@ function updateMultiplayerUI() {
 
   if (modeSoloTab) modeSoloTab.classList.remove('active');
   if (modeMultiTab) modeMultiTab.classList.add('active');
+  
   multiplayerBar.classList.remove('hidden');
+  mpTurnBanner.classList.remove('hidden');
+  mpFeedCard.classList.remove('hidden');
   mpRoomCodeDisplay.textContent = `CODE : ${currentRoomCode}`;
   resetBtnLabel.textContent = "Proposer une nouvelle grille";
   
-  // Badges explicites (Vous)
   playerHostPill.innerHTML = `<span class="player-dot host">🟢</span> Joueur 1 ${myRole === 'host' ? '<span class="you-tag">(Vous)</span>' : ''}`;
   playerGuestPill.innerHTML = `<span class="player-dot guest">🔵</span> Joueur 2 ${myRole === 'guest' ? '<span class="you-tag">(Vous)</span>' : ''}`;
 
+  const isMyTurn = currentTurn === myRole;
+  const activeRoleName = currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';
+  
   if (currentTurn === 'host') {
     playerHostPill.classList.add('active-turn');
     playerGuestPill.classList.remove('active-turn');
@@ -310,13 +334,16 @@ function updateMultiplayerUI() {
     playerHostPill.classList.remove('active-turn');
   }
 
-  const isMyTurn = currentTurn === myRole;
-  const roleText = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
-  
   if (isMyTurn) {
-    feedback.textContent = `🎲 C'est À VOTRE TOUR (${roleText}) ! Choisissez une case (30s).`;
+    mpTurnBanner.className = 'mp-turn-banner my-turn';
+    mpTurnText.textContent = `🎲 C'EST À VOTRE TOUR DE JOUER ! (30s)`;
+    boardCard.classList.remove('opponent-turn');
+    feedback.textContent = `🎲 C'est À VOTRE TOUR ! Choisissez une case sur la grille.`;
   } else {
-    feedback.textContent = `⏳ En attente du coup de l'adversaire (${currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2'})...`;
+    mpTurnBanner.className = 'mp-turn-banner opponent-turn';
+    mpTurnText.textContent = `⏳ TOUR DE L'ADVERSAIRE (${activeRoleName} RÉFLEXION EN COURS...)`;
+    boardCard.classList.add('opponent-turn');
+    feedback.textContent = `⏳ En attente de l'adversaire (${activeRoleName})...`;
   }
 
   startTurnTimer();
@@ -505,7 +532,9 @@ function choose(code) {
       if (conn && conn.open) {
         conn.send({ type: 'WRONG_MOVE', cellId: targetCellId, countryCode: code });
       }
-      feedback.textContent = `❌ ${country.name} est incorrect ! Le tour passe à l'adversaire.`;
+      const msg = `❌ Erreur : ${country.name} est incorrect ! Le tour passe à l'adversaire.`;
+      feedback.textContent = msg;
+      addGameFeed(msg);
       selectedCell = null;
       updateMultiplayerUI();
       renderBoard();
@@ -538,15 +567,17 @@ function choose(code) {
       conn.send({ type: 'MAKE_MOVE', cellId: selectedCell, countryCode: code, player: myRole });
     }
 
+    const playerTag = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
     const winLine = checkTicTacToeWin(myRole);
     if (winLine) {
       stopTurnTimer();
-      const winnerName = myRole === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';
-      mpVictoryTitle.textContent = `Victoire du ${winnerName} ! 🎉`;
+      mpVictoryTitle.textContent = `Victoire du ${playerTag} ! 🎉`;
       mpVictoryDesc.textContent = `Vous avez aligné 3 cases et remporté ce match de Tic-Tac-Toe !`;
+      addGameFeed(`🎉 Victoire ! Vous avez aligné 3 cases et remporté ce match !`);
       mpVictoryDialog.showModal();
     } else {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+      addGameFeed(`✅ Vous (${playerTag}) avez placé ${country.name} (Case ${selectedCell + 1}) ! Tour à l'adversaire.`);
       updateMultiplayerUI();
     }
   } else {
@@ -721,24 +752,29 @@ function setupConnectionListeners() {
     if (data.type === 'MAKE_MOVE') {
       const country = countries.find(c => c.code === data.countryCode);
       answers[data.cellId] = { country, player: data.player };
+      const playerTag = data.player === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
       
       const winLine = checkTicTacToeWin(data.player);
       if (winLine) {
         stopTurnTimer();
-        const winnerName = data.player === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
         mpVictoryTitle.textContent = `Défaite / Partie terminée !`;
-        mpVictoryDesc.textContent = `${winnerName} a aligné 3 cases et remporte ce match !`;
+        mpVictoryDesc.textContent = `${playerTag} a aligné 3 cases et remporte ce match !`;
+        addGameFeed(`🎉 ${playerTag} a aligné 3 cases et remporte le match de Tic-Tac-Toe !`);
         mpVictoryDialog.showModal();
       } else {
         currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+        addGameFeed(`✅ ${playerTag} a placé ${country.name} (Case ${data.cellId + 1}). C'est à VOTRE tour !`);
         updateMultiplayerUI();
       }
       renderBoard();
     }
 
     if (data.type === 'WRONG_MOVE') {
+      const prevRoleName = currentTurn === 'host' ? '🔵 Joueur 2' : '🟢 Joueur 1';
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-      feedback.textContent = `L'adversaire a manqué sa réponse ! C'est à VOTRE tour !`;
+      const msg = `❌ ${prevRoleName} s'est trompé sur la Case ${data.cellId + 1} ! C'est à VOTRE tour !`;
+      feedback.textContent = msg;
+      addGameFeed(msg);
       updateMultiplayerUI();
       renderBoard();
     }
