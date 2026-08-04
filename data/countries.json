@@ -64,7 +64,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": "vertical",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Kaboul"
@@ -264,7 +264,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Alger"
@@ -388,7 +388,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "vertical",
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Andorre-la-Vieille"
@@ -444,7 +444,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Luanda"
@@ -885,7 +885,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Nassau"
@@ -1173,7 +1173,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Porto-Novo"
@@ -1287,7 +1287,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Minsk"
@@ -2048,7 +2048,7 @@
       "oecd": true,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Santiago"
@@ -2294,7 +2294,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Moroni"
@@ -2488,7 +2488,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Pyongyang"
@@ -2581,7 +2581,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "San José"
@@ -2701,7 +2701,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Zagreb"
@@ -3303,7 +3303,7 @@
       "oecd": true,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Washington"
@@ -3409,7 +3409,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Suva"
@@ -3630,7 +3630,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Banjul"
@@ -3793,7 +3793,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Athènes"
@@ -4002,7 +4002,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Malabo"
@@ -4052,7 +4052,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "horizontal",
+      "flagStripes": "vertical",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Bissau"
@@ -4312,7 +4312,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Port-Louis"
@@ -4499,7 +4499,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "New Delhi"
@@ -4685,7 +4685,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Téhéran"
@@ -5520,7 +5520,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Beyrouth"
@@ -5637,7 +5637,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Tripoli"
@@ -5854,7 +5854,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Skopje"
@@ -5948,7 +5948,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Kuala Lumpur"
@@ -6040,7 +6040,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Malé"
@@ -6147,7 +6147,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "La Valette"
@@ -6720,7 +6720,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Yaren"
@@ -6768,7 +6768,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Katmandou"
@@ -6992,7 +6992,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Oslo"
@@ -7265,7 +7265,7 @@
       "oecd": false,
       "peak4000": true,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Islamabad"
@@ -7607,7 +7607,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Manille"
@@ -7718,7 +7718,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Lisbonne"
@@ -8214,7 +8214,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Saint-Marin"
@@ -8552,7 +8552,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Belgrade"
@@ -8684,7 +8684,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Singapour"
@@ -8744,7 +8744,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bratislava"
@@ -8800,7 +8800,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Ljubljana"
@@ -9510,7 +9510,7 @@
       "oecd": true,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Prague"
@@ -10458,7 +10458,7 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": null,
+      "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Harare"
