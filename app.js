@@ -1206,6 +1206,14 @@ function setupConnectionListeners() {
   function handleChannelOpen() {
     if (channelOpenFired) return;
     if (!conn) return;
+    
+    // Attendre que PeerJS confirme l'ouverture (évite la race condition avec safeSend)
+    if (!conn.open) {
+      console.log('⏳ [WebRTC] DataChannel prêt, attente de la synchro PeerJS...');
+      setTimeout(handleChannelOpen, 50);
+      return;
+    }
+
     channelOpenFired = true;
     console.log(`🟢 [WebRTC] DataChannel OUVERT ! (Rôle: "${myRole}", Peer distant: "${conn.peer}")`);
     clearGuestTimeout();
