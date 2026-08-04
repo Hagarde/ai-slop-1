@@ -663,7 +663,9 @@ const PEER_CONFIG = {
       { urls: 'stun:stun1.l.google.com:19302' },
       { urls: 'stun:stun2.l.google.com:19302' },
       { urls: 'stun:stun3.l.google.com:19302' },
-      { urls: 'stun:stun4.l.google.com:19302' }
+      { urls: 'stun:stun4.l.google.com:19302' },
+      { urls: 'stun:stun.services.mozilla.com' },
+      { urls: 'stun:global.stun.twilio.com:3478' }
     ]
   }
 };
@@ -676,7 +678,11 @@ function initPeer(customCode = null, isCreating = false) {
   console.log(`🌐 [WebRTC Host Debug] Initialisation Peer (Id: "${peerId}", Mode création: ${isCreating})`);
   updateStatus("⚙️ Connexion au réseau WebRTC en cours...", "connecting");
 
-  if (peer) peer.destroy();
+  if (peer) {
+    try { peer.destroy(); } catch (e) {}
+    peer = null;
+  }
+
   peer = new Peer(peerId, PEER_CONFIG);
 
   peer.on('open', (id) => {
@@ -710,7 +716,6 @@ function initPeer(customCode = null, isCreating = false) {
     conn = connection;
     setupConnectionListeners();
     updateStatus("🤝 Joueur 2 détecté ! Négociation de la connexion WebRTC...", "connecting");
-    sendInitGameToGuest();
   });
 
   peer.on('disconnected', () => {
@@ -721,13 +726,19 @@ function initPeer(customCode = null, isCreating = false) {
 
   peer.on('error', (err) => {
     console.error(`❌ [WebRTC Host Error] Erreur PeerJS Hôte (Code: "${err.type}") :`, err);
-    if (err.type === 'unavailable-id' && !isCreating) {
-      connectAsGuest(code);
-    } else {
-      const msg = translatePeerError(err.type, code);
-      updateStatus(msg, "error");
-      feedback.textContent = msg;
+    if (err.type === 'unavailable-id') {
+      if (isCreating) {
+        console.warn(`⚠️ Code ${code} déjà occupé sur PeerJS. Régénération d'un nouveau code...`);
+        initPeer(null, true);
+        return;
+      } else {
+        connectAsGuest(code);
+        return;
+      }
     }
+    const msg = translatePeerError(err.type, code);
+    updateStatus(msg, "error");
+    feedback.textContent = msg;
   });
 }
 
