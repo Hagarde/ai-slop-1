@@ -725,40 +725,69 @@ function closeRoomDialogSafely(reason = '') {
   }, 100);
 }
 
+// ─── TURN servers diagnostics helper ───────────────────────────────────────
+function logIceServers(servers) {
+  console.log(`\n📋 [ICE Config] ${servers.length} serveurs ICE configurés :`);
+  servers.forEach((s, i) => {
+    const urls = Array.isArray(s.urls) ? s.urls : [s.urls];
+    urls.forEach(url => {
+      const proto = url.startsWith('turns:') ? '🔒 TURN/TLS' :
+                    url.startsWith('turn:') ? '🔄 TURN' : '🌐 STUN';
+      console.log(`   ${i+1}. ${proto} — ${url}`);
+    });
+  });
+}
+
+const ICE_SERVERS = [
+  // ─── STUN (découverte IP publique, bloqué UDP sur certains réseaux) ────
+  { urls: 'stun:stun.l.google.com:19302' },
+  { urls: 'stun:stun1.l.google.com:19302' },
+  { urls: 'stun:stun.services.mozilla.com' },
+  // ─── TURN UDP (NAT standard, bloqué sur eduroam) ──────────────────────
+  {
+    urls: 'turn:openrelay.metered.ca:80',
+    username: 'openrelayproject',
+    credential: 'openrelayproject'
+  },
+  {
+    urls: 'turn:openrelay.metered.ca:443',
+    username: 'openrelayproject',
+    credential: 'openrelayproject'
+  },
+  // ─── TURN TCP (traverse plus de firewalls que UDP) ────────────────────
+  {
+    urls: 'turn:openrelay.metered.ca:80?transport=tcp',
+    username: 'openrelayproject',
+    credential: 'openrelayproject'
+  },
+  {
+    urls: 'turn:openrelay.metered.ca:443?transport=tcp',
+    username: 'openrelayproject',
+    credential: 'openrelayproject'
+  },
+  // ─── TURN/TLS port 443 (imite HTTPS, traverse presque tous les firewalls) ─
+  {
+    urls: 'turns:openrelay.metered.ca:443?transport=tcp',
+    username: 'openrelayproject',
+    credential: 'openrelayproject'
+  },
+  // ─── Serveur TURN alternatif numb.viagenie.ca ─────────────────────────
+  {
+    urls: 'turn:numb.viagenie.ca',
+    username: 'webrtc@live.com',
+    credential: 'muazkh'
+  },
+  {
+    urls: 'turns:numb.viagenie.ca:443?transport=tcp',
+    username: 'webrtc@live.com',
+    credential: 'muazkh'
+  }
+];
+
 const PEER_CONFIG = {
   debug: 2,
   config: {
-    iceServers: [
-      // ─── Serveurs STUN (découverte d'IP publique) ────────────────────────
-      { urls: 'stun:stun.l.google.com:19302' },
-      { urls: 'stun:stun1.l.google.com:19302' },
-      { urls: 'stun:stun2.l.google.com:19302' },
-      { urls: 'stun:stun3.l.google.com:19302' },
-      { urls: 'stun:stun4.l.google.com:19302' },
-      { urls: 'stun:stun.services.mozilla.com' },
-      { urls: 'stun:global.stun.twilio.com:3478' },
-      // ─── Serveurs TURN (relais — indispensable sur NAT symétrique 4G / eduroam) ──
-      {
-        urls: 'turn:openrelay.metered.ca:80',
-        username: 'openrelayproject',
-        credential: 'openrelayproject'
-      },
-      {
-        urls: 'turn:openrelay.metered.ca:443',
-        username: 'openrelayproject',
-        credential: 'openrelayproject'
-      },
-      {
-        urls: 'turn:openrelay.metered.ca:443?transport=tcp',
-        username: 'openrelayproject',
-        credential: 'openrelayproject'
-      },
-      {
-        urls: 'turns:openrelay.metered.ca:443?transport=tcp',
-        username: 'openrelayproject',
-        credential: 'openrelayproject'
-      }
-    ],
+    iceServers: ICE_SERVERS,
     iceCandidatePoolSize: 10,
     bundlePolicy: 'max-bundle',
     rtcpMuxPolicy: 'require'
@@ -1194,63 +1223,101 @@ function setupConnectionListeners() {
   }, 300);
   setTimeout(() => clearInterval(openPoll), 25000);
 
-  // ─── Diagnostic RTCPeerConnection (Surveillance verbeuse ICE & TURN) ──────
+  // ─── Diagnostic RTCPeerConnection — attaché à 50ms pour capturer tous les candidats ─
   let diagAttached = false;
-  const diagInterval = setInterval(() => {
-    if (!conn || !conn.peerConnection || diagAttached) return;
-    diagAttached = true;
-    clearInterval(diagInterval);
+  let candidateCount = 0;
+  let relayCandidateCount = 0;
 
-    const pc = conn.peerConnection;
-    console.log(`🔬 [ICE Diag] RTCPeerConnection active — Diagnostic ICE/TURN démarré.`);
-    console.log(`   iceConnectionState initial : ${pc.iceConnectionState}`);
-    console.log(`   iceGatheringState initial  : ${pc.iceGatheringState}`);
-    console.log(`   signalingState initial     : ${pc.signalingState}`);
+  function attachIceDiagnostic(pc) {
+    if (diagAttached) return;
+    diagAttached = true;
+    logIceServers(ICE_SERVERS);
+    console.log(`🔬 [ICE Diag] RTCPeerConnection attachée — état initial :`);
+    console.log(`   iceConnectionState : ${pc.iceConnectionState}`);
+    console.log(`   iceGatheringState  : ${pc.iceGatheringState}`);
+    console.log(`   signalingState     : ${pc.signalingState}`);
+    if (pc.iceGatheringState === 'complete') {
+      console.warn('⚠️ [ICE Diag] Collecte déjà terminée à l\'attachement — certains candidats peut-être manqués.');
+      // Lire les candidats déjà collectés via getStats
+      pc.getStats().then(stats => {
+        let found = 0;
+        stats.forEach(report => {
+          if (report.type === 'local-candidate') {
+            found++;
+            const tag = report.candidateType === 'relay' ? '🔄 TURN RELAIS' :
+                        report.candidateType === 'srflx' ? '🌐 STUN PUBLIC' : '🏠 LOCAL';
+            console.log(`🧧 [ICE Stats] ${tag} | Proto: ${(report.protocol || '?').toUpperCase()} | Addr: ${report.address || '?'}`);
+            if (report.candidateType === 'relay') relayCandidateCount++;
+          }
+        });
+        console.log(`   Total candidats via getStats: ${found} (dont ${relayCandidateCount} TURN relais)`);
+        if (relayCandidateCount === 0) {
+          console.error('❌ [ICE Diag] AUCUN candidat TURN relay trouvé ! Serveurs TURN injoignables depuis ce réseau.');
+          console.error('   → eduroam ou pare-feu d\'entreprise bloque probablement les ports UDP/TCP vers les TURN servers.');
+        }
+      }).catch(() => {});
+    }
 
     pc.onicecandidate = (event) => {
       if (!event.candidate) {
-        console.log('🧧 [ICE] Collecte des candidats terminée (candidate null).');
+        console.log(`🧧 [ICE] Collecte terminée. Total: ${candidateCount} candidats (dont ${relayCandidateCount} TURN relais).`);
+        if (relayCandidateCount === 0) {
+          console.error('❌ [ICE] Aucun candidat TURN relay collecté. Ce réseau bloque les serveurs TURN.');
+          console.error('   → Si sur eduroam : le réseau bloque UDP/TCP vers les TURN servers.');
+          console.error('   → Solution : tester sur réseau mobile (4G/5G) ou hotspot personnel.');
+        }
         return;
       }
+      candidateCount++;
       const c = event.candidate;
       const typeLabel = c.type === 'relay' ? '🔄 TURN RELAIS' :
                         c.type === 'srflx' ? '🌐 STUN PUBLIC' :
-                        c.type === 'prflx' ? '🔀 STUN PEER-REFLEXIVE' : '🏠 LOCAL';
-      console.log(`🧧 [ICE Candidat] ${typeLabel} | Proto: ${c.protocol.toUpperCase()} | Addr: ${c.address || 'mDNS'} | Port: ${c.port}`);
+                        c.type === 'prflx' ? '🔀 PEER-REFLEXIVE' : '🏠 LOCAL';
+      if (c.type === 'relay') relayCandidateCount++;
+      console.log(`🧧 [ICE #${candidateCount}] ${typeLabel} | ${(c.protocol||'?').toUpperCase()} | ${c.address || 'mDNS'}:${c.port}`);
     };
 
     pc.oniceconnectionstatechange = () => {
       const state = pc.iceConnectionState;
-      const stateIcons = { 'new': '⏳', 'checking': '🔍', 'connected': '✅', 'completed': '✅✅', 'failed': '❌', 'disconnected': '⚠️', 'closed': '🔒' };
-      console.log(`🧧 [ICE Connection State] → ${stateIcons[state] || ''} ${state}`);
-
+      const icons = { 'new':'⏳','checking':'🔍','connected':'✅','completed':'✅✅','failed':'❌','disconnected':'⚠️','closed':'🔒' };
+      console.log(`🧧 [ICE State] → ${icons[state]||'?'} ${state}`);
       if (state === 'connected' || state === 'completed') {
-        console.log('✅ [ICE Connection] Négociation P2P/TURN réussie !');
+        console.log(`✅ [ICE] Connexion P2P établie via ${relayCandidateCount > 0 ? 'TURN relay' : 'STUN/direct'} !`);
         handleChannelOpen();
       } else if (state === 'failed') {
-        console.error('❌ [ICE Connection Failed] Aucun candidat ICE n\'a pu établir le canal. (STUN/TURN tous bloqués ou inatteignables).');
-        updateStatus("❌ Échec ICE : Aucun candidat valide (STUN/TURN). Pare-feu ou réseau trop restrictif.", "error");
+        console.error(`❌ [ICE Failed] Tous les ${candidateCount} candidats ont échoué.`);
+        console.error(`   Candidats TURN relay : ${relayCandidateCount}`);
+        console.error(`   Cause probable : réseau eduroam/entreprise bloquant UDP et TCP/TLS vers les TURN servers.`);
+        console.error(`   → Testez avec les DEUX appareils sur un réseau mobile ou hotspot.`);
+        const netMsg = relayCandidateCount === 0
+          ? '❌ Votre réseau bloque tous les serveurs TURN. Testez via 4G ou hotspot personnel.'
+          : '❌ Connexion échouée. Réseau restrictif. Essayez sur un autre réseau.';
+        updateStatus(netMsg, 'error');
         try { pc.restartIce(); } catch (e) {}
       } else if (state === 'disconnected') {
-        console.warn('⚠️ [ICE Connection Disconnected] Liaison temporairement perdue.');
+        console.warn('⚠️ [ICE] Connexion temporairement perdue.');
       }
     };
 
     pc.onicegatheringstatechange = () => {
-      console.log(`🧧 [ICE Gathering State] → ${pc.iceGatheringState}`);
+      console.log(`🧧 [ICE Gather] → ${pc.iceGatheringState}`);
       if (pc.iceGatheringState === 'gathering') {
-        updateStatus("📍 Recherche des candidats réseau (STUN/TURN)...", "connecting");
+        updateStatus('📍 Collecte des candidats réseau (STUN/TURN)...', 'connecting');
       }
     };
 
-    pc.onsignalingstatechange = () => {
-      console.log(`📡 [Signaling State] → ${pc.signalingState}`);
-    };
+    pc.onsignalingstatechange = () => console.log(`📡 [Signaling] → ${pc.signalingState}`);
+    pc.onconnectionstatechange = () => console.log(`🔗 [Connection] → ${pc.connectionState}`);
+  }
 
-    pc.onconnectionstatechange = () => {
-      console.log(`🔗 [PeerConnection State] → ${pc.connectionState}`);
-    };
-  }, 200);
+  // Poll à 50ms pour capturer les candidats dès le départ
+  const diagInterval = setInterval(() => {
+    if (!conn || diagAttached) { clearInterval(diagInterval); return; }
+    if (conn.peerConnection) {
+      clearInterval(diagInterval);
+      attachIceDiagnostic(conn.peerConnection);
+    }
+  }, 50);
   setTimeout(() => clearInterval(diagInterval), 10000);
 
   conn.on('data', (data) => { handleIncomingData(data); });
