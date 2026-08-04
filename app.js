@@ -748,7 +748,7 @@ const STUN_SERVERS = [
 // ─── Metered.ca TURN API (20 Go/mois gratuit) ──────────────────────────────
 // ⚠️ Remplacez par vos propres credentials depuis https://dashboard.metered.ca
 const METERED_APP_NAME = 'countrydoku';  // Nom de votre app Metered
-const METERED_API_KEY  = 'JrW6bAQXRCCbFzUFASbPyLyhU59gU4eJn0aG-nm3jErJi_2K';
+const METERED_API_KEY  = 'aa340d9ab8937dc2645bfb6845b86c60c969';
 
 let cachedTurnServers = null;
 let turnFetchPromise = null;
