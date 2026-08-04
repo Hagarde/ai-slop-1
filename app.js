@@ -655,6 +655,19 @@ function closeRoomDialogSafely(reason = '') {
   console.log(`🚪 [WebRTC Debug] Post-fermeture: dialog.open =`, roomDialog.open);
 }
 
+const PEER_CONFIG = {
+  debug: 2,
+  config: {
+    iceServers: [
+      { urls: 'stun:stun.l.google.com:19302' },
+      { urls: 'stun:stun1.l.google.com:19302' },
+      { urls: 'stun:stun2.l.google.com:19302' },
+      { urls: 'stun:stun3.l.google.com:19302' },
+      { urls: 'stun:stun4.l.google.com:19302' }
+    ]
+  }
+};
+
 function initPeer(customCode = null, isCreating = false) {
   const code = customCode || generateRoomCode();
   currentRoomCode = code;
@@ -664,7 +677,7 @@ function initPeer(customCode = null, isCreating = false) {
   updateStatus("⚙️ Connexion au réseau WebRTC en cours...", "connecting");
 
   if (peer) peer.destroy();
-  peer = new Peer(peerId, { debug: 2 });
+  peer = new Peer(peerId, PEER_CONFIG);
 
   peer.on('open', (id) => {
     console.log(`✅ [WebRTC Host Debug] Peer Hôte ouvert avec succès (ID: "${id}")`);
@@ -755,12 +768,12 @@ function connectAsGuest(code) {
   if (!roomDialog.open) roomDialog.showModal();
 
   if (peer) peer.destroy();
-  peer = new Peer(null, { debug: 2 });
+  peer = new Peer(null, PEER_CONFIG);
 
   peer.on('open', (id) => {
     console.log(`✅ [WebRTC Guest Debug] Peer Invité ouvert (ID temporaire: "${id}"). Connexion vers "cdoku-1v1-${code}"`);
     updateStatus(`🤝 Recherche de l'Hôte du salon ${code}...`, "connecting");
-    conn = peer.connect(`cdoku-1v1-${code}`);
+    conn = peer.connect(`cdoku-1v1-${code}`, { reliable: true });
 
     clearGuestTimeout();
     connectTimeout = setTimeout(() => {
@@ -834,44 +847,90 @@ function safeSend(data) {
   }
 }
 
+let initGameRetryInterval = null;
+
 function sendInitGameToGuest() {
-  if (myRole === 'host') {
-    const rowIndices = rows.map(r => allCriteria.indexOf(r));
-    const colIndices = columns.map(c => allCriteria.indexOf(c));
-    console.log(`📤 [WebRTC Host Debug] Lancement envoi INIT_GAME via safeSend...`);
+  if (myRole !== 'host') return;
+
+  const rowIndices = rows.map(r => allCriteria.indexOf(r));
+  const colIndices = columns.map(c => allCriteria.indexOf(c));
+
+  if (initGameRetryInterval) clearInterval(initGameRetryInterval);
+
+  let attempts = 0;
+  function attemptSend() {
+    attempts++;
+    console.log(`📤 [WebRTC Host Debug] Tentative N°${attempts} d'envoi INIT_GAME à l'Invité...`);
     safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
     closeRoomDialogSafely('Envoi INIT_GAME par Hôte');
     resetGame(false);
     updateMultiplayerUI();
-    addGameFeed("🎮 Joueur 2 a rejoint la partie ! Le match 1v1 commence.");
+    updateStatus("🟢 Grille transmise ! Lancement de la partie...", "success");
+
+    if (attempts >= 8) {
+      clearInterval(initGameRetryInterval);
+      initGameRetryInterval = null;
+    }
   }
+
+  attemptSend();
+  initGameRetryInterval = setInterval(attemptSend, 600);
 }
 
 function setupConnectionListeners() {
   console.log(`🛠️ [WebRTC Debug] Configuration des écouteurs DataChannel (conn:`, conn, `)`);
-  
-  conn.on('open', () => {
+
+  function handleChannelOpen() {
     console.log(`🟢 [WebRTC Debug] DataChannel WebRTC 100% OUVERT ! (myRole: "${myRole}", Peer distant: "${conn.peer}")`);
     clearGuestTimeout();
-    closeRoomDialogSafely('DataChannel conn.on(open)');
+    closeRoomDialogSafely('DataChannel handleChannelOpen');
     
     if (myRole === 'host') {
       sendInitGameToGuest();
     } else {
       updateMultiplayerUI();
+      safeSend({ type: 'GUEST_READY' });
+      updateStatus("🟢 Connecté à l'Hôte ! Synchronisation de la grille...", "success");
     }
-  });
+  }
+
+  conn.on('open', handleChannelOpen);
+
+  if (conn.dataChannel) {
+    conn.dataChannel.onopen = handleChannelOpen;
+    if (conn.dataChannel.readyState === 'open') {
+      console.log('⚡ [WebRTC Debug] RTCDataChannel natif déjà à l\'état open !');
+      handleChannelOpen();
+    }
+  }
+
+  if (conn.open) {
+    console.log('⚡ [WebRTC Debug] conn.open est déjà true !');
+    handleChannelOpen();
+  }
 
   conn.on('data', (data) => {
     console.log(`📩 [WebRTC Debug] Données reçues via DataChannel (Type: "${data.type}", Rôle: "${myRole}") :`, data);
     
+    if (data.type === 'GUEST_READY') {
+      console.log('✅ [WebRTC Host Debug] Le Joueur 2 a confirmé la réception de la grille (GUEST_READY) !');
+      if (initGameRetryInterval) {
+        clearInterval(initGameRetryInterval);
+        initGameRetryInterval = null;
+      }
+      closeRoomDialogSafely('GUEST_READY reçu');
+      updateMultiplayerUI();
+      addGameFeed("🎮 Joueur 2 connecté avec succès ! Le match 1v1 commence.");
+    }
+
     if (data.type === 'INIT_GAME') {
-      console.log(`🎮 [WebRTC Guest Debug] Reçu INIT_GAME ! Génération de la grille synchronisée...`);
+      console.log(`🎮 [WebRTC Guest Debug] Reçu INIT_GAME ! Génération de la grille et envoi de GUEST_READY...`);
       clearGuestTimeout();
       closeRoomDialogSafely('Réception INIT_GAME chez Invité');
       generateGrid(data.rowIndices, data.colIndices);
       resetGame(false);
       updateMultiplayerUI();
+      safeSend({ type: 'GUEST_READY' });
       addGameFeed("🎮 Salon rejoint avec succès ! Le match 1v1 commence. Joueur 1 a la main !");
     }
 
