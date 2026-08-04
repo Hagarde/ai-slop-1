@@ -538,10 +538,10 @@ function copyInviteLink() {
   const url = `${window.location.origin}${window.location.pathname}?room=${currentRoomCode}`;
   navigator.clipboard.writeText(url);
   copyLinkBtn.textContent = '✓ Lien copié !';
-  modalCopyLinkBtn.textContent = '✓ Lien d'invitation copié !';
+  modalCopyLinkBtn.textContent = "✓ Lien d'invitation copié !";
   setTimeout(() => { 
     copyLinkBtn.textContent = '📋 Copier le lien'; 
-    modalCopyLinkBtn.textContent = '📋 Copier le lien d'invitation';
+    modalCopyLinkBtn.textContent = "📋 Copier le lien d'invitation";
   }, 2500);
 }
 
