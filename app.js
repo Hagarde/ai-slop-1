@@ -875,8 +875,8 @@ if (modeSoloTab) {
 }
 
 function handleRoomClose() {
-  if (isMultiplayer && (!conn || !conn.open)) {
-    const confirmCancel = window.confirm("Voulez-vous annuler la création du salon 1v1 et revenir en mode Solo ?");
+  if (isMultiplayer) {
+    const confirmCancel = window.confirm("Voulez-vous quitter le salon 1v1 et revenir au mode Solo ?");
     if (!confirmCancel) return false;
 
     if (peer) {
@@ -891,8 +891,21 @@ function handleRoomClose() {
     resetGame(true);
     updateMultiplayerUI();
   }
-  roomDialog.close();
+  if (roomDialog.open) roomDialog.close();
   return true;
+}
+
+const brandLogo = document.querySelector('#brand-logo');
+if (brandLogo) {
+  brandLogo.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (isMultiplayer) {
+      handleRoomClose();
+    } else {
+      window.history.pushState({}, '', window.location.pathname);
+      resetGame(true);
+    }
+  });
 }
 
 closeRoom.addEventListener('click', handleRoomClose);
