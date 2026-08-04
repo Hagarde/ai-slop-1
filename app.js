@@ -1207,11 +1207,10 @@ function setupConnectionListeners() {
     if (channelOpenFired) return;
     if (!conn) return;
     
-    // Attendre que PeerJS confirme l'ouverture (évite la race condition avec safeSend)
+    // Si PeerJS n'est pas encore prêt mais que le canal natif est ouvert, on le force pour débloquer safeSend
     if (!conn.open) {
-      console.log('⏳ [WebRTC] DataChannel prêt, attente de la synchro PeerJS...');
-      setTimeout(handleChannelOpen, 50);
-      return;
+      console.log('⚡ [WebRTC] Forçage de conn.open = true (contournement bug PeerJS)');
+      conn.open = true;
     }
 
     channelOpenFired = true;
@@ -1228,9 +1227,9 @@ function setupConnectionListeners() {
 
   conn.on('open', handleChannelOpen);
 
-  // Fallback natif RTCDataChannel
+  // Fallback natif très sûr (sans écraser le onopen de PeerJS)
   if (conn.dataChannel) {
-    conn.dataChannel.onopen = handleChannelOpen;
+    conn.dataChannel.addEventListener('open', handleChannelOpen);
     if (conn.dataChannel.readyState === 'open') {
       console.log('⚡ [WebRTC] RTCDataChannel natif déjà à l\'état open !');
       handleChannelOpen();
@@ -1244,16 +1243,9 @@ function setupConnectionListeners() {
   // Poll 300ms fallback
   const openPoll = setInterval(() => {
     if (!conn || channelOpenFired) { clearInterval(openPoll); return; }
-    if (conn.open) {
-      console.log('🔄 [WebRTC Poll] conn.open passé à true !');
+    if (conn.open || (conn.dataChannel && conn.dataChannel.readyState === 'open')) {
+      console.log('🔄 [WebRTC Poll] DataChannel détecté comme ouvert !');
       clearInterval(openPoll);
-      handleChannelOpen();
-      return;
-    }
-    if (conn.dataChannel && conn.dataChannel.readyState === 'open') {
-      console.log('🔄 [WebRTC Poll] RTCDataChannel natif passé à open !');
-      clearInterval(openPoll);
-      conn.dataChannel.onopen = handleChannelOpen;
       handleChannelOpen();
     }
   }, 300);
