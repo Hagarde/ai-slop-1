@@ -364,6 +364,7 @@ function updateMultiplayerUI() {
 }
 
 function renderBoard() {
+  const isSolutionMode = !isMultiplayer && lives <= 0;
   board.innerHTML = '<div class="corner"></div>' + columns.map((item) => clue(item)).join('');
   rows.forEach((row, rowIndex) => {
     board.insertAdjacentHTML('beforeend', clue(row, true));
@@ -391,12 +392,14 @@ function renderBoard() {
             ${playerBadge}
           </div>
         `;
+      } else if (isSolutionMode) {
+        content += `<span class="cell-empty-hint solutions">💡 Voir solutions</span>`;
       } else {
         content += `<span class="cell-empty-hint">🔍 Choisir</span>`;
       }
       
       board.insertAdjacentHTML('beforeend', `
-        <button class="cell ${isSelected ? 'selected' : ''} ${cellData ? 'correct' : ''} ${claimClass}" data-cell="${id}" role="gridcell" aria-label="Case ${id + 1}">
+        <button class="cell ${isSelected ? 'selected' : ''} ${cellData ? 'correct' : ''} ${isSolutionMode && !cellData ? 'solution-mode-cell' : ''} ${claimClass}" data-cell="${id}" role="gridcell" aria-label="Case ${id + 1}">
           ${content}
         </button>
       `);
@@ -420,9 +423,32 @@ function renderBoard() {
         return;
       }
     } else if (lives <= 0) {
+      // MODE RÉVÉLATION SOLUTIONS (Défaite Solo)
+      selectedCell = id;
+      const rowIndex = Math.floor(id / 3);
+      const columnIndex = id % 3;
+      const row = rows[rowIndex];
+      const column = columns[columnIndex];
+
+      const validCandidates = cellCandidates(row, column);
+      candidatesCountEl.textContent = `💡 ${validCandidates.length} solution${validCandidates.length > 1 ? 's' : ''} possible${validCandidates.length > 1 ? 's' : ''}`;
+      cellTargetTag.textContent = `SOLUTIONS CASE ${id + 1}`;
+      searchDialogTitle.textContent = `💡 Solutions valides pour la Case ${id + 1}`;
+      searchDialogClues.innerHTML = `
+        <strong>${escapeHtml(row.label)}</strong> 
+        <span style="margin: 0 4px; opacity: 0.5;">×</span> 
+        <strong>${escapeHtml(column.label)}</strong>
+      `;
+
+      search.value = '';
+      search.style.display = 'none';
+      renderCountriesForSolution(validCandidates);
+      searchDialog.showModal();
       return;
     }
 
+    // Mode normal de jeu
+    search.style.display = '';
     selectedCell = id;
     const rowIndex = Math.floor(id / 3);
     const columnIndex = id % 3;
@@ -447,6 +473,23 @@ function renderBoard() {
     searchDialog.showModal();
     setTimeout(() => search.focus(), 50);
   }));
+}
+
+function renderCountriesForSolution(candidates) {
+  if (!candidates || candidates.length === 0) {
+    countriesEl.innerHTML = `<div class="empty-msg" style="text-align: center; padding: 20px; color: var(--ink-secondary);">Aucun pays dans la base ne satisfait ces deux critères simultanément.</div>`;
+    return;
+  }
+
+  countriesEl.innerHTML = candidates.map((country) => `
+    <div class="country-option-btn solution-item" style="cursor: default; background: var(--bg-app); border: 1px solid var(--border-medium); margin-bottom: 6px; padding: 8px 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px;">
+      <img class="country-option-flag" src="${country.flagUrl}" alt="${escapeHtml(country.name)}" style="width: 32px; height: 22px; object-fit: cover; border-radius: 3px; flex-shrink: 0;" />
+      <div style="display: flex; flex-direction: column; text-align: left;">
+        <strong class="country-option-name" style="font-size: 14px; color: var(--ink-primary);">${escapeHtml(country.name)}</strong>
+        <small style="font-size: 11.5px; color: var(--ink-secondary);">Capitale : ${escapeHtml(country.capital || 'N/A')} • ${(country.population || 0).toLocaleString('fr-FR')} hab.</small>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderCountries() {
@@ -562,10 +605,11 @@ function choose(code) {
       setTimeout(() => targetCellEl.classList.remove('wrong'), 450);
     }
     if (lives <= 0) {
-      feedback.textContent = `❌ ${country.name} est incorrect. Vous n'avez plus de vies !`;
+      feedback.textContent = `💔 Défaite ! Vos 3 vies sont épuisées. Cliquez sur une case vide pour révéler les solutions valides ou démarrer une nouvelle grille.`;
       selectedCell = null;
+      if (resetButton) resetButton.classList.add('highlight-btn');
+      if (resetBtnLabel) resetBtnLabel.textContent = "✨ Démarrer une nouvelle grille";
       renderBoard();
-      setTimeout(() => gameoverDialog.showModal(), 300);
       return;
     }
     feedback.textContent = `❌ ${country.name} est incorrect (-1 vie). Plus que ${lives} vie${lives > 1 ? 's' : ''} !`;
@@ -1184,8 +1228,12 @@ function resetGame(newSeed = true) {
   answers = Array(9).fill(null);
   selectedCell = null;
   search.value = '';
+  search.style.display = '';
   lives = 3;
   updateLivesUI();
+
+  if (resetButton) resetButton.classList.remove('highlight-btn');
+  if (resetBtnLabel) resetBtnLabel.textContent = isMultiplayer ? "Proposer une nouvelle grille" : "Nouvelle grille";
 
   if (newSeed) {
     generateGrid();

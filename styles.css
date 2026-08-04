@@ -456,8 +456,32 @@ button, input {
   cursor: pointer;
 }
 
-.leave-mp-btn:hover {
-  background: #fdeded;
+.secondary-button.highlight-btn {
+  background: linear-gradient(135deg, #1f6f50 0%, #17543c 100%) !important;
+  color: #ffffff !important;
+  border-color: #81c784 !important;
+  font-size: 15.5px !important;
+  padding: 12px 22px !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 0 0 4px rgba(31, 111, 80, 0.3) !important;
+  animation: pulse-glow 1.5s infinite !important;
+}
+
+.cell.solution-mode-cell {
+  border: 2px dashed #2b6cb0 !important;
+  background: #ebf4ff !important;
+  cursor: pointer !important;
+}
+
+.cell.solution-mode-cell:hover {
+  background: #d6e4ff !important;
+  border-style: solid !important;
+  transform: translateY(-2px);
+}
+
+.cell-empty-hint.solutions {
+  color: #2b6cb0;
+  font-weight: 700;
 }
 
 /* Modal Code Salon Créé */
