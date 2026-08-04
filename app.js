@@ -663,15 +663,6 @@ function initPeer(customCode = null, isCreating = false) {
     conn = connection;
     setupConnectionListeners();
     mpStatusMsg.textContent = "Joueur 2 connecté ! Lancement...";
-    
-    setTimeout(() => {
-      const rowIndices = rows.map(r => allCriteria.indexOf(r));
-      const colIndices = columns.map(c => allCriteria.indexOf(c));
-      conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
-      roomDialog.close();
-      resetGame(false);
-      updateMultiplayerUI();
-    }, 400);
   });
 
   peer.on('error', (err) => {
@@ -751,11 +742,27 @@ function connectAsGuest(code) {
   });
 }
 
+function sendInitGameToGuest() {
+  if (myRole === 'host' && conn && conn.open) {
+    const rowIndices = rows.map(r => allCriteria.indexOf(r));
+    const colIndices = columns.map(c => allCriteria.indexOf(c));
+    conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
+    if (roomDialog.open) roomDialog.close();
+    resetGame(false);
+    updateMultiplayerUI();
+    addGameFeed("🎮 Joueur 2 a rejoint la partie ! Le match 1v1 commence.");
+  }
+}
+
 function setupConnectionListeners() {
   conn.on('open', () => {
     if (connectTimeout) clearTimeout(connectTimeout);
     if (roomDialog.open) roomDialog.close();
-    updateMultiplayerUI();
+    if (myRole === 'host') {
+      sendInitGameToGuest();
+    } else {
+      updateMultiplayerUI();
+    }
   });
 
   conn.on('data', (data) => {
