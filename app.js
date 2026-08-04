@@ -721,6 +721,7 @@ function initPeer(customCode = null, isCreating = false) {
 
   console.log(`🌐 [WebRTC Host Debug] Initialisation Peer (Id: "${peerId}", Mode création: ${isCreating})`);
   updateStatus("⚙️ Connexion au réseau WebRTC en cours...", "connecting");
+  setupBroadcastChannel(code);
 
   if (peer) {
     try { peer.destroy(); } catch (e) {}
@@ -821,6 +822,7 @@ function connectAsGuest(code) {
   console.log(`🌐 [WebRTC Guest Debug] Lancement rejointure Invité vers salon: "${code}"`);
   updateStatus(`🔍 Connexion au réseau WebRTC pour joindre le salon ${code}...`, "connecting");
   if (!roomDialog.open) roomDialog.showModal();
+  setupBroadcastChannel(code);
 
   if (peer) peer.destroy();
   peer = new Peer(null, PEER_CONFIG);
@@ -875,29 +877,46 @@ function connectAsGuest(code) {
   });
 }
 
-function safeSend(data) {
-  if (!conn) {
-    console.warn(`⚠️ [WebRTC safeSend] Impossible d'envoyer: conn est null (Type: ${data ? data.type : 'inconnu'})`);
-    return false;
+let roomChannel = null;
+
+function setupBroadcastChannel(code) {
+  if (roomChannel) {
+    try { roomChannel.close(); } catch (e) {}
+    roomChannel = null;
   }
+  if ('BroadcastChannel' in window) {
+    console.log(`📻 [BroadcastChannel] Ouverture du canal local "cdoku-room-${code}"`);
+    roomChannel = new BroadcastChannel(`cdoku-room-${code}`);
+    roomChannel.onmessage = (event) => {
+      console.log(`📻 [BroadcastChannel] Message local reçu (Type: "${event.data ? event.data.type : 'inconnu'}") :`, event.data);
+      handleIncomingData(event.data);
+    };
+  }
+}
+
+function safeSend(data) {
+  // 1. Envoi via BroadcastChannel (synchro instantanée inter-onglets)
+  if (roomChannel) {
+    try {
+      roomChannel.postMessage(data);
+      console.log(`📻 [BroadcastChannel safeSend] Message "${data ? data.type : 'inconnu'}" diffusé localement.`);
+    } catch (err) {
+      console.warn(`⚠️ Erreur BroadcastChannel :`, err);
+    }
+  }
+
+  // 2. Envoi via DataChannel PeerJS (machines distantes)
+  if (!conn) return false;
   if (!conn.open) {
-    console.warn(`⏳ [WebRTC safeSend] conn.open est false. Attente de l'événement 'open' pour envoyer "${data.type}"...`);
     conn.once('open', () => {
-      try {
-        conn.send(data);
-        console.log(`✅ [WebRTC safeSend] Message "${data.type}" envoyé avec succès après événement open !`);
-      } catch (err) {
-        console.error(`❌ [WebRTC safeSend] Erreur lors de conn.send après open :`, err);
-      }
+      try { conn.send(data); } catch (err) {}
     });
     return false;
   }
   try {
     conn.send(data);
-    console.log(`✅ [WebRTC safeSend] Message "${data.type}" envoyé immédiatement !`);
     return true;
   } catch (err) {
-    console.error(`❌ [WebRTC safeSend] Erreur lors de conn.send :`, err);
     return false;
   }
 }
@@ -917,19 +936,117 @@ function sendInitGameToGuest() {
     attempts++;
     console.log(`📤 [WebRTC Host Debug] Tentative N°${attempts} d'envoi INIT_GAME à l'Invité...`);
     safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
-    closeRoomDialogSafely('Envoi INIT_GAME par Hôte');
-    resetGame(false);
-    updateMultiplayerUI();
-    updateStatus("🟢 Grille transmise ! Lancement de la partie...", "success");
+    updateStatus("🟢 Grille transmise ! En attente de confirmation de l'Invité...", "connecting");
 
-    if (attempts >= 8) {
+    if (attempts >= 10) {
       clearInterval(initGameRetryInterval);
       initGameRetryInterval = null;
     }
   }
 
   attemptSend();
-  initGameRetryInterval = setInterval(attemptSend, 600);
+  initGameRetryInterval = setInterval(attemptSend, 500);
+}
+
+function handleIncomingData(data) {
+  if (!data || !data.type) return;
+  console.log(`📩 [1v1 Debug] Message reçu (Type: "${data.type}", Rôle: "${myRole}") :`, data);
+
+  if (data.type === 'GUEST_READY') {
+    console.log('✅ [WebRTC Host Debug] Le Joueur 2 a confirmé la réception de la grille (GUEST_READY) !');
+    if (initGameRetryInterval) {
+      clearInterval(initGameRetryInterval);
+      initGameRetryInterval = null;
+    }
+    clearGuestTimeout();
+    closeRoomDialogSafely('GUEST_READY reçu');
+    resetGame(false);
+    updateMultiplayerUI();
+    addGameFeed("🎮 Joueur 2 connecté avec succès ! Le match 1v1 commence.");
+  }
+
+  if (data.type === 'INIT_GAME') {
+    console.log(`🎮 [WebRTC Guest Debug] Reçu INIT_GAME ! Génération de la grille et envoi de GUEST_READY...`);
+    clearGuestTimeout();
+    closeRoomDialogSafely('Réception INIT_GAME chez Invité');
+    generateGrid(data.rowIndices, data.colIndices);
+    resetGame(false);
+    updateMultiplayerUI();
+    safeSend({ type: 'GUEST_READY' });
+    addGameFeed("🎮 Salon rejoint avec succès ! Le match 1v1 commence. Joueur 1 a la main !");
+  }
+
+  if (data.type === 'MAKE_MOVE') {
+    const country = countries.find(c => c.code === data.countryCode);
+    answers[data.cellId] = { country, player: data.player };
+    const playerTag = data.player === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
+    
+    const winLine = checkTicTacToeWin(data.player);
+    if (winLine) {
+      stopTurnTimer();
+      mpVictoryTitle.textContent = `Défaite / Partie terminée !`;
+      mpVictoryDesc.textContent = `${playerTag} a aligné 3 cases et remporte ce match !`;
+      addGameFeed(`🎉 ${playerTag} a aligné 3 cases et remporte le match de Tic-Tac-Toe !`);
+      mpVictoryDialog.showModal();
+    } else {
+      currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+      addGameFeed(`✅ ${playerTag} a placé ${country.name} (Case ${data.cellId + 1}). C'est à VOTRE tour !`);
+      updateMultiplayerUI();
+    }
+    renderBoard();
+  }
+
+  if (data.type === 'WRONG_MOVE') {
+    const prevRoleName = currentTurn === 'host' ? '🔵 Joueur 2' : '🟢 Joueur 1';
+    currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+    addGameFeed(`❌ ${prevRoleName} s'est trompé. C'est à VOTRE tour de jouer !`);
+    updateMultiplayerUI();
+  }
+
+  if (data.type === 'TIMEOUT_PASS') {
+    currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+    const activeRoleName = currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';
+    addGameFeed(`⏱️ Temps écoulé pour l'adversaire ! Le tour passe à ${activeRoleName}.`);
+    updateMultiplayerUI();
+  }
+
+  if (data.type === 'PROPOSE_NEW_GRID') {
+    const senderName = data.sender === 'host' ? 'Joueur 1 (Hôte)' : 'Joueur 2 (Invité)';
+    gridProposalDesc.textContent = `Le ${senderName} propose de générer une nouvelle grille. Acceptez-vous ?`;
+    gridProposalDialog.showModal();
+  }
+
+  if (data.type === 'ACCEPT_NEW_GRID') {
+    gridProposalDialog.close();
+    answers = Array(9).fill(null);
+    currentTurn = 'host';
+    if (myRole === 'host') {
+      generateGrid();
+      const rowIndices = rows.map(r => allCriteria.indexOf(r));
+      const colIndices = columns.map(c => allCriteria.indexOf(c));
+      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+    }
+    renderBoard();
+    updateMultiplayerUI();
+  }
+
+  if (data.type === 'DECLINE_NEW_GRID') {
+    gridProposalDialog.close();
+    feedback.textContent = `⚠️ L'adversaire a refusé la demande de nouvelle grille.`;
+  }
+
+  if (data.type === 'REMATCH') {
+    answers = Array(9).fill(null);
+    currentTurn = 'host';
+    if (myRole === 'host') {
+      const rowIndices = rows.map(r => allCriteria.indexOf(r));
+      const colIndices = columns.map(c => allCriteria.indexOf(c));
+      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+    }
+    mpVictoryDialog.close();
+    renderBoard();
+    updateMultiplayerUI();
+  }
 }
 
 function setupConnectionListeners() {
@@ -938,7 +1055,6 @@ function setupConnectionListeners() {
   function handleChannelOpen() {
     console.log(`🟢 [WebRTC Debug] DataChannel WebRTC 100% OUVERT ! (myRole: "${myRole}", Peer distant: "${conn.peer}")`);
     clearGuestTimeout();
-    closeRoomDialogSafely('DataChannel handleChannelOpen');
     
     if (myRole === 'host') {
       sendInitGameToGuest();
@@ -965,103 +1081,7 @@ function setupConnectionListeners() {
   }
 
   conn.on('data', (data) => {
-    console.log(`📩 [WebRTC Debug] Données reçues via DataChannel (Type: "${data.type}", Rôle: "${myRole}") :`, data);
-    
-    if (data.type === 'GUEST_READY') {
-      console.log('✅ [WebRTC Host Debug] Le Joueur 2 a confirmé la réception de la grille (GUEST_READY) !');
-      if (initGameRetryInterval) {
-        clearInterval(initGameRetryInterval);
-        initGameRetryInterval = null;
-      }
-      closeRoomDialogSafely('GUEST_READY reçu');
-      updateMultiplayerUI();
-      addGameFeed("🎮 Joueur 2 connecté avec succès ! Le match 1v1 commence.");
-    }
-
-    if (data.type === 'INIT_GAME') {
-      console.log(`🎮 [WebRTC Guest Debug] Reçu INIT_GAME ! Génération de la grille et envoi de GUEST_READY...`);
-      clearGuestTimeout();
-      closeRoomDialogSafely('Réception INIT_GAME chez Invité');
-      generateGrid(data.rowIndices, data.colIndices);
-      resetGame(false);
-      updateMultiplayerUI();
-      safeSend({ type: 'GUEST_READY' });
-      addGameFeed("🎮 Salon rejoint avec succès ! Le match 1v1 commence. Joueur 1 a la main !");
-    }
-
-    if (data.type === 'MAKE_MOVE') {
-      const country = countries.find(c => c.code === data.countryCode);
-      answers[data.cellId] = { country, player: data.player };
-      const playerTag = data.player === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
-      
-      const winLine = checkTicTacToeWin(data.player);
-      if (winLine) {
-        stopTurnTimer();
-        mpVictoryTitle.textContent = `Défaite / Partie terminée !`;
-        mpVictoryDesc.textContent = `${playerTag} a aligné 3 cases et remporte ce match !`;
-        addGameFeed(`🎉 ${playerTag} a aligné 3 cases et remporte le match de Tic-Tac-Toe !`);
-        mpVictoryDialog.showModal();
-      } else {
-        currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-        addGameFeed(`✅ ${playerTag} a placé ${country.name} (Case ${data.cellId + 1}). C'est à VOTRE tour !`);
-        updateMultiplayerUI();
-      }
-      renderBoard();
-    }
-
-    if (data.type === 'WRONG_MOVE') {
-      const prevRoleName = currentTurn === 'host' ? '🔵 Joueur 2' : '🟢 Joueur 1';
-      currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-      const msg = `❌ ${prevRoleName} s'est trompé sur la Case ${data.cellId + 1} ! C'est à VOTRE tour !`;
-      feedback.textContent = msg;
-      addGameFeed(msg);
-      updateMultiplayerUI();
-      renderBoard();
-    }
-
-    if (data.type === 'TIMEOUT_PASS') {
-      currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-      feedback.textContent = `⏱️ Temps écoulé pour l'adversaire ! C'est à VOTRE tour !`;
-      updateMultiplayerUI();
-    }
-
-    if (data.type === 'PROPOSE_NEW_GRID') {
-      const senderName = data.sender === 'host' ? 'Joueur 1 (Hôte)' : 'Joueur 2 (Invité)';
-      gridProposalDesc.textContent = `Le ${senderName} propose de générer une nouvelle grille. Acceptez-vous ?`;
-      gridProposalDialog.showModal();
-    }
-
-    if (data.type === 'ACCEPT_NEW_GRID') {
-      gridProposalDialog.close();
-      answers = Array(9).fill(null);
-      currentTurn = 'host';
-      if (myRole === 'host') {
-        generateGrid();
-        const rowIndices = rows.map(r => allCriteria.indexOf(r));
-        const colIndices = columns.map(c => allCriteria.indexOf(c));
-        conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
-      }
-      renderBoard();
-      updateMultiplayerUI();
-    }
-
-    if (data.type === 'DECLINE_NEW_GRID') {
-      gridProposalDialog.close();
-      feedback.textContent = `⚠️ L'adversaire a refusé la demande de nouvelle grille.`;
-    }
-
-    if (data.type === 'REMATCH') {
-      answers = Array(9).fill(null);
-      currentTurn = 'host';
-      if (myRole === 'host') {
-        const rowIndices = rows.map(r => allCriteria.indexOf(r));
-        const colIndices = columns.map(c => allCriteria.indexOf(c));
-        conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
-      }
-      mpVictoryDialog.close();
-      renderBoard();
-      updateMultiplayerUI();
-    }
+    handleIncomingData(data);
   });
 
   conn.on('close', () => {
