@@ -294,6 +294,10 @@ function updateMultiplayerUI() {
   mpRoomCodeDisplay.textContent = `CODE : ${currentRoomCode}`;
   resetBtnLabel.textContent = "Proposer une nouvelle grille";
   
+  // Badges explicites (Vous)
+  playerHostPill.innerHTML = `<span class="player-dot host">🟢</span> Joueur 1 ${myRole === 'host' ? '<span class="you-tag">(Vous)</span>' : ''}`;
+  playerGuestPill.innerHTML = `<span class="player-dot guest">🔵</span> Joueur 2 ${myRole === 'guest' ? '<span class="you-tag">(Vous)</span>' : ''}`;
+
   if (currentTurn === 'host') {
     playerHostPill.classList.add('active-turn');
     playerGuestPill.classList.remove('active-turn');

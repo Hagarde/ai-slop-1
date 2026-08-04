@@ -246,6 +246,17 @@ button, input {
   color: var(--player-guest);
 }
 
+.you-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  background: currentColor;
+  color: white;
+  padding: 1px 6px;
+  border-radius: 6px;
+  margin-left: 3px;
+}
+
 .player-pill.active-turn {
   border-color: currentColor;
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
