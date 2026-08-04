@@ -290,10 +290,24 @@ function stopTurnTimer() {
 
 function updateTimerUI() {
   turnTimerDisplay.textContent = `⏱️ ${turnTimeLeft}s`;
+  
+  if (isMultiplayer && mpTurnText) {
+    const isMyTurn = currentTurn === myRole;
+    const activeRoleName = currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';
+    
+    if (isMyTurn) {
+      mpTurnText.textContent = `🎲 C'EST À VOTRE TOUR DE JOUER ! (⏱️ ${turnTimeLeft}s)`;
+    } else {
+      mpTurnText.textContent = `⏳ TOUR DE L'ADVERSAIRE (${activeRoleName} - ⏱️ ${turnTimeLeft}s)`;
+    }
+  }
+
   if (turnTimeLeft <= 10) {
     turnTimerDisplay.classList.add('warning');
+    if (mpTurnBanner) mpTurnBanner.classList.add('warning');
   } else {
     turnTimerDisplay.classList.remove('warning');
+    if (mpTurnBanner) mpTurnBanner.classList.remove('warning');
   }
 }
 
@@ -336,12 +350,12 @@ function updateMultiplayerUI() {
 
   if (isMyTurn) {
     mpTurnBanner.className = 'mp-turn-banner my-turn';
-    mpTurnText.textContent = `🎲 C'EST À VOTRE TOUR DE JOUER ! (30s)`;
+    mpTurnText.textContent = `🎲 C'EST À VOTRE TOUR DE JOUER ! (⏱️ ${turnTimeLeft}s)`;
     boardCard.classList.remove('opponent-turn');
     feedback.textContent = `🎲 C'est À VOTRE TOUR ! Choisissez une case sur la grille.`;
   } else {
     mpTurnBanner.className = 'mp-turn-banner opponent-turn';
-    mpTurnText.textContent = `⏳ TOUR DE L'ADVERSAIRE (${activeRoleName} RÉFLEXION EN COURS...)`;
+    mpTurnText.textContent = `⏳ TOUR DE L'ADVERSAIRE (${activeRoleName} - ⏱️ ${turnTimeLeft}s)`;
     boardCard.classList.add('opponent-turn');
     feedback.textContent = `⏳ En attente de l'adversaire (${activeRoleName})...`;
   }
