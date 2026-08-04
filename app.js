@@ -738,63 +738,79 @@ function logIceServers(servers) {
   });
 }
 
-const ICE_SERVERS = [
-  // ─── STUN (découverte IP publique, bloqué UDP sur certains réseaux) ────
+// ─── Serveurs STUN de base (toujours disponibles) ───────────────────────────
+const STUN_SERVERS = [
   { urls: 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
   { urls: 'stun:stun.services.mozilla.com' },
-  // ─── TURN UDP (NAT standard, bloqué sur eduroam) ──────────────────────
-  {
-    urls: 'turn:openrelay.metered.ca:80',
-    username: 'openrelayproject',
-    credential: 'openrelayproject'
-  },
-  {
-    urls: 'turn:openrelay.metered.ca:443',
-    username: 'openrelayproject',
-    credential: 'openrelayproject'
-  },
-  // ─── TURN TCP (traverse plus de firewalls que UDP) ────────────────────
-  {
-    urls: 'turn:openrelay.metered.ca:80?transport=tcp',
-    username: 'openrelayproject',
-    credential: 'openrelayproject'
-  },
-  {
-    urls: 'turn:openrelay.metered.ca:443?transport=tcp',
-    username: 'openrelayproject',
-    credential: 'openrelayproject'
-  },
-  // ─── TURN/TLS port 443 (imite HTTPS, traverse presque tous les firewalls) ─
-  {
-    urls: 'turns:openrelay.metered.ca:443?transport=tcp',
-    username: 'openrelayproject',
-    credential: 'openrelayproject'
-  },
-  // ─── Serveur TURN alternatif numb.viagenie.ca ─────────────────────────
-  {
-    urls: 'turn:numb.viagenie.ca',
-    username: 'webrtc@live.com',
-    credential: 'muazkh'
-  },
-  {
-    urls: 'turns:numb.viagenie.ca:443?transport=tcp',
-    username: 'webrtc@live.com',
-    credential: 'muazkh'
-  }
 ];
 
-const PEER_CONFIG = {
-  debug: 2,
-  config: {
-    iceServers: ICE_SERVERS,
-    iceCandidatePoolSize: 10,
-    bundlePolicy: 'max-bundle',
-    rtcpMuxPolicy: 'require'
-  }
-};
+// ─── Metered.ca TURN API (20 Go/mois gratuit) ──────────────────────────────
+// ⚠️ Remplacez par vos propres credentials depuis https://dashboard.metered.ca
+const METERED_APP_NAME = 'countrydoku';  // Nom de votre app Metered
+const METERED_API_KEY  = '';             // Votre API key (vide = STUN only)
 
-function initPeer(customCode = null, isCreating = false) {
+let cachedTurnServers = null;
+let turnFetchPromise = null;
+
+async function fetchTurnCredentials() {
+  // Cache : ne refetch que toutes les 10 minutes
+  if (cachedTurnServers) return cachedTurnServers;
+  // Déduplication : si un fetch est en cours, attendre
+  if (turnFetchPromise) return turnFetchPromise;
+
+  if (!METERED_API_KEY) {
+    console.warn('⚠️ [TURN] Pas de clé API Metered.ca configurée → mode STUN-only.');
+    console.warn('   Pour le multijoueur cross-réseau, configurez METERED_API_KEY dans app.js.');
+    console.warn('   Inscription gratuite : https://dashboard.metered.ca/signup');
+    return [];
+  }
+
+  turnFetchPromise = (async () => {
+    try {
+      console.log('🔑 [TURN] Récupération des credentials TURN via Metered.ca...');
+      const url = `https://${METERED_APP_NAME}.metered.live/api/v1/turn/credentials?apiKey=${METERED_API_KEY}`;
+      const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const servers = await res.json();
+      if (!Array.isArray(servers) || servers.length === 0) {
+        throw new Error('Réponse vide ou invalide');
+      }
+      console.log(`✅ [TURN] ${servers.length} serveurs TURN obtenus depuis Metered.ca !`);
+      cachedTurnServers = servers;
+      // Expire le cache après 10 min
+      setTimeout(() => { cachedTurnServers = null; }, 10 * 60 * 1000);
+      return servers;
+    } catch (err) {
+      console.error(`❌ [TURN] Échec récupération credentials: ${err.message}`);
+      console.error('   → Fallback : mode STUN-only (fonctionnel uniquement sur réseaux non-restrictifs).');
+      return [];
+    } finally {
+      turnFetchPromise = null;
+    }
+  })();
+  return turnFetchPromise;
+}
+
+async function buildPeerConfig() {
+  const turnServers = await fetchTurnCredentials();
+  const allServers = [...STUN_SERVERS, ...turnServers];
+  logIceServers(allServers);
+  return {
+    debug: 2,
+    config: {
+      iceServers: allServers,
+      iceCandidatePoolSize: 10,
+      bundlePolicy: 'max-bundle',
+      rtcpMuxPolicy: 'require'
+    }
+  };
+}
+
+// Compat : variable globale pour le diagnostic
+let ICE_SERVERS = [...STUN_SERVERS];
+
+async function initPeer(customCode = null, isCreating = false) {
   const code = customCode || generateRoomCode();
   currentRoomCode = code;
   const peerId = `cdoku-1v1-${code}`;
@@ -802,15 +818,21 @@ function initPeer(customCode = null, isCreating = false) {
   console.log(`\n${'='.repeat(65)}`);
   console.log(`🌐 [WebRTC Host] initialisation — PeerID: "${peerId}" | Création: ${isCreating}`);
   console.log(`${'='.repeat(65)}`);
-  updateStatus("⚙️ Connexion au serveur de signalisation (0.peerjs.com)...", "connecting");
+  updateStatus("⚙️ Récupération des serveurs TURN...", "connecting");
   setupBroadcastChannel(code);
+
+  // Récupérer les credentials TURN avant de créer le Peer
+  const peerConfig = await buildPeerConfig();
+  ICE_SERVERS = peerConfig.config.iceServers; // pour le diagnostic
+
+  updateStatus("⚙️ Connexion au serveur de signalisation (0.peerjs.com)...", "connecting");
 
   if (peer) {
     try { peer.destroy(); } catch (e) {}
     peer = null;
   }
 
-  peer = new Peer(peerId, PEER_CONFIG);
+  peer = new Peer(peerId, peerConfig);
 
   peer.on('open', (id) => {
     console.log(`✅ [WebRTC Host] Serveur de signalisation OK ! ID enregistré: "${id}"`);
@@ -901,7 +923,7 @@ function clearGuestTimeout() {
   }
 }
 
-function connectAsGuest(code) {
+async function connectAsGuest(code) {
   currentRoomCode = code;
   myRole = 'guest';
   currentTurn = 'host';
@@ -910,12 +932,18 @@ function connectAsGuest(code) {
   console.log(`\n${'='.repeat(65)}`);
   console.log(`🌐 [WebRTC Guest] connectAsGuest — Tentative rejointure salon: "${code}"`);
   console.log(`${'='.repeat(65)}`);
-  updateStatus(`⚙️ Connexion au serveur de signalisation...`, "connecting");
+  updateStatus(`⚙️ Récupération des serveurs TURN...`, "connecting");
   if (!roomDialog.open) roomDialog.showModal();
   setupBroadcastChannel(code);
 
+  // Récupérer les credentials TURN avant de créer le Peer
+  const peerConfig = await buildPeerConfig();
+  ICE_SERVERS = peerConfig.config.iceServers; // pour le diagnostic
+
+  updateStatus(`⚙️ Connexion au serveur de signalisation...`, "connecting");
+
   if (peer) { try { peer.destroy(); } catch (e) {} }
-  peer = new Peer(null, PEER_CONFIG);
+  peer = new Peer(null, peerConfig);
 
   peer.on('open', (id) => {
     console.log(`✅ [WebRTC Guest] Serveur signalisation OK ! ID temporaire: "${id}"`);
