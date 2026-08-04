@@ -709,13 +709,14 @@ function connectAsGuest(code) {
   currentTurn = 'host';
   isMultiplayer = true;
 
-  mpStatusMsg.textContent = `Connexion au salon (${code})...`;
+  mpStatusMsg.textContent = `Connexion au salon (${code}) en cours...`;
+  if (!roomDialog.open) roomDialog.showModal();
 
   if (peer) peer.destroy();
   peer = new Peer();
 
   peer.on('open', () => {
-    mpStatusMsg.textContent = `Connexion avec l'hôte du salon ${code}...`;
+    mpStatusMsg.textContent = `Connexion établie ! Rejoignage du salon ${code}...`;
     conn = peer.connect(`cdoku-1v1-${code}`);
 
     if (connectTimeout) clearTimeout(connectTimeout);
@@ -752,15 +753,19 @@ function connectAsGuest(code) {
 
 function setupConnectionListeners() {
   conn.on('open', () => {
-    roomDialog.close();
+    if (connectTimeout) clearTimeout(connectTimeout);
+    if (roomDialog.open) roomDialog.close();
     updateMultiplayerUI();
   });
 
   conn.on('data', (data) => {
     if (data.type === 'INIT_GAME') {
+      if (connectTimeout) clearTimeout(connectTimeout);
+      if (roomDialog.open) roomDialog.close();
       generateGrid(data.rowIndices, data.colIndices);
       resetGame(false);
       updateMultiplayerUI();
+      addGameFeed("🎮 Salon rejoint avec succès ! Le match 1v1 commence. Joueur 1 a la main !");
     }
 
     if (data.type === 'MAKE_MOVE') {
