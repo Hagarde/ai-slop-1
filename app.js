@@ -286,10 +286,14 @@ function updateMultiplayerUI() {
     multiplayerBar.classList.add('hidden');
     resetBtnLabel.textContent = "Nouvelle grille";
     document.querySelector('#intro-desc-text').textContent = "Cliquez sur une case pour choisir le pays correspondant. Cliquez sur ⓘ pour voir les explications des critères.";
+    if (modeSoloTab) modeSoloTab.classList.add('active');
+    if (modeMultiTab) modeMultiTab.classList.remove('active');
     stopTurnTimer();
     return;
   }
 
+  if (modeSoloTab) modeSoloTab.classList.remove('active');
+  if (modeMultiTab) modeMultiTab.classList.add('active');
   multiplayerBar.classList.remove('hidden');
   mpRoomCodeDisplay.textContent = `CODE : ${currentRoomCode}`;
   resetBtnLabel.textContent = "Proposer une nouvelle grille";
@@ -458,11 +462,37 @@ function choose(code) {
 
   const row = rows[Math.floor(selectedCell / 3)];
   const column = columns[selectedCell % 3];
-  const isMatch = row.test(country) && column.test(country);
+  const isMatchRow = row.test(country);
+  const isMatchCol = column.test(country);
+  const isMatch = isMatchRow && isMatchCol;
 
-  const locked = Object.fromEntries(answers.map((answer, index) => answer ? [index, answer.country || answer] : null).filter(Boolean));
-  locked[selectedCell] = country;
-  const lists = rows.flatMap((line) => columns.map((columnItem) => cellCandidates(line, columnItem)));
+  // --- LOGS DÉBOGAGE STRUCTURÉS CONSOLE (F12) ---
+  console.group(`🔍 [CountryDoku Debug] Evaluation : ${country.name} (${country.code})`);
+  console.log(`📍 Case N°${selectedCell + 1} (Ligne: "${row.label}" × Colonne: "${column.label}")`);
+  console.log('📌 Fiche Données du Pays :', {
+    nom: country.name,
+    nomAnglais: country.nameEnglish,
+    code: country.code,
+    region: country.region,
+    hemisphere: country.hemisphere,
+    superficie: `${(country.area || 0).toLocaleString('fr-FR')} km²`,
+    population: `${(country.population || 0).toLocaleString('fr-FR')} hab.`,
+    frontieresCount: country.borders.length,
+    frontieres: country.borders.map(b => b.name || b.code),
+    equateur: country.equator,
+    oecd: country.oecd,
+    sommets4000m: country.peak4000,
+    langues: country.languages,
+    capitale: country.capital,
+    capitaleMemeInitiale: country.capitalSameLetter,
+    drapeauCouleurs: country.flagColors,
+    drapeauMotif: country.flagStripes || 'aucun',
+    drapeauSymbole: country.symbolOnFlag
+  });
+  console.log(`🧪 Test Ligne ("${row.label}") :`, isMatchRow ? '✅ VALIDE' : '❌ ÉCHEC');
+  console.log(`🧪 Test Colonne ("${column.label}") :`, isMatchCol ? '✅ VALIDE' : '❌ ÉCHEC');
+  console.log(`🏁 RÉSULTAT FINAL :`, isMatch ? '✅ ACCEPTÉ' : '❌ REJETÉ');
+  console.groupEnd();
 
   const targetCellId = selectedCell;
   const targetCellEl = board.querySelector(`.cell[data-cell="${targetCellId}"]`);
@@ -719,13 +749,28 @@ function setupConnectionListeners() {
   });
 }
 
-// Événements Multijoueur & Boutons
-multiToggleBtn.addEventListener('click', () => {
+const modeSoloTab = document.querySelector('#mode-solo-tab');
+const modeMultiTab = document.querySelector('#mode-multi-tab');
+
+function openMultiplayerModal() {
   mpStatusMsg.textContent = '';
   roomOptionsView.classList.remove('hidden');
   roomCreatedView.classList.add('hidden');
   roomDialog.showModal();
-});
+}
+
+multiToggleBtn.addEventListener('click', openMultiplayerModal);
+if (modeMultiTab) modeMultiTab.addEventListener('click', openMultiplayerModal);
+if (modeSoloTab) {
+  modeSoloTab.addEventListener('click', () => {
+    if (isMultiplayer) {
+      handleRoomClose();
+    } else {
+      modeSoloTab.classList.add('active');
+      modeMultiTab.classList.remove('active');
+    }
+  });
+}
 
 function handleRoomClose() {
   if (isMultiplayer && (!conn || !conn.open)) {
