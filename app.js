@@ -833,11 +833,18 @@ function connectAsGuest(code) {
     updateStatus(`🤝 Recherche de l'Hôte du salon ${code}...`, "connecting");
     conn = peer.connect(`cdoku-1v1-${code}`, { reliable: true });
 
-    // Timeout 10s : si le DataChannel n'est pas ouvert dans ce délai, on abandonne
+    // Annonce immédiate via BroadcastChannel (même navigateur) — n'attend pas le DataChannel
+    if (roomChannel) {
+      console.log('📻 [Guest] Annonce GUEST_JOINED via BroadcastChannel (même navigateur).');
+      roomChannel.postMessage({ type: 'GUEST_JOINED' });
+    }
+
+    // Timeout 12s : si le DataChannel WebRTC ne s'ouvre pas ET que le jeu n'a pas démarré
     clearGuestTimeout();
     connectTimeout = setTimeout(() => {
-      if (conn && conn.open) return;
-      console.warn(`⚠️ [Guest] Timeout 10s — DataChannel non ouvert.`);
+      if (conn && conn.open) return;           // DataChannel ouvert = OK
+      if (!isMultiplayer || myRole === null) return; // Jeu déjà démarré ou abandonné
+      console.warn(`⚠️ [Guest] Timeout 12s — DataChannel non ouvert.`);
       isMultiplayer = false;
       myRole = null;
       const msg = `⚠️ Impossible de joindre le salon ${code}. L'hôte a quitté ou fermé la partie.`;
@@ -847,7 +854,7 @@ function connectAsGuest(code) {
       roomCreatedView.classList.add('hidden');
       if (!roomDialog.open) roomDialog.showModal();
       window.history.pushState({}, '', window.location.pathname);
-    }, 10000);
+    }, 12000);
 
     setupConnectionListeners();
   });
@@ -1060,24 +1067,24 @@ function setupConnectionListeners() {
 
   let channelOpenFired = false;
   function handleChannelOpen() {
-    if (channelOpenFired) return; // éviter les doubles déclenchements
+    if (channelOpenFired) return;
+    if (!conn) return;
     channelOpenFired = true;
-    console.log(`🟢 [WebRTC] DataChannel OUVERT ! (rôle: "${myRole}", peer: "${conn ? conn.peer : 'N/A'}")`);
+    console.log(`🟢 [WebRTC] DataChannel OUVERT via WebRTC ! (rôle: "${myRole}", peer: "${conn.peer}")`);
     clearGuestTimeout();
 
     if (myRole === 'host') {
-      // L'hôte attend GUEST_JOINED avant d'envoyer INIT_GAME
-      updateStatus("🟢 Canal ouvert ! En attente de l'Invité...", "connecting");
+      updateStatus("🟢 Canal WebRTC ouvert ! En attente de l'Invité...", "connecting");
     } else {
-      // L'invité annonce sa présence → l'hôte répondra avec INIT_GAME
-      updateStatus("🟢 Connecté à l'Hôte ! Annonce de présence...", "connecting");
+      // Annonce via WebRTC (cross-réseau) — BC a déjà envoyé pour le même navigateur
+      updateStatus("🟢 Canal WebRTC ouvert ! Annonce à l'Hôte...", "connecting");
       safeSend({ type: 'GUEST_JOINED' });
     }
   }
 
   conn.on('open', handleChannelOpen);
 
-  // Fallback natif si l'event 'open' de PeerJS est raté
+  // Fallback natif RTCDataChannel si PeerJS rate l'événement 'open'
   if (conn.dataChannel) {
     conn.dataChannel.onopen = handleChannelOpen;
     if (conn.dataChannel.readyState === 'open') {
@@ -1086,11 +1093,33 @@ function setupConnectionListeners() {
     }
   }
 
-  // Fallback si conn.open est déjà true au moment de l'appel
+  // Fallback si conn.open est déjà true
   if (conn.open) {
     console.log('⚡ [WebRTC] conn.open déjà true !');
     handleChannelOpen();
   }
+
+  // Poll de secours toutes les 300ms — détecte l'ouverture si les events sont ratés
+  const openPoll = setInterval(() => {
+    if (!conn) { clearInterval(openPoll); return; }
+    if (channelOpenFired) { clearInterval(openPoll); return; }
+    // Vérifier conn.open
+    if (conn.open) {
+      console.log('🔄 [WebRTC Poll] conn.open est devenu true !');
+      clearInterval(openPoll);
+      handleChannelOpen();
+      return;
+    }
+    // Vérifier le RTCDataChannel natif si disponible
+    if (conn.dataChannel && conn.dataChannel.readyState === 'open') {
+      console.log('🔄 [WebRTC Poll] RTCDataChannel natif est open !');
+      clearInterval(openPoll);
+      conn.dataChannel.onopen = handleChannelOpen;
+      handleChannelOpen();
+    }
+  }, 300);
+  // Stopper le poll au bout de 15s dans tous les cas
+  setTimeout(() => clearInterval(openPoll), 15000);
 
   conn.on('data', (data) => { handleIncomingData(data); });
 
