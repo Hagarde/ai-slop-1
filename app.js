@@ -303,12 +303,42 @@ const mpTurnBanner = document.querySelector('#mp-turn-banner');
 const mpTurnText = document.querySelector('#mp-turn-text');
 const boardCard = document.querySelector('#board-card');
 const mpFeedCard = document.querySelector('#mp-feed-card');
-const mpFeedMsg = document.querySelector('#mp-feed-msg');
+const mpFeedList = document.querySelector('#mp-feed-list');
+const mpFeedCount = document.querySelector('#mp-feed-count');
 
-function addGameFeed(msg) {
-  if (mpFeedMsg) {
-    mpFeedMsg.textContent = msg;
+const feedHistory = [];
+const maxFeedHistory = 40;
+
+function addGameFeed(msg, type = 'info') {
+  const time = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  feedHistory.push({ msg, type, time });
+  if (feedHistory.length > maxFeedHistory) feedHistory.shift();
+
+  renderGameFeed();
+}
+
+function renderGameFeed() {
+  if (!mpFeedList) return;
+
+  if (mpFeedCount) {
+    mpFeedCount.textContent = `${feedHistory.length} événement${feedHistory.length > 1 ? 's' : ''}`;
   }
+
+  mpFeedList.innerHTML = feedHistory.map(item => `
+    <div class="mp-feed-item ${item.type}">
+      <span style="font-family: var(--font-mono); font-size: 10.5px; opacity: 0.65; margin-right: 5px;">[${item.time}]</span>
+      ${escapeHtml(item.msg)}
+    </div>
+  `).join('');
+
+  setTimeout(() => {
+    mpFeedList.scrollTop = mpFeedList.scrollHeight;
+  }, 30);
+}
+
+function clearGameFeed() {
+  feedHistory.length = 0;
+  renderGameFeed();
 }
 
 function updateLivesUI() {
@@ -653,9 +683,9 @@ function choose(code) {
     if (isMultiplayer) {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
       safeSend({ type: 'WRONG_MOVE', cellId: targetCellId, countryCode: code });
-      const msg = `❌ Erreur : ${country.name} est incorrect ! Le tour passe à l'adversaire.`;
+      const msg = `❌ Vous avez proposé "${country.name}" (Case ${targetCellId + 1}) mais c'était INCORRECT ! Tour à l'adversaire.`;
       feedback.textContent = msg;
-      addGameFeed(msg);
+      addGameFeed(msg, 'wrong');
       selectedCell = null;
       updateMultiplayerUI();
       renderBoard();
@@ -695,17 +725,17 @@ function choose(code) {
       updateScoresUI();
       mpVictoryTitle.textContent = `Victoire du ${playerTag} ! 🎉`;
       mpVictoryDesc.textContent = `Vous avez aligné 3 cases et remporté ce match de Tic-Tac-Toe !`;
-      addGameFeed(`🎉 Victoire ! Vous (${playerTag}) avez aligné 3 cases et remporté ce match !`);
+      addGameFeed(`🎉 Victoire ! Vous (${playerTag}) avez aligné 3 cases et remporté ce match !`, 'correct');
       mpVictoryDialog.showModal();
     } else if (answers.filter(Boolean).length === 9) {
       stopTurnTimer();
       mpVictoryTitle.textContent = `Match Nul ! 🤝`;
       mpVictoryDesc.textContent = `Toutes les 9 cases ont été complétées sans alignement de 3 cases. Égalité !`;
-      addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`);
+      addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`, 'info');
       mpVictoryDialog.showModal();
     } else {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-      addGameFeed(`✅ Vous (${playerTag}) avez placé ${country.name} (Case ${selectedCell + 1}) ! Tour à l'adversaire.`);
+      addGameFeed(`✅ Vous (${playerTag}) avez placé ${country.name} (Case ${selectedCell + 1}) ! Tour à l'adversaire.`, 'correct');
       updateMultiplayerUI();
     }
   } else {
@@ -1215,33 +1245,35 @@ function handleIncomingData(data) {
       updateScoresUI();
       mpVictoryTitle.textContent = `Défaite / Partie terminée !`;
       mpVictoryDesc.textContent = `${playerTag} a aligné 3 cases et remporte ce match !`;
-      addGameFeed(`🎉 ${playerTag} a aligné 3 cases et remporte le match de Tic-Tac-Toe !`);
+      addGameFeed(`🎉 ${playerTag} a aligné 3 cases et remporte le match de Tic-Tac-Toe !`, 'correct');
       mpVictoryDialog.showModal();
     } else if (answers.filter(Boolean).length === 9) {
       stopTurnTimer();
       mpVictoryTitle.textContent = `Match Nul ! 🤝`;
       mpVictoryDesc.textContent = `Toutes les 9 cases ont été complétées sans alignement de 3 cases. Égalité !`;
-      addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`);
+      addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`, 'info');
       mpVictoryDialog.showModal();
     } else {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-      addGameFeed(`✅ ${playerTag} a placé ${country.name} (Case ${data.cellId + 1}). C'est à VOTRE tour !`);
+      addGameFeed(`✅ ${playerTag} a placé ${country ? country.name : 'un pays'} (Case ${data.cellId + 1}). C'est à VOTRE tour !`, 'correct');
       updateMultiplayerUI();
     }
     renderBoard();
   }
 
   if (data.type === 'WRONG_MOVE') {
+    const country = countries.find(c => c.code === data.countryCode);
     const activePlayerTag = currentTurn === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
+    const countryName = country ? country.name : 'un pays';
     currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-    addGameFeed(`❌ ${activePlayerTag} s'est trompé. C'est à VOTRE tour de jouer !`);
+    addGameFeed(`❌ ${activePlayerTag} a tenté "${countryName}" (Case ${(data.cellId || 0) + 1}) mais c'était INCORRECT ! C'est à VOTRE tour.`, 'wrong');
     updateMultiplayerUI();
   }
 
   if (data.type === 'TIMEOUT_PASS') {
     currentTurn = currentTurn === 'host' ? 'guest' : 'host';
     const activeRoleName = currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';
-    addGameFeed(`⏱️ Temps écoulé pour l'adversaire ! Le tour passe à ${activeRoleName}.`);
+    addGameFeed(`⏱️ Temps écoulé (30s) pour l'adversaire ! Le tour passe à ${activeRoleName}.`, 'wrong');
     updateMultiplayerUI();
   }
 

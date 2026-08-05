@@ -112,8 +112,13 @@
 
         <!-- Journal de Partie Live Feed 1v1 -->
         <div class="mp-feed-card hidden" id="mp-feed-card">
-          <span class="mp-feed-title">📢 JOURNAL DE LA PARTIE EN DIRECT</span>
-          <div class="mp-feed-msg" id="mp-feed-msg">🎮 Le match 1v1 commence ! Joueur 1 a la main.</div>
+          <div class="mp-feed-header">
+            <span class="mp-feed-title">📢 JOURNAL DE LA PARTIE EN DIRECT</span>
+            <span class="mp-feed-count" id="mp-feed-count">0 évènement</span>
+          </div>
+          <div class="mp-feed-list" id="mp-feed-list">
+            <div class="mp-feed-item info">🎮 Le match 1v1 commence ! Joueur 1 a la main.</div>
+          </div>
         </div>
 
         <div class="board-actions">
@@ -330,6 +335,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=7"></script>
+    <script src="app.js?v=8"></script>
   </body>
 </html>

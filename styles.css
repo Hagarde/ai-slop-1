@@ -306,6 +306,14 @@ button, input {
   box-shadow: var(--shadow-sm);
 }
 
+.mp-feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
 .mp-feed-title {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -314,10 +322,49 @@ button, input {
   letter-spacing: 0.8px;
 }
 
-.mp-feed-msg {
-  font-size: 13px;
+.mp-feed-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 600;
+  color: var(--ink-secondary);
+}
+
+.mp-feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 2px;
+  scroll-behavior: smooth;
+}
+
+.mp-feed-item {
+  font-size: 12.5px;
+  font-weight: 500;
   color: var(--ink-primary);
+  padding: 5px 9px;
+  background: var(--bg-app);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--border-medium);
+  line-height: 1.35;
+}
+
+.mp-feed-item.correct {
+  border-left-color: #2e7d32;
+  background: #f1f8e9;
+  color: #1b5e20;
+}
+
+.mp-feed-item.wrong {
+  border-left-color: #c62828;
+  background: #ffebee;
+  color: #b71c1c;
+}
+
+.mp-feed-item.info {
+  border-left-color: var(--accent-primary);
+  background: var(--bg-subtle);
 }
 
 /* Barre Multijoueur 1v1 */
