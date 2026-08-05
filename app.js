@@ -107,6 +107,7 @@ let isMultiplayer = false;
 let myRole = null; // 'host' (🟢 J1) ou 'guest' (🔵 J2)
 let currentTurn = 'host'; // 'host' commence toujours
 let roomScores = { host: 0, guest: 0 };
+let currentGridIndices = null;
 
 function updateScoresUI() {
   const hostScoreEl = document.querySelector('#mp-score-host');
@@ -258,6 +259,7 @@ function generateGrid(rowIndices = null, colIndices = null) {
   if (rowIndices && colIndices) {
     rows = rowIndices.map(i => allCriteria[i]);
     columns = colIndices.map(i => allCriteria[i]);
+    currentGridIndices = { rowIndices, colIndices };
     return;
   }
 
@@ -267,7 +269,15 @@ function generateGrid(rowIndices = null, colIndices = null) {
     const testColumns = choices.slice(3);
     const lists = testRows.flatMap((row) => testColumns.map((column) => cellCandidates(row, column)));
     if (lists.some((list) => list.length < 2)) continue;
-    if (solveGrid(lists)) { rows = testRows; columns = testColumns; return; }
+    if (solveGrid(lists)) {
+      rows = testRows;
+      columns = testColumns;
+      currentGridIndices = {
+        rowIndices: rows.map(r => allCriteria.indexOf(r)),
+        colIndices: columns.map(c => allCriteria.indexOf(c))
+      };
+      return;
+    }
   }
   throw new Error('Aucune grille solvable n’a pu être générée.');
 }
@@ -970,6 +980,10 @@ async function initPeer(customCode = null, isCreating = false) {
 
   peer.on('connection', (connection) => {
     console.log(`\n🤝 [WebRTC Host] Connexion entrante du Joueur 2 (Peer distant: "${connection.peer}")`);
+    if (conn && conn !== connection) {
+      console.log(`🧹 [Host] Fermeture propre de la précédente connexion WebRTC (${conn.peer})`);
+      try { conn.close(); } catch (e) {}
+    }
     conn = connection;
     setupConnectionListeners();
     updateStatus("🤝 Joueur 2 détecté ! Négociation ICE/TURN en cours...", "connecting");
@@ -1172,8 +1186,13 @@ function sendInitGameToGuest() {
   if (initGameRetryInterval) { clearInterval(initGameRetryInterval); initGameRetryInterval = null; }
   initGameSent = false;
 
-  const rowIndices = rows.map(r => allCriteria.indexOf(r));
-  const colIndices = columns.map(c => allCriteria.indexOf(c));
+  if (!currentGridIndices || !currentGridIndices.rowIndices || currentGridIndices.rowIndices.length !== 3) {
+    const rowIndices = rows.map(r => allCriteria.indexOf(r));
+    const colIndices = columns.map(c => allCriteria.indexOf(c));
+    currentGridIndices = { rowIndices, colIndices };
+  }
+
+  const { rowIndices, colIndices } = currentGridIndices;
 
   let attempts = 0;
   function attemptSend() {
@@ -1195,6 +1214,15 @@ function sendInitGameToGuest() {
 
 function handleIncomingData(data) {
   if (!data || !data.type) return;
+
+  if (data.type === 'PING') {
+    safeSend({ type: 'PONG' });
+    return;
+  }
+  if (data.type === 'PONG') {
+    return;
+  }
+
   console.log(`📩 [1v1] Message reçu (Type: "${data.type}", Mon rôle: "${myRole}") :`, data);
 
   // GUEST → HOST : l'invité annonce qu'il a ouvert son canal
@@ -1350,6 +1378,18 @@ function setupConnectionListeners() {
     console.log(`🟢 [WebRTC] DataChannel OUVERT (Rôle: "${myRole}", Peer: "${conn.peer}")`);
     clearGuestTimeout();
 
+    // Heartbeat PING/PONG toutes les 7 secondes pour maintenir les sockets TURN et NAT actifs
+    if (!conn._pingTimer) {
+      conn._pingTimer = setInterval(() => {
+        if (conn && conn.open) {
+          try { conn.send({ type: 'PING' }); } catch (e) {}
+        } else if (conn._pingTimer) {
+          clearInterval(conn._pingTimer);
+          conn._pingTimer = null;
+        }
+      }, 7000);
+    }
+
     if (myRole === 'host') {
       updateStatus("🟢 Canal P2P ouvert ! En attente de l'Invité...", "connecting");
     } else {
@@ -1439,10 +1479,19 @@ function setupConnectionListeners() {
         console.error(`❌ [ICE] Échec — ${candidateCount} candidats, ${relayCandidateCount} TURN relais`);
         updateStatus(relayCandidateCount === 0
           ? '❌ Réseau trop restrictif (TURN bloqué). Essayez sur 4G ou hotspot.'
-          : '❌ Connexion P2P échouée. Essayez sur un autre réseau.', 'error');
+          : '❌ Connexion P2P échouée. Tentative de relance...', 'error');
         try { pc.restartIce(); } catch (e) {}
       } else if (state === 'disconnected') {
-        console.warn('⚠️ [ICE] Connexion temporairement perdue');
+        console.warn('⚠️ [ICE] Connexion temporairement perdue — tentative de relance ICE...');
+        try { pc.restartIce(); } catch (e) {}
+        if (myRole === 'guest' && currentRoomCode) {
+          setTimeout(() => {
+            if ((!conn || !conn.open) && isMultiplayer) {
+              console.log('🔄 [Guest Auto-Reconnect] Relance de la tentative de connexion au salon...');
+              connectAsGuest(currentRoomCode);
+            }
+          }, 3500);
+        }
       }
     });
 
