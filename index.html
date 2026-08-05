@@ -213,12 +213,16 @@
     <!-- Modal de Victoire 1v1 Tic-Tac-Toe -->
     <dialog id="mp-victory-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
+        <button class="close-dialog-btn" id="close-mp-victory" aria-label="Fermer la fenêtre">×</button>
         <span class="dialog-eyebrow" id="mp-victory-eyebrow">PARTIE TERMINÉE</span>
         <h2 id="mp-victory-title">Victoire ! 🎉</h2>
         <p id="mp-victory-desc">Le Joueur 1 a aligné 3 cases et remporte le match de Tic-Tac-Toe !</p>
-        <div style="display: flex; gap: 12px; margin-top: 12px;">
-          <button class="secondary-button full-width" id="mp-rematch-btn">Revanche (Même grille)</button>
-          <button class="primary-button full-width" id="mp-new-match-btn">Nouveau Match</button>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
+          <div style="display: flex; gap: 12px;">
+            <button class="secondary-button full-width" id="mp-rematch-btn">Revanche (Même grille)</button>
+            <button class="primary-button full-width" id="mp-new-match-btn">Nouveau Match</button>
+          </div>
+          <button class="ghost-button full-width" id="mp-view-board-btn" style="margin-top: 4px;">🔍 Examiner la grille jouée</button>
         </div>
       </div>
     </dialog>
@@ -295,6 +299,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=4"></script>
+    <script src="app.js?v=5"></script>
   </body>
 </html>

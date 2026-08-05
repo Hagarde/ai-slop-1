@@ -56,6 +56,8 @@ const mpVictoryTitle = document.querySelector('#mp-victory-title');
 const mpVictoryDesc = document.querySelector('#mp-victory-desc');
 const mpRematchBtn = document.querySelector('#mp-rematch-btn');
 const mpNewMatchBtn = document.querySelector('#mp-new-match-btn');
+const closeMpVictory = document.querySelector('#close-mp-victory');
+const mpViewBoardBtn = document.querySelector('#mp-view-board-btn');
 
 let countries = [];
 let rows = [];
@@ -1535,6 +1537,17 @@ mpNewMatchBtn.addEventListener('click', () => {
     safeSend({ type: 'NEW_MATCH_REQUEST' });
   }
 });
+
+function dismissVictoryDialog() {
+  if (mpVictoryDialog) {
+    try { if (mpVictoryDialog.open) mpVictoryDialog.close(); } catch (e) {}
+    mpVictoryDialog.removeAttribute('open');
+  }
+  feedback.textContent = "🔍 Grille finale examinée. Utilisez les options du menu pour relancer une partie.";
+}
+
+if (closeMpVictory) closeMpVictory.addEventListener('click', dismissVictoryDialog);
+if (mpViewBoardBtn) mpViewBoardBtn.addEventListener('click', dismissVictoryDialog);
 
 function resetGame(newSeed = true) {
   answers = Array(9).fill(null);

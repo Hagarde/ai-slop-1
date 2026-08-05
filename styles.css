@@ -840,6 +840,28 @@ button, input {
   border-color: var(--ink-primary);
 }
 
+.ghost-button {
+  background: transparent;
+  border: 1px dashed var(--border-medium);
+  color: var(--ink-secondary);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.ghost-button:hover {
+  background: var(--bg-subtle);
+  color: var(--ink-primary);
+  border-style: solid;
+}
+
 /* Search & Room Dialogs */
 .search-dialog, .tooltip-dialog {
   max-width: 520px;
