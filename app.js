@@ -1,3 +1,27 @@
+// ─── Capture dynamique des logs de console pour les signalements de bug ──────
+const sessionLogs = [];
+const maxSessionLogs = 200;
+
+function bufferLog(level, args) {
+  const time = new Date().toLocaleTimeString('fr-FR');
+  const formatted = args.map(a => {
+    if (typeof a === 'object' && a !== null) {
+      try { return JSON.stringify(a); } catch (e) { return String(a); }
+    }
+    return String(a);
+  }).join(' ');
+  sessionLogs.push(`[${time}] [${level.toUpperCase()}] ${formatted}`);
+  if (sessionLogs.length > maxSessionLogs) sessionLogs.shift();
+}
+
+['log', 'warn', 'error', 'info'].forEach(level => {
+  const orig = console[level];
+  console[level] = function (...args) {
+    bufferLog(level, args);
+    orig.apply(console, args);
+  };
+});
+
 const board = document.querySelector('#board');
 const countriesEl = document.querySelector('#countries');
 const feedback = document.querySelector('#feedback');
@@ -58,6 +82,15 @@ const mpRematchBtn = document.querySelector('#mp-rematch-btn');
 const mpNewMatchBtn = document.querySelector('#mp-new-match-btn');
 const closeMpVictory = document.querySelector('#close-mp-victory');
 const mpViewBoardBtn = document.querySelector('#mp-view-board-btn');
+
+// Signalement de Bug / Problème Elements
+const reportButton = document.querySelector('#report-button');
+const reportDialog = document.querySelector('#report-dialog');
+const closeReport = document.querySelector('#close-report');
+const reportUserMsg = document.querySelector('#report-user-msg');
+const reportLogsPreview = document.querySelector('#report-logs-preview');
+const sendReportEmailBtn = document.querySelector('#send-report-email-btn');
+const copyReportLogsBtn = document.querySelector('#copy-report-logs-btn');
 
 let countries = [];
 let rows = [];
@@ -1598,6 +1631,57 @@ document.querySelector('#close-help').addEventListener('click', () => help.close
 document.querySelector('#start-button').addEventListener('click', () => help.close());
 
 document.querySelector('#puzzle-date').textContent = `DÉFI DU ${new Intl.DateTimeFormat('fr-FR', { day:'numeric', month:'long' }).format(new Date()).toUpperCase()}`;
+
+// ─── Modal de Signalement de Problème / Bug ──────────────────────────────────
+function openReportDialog() {
+  if (reportLogsPreview) {
+    reportLogsPreview.value = sessionLogs.join('\n');
+    setTimeout(() => {
+      reportLogsPreview.scrollTop = reportLogsPreview.scrollHeight;
+    }, 50);
+  }
+  if (reportDialog) reportDialog.showModal();
+}
+
+if (reportButton) reportButton.addEventListener('click', openReportDialog);
+if (closeReport) closeReport.addEventListener('click', () => { if (reportDialog) reportDialog.close(); });
+
+if (sendReportEmailBtn) {
+  sendReportEmailBtn.addEventListener('click', () => {
+    const userComment = reportUserMsg ? reportUserMsg.value.trim() : '';
+    const logsText = sessionLogs.join('\n');
+    const subject = encodeURIComponent("CountryDoku - Signalement de problème");
+    const bodyText = `Bonjour,\n\nProblème rencontré :\n${userComment || 'Aucun commentaire précisé.'}\n\n---\nINFORMATIONS TECHNIQUE :\nURL: ${window.location.href}\nUserAgent: ${navigator.userAgent}\nHorodatage: ${new Date().toLocaleString('fr-FR')}\n\n---\nLOGS CONSOLE CAPTURÉS :\n${logsText.slice(-3000)}`;
+
+    window.location.href = `mailto:recpetionneurdepubpourmoi@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+  });
+}
+
+if (copyReportLogsBtn) {
+  copyReportLogsBtn.addEventListener('click', () => {
+    const userComment = reportUserMsg ? reportUserMsg.value.trim() : '';
+    const fullText = `SIGNALEMENT COUNTRYDOKU
+Date: ${new Date().toLocaleString('fr-FR')}
+URL: ${window.location.href}
+UserAgent: ${navigator.userAgent}
+Commentaire: ${userComment || 'Aucun'}
+
+LOGS CONSOLE CAPTURÉS :
+${sessionLogs.join('\n')}`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(fullText).then(() => {
+        copyReportLogsBtn.textContent = '✓ Rapport copié dans le presse-papier !';
+        setTimeout(() => { copyReportLogsBtn.textContent = '📋 Copier le rapport complet'; }, 2500);
+      });
+    } else if (reportLogsPreview) {
+      reportLogsPreview.select();
+      document.execCommand('copy');
+      copyReportLogsBtn.textContent = '✓ Rapport copié !';
+      setTimeout(() => { copyReportLogsBtn.textContent = '📋 Copier le rapport complet'; }, 2500);
+    }
+  });
+}
 
 // Auto-détection de ?room=XYZ123 dans l'URL
 fetch('data/countries.json')

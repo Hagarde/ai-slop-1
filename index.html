@@ -21,6 +21,7 @@
         <div class="header-right">
           <button class="multi-toggle-btn" id="multi-toggle-btn">⚔️ Mode 1v1</button>
           <span class="puzzle-badge" id="puzzle-date">DÉFI DU JOUR</span>
+          <button class="icon-button" id="report-button" aria-label="Signaler un problème" title="Signaler un problème">🐛</button>
           <button class="icon-button" id="help-button" aria-label="Voir les règles de jeu" title="Règles du jeu">?</button>
         </div>
       </div>
@@ -273,6 +274,32 @@
       </div>
     </dialog>
 
+    <!-- Modal de Signalement de Problème / Bug -->
+    <dialog id="report-dialog" class="custom-dialog">
+      <div class="dialog-content">
+        <button class="close-dialog-btn" id="close-report" aria-label="Fermer la fenêtre">×</button>
+        <span class="dialog-eyebrow" style="color: #e65100;">🐛 SIGNALER UN PROBLÈME</span>
+        <h2 style="font-size: 19px; margin-top: 4px;">Signaler une erreur ou un bug</h2>
+        <p style="font-size: 13.5px; color: var(--ink-secondary); margin-bottom: 12px; line-height: 1.4;">
+          Un pays manque ? Un critère semble incorrect ? Décrivez le problème ci-dessous. Le journal de la console sera joint à votre email.
+        </p>
+
+        <div style="margin-bottom: 12px;">
+          <textarea id="report-user-msg" rows="3" placeholder="Décrivez le problème rencontré (ex: pays mal classé, bug d'affichage)..." style="width: 100%; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 10px; font-family: inherit; font-size: 13px; resize: vertical; background: var(--bg-card); color: var(--ink-primary); box-sizing: border-box;"></textarea>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-size: 12px; font-weight: 600; color: var(--ink-secondary); display: block; margin-bottom: 4px;">JOURNAL CONSOLE CAPTURÉ (AUTOMATIQUE) :</label>
+          <textarea id="report-logs-preview" readonly rows="5" style="width: 100%; font-family: 'DM Mono', monospace; font-size: 11px; background: #1e1e24; color: #a9b7c6; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 8px; resize: vertical; box-sizing: border-box;"></textarea>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button class="primary-button full-width" id="send-report-email-btn" style="font-size: 14px;">📧 Envoyer par Email (recpetionneurdepubpourmoi@gmail.com)</button>
+          <button class="secondary-button full-width" id="copy-report-logs-btn" style="font-size: 13px;">📋 Copier le rapport complet</button>
+        </div>
+      </div>
+    </dialog>
+
     <!-- Modal des Règles -->
     <dialog id="help-dialog" class="custom-dialog">
       <div class="dialog-content">
@@ -299,6 +326,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=5"></script>
+    <script src="app.js?v=6"></script>
   </body>
 </html>
