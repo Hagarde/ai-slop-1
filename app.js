@@ -111,8 +111,8 @@ let roomScores = { host: 0, guest: 0 };
 function updateScoresUI() {
   const hostScoreEl = document.querySelector('#mp-score-host');
   const guestScoreEl = document.querySelector('#mp-score-guest');
-  if (hostScoreEl) hostScoreEl.textContent = roomScores.host;
-  if (guestScoreEl) guestScoreEl.textContent = roomScores.guest;
+  if (hostScoreEl) hostScoreEl.textContent = `${roomScores.host} pts`;
+  if (guestScoreEl) guestScoreEl.textContent = `${roomScores.guest} pts`;
 }
 
 function resetRoomScores() {
@@ -430,8 +430,8 @@ function updateMultiplayerUI() {
   mpRoomCodeDisplay.textContent = `CODE : ${currentRoomCode}`;
   resetBtnLabel.textContent = "Proposer une nouvelle grille";
   
-  playerHostPill.innerHTML = `<span class="player-dot host">🟢</span> Joueur 1 ${myRole === 'host' ? '<span class="you-tag">(Vous)</span>' : ''}`;
-  playerGuestPill.innerHTML = `<span class="player-dot guest">🔵</span> Joueur 2 ${myRole === 'guest' ? '<span class="you-tag">(Vous)</span>' : ''}`;
+  playerHostPill.innerHTML = `<span class="player-dot host">🟢</span> Joueur 1 ${myRole === 'host' ? '<span class="you-tag">(Vous)</span>' : ''} <span class="score-badge" id="mp-score-host" title="Score total Hôte">${roomScores.host} pts</span>`;
+  playerGuestPill.innerHTML = `<span class="player-dot guest">🔵</span> Joueur 2 ${myRole === 'guest' ? '<span class="you-tag">(Vous)</span>' : ''} <span class="score-badge" id="mp-score-guest" title="Score total Invité">${roomScores.guest} pts</span>`;
 
   const isMyTurn = currentTurn === myRole;
   const activeRoleName = currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';

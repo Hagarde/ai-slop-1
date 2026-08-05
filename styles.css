@@ -458,11 +458,14 @@ button, input {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 800;
-  background: rgba(0, 0, 0, 0.12);
-  color: currentColor;
-  padding: 1px 7px;
-  border-radius: 10px;
-  margin-left: 4px;
+  background: var(--ink-primary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 6px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .player-pill.active-turn {
