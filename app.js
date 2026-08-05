@@ -102,6 +102,23 @@ const aliases = {
   STP: ['Sao Tome', 'Sao Tome et Principe'],
 };
 
+const TRANSCONTINENTAL = {
+  RUS: ['Europe', 'Asia'],
+  TUR: ['Europe', 'Asia'],
+  KAZ: ['Asia', 'Europe'],
+  EGY: ['Africa', 'Asia'],
+  GEO: ['Asia', 'Europe'],
+  AZE: ['Asia', 'Europe'],
+  ARM: ['Asia', 'Europe'],
+  CYP: ['Asia', 'Europe'],
+};
+
+function inRegion(country, targetRegion) {
+  if (country.region === targetRegion) return true;
+  const extra = TRANSCONTINENTAL[country.code];
+  return extra ? extra.includes(targetRegion) : false;
+}
+
 function criterion(label, type, description, test) { return { label, type, description, test }; }
 
 function buildCriteria(data) {
@@ -113,11 +130,11 @@ function buildCriteria(data) {
   return [
     criterion('Dans l’hémisphère Nord', 'geography', 'Le territoire du pays se situe dans l’hémisphère Nord (latitude >= 0).', (c) => c.hemisphere === 'Nord'),
     criterion('Dans l’hémisphère Sud', 'geography', 'Le territoire du pays se situe dans l’hémisphère Sud (latitude < 0).', (c) => c.hemisphere === 'Sud'),
-    criterion('En Afrique', 'geography', 'Le pays se situe sur le continent africain.', (c) => c.region === 'Africa'),
-    criterion('En Europe', 'geography', 'Le pays se situe en Europe.', (c) => c.region === 'Europe'),
-    criterion('En Asie', 'geography', 'Le pays se situe en Asie.', (c) => c.region === 'Asia'),
-    criterion('En Amérique', 'geography', 'Le pays se situe sur le continent américain.', (c) => c.region === 'Americas'),
-    criterion('En Océanie', 'geography', 'Le pays se situe en Océanie.', (c) => c.region === 'Oceania'),
+    criterion('En Afrique', 'geography', 'Le pays se situe ou s’étend sur le continent africain.', (c) => inRegion(c, 'Africa')),
+    criterion('En Europe', 'geography', 'Le pays se situe ou s’étend en Europe.', (c) => inRegion(c, 'Europe')),
+    criterion('En Asie', 'geography', 'Le pays se situe ou s’étend en Asie.', (c) => inRegion(c, 'Asia')),
+    criterion('En Amérique', 'geography', 'Le pays se situe sur le continent américain.', (c) => inRegion(c, 'Americas')),
+    criterion('En Océanie', 'geography', 'Le pays se situe en Océanie.', (c) => inRegion(c, 'Oceania')),
     criterion('Pays enclavé (sans mer)', 'geography', 'Le pays n’a aucun accès direct à la mer ou à un océan.', (c) => c.landlocked === true),
     criterion('Possède un accès à la mer', 'geography', 'Le pays possède une côte ou un accès maritime direct.', (c) => c.landlocked === false),
     criterion('Traversé par l’Équateur', 'geography', 'La ligne imaginaire de l’Équateur traverse le territoire du pays.', (c) => c.equator === true),
@@ -267,9 +284,7 @@ function startTurnTimer() {
       stopTurnTimer();
       if (currentTurn === myRole) {
         currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-        if (conn && conn.open) {
-          conn.send({ type: 'TIMEOUT_PASS' });
-        }
+        safeSend({ type: 'TIMEOUT_PASS' });
         const senderName = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
         const msg = `⏱️ Temps écoulé (30s) pour ${senderName} ! Le tour passe à l'adversaire.`;
         feedback.textContent = msg;
@@ -586,9 +601,7 @@ function choose(code) {
   if (!isMatch) {
     if (isMultiplayer) {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-      if (conn && conn.open) {
-        conn.send({ type: 'WRONG_MOVE', cellId: targetCellId, countryCode: code });
-      }
+      safeSend({ type: 'WRONG_MOVE', cellId: targetCellId, countryCode: code });
       const msg = `❌ Erreur : ${country.name} est incorrect ! Le tour passe à l'adversaire.`;
       feedback.textContent = msg;
       addGameFeed(msg);
@@ -621,9 +634,7 @@ function choose(code) {
   // Coup Valide !
   if (isMultiplayer) {
     answers[selectedCell] = { country, player: myRole };
-    if (conn && conn.open) {
-      conn.send({ type: 'MAKE_MOVE', cellId: selectedCell, countryCode: code, player: myRole });
-    }
+    safeSend({ type: 'MAKE_MOVE', cellId: selectedCell, countryCode: code, player: myRole });
 
     const playerTag = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
     const winLine = checkTicTacToeWin(myRole);
@@ -723,6 +734,18 @@ function closeRoomDialogSafely(reason = '') {
   setTimeout(() => {
     roomDialog.style.display = '';
   }, 100);
+}
+
+function closeAllGameModals(reason = 'Synchro match') {
+  closeRoomDialogSafely(reason);
+  if (mpVictoryDialog) {
+    try { if (mpVictoryDialog.open) mpVictoryDialog.close(); } catch (e) {}
+    mpVictoryDialog.removeAttribute('open');
+  }
+  if (gridProposalDialog) {
+    try { if (gridProposalDialog.open) gridProposalDialog.close(); } catch (e) {}
+    gridProposalDialog.removeAttribute('open');
+  }
 }
 
 // ─── Log des serveurs ICE ────────────────────────────────────────────────────
@@ -1098,7 +1121,7 @@ function handleIncomingData(data) {
     initGameSent = true;
     if (initGameRetryInterval) { clearInterval(initGameRetryInterval); initGameRetryInterval = null; }
     clearGuestTimeout();
-    closeRoomDialogSafely('GUEST_READY reçu');
+    closeAllGameModals('GUEST_READY reçu');
     resetGame(false);
     updateMultiplayerUI();
     addGameFeed("🎮 Joueur 2 connecté avec succès ! Le match 1v1 commence.");
@@ -1111,9 +1134,9 @@ function handleIncomingData(data) {
     console.log(`🎮 [Guest] INIT_GAME reçu ! Génération du plateau et confirmation GUEST_READY...`);
     clearGuestTimeout();
     generateGrid(data.rowIndices, data.colIndices);
+    closeAllGameModals('INIT_GAME reçu');
     resetGame(false);
     updateMultiplayerUI();
-    closeRoomDialogSafely('INIT_GAME reçu');
     safeSend({ type: 'GUEST_READY' });
     addGameFeed("🎮 Salon rejoint ! Le match 1v1 commence. Joueur 1 a la main !");
     return;
@@ -1140,9 +1163,9 @@ function handleIncomingData(data) {
   }
 
   if (data.type === 'WRONG_MOVE') {
-    const prevRoleName = currentTurn === 'host' ? '🔵 Joueur 2' : '🟢 Joueur 1';
+    const activePlayerTag = currentTurn === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
     currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-    addGameFeed(`❌ ${prevRoleName} s'est trompé. C'est à VOTRE tour de jouer !`);
+    addGameFeed(`❌ ${activePlayerTag} s'est trompé. C'est à VOTRE tour de jouer !`);
     updateMultiplayerUI();
   }
 
@@ -1160,7 +1183,7 @@ function handleIncomingData(data) {
   }
 
   if (data.type === 'ACCEPT_NEW_GRID') {
-    gridProposalDialog.close();
+    closeAllGameModals('ACCEPT_NEW_GRID reçu');
     answers = Array(9).fill(null);
     currentTurn = 'host';
     if (myRole === 'host') {
@@ -1174,11 +1197,12 @@ function handleIncomingData(data) {
   }
 
   if (data.type === 'DECLINE_NEW_GRID') {
-    gridProposalDialog.close();
+    closeAllGameModals('DECLINE_NEW_GRID reçu');
     feedback.textContent = `⚠️ L'adversaire a refusé la demande de nouvelle grille.`;
   }
 
   if (data.type === 'REMATCH') {
+    closeAllGameModals('REMATCH reçu');
     answers = Array(9).fill(null);
     currentTurn = 'host';
     if (myRole === 'host') {
@@ -1186,7 +1210,20 @@ function handleIncomingData(data) {
       const colIndices = columns.map(c => allCriteria.indexOf(c));
       safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
     }
-    mpVictoryDialog.close();
+    renderBoard();
+    updateMultiplayerUI();
+  }
+
+  if (data.type === 'NEW_MATCH_REQUEST') {
+    closeAllGameModals('NEW_MATCH_REQUEST reçu');
+    answers = Array(9).fill(null);
+    currentTurn = 'host';
+    if (myRole === 'host') {
+      generateGrid();
+      const rowIndices = rows.map(r => allCriteria.indexOf(r));
+      const colIndices = columns.map(c => allCriteria.indexOf(c));
+      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+    }
     renderBoard();
     updateMultiplayerUI();
   }
@@ -1442,69 +1479,61 @@ leaveMpBtn.addEventListener('click', () => {
 // Bouton Nouvelle Grille (Mutualisé en 1v1)
 resetButton.addEventListener('click', () => {
   if (isMultiplayer) {
-    if (conn && conn.open) {
-      conn.send({ type: 'PROPOSE_NEW_GRID', sender: myRole });
-      feedback.textContent = "⏳ Demande de nouvelle grille envoyée à l'adversaire...";
-    }
+    safeSend({ type: 'PROPOSE_NEW_GRID', sender: myRole });
+    feedback.textContent = "⏳ Demande de nouvelle grille envoyée à l'adversaire...";
   } else {
     resetGame(true);
   }
 });
 
 acceptGridBtn.addEventListener('click', () => {
-  gridProposalDialog.close();
-  if (conn && conn.open) {
-    conn.send({ type: 'ACCEPT_NEW_GRID' });
-  }
+  closeAllGameModals('Accept grid btn');
+  safeSend({ type: 'ACCEPT_NEW_GRID' });
   answers = Array(9).fill(null);
   currentTurn = 'host';
   if (myRole === 'host') {
     generateGrid();
     const rowIndices = rows.map(r => allCriteria.indexOf(r));
     const colIndices = columns.map(c => allCriteria.indexOf(c));
-    conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
+    safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
   }
   renderBoard();
   updateMultiplayerUI();
 });
 
 declineGridBtn.addEventListener('click', () => {
-  gridProposalDialog.close();
-  if (conn && conn.open) {
-    conn.send({ type: 'DECLINE_NEW_GRID' });
-  }
+  closeAllGameModals('Decline grid btn');
+  safeSend({ type: 'DECLINE_NEW_GRID' });
 });
 
 mpRematchBtn.addEventListener('click', () => {
-  if (conn && conn.open) {
-    conn.send({ type: 'REMATCH' });
-  }
+  closeAllGameModals('Rematch btn');
+  safeSend({ type: 'REMATCH' });
   answers = Array(9).fill(null);
   currentTurn = 'host';
   if (myRole === 'host') {
     const rowIndices = rows.map(r => allCriteria.indexOf(r));
     const colIndices = columns.map(c => allCriteria.indexOf(c));
-    conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
+    safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
   }
-  mpVictoryDialog.close();
   renderBoard();
   updateMultiplayerUI();
 });
 
 mpNewMatchBtn.addEventListener('click', () => {
+  closeAllGameModals('New match btn');
   answers = Array(9).fill(null);
   currentTurn = 'host';
   if (myRole === 'host') {
     generateGrid();
     const rowIndices = rows.map(r => allCriteria.indexOf(r));
     const colIndices = columns.map(c => allCriteria.indexOf(c));
-    if (conn && conn.open) {
-      conn.send({ type: 'INIT_GAME', rowIndices, colIndices });
-    }
+    safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+    renderBoard();
+    updateMultiplayerUI();
+  } else {
+    safeSend({ type: 'NEW_MATCH_REQUEST' });
   }
-  mpVictoryDialog.close();
-  renderBoard();
-  updateMultiplayerUI();
 });
 
 function resetGame(newSeed = true) {

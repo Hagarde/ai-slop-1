@@ -3846,7 +3846,9 @@
       "flagUrl": "https://flagcdn.com/w80/gt.png",
       "flagColors": [
         "#005eb8",
-        "#ffffff"
+        "#ffffff",
+        "#ffd100",
+        "#007a3d"
       ],
       "hemisphere": "Nord",
       "latitude": 15.5,
