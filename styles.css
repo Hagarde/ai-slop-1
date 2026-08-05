@@ -407,15 +407,15 @@ button, input {
   color: var(--player-guest);
 }
 
-.you-tag {
+.score-badge {
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  background: currentColor;
-  color: white;
-  padding: 1px 6px;
-  border-radius: 6px;
-  margin-left: 3px;
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.12);
+  color: currentColor;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin-left: 4px;
 }
 
 .player-pill.active-turn {

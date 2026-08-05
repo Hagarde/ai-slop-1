@@ -40,7 +40,7 @@
         
         <div class="mp-players-status">
           <div class="player-pill host" id="player-host-pill">
-            <span class="player-dot host">🟢</span> Joueur 1
+            <span class="player-dot host">🟢</span> Joueur 1 <span class="score-badge" id="mp-score-host" title="Score total Hôte">0</span>
           </div>
           
           <div class="timer-badge-pill" id="turn-timer-display" title="Temps restant pour le tour">
@@ -48,7 +48,7 @@
           </div>
 
           <div class="player-pill guest" id="player-guest-pill">
-            <span class="player-dot guest">🔵</span> Joueur 2
+            <span class="player-dot guest">🔵</span> Joueur 2 <span class="score-badge" id="mp-score-guest" title="Score total Invité">0</span>
           </div>
         </div>
 
@@ -198,15 +198,19 @@
       </div>
     </dialog>
 
-    <!-- Modal d'Accord Nouvelle Grille en 1v1 -->
+    <!-- Modal d'Accord Nouvelle Grille / Relance en 1v1 -->
     <dialog id="grid-proposal-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
-        <span class="dialog-eyebrow">DEMANDE DE NOUVELLE GRILLE</span>
-        <h3>Proposer une nouvelle grille ?</h3>
-        <p id="grid-proposal-desc">L'adversaire propose de démarrer une nouvelle grille. Acceptez-vous ?</p>
-        <div style="display: flex; gap: 12px; margin-top: 12px;">
-          <button class="secondary-button full-width" id="decline-grid-btn">Refuser</button>
-          <button class="primary-button full-width" id="accept-grid-btn">Accepter</button>
+        <button class="close-dialog-btn" id="close-grid-proposal" aria-label="Fermer la fenêtre">×</button>
+        <span class="dialog-eyebrow">DEMANDE DE RELANCE</span>
+        <h3 id="grid-proposal-title">Proposition de l'adversaire</h3>
+        <p id="grid-proposal-desc">L'adversaire propose de recommencer une partie. Que souhaitez-vous faire ?</p>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
+          <div style="display: flex; gap: 12px;">
+            <button class="secondary-button full-width" id="accept-rematch-grid-btn">Revanche (Même grille)</button>
+            <button class="primary-button full-width" id="accept-new-grid-btn">Nouveau Match (Nouvelle grille)</button>
+          </div>
+          <button class="ghost-button full-width" id="decline-grid-btn" style="margin-top: 2px;">Refuser la demande</button>
         </div>
       </div>
     </dialog>
@@ -326,6 +330,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=6"></script>
+    <script src="app.js?v=7"></script>
   </body>
 </html>

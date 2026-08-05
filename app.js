@@ -72,8 +72,10 @@ const mpStatusMsg = document.querySelector('#mp-status-msg');
 
 const gridProposalDialog = document.querySelector('#grid-proposal-dialog');
 const gridProposalDesc = document.querySelector('#grid-proposal-desc');
-const acceptGridBtn = document.querySelector('#accept-grid-btn');
+const acceptRematchGridBtn = document.querySelector('#accept-rematch-grid-btn');
+const acceptNewGridBtn = document.querySelector('#accept-new-grid-btn');
 const declineGridBtn = document.querySelector('#decline-grid-btn');
+const closeGridProposal = document.querySelector('#close-grid-proposal');
 
 const mpVictoryDialog = document.querySelector('#mp-victory-dialog');
 const mpVictoryTitle = document.querySelector('#mp-victory-title');
@@ -103,7 +105,21 @@ let lives = 3;
 // State Multijoueur 1v1
 let isMultiplayer = false;
 let myRole = null; // 'host' (🟢 J1) ou 'guest' (🔵 J2)
-let currentTurn = 'host';
+let currentTurn = 'host'; // 'host' commence toujours
+let roomScores = { host: 0, guest: 0 };
+
+function updateScoresUI() {
+  const hostScoreEl = document.querySelector('#mp-score-host');
+  const guestScoreEl = document.querySelector('#mp-score-guest');
+  if (hostScoreEl) hostScoreEl.textContent = roomScores.host;
+  if (guestScoreEl) guestScoreEl.textContent = roomScores.guest;
+}
+
+function resetRoomScores() {
+  roomScores = { host: 0, guest: 0 };
+  updateScoresUI();
+}
+
 let peer = null;
 let conn = null;
 let currentRoomCode = null;
@@ -675,9 +691,17 @@ function choose(code) {
     const winLine = checkTicTacToeWin(myRole);
     if (winLine) {
       stopTurnTimer();
+      roomScores[myRole] += 1;
+      updateScoresUI();
       mpVictoryTitle.textContent = `Victoire du ${playerTag} ! 🎉`;
       mpVictoryDesc.textContent = `Vous avez aligné 3 cases et remporté ce match de Tic-Tac-Toe !`;
-      addGameFeed(`🎉 Victoire ! Vous avez aligné 3 cases et remporté ce match !`);
+      addGameFeed(`🎉 Victoire ! Vous (${playerTag}) avez aligné 3 cases et remporté ce match !`);
+      mpVictoryDialog.showModal();
+    } else if (answers.filter(Boolean).length === 9) {
+      stopTurnTimer();
+      mpVictoryTitle.textContent = `Match Nul ! 🤝`;
+      mpVictoryDesc.textContent = `Toutes les 9 cases ont été complétées sans alignement de 3 cases. Égalité !`;
+      addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`);
       mpVictoryDialog.showModal();
     } else {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
@@ -891,6 +915,7 @@ async function initPeer(customCode = null, isCreating = false) {
       myRole = 'host';
       currentTurn = 'host';
       isMultiplayer = true;
+      resetRoomScores();
       
       const newUrl = `${window.location.origin}${window.location.pathname}?room=${code}`;
       window.history.pushState({}, '', newUrl);
@@ -979,6 +1004,7 @@ async function connectAsGuest(code) {
   myRole = 'guest';
   currentTurn = 'host';
   isMultiplayer = true;
+  resetRoomScores();
 
   console.log(`\n${'='.repeat(65)}`);
   console.log(`🌐 [WebRTC Guest] connectAsGuest — Tentative rejointure salon: "${code}"`);
@@ -1185,9 +1211,17 @@ function handleIncomingData(data) {
     const winLine = checkTicTacToeWin(data.player);
     if (winLine) {
       stopTurnTimer();
+      roomScores[data.player] += 1;
+      updateScoresUI();
       mpVictoryTitle.textContent = `Défaite / Partie terminée !`;
       mpVictoryDesc.textContent = `${playerTag} a aligné 3 cases et remporte ce match !`;
       addGameFeed(`🎉 ${playerTag} a aligné 3 cases et remporte le match de Tic-Tac-Toe !`);
+      mpVictoryDialog.showModal();
+    } else if (answers.filter(Boolean).length === 9) {
+      stopTurnTimer();
+      mpVictoryTitle.textContent = `Match Nul ! 🤝`;
+      mpVictoryDesc.textContent = `Toutes les 9 cases ont été complétées sans alignement de 3 cases. Égalité !`;
+      addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`);
       mpVictoryDialog.showModal();
     } else {
       currentTurn = currentTurn === 'host' ? 'guest' : 'host';
@@ -1213,7 +1247,7 @@ function handleIncomingData(data) {
 
   if (data.type === 'PROPOSE_NEW_GRID') {
     const senderName = data.sender === 'host' ? 'Joueur 1 (Hôte)' : 'Joueur 2 (Invité)';
-    gridProposalDesc.textContent = `Le ${senderName} propose de générer une nouvelle grille. Acceptez-vous ?`;
+    gridProposalDesc.textContent = `Le ${senderName} propose de recommencer une partie. Que souhaitez-vous faire ?`;
     gridProposalDialog.showModal();
   }
 
@@ -1521,25 +1555,53 @@ resetButton.addEventListener('click', () => {
   }
 });
 
-acceptGridBtn.addEventListener('click', () => {
-  closeAllGameModals('Accept grid btn');
-  safeSend({ type: 'ACCEPT_NEW_GRID' });
-  answers = Array(9).fill(null);
-  currentTurn = 'host';
-  if (myRole === 'host') {
-    generateGrid();
-    const rowIndices = rows.map(r => allCriteria.indexOf(r));
-    const colIndices = columns.map(c => allCriteria.indexOf(c));
-    safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
-  }
-  renderBoard();
-  updateMultiplayerUI();
-});
+if (acceptRematchGridBtn) {
+  acceptRematchGridBtn.addEventListener('click', () => {
+    closeAllGameModals('Accept rematch btn');
+    answers = Array(9).fill(null);
+    currentTurn = 'host';
+    if (myRole === 'host') {
+      const rowIndices = rows.map(r => allCriteria.indexOf(r));
+      const colIndices = columns.map(c => allCriteria.indexOf(c));
+      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+    } else {
+      safeSend({ type: 'REMATCH' });
+    }
+    renderBoard();
+    updateMultiplayerUI();
+  });
+}
 
-declineGridBtn.addEventListener('click', () => {
-  closeAllGameModals('Decline grid btn');
-  safeSend({ type: 'DECLINE_NEW_GRID' });
-});
+if (acceptNewGridBtn) {
+  acceptNewGridBtn.addEventListener('click', () => {
+    closeAllGameModals('Accept new grid btn');
+    answers = Array(9).fill(null);
+    currentTurn = 'host';
+    if (myRole === 'host') {
+      generateGrid();
+      const rowIndices = rows.map(r => allCriteria.indexOf(r));
+      const colIndices = columns.map(c => allCriteria.indexOf(c));
+      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+      renderBoard();
+      updateMultiplayerUI();
+    } else {
+      safeSend({ type: 'NEW_MATCH_REQUEST' });
+    }
+  });
+}
+
+if (declineGridBtn) {
+  declineGridBtn.addEventListener('click', () => {
+    closeAllGameModals('Decline grid btn');
+    safeSend({ type: 'DECLINE_NEW_GRID' });
+  });
+}
+
+if (closeGridProposal) {
+  closeGridProposal.addEventListener('click', () => {
+    closeAllGameModals('Close grid proposal');
+  });
+}
 
 mpRematchBtn.addEventListener('click', () => {
   closeAllGameModals('Rematch btn');
