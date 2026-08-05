@@ -725,9 +725,9 @@ function closeRoomDialogSafely(reason = '') {
   }, 100);
 }
 
-// ─── TURN servers diagnostics helper ───────────────────────────────────────
+// ─── Log des serveurs ICE ────────────────────────────────────────────────────
 function logIceServers(servers) {
-  console.log(`\n📋 [ICE Config] ${servers.length} serveurs ICE configurés :`);
+  console.log(`\n📋 [ICE] ${servers.length} serveurs configurés :`);
   servers.forEach((s, i) => {
     const urls = Array.isArray(s.urls) ? s.urls : [s.urls];
     urls.forEach(url => {
@@ -738,52 +738,46 @@ function logIceServers(servers) {
   });
 }
 
-// ─── Serveurs STUN de base (toujours disponibles) ───────────────────────────
+// ─── Serveurs STUN (découverte IP publique) ──────────────────────────────────
 const STUN_SERVERS = [
   { urls: 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
   { urls: 'stun:stun.services.mozilla.com' },
 ];
 
-// ─── Metered.ca TURN API (20 Go/mois gratuit) ──────────────────────────────
-// ⚠️ Remplacez par vos propres credentials depuis https://dashboard.metered.ca
-const METERED_APP_NAME = 'countrydoku';  // Nom de votre app Metered
-const METERED_API_KEY  = 'aa340d9ab8937dc2645bfb6845b86c60c969';
+// ─── Credentials TURN dynamiques via Metered.ca (20 Go/mois gratuit) ─────────
+const METERED_API_URL = 'https://countrydoku.metered.live/api/v1/turn/credentials';
+const METERED_API_KEY = 'aa340d9ab8937dc2645bfb6845b86c60c969';
 
 let cachedTurnServers = null;
 let turnFetchPromise = null;
 
 async function fetchTurnCredentials() {
-  // Cache : ne refetch que toutes les 10 minutes
   if (cachedTurnServers) return cachedTurnServers;
-  // Déduplication : si un fetch est en cours, attendre
   if (turnFetchPromise) return turnFetchPromise;
 
   if (!METERED_API_KEY) {
-    console.warn('⚠️ [TURN] Pas de clé API Metered.ca configurée → mode STUN-only.');
-    console.warn('   Pour le multijoueur cross-réseau, configurez METERED_API_KEY dans app.js.');
-    console.warn('   Inscription gratuite : https://dashboard.metered.ca/signup');
+    console.warn('⚠️ [TURN] Clé API Metered.ca absente → mode STUN-only');
     return [];
   }
 
   turnFetchPromise = (async () => {
     try {
-      console.log('🔑 [TURN] Récupération des credentials TURN via Metered.ca...');
-      const url = `https://${METERED_APP_NAME}.metered.live/api/v1/turn/credentials?apiKey=${METERED_API_KEY}`;
-      const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+      console.log('🔑 [TURN] Récupération des credentials via Metered.ca...');
+      const res = await fetch(`${METERED_API_URL}?apiKey=${METERED_API_KEY}`, {
+        signal: AbortSignal.timeout(5000)
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const servers = await res.json();
       if (!Array.isArray(servers) || servers.length === 0) {
         throw new Error('Réponse vide ou invalide');
       }
-      console.log(`✅ [TURN] ${servers.length} serveurs TURN obtenus depuis Metered.ca !`);
+      console.log(`✅ [TURN] ${servers.length} serveurs obtenus`);
       cachedTurnServers = servers;
-      // Expire le cache après 10 min
       setTimeout(() => { cachedTurnServers = null; }, 10 * 60 * 1000);
       return servers;
     } catch (err) {
-      console.error(`❌ [TURN] Échec récupération credentials: ${err.message}`);
-      console.error('   → Fallback : mode STUN-only (fonctionnel uniquement sur réseaux non-restrictifs).');
+      console.error(`❌ [TURN] Échec: ${err.message} → fallback STUN-only`);
       return [];
     } finally {
       turnFetchPromise = null;
@@ -807,7 +801,6 @@ async function buildPeerConfig() {
   };
 }
 
-// Compat : variable globale pour le diagnostic
 let ICE_SERVERS = [...STUN_SERVERS];
 
 async function initPeer(customCode = null, isCreating = false) {
@@ -1202,56 +1195,57 @@ function handleIncomingData(data) {
 function setupConnectionListeners() {
   console.log(`🛠️ [WebRTC] setupConnectionListeners — conn:`, conn);
 
+  // ─── Détection de l'ouverture du DataChannel ──────────────────────────────
   let channelOpenFired = false;
+
   function handleChannelOpen() {
-    if (channelOpenFired) return;
-    if (!conn) return;
-    
-    // Si PeerJS n'est pas encore prêt mais que le canal natif est ouvert, on le force pour débloquer safeSend
+    if (channelOpenFired || !conn) return;
+
+    // PeerJS peut ne pas avoir mis à jour conn.open alors que le canal natif
+    // est déjà ouvert. On force la propriété pour débloquer safeSend.
     if (!conn.open) {
-      console.log('⚡ [WebRTC] Forçage de conn.open = true (contournement bug PeerJS)');
+      console.log('⚡ [WebRTC] Forçage conn.open (synchro PeerJS en retard)');
       conn.open = true;
     }
 
     channelOpenFired = true;
-    console.log(`🟢 [WebRTC] DataChannel OUVERT ! (Rôle: "${myRole}", Peer distant: "${conn.peer}")`);
+    console.log(`🟢 [WebRTC] DataChannel OUVERT (Rôle: "${myRole}", Peer: "${conn.peer}")`);
     clearGuestTimeout();
 
     if (myRole === 'host') {
-      updateStatus("🟢 Canal P2P ouvert ! En attente du signal de l'Invité...", "connecting");
+      updateStatus("🟢 Canal P2P ouvert ! En attente de l'Invité...", "connecting");
     } else {
-      updateStatus("🟢 Canal P2P ouvert ! Annonce de présence à l'Hôte...", "connecting");
+      updateStatus("🟢 Canal P2P ouvert ! Annonce à l'Hôte...", "connecting");
       safeSend({ type: 'GUEST_JOINED' });
     }
   }
 
+  // Source 1 : événement PeerJS natif
   conn.on('open', handleChannelOpen);
 
-  // Fallback natif très sûr (sans écraser le onopen de PeerJS)
-  if (conn.dataChannel) {
-    conn.dataChannel.addEventListener('open', handleChannelOpen);
-    if (conn.dataChannel.readyState === 'open') {
-      console.log('⚡ [WebRTC] RTCDataChannel natif déjà à l\'état open !');
-      handleChannelOpen();
-    }
-  }
+  // Source 2 : si le canal est déjà ouvert au moment de l'attachement
   if (conn.open) {
-    console.log('⚡ [WebRTC] conn.open est déjà true !');
     handleChannelOpen();
   }
 
-  // Poll 300ms fallback
+  // Source 3 : fallback RTCDataChannel natif (addEventListener pour ne pas écraser PeerJS)
+  if (conn.dataChannel) {
+    conn.dataChannel.addEventListener('open', handleChannelOpen);
+    if (conn.dataChannel.readyState === 'open') handleChannelOpen();
+  }
+
+  // Source 4 : polling de secours (capture les cas rares où les événements sont manqués)
   const openPoll = setInterval(() => {
     if (!conn || channelOpenFired) { clearInterval(openPoll); return; }
     if (conn.open || (conn.dataChannel && conn.dataChannel.readyState === 'open')) {
-      console.log('🔄 [WebRTC Poll] DataChannel détecté comme ouvert !');
+      console.log('🔄 [WebRTC Poll] DataChannel détecté comme ouvert');
       clearInterval(openPoll);
       handleChannelOpen();
     }
   }, 300);
-  setTimeout(() => clearInterval(openPoll), 25000);
+  setTimeout(() => clearInterval(openPoll), 30000);
 
-  // ─── Diagnostic RTCPeerConnection — attaché à 50ms pour capturer tous les candidats ─
+  // ─── Diagnostic ICE/TURN ──────────────────────────────────────────────────
   let diagAttached = false;
   let candidateCount = 0;
   let relayCandidateCount = 0;
@@ -1260,73 +1254,57 @@ function setupConnectionListeners() {
     if (diagAttached) return;
     diagAttached = true;
     logIceServers(ICE_SERVERS);
-    console.log(`🔬 [ICE Diag] RTCPeerConnection attachée — état initial :`);
-    console.log(`   iceConnectionState : ${pc.iceConnectionState}`);
-    console.log(`   iceGatheringState  : ${pc.iceGatheringState}`);
-    console.log(`   signalingState     : ${pc.signalingState}`);
+    console.log(`🔬 [ICE Diag] État initial — ice: ${pc.iceConnectionState}, gather: ${pc.iceGatheringState}, signal: ${pc.signalingState}`);
 
-    // ⚠️ IMPORTANT : addEventListener au lieu de pc.on* = ...
-    // Assigner pc.onicecandidate = ... écraserait le handler interne de PeerJS
-    // qui utilise les candidats ICE pour la signalisation → 0 candidats collectés.
-    // addEventListener s'ajoute sans remplacer les handlers existants.
+    // ⚠️ addEventListener obligatoire (ne pas écraser les handlers internes de PeerJS)
 
     if (pc.iceGatheringState === 'complete') {
-      console.warn('⚠️ [ICE Diag] Collecte déjà terminée à l\'attachement — lecture via getStats.');
       pc.getStats().then(stats => {
         let found = 0;
         stats.forEach(report => {
           if (report.type === 'local-candidate') {
             found++;
-            const tag = report.candidateType === 'relay' ? '🔄 TURN RELAIS' :
-                        report.candidateType === 'srflx' ? '🌐 STUN PUBLIC' : '🏠 LOCAL';
+            const tag = report.candidateType === 'relay' ? '🔄 TURN' :
+                        report.candidateType === 'srflx' ? '🌐 STUN' : '🏠 LOCAL';
             console.log(`🧧 [ICE Stats] ${tag} | ${(report.protocol||'?').toUpperCase()} | ${report.address || '?'}`);
             if (report.candidateType === 'relay') relayCandidateCount++;
           }
         });
-        console.log(`   getStats: ${found} candidats locaux (dont ${relayCandidateCount} TURN relais)`);
-        if (relayCandidateCount === 0) {
-          console.error('❌ [ICE Stats] Aucun TURN relay — serveurs TURN injoignables depuis ce réseau.');
-        }
+        if (found > 0) console.log(`   ${found} candidats (dont ${relayCandidateCount} TURN relais)`);
       }).catch(() => {});
     }
 
-    // Écouter les candidats sans remplacer PeerJS
     pc.addEventListener('icecandidate', (event) => {
       if (!event.candidate) {
-        console.log(`🧧 [ICE] Collecte terminée — ${candidateCount} candidats (dont ${relayCandidateCount} TURN relais).`);
+        console.log(`🧧 [ICE] Collecte terminée — ${candidateCount} candidats (${relayCandidateCount} TURN relais)`);
         if (relayCandidateCount === 0 && candidateCount > 0) {
-          console.error('❌ [ICE] Aucun candidat TURN relay. Serveurs TURN bloqués depuis ce réseau.');
-          console.error('   → Solution : utiliser un réseau mobile (4G/5G) ou hotspot.');
+          console.warn('⚠️ [ICE] Aucun candidat TURN relay — serveurs bloqués ou non configurés.');
         }
         return;
       }
       candidateCount++;
       const c = event.candidate;
-      const typeLabel = c.type === 'relay'   ? '🔄 TURN RELAIS'    :
-                        c.type === 'srflx'   ? '🌐 STUN PUBLIC'    :
-                        c.type === 'prflx'   ? '🔀 PEER-REFLEXIVE' : '🏠 LOCAL';
+      const tag = c.type === 'relay' ? '🔄 TURN RELAIS' :
+                  c.type === 'srflx' ? '🌐 STUN PUBLIC' :
+                  c.type === 'prflx' ? '🔀 PEER-REFLEXIVE' : '🏠 LOCAL';
       if (c.type === 'relay') relayCandidateCount++;
-      console.log(`🧧 [ICE #${candidateCount}] ${typeLabel} | ${(c.protocol||'?').toUpperCase()} | ${c.address || 'mDNS'}:${c.port}`);
+      console.log(`🧧 [ICE #${candidateCount}] ${tag} | ${(c.protocol||'?').toUpperCase()} | ${c.address || 'mDNS'}:${c.port}`);
     });
 
     pc.addEventListener('iceconnectionstatechange', () => {
       const state = pc.iceConnectionState;
-      const icons = { 'new':'⏳','checking':'🔍','connected':'✅','completed':'✅✅','failed':'❌','disconnected':'⚠️','closed':'🔒' };
-      console.log(`🧧 [ICE State] → ${icons[state]||'?'} ${state}`);
+      const icons = { new:'⏳', checking:'🔍', connected:'✅', completed:'✅✅', failed:'❌', disconnected:'⚠️', closed:'🔒' };
+      console.log(`🧧 [ICE] → ${icons[state]||'?'} ${state}`);
       if (state === 'connected' || state === 'completed') {
-        console.log(`✅ [ICE] P2P établi via ${relayCandidateCount > 0 ? 'TURN relay' : 'STUN/direct'} !`);
+        console.log(`✅ [ICE] P2P établi via ${relayCandidateCount > 0 ? 'TURN relay' : 'STUN/direct'}`);
       } else if (state === 'failed') {
-        console.error(`❌ [ICE Failed] ${candidateCount} candidats testés, ${relayCandidateCount} TURN relais.`);
-        if (relayCandidateCount === 0) {
-          console.error('   → Serveurs TURN injoignables : réseau trop restrictif (eduroam, CGNAT strict).');
-        }
-        const netMsg = relayCandidateCount === 0
-          ? '❌ Réseau trop restrictif : serveurs TURN bloqués. Essayez sur 4G ou hotspot.'
-          : '❌ Connexion P2P échouée. Essayez sur un autre réseau.';
-        updateStatus(netMsg, 'error');
+        console.error(`❌ [ICE] Échec — ${candidateCount} candidats, ${relayCandidateCount} TURN relais`);
+        updateStatus(relayCandidateCount === 0
+          ? '❌ Réseau trop restrictif (TURN bloqué). Essayez sur 4G ou hotspot.'
+          : '❌ Connexion P2P échouée. Essayez sur un autre réseau.', 'error');
         try { pc.restartIce(); } catch (e) {}
       } else if (state === 'disconnected') {
-        console.warn('⚠️ [ICE] Connexion temporairement perdue.');
+        console.warn('⚠️ [ICE] Connexion temporairement perdue');
       }
     });
 
@@ -1341,7 +1319,7 @@ function setupConnectionListeners() {
     pc.addEventListener('connectionstatechange', () => console.log(`🔗 [Connection] → ${pc.connectionState}`));
   }
 
-  // Poll à 50ms pour capturer les candidats dès le départ
+  // Attente du RTCPeerConnection (créé de manière asynchrone par PeerJS)
   const diagInterval = setInterval(() => {
     if (!conn || diagAttached) { clearInterval(diagInterval); return; }
     if (conn.peerConnection) {
@@ -1351,7 +1329,8 @@ function setupConnectionListeners() {
   }, 50);
   setTimeout(() => clearInterval(diagInterval), 10000);
 
-  conn.on('data', (data) => { handleIncomingData(data); });
+  // ─── Données et déconnexion ───────────────────────────────────────────────
+  conn.on('data', (data) => handleIncomingData(data));
 
   conn.on('close', () => {
     feedback.textContent = "⚠️ L'adversaire a quitté le salon.";
