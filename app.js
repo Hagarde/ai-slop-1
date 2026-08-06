@@ -503,7 +503,7 @@ function renderBoard() {
         }
 
         const isMe = player === myRole;
-        const playerBadge = player ? `<span class="player-claim-badge ${isMe ? 'self' : 'opponent'}">${player === 'host' ? '🟢 J1' : '🔵 J2'} ${isMe ? '<small style="opacity: 0.8; font-size: 9.5px; margin-left: 2px;">(Vous)</small>' : ''}</span>` : '';
+        const playerBadge = player ? `<span class="player-claim-badge ${isMe ? 'self' : 'opponent'}">${player === 'host' ? '🟢 J1' : '🟣 J2'} ${isMe ? '<small style="font-size: 9.5px; margin-left: 2px;">(Vous)</small>' : '<small style="font-size: 9.5px; margin-left: 2px; font-weight: 800;">(Adversaire)</small>'}</span>` : '';
 
         content += `
           <div class="answer-card">

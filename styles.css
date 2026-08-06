@@ -17,11 +17,11 @@
   --accent-hover: #17543c;
   --accent-light: #e3f2ed;
 
-  /* 1v1 Player Colors */
-  --player-host: #2e7d32;
-  --player-host-bg: #e8f5e9;
-  --player-guest: #1565c0;
-  --player-guest-bg: #e3f2fd;
+  /* 1v1 Player High-Contrast Colors */
+  --player-host: #047857;
+  --player-host-bg: #dcfce7;
+  --player-guest: #4f46e5;
+  --player-guest-bg: #e0e7ff;
   
   /* Category Colors Tints */
   --cat-geography-bg: #ebf4ff;
@@ -760,20 +760,43 @@ button, input {
 }
 
 .cell.claimed-host {
-  border-style: solid !important;
-  border-color: var(--player-host) !important;
+  border: 3px solid var(--player-host) !important;
   background: var(--player-host-bg) !important;
   cursor: default;
 }
 
 .cell.claimed-guest {
-  border-style: solid !important;
-  border-color: var(--player-guest) !important;
+  border: 3px solid var(--player-guest) !important;
   background: var(--player-guest-bg) !important;
   cursor: default;
 }
 
-.cell.claimed-opponent .player-claim-badge {
+.cell.claimed-opponent {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.player-claim-badge {
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.cell.claimed-host .player-claim-badge {
+  color: var(--player-host);
+  background: rgba(4, 120, 87, 0.12);
+}
+
+.cell.claimed-guest .player-claim-badge {
+  color: var(--player-guest);
+  background: rgba(79, 70, 229, 0.12);
+}
+
+.player-claim-badge.opponent {
+  border: 1px dashed currentColor;
   font-weight: 800;
 }
 
