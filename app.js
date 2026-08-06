@@ -650,9 +650,8 @@ function renderCountries() {
   }
 
   countriesEl.innerHTML = sliced.map(({ country, isUsed }) => `
-    <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option" style="display: flex; align-items: center; gap: 10px;">
-      <img class="country-option-flag" src="${country.flagUrl}" alt="" loading="lazy" style="width: 28px; height: 18px; object-fit: cover; border-radius: 2px; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.15);" onerror="this.onerror=null; this.src='https://flagcdn.com/w160/${(country.iso2 || 'jm').toLowerCase()}.png';" />
-      <span class="country-option-name" style="flex-grow: 1; text-align: left;">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
+    <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
+      <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
     </button>
   `).join('');
 
