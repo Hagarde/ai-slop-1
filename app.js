@@ -105,7 +105,8 @@ let lives = 3;
 // State Multijoueur 1v1
 let isMultiplayer = false;
 let myRole = null; // 'host' (🟢 J1) ou 'guest' (🔵 J2)
-let currentTurn = 'host'; // 'host' commence toujours
+let startingPlayer = 'host'; // Alterne à chaque partie ('host' -> 'guest' -> 'host'...)
+let currentTurn = 'host';
 let roomScores = { host: 0, guest: 0 };
 let currentGridIndices = null;
 
@@ -118,6 +119,8 @@ function updateScoresUI() {
 
 function resetRoomScores() {
   roomScores = { host: 0, guest: 0 };
+  startingPlayer = 'host';
+  currentTurn = 'host';
   updateScoresUI();
 }
 
@@ -222,6 +225,9 @@ function buildCriteria(data) {
     criterion('Drapeau avec du noir', 'history', 'Le drapeau officiel comporte de la couleur noire.', hasColor('#000000')),
     criterion('Nom en 5 lettres ou moins', 'history', 'Le nom du pays en français comporte 5 lettres ou moins (ex: Cuba, Mali, Pérou, Inde...).', (c) => c.name.length <= 5),
     criterion('Nom se terminant par -ia ou -ie', 'history', 'Le nom courant du pays en français se termine par les lettres "ia" ou "ie" (ex: Algérie, Italie, Australie...).', (c) => /i[ae]$/i.test(c.name)),
+    criterion('Nom composé (plusieurs mots)', 'language', 'Le nom du pays en français comporte plusieurs mots ou un trait d’union (ex: Afrique du Sud, Costa Rica, Royaume-Uni...).', (c) => /[\s-]/.test(c.name)),
+    criterion('Présence d’un triangle sur le drapeau', 'history', 'Le motif du drapeau comporte un chevron ou au moins un triangle (ex: Jordanie, Tchéquie, Cuba, Zimbabwe, Bahamas...).', (c) => c.flagTriangle === true),
+    criterion('Drapeau sans rouge ni bleu', 'history', 'Le drapeau officiel ne comporte ni couleur rouge ni couleur bleue (ex: Nigeria, Irlande, Jamaïque, Arabie Saoudite...).', (c) => !(c.flagColors || []).includes('#d21034') && !(c.flagColors || []).includes('#005eb8')),
   ].filter((item) => data.filter(item.test).length >= 5);
 }
 
@@ -374,12 +380,16 @@ function startTurnTimer() {
     if (turnTimeLeft <= 0) {
       stopTurnTimer();
       if (currentTurn === myRole) {
+        if (searchDialog && searchDialog.open) {
+          try { searchDialog.close(); } catch (e) {}
+        }
+        selectedCell = null;
         currentTurn = currentTurn === 'host' ? 'guest' : 'host';
         safeSend({ type: 'TIMEOUT_PASS' });
         const senderName = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
         const msg = `⏱️ Temps écoulé (30s) pour ${senderName} ! Le tour passe à l'adversaire.`;
         feedback.textContent = msg;
-        addGameFeed(msg);
+        addGameFeed(msg, 'wrong');
         updateMultiplayerUI();
         renderBoard();
       }
@@ -493,7 +503,7 @@ function renderBoard() {
 
         content += `
           <div class="answer-card">
-            <img class="answer-flag-img" src="${country.flagUrl}" alt="Drapeau ${escapeHtml(country.name)}" />
+            <img class="answer-flag-img" src="${country.flagUrl}" alt="Drapeau ${escapeHtml(country.name)}" loading="lazy" onerror="this.onerror=null; this.src='https://flagcdn.com/w160/${(country.iso2 || 'jm').toLowerCase()}.png';" />
             <span class="answer-name">${escapeHtml(country.name)}</span>
             ${playerBadge}
           </div>
@@ -636,8 +646,9 @@ function renderCountries() {
   }
 
   countriesEl.innerHTML = sliced.map(({ country, isUsed }) => `
-    <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
-      <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
+    <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option" style="display: flex; align-items: center; gap: 10px;">
+      <img class="country-option-flag" src="${country.flagUrl}" alt="" loading="lazy" style="width: 28px; height: 18px; object-fit: cover; border-radius: 2px; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.15);" onerror="this.onerror=null; this.src='https://flagcdn.com/w160/${(country.iso2 || 'jm').toLowerCase()}.png';" />
+      <span class="country-option-name" style="flex-grow: 1; text-align: left;">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
     </button>
   `).join('');
 
@@ -647,6 +658,16 @@ function renderCountries() {
 }
 
 function choose(code) {
+  if (isMultiplayer && currentTurn !== myRole) {
+    console.warn(`⚠️ Coup refusé : le tour a expiré avant la sélection (Turn: ${currentTurn}, Role: ${myRole})`);
+    if (searchDialog && searchDialog.open) {
+      try { searchDialog.close(); } catch (e) {}
+    }
+    selectedCell = null;
+    feedback.textContent = "⏱️ Temps écoulé ! Ce n'est plus votre tour de jouer.";
+    return;
+  }
+
   const country = countries.find((item) => item.code === code);
   if (selectedCell === null || !country) return;
 
@@ -691,8 +712,9 @@ function choose(code) {
 
   if (!isMatch) {
     if (isMultiplayer) {
-      currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-      safeSend({ type: 'WRONG_MOVE', cellId: targetCellId, countryCode: code });
+      const nextTurn = myRole === 'host' ? 'guest' : 'host';
+      currentTurn = nextTurn;
+      safeSend({ type: 'WRONG_MOVE', cellId: targetCellId, countryCode: code, player: myRole, nextTurn });
       const msg = `❌ Vous avez proposé "${country.name}" (Case ${targetCellId + 1}) mais c'était INCORRECT ! Tour à l'adversaire.`;
       feedback.textContent = msg;
       addGameFeed(msg, 'wrong');
@@ -725,7 +747,8 @@ function choose(code) {
   // Coup Valide !
   if (isMultiplayer) {
     answers[selectedCell] = { country, player: myRole };
-    safeSend({ type: 'MAKE_MOVE', cellId: selectedCell, countryCode: code, player: myRole });
+    const nextTurn = myRole === 'host' ? 'guest' : 'host';
+    safeSend({ type: 'MAKE_MOVE', cellId: selectedCell, countryCode: code, player: myRole, nextTurn });
 
     const playerTag = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
     const winLine = checkTicTacToeWin(myRole);
@@ -744,7 +767,7 @@ function choose(code) {
       addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`, 'info');
       mpVictoryDialog.showModal();
     } else {
-      currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+      currentTurn = nextTurn;
       addGameFeed(`✅ Vous (${playerTag}) avez placé ${country.name} (Case ${selectedCell + 1}) ! Tour à l'adversaire.`, 'correct');
       updateMultiplayerUI();
     }
@@ -755,8 +778,17 @@ function choose(code) {
     feedback.textContent = count === 9 ? '🎉 Bravo ! Grille entièrement complétée !' : `✅ Bonne réponse (${country.name}) ! Continuez.`;
   }
 
+  const claimedCellId = selectedCell;
   selectedCell = null;
   renderBoard();
+
+  if (claimedCellId !== null) {
+    const targetCellEl = board.querySelector(`.cell[data-cell="${claimedCellId}"]`);
+    if (targetCellEl) {
+      targetCellEl.classList.add('just-claimed');
+      setTimeout(() => targetCellEl.classList.remove('just-claimed'), 700);
+    }
+  }
 }
 
 // ============================================================
@@ -1198,7 +1230,7 @@ function sendInitGameToGuest() {
   function attemptSend() {
     if (initGameSent) { clearInterval(initGameRetryInterval); initGameRetryInterval = null; return; }
     attempts++;
-    const ok = safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+    const ok = safeSend({ type: 'INIT_GAME', rowIndices, colIndices, startingPlayer });
     console.log(`📤 [Host] INIT_GAME tentative N°${attempts} — conn.open: ${conn ? conn.open : false}, succès: ${ok}`);
     updateStatus("🟢 Grille transmise ! En attente de la confirmation de l'Invité...", "connecting");
     if (attempts >= 20) {
@@ -1210,6 +1242,38 @@ function sendInitGameToGuest() {
 
   attemptSend();
   initGameRetryInterval = setInterval(attemptSend, 600);
+}
+
+function startNextMultiplayerMatch(sameGrid = false) {
+  if (myRole !== 'host') return;
+
+  answers = Array(9).fill(null);
+  selectedCell = null;
+
+  // Alterner qui commence la partie ('host' -> 'guest' -> 'host'...)
+  startingPlayer = startingPlayer === 'host' ? 'guest' : 'host';
+  currentTurn = startingPlayer;
+
+  if (!sameGrid) {
+    generateGrid();
+  }
+
+  const rowIndices = rows.map(r => allCriteria.indexOf(r));
+  const colIndices = columns.map(c => allCriteria.indexOf(c));
+  currentGridIndices = { rowIndices, colIndices };
+
+  safeSend({
+    type: 'INIT_GAME',
+    rowIndices,
+    colIndices,
+    startingPlayer
+  });
+
+  const starterName = startingPlayer === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
+  addGameFeed(`🎲 Nouveau match lancé ! C'est ${starterName} qui commence.`, 'info');
+
+  renderBoard();
+  updateMultiplayerUI();
 }
 
 function handleIncomingData(data) {
@@ -1243,7 +1307,8 @@ function handleIncomingData(data) {
     closeAllGameModals('GUEST_READY reçu');
     resetGame(false);
     updateMultiplayerUI();
-    addGameFeed("🎮 Joueur 2 connecté avec succès ! Le match 1v1 commence.");
+    const starterName = startingPlayer === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
+    addGameFeed(`🎮 Joueur 2 connecté ! Le match commence, ${starterName} a la main.`);
     return;
   }
 
@@ -1254,10 +1319,15 @@ function handleIncomingData(data) {
     clearGuestTimeout();
     generateGrid(data.rowIndices, data.colIndices);
     closeAllGameModals('INIT_GAME reçu');
-    resetGame(false);
+    answers = Array(9).fill(null);
+    selectedCell = null;
+    startingPlayer = data.startingPlayer || 'host';
+    currentTurn = startingPlayer;
     updateMultiplayerUI();
+    renderBoard();
     safeSend({ type: 'GUEST_READY' });
-    addGameFeed("🎮 Salon rejoint ! Le match 1v1 commence. Joueur 1 a la main !");
+    const starterName = startingPlayer === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
+    addGameFeed(`🎮 Match synchronisé ! C'est au tour de ${starterName} de commencer.`, 'info');
     return;
   }
 
@@ -1282,27 +1352,57 @@ function handleIncomingData(data) {
       addGameFeed(`🤝 Match Nul ! Grille complète sans vainqueur.`, 'info');
       mpVictoryDialog.showModal();
     } else {
-      currentTurn = currentTurn === 'host' ? 'guest' : 'host';
+      currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
       addGameFeed(`✅ ${playerTag} a placé ${country ? country.name : 'un pays'} (Case ${data.cellId + 1}). C'est à VOTRE tour !`, 'correct');
       updateMultiplayerUI();
     }
     renderBoard();
+
+    if (data.cellId !== undefined && data.cellId !== null) {
+      const targetCellEl = board.querySelector(`.cell[data-cell="${data.cellId}"]`);
+      if (targetCellEl) {
+        targetCellEl.classList.add('just-claimed');
+        setTimeout(() => targetCellEl.classList.remove('just-claimed'), 700);
+      }
+    }
   }
 
   if (data.type === 'WRONG_MOVE') {
     const country = countries.find(c => c.code === data.countryCode);
-    const activePlayerTag = currentTurn === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
+    const movePlayer = data.player || (myRole === 'host' ? 'guest' : 'host');
+    const playerTag = movePlayer === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
     const countryName = country ? country.name : 'un pays';
-    currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-    addGameFeed(`❌ ${activePlayerTag} a tenté "${countryName}" (Case ${(data.cellId || 0) + 1}) mais c'était INCORRECT ! C'est à VOTRE tour.`, 'wrong');
+    const targetCellId = data.cellId;
+    currentTurn = data.nextTurn || (movePlayer === 'host' ? 'guest' : 'host');
+
+    if (searchDialog && searchDialog.open) {
+      try { searchDialog.close(); } catch (e) {}
+    }
+
+    addGameFeed(`❌ ${playerTag} a tenté "${countryName}" (Case ${(targetCellId || 0) + 1}) mais c'était INCORRECT ! C'est à VOTRE tour.`, 'wrong');
     updateMultiplayerUI();
+    renderBoard();
+
+    // Animer la case échouée par l'adversaire (secousse rouge + lueur)
+    if (targetCellId !== undefined && targetCellId !== null) {
+      const targetCellEl = board.querySelector(`.cell[data-cell="${targetCellId}"]`);
+      if (targetCellEl) {
+        targetCellEl.classList.add('wrong', 'opponent-wrong');
+        setTimeout(() => targetCellEl.classList.remove('wrong', 'opponent-wrong'), 1000);
+      }
+    }
   }
 
   if (data.type === 'TIMEOUT_PASS') {
+    if (searchDialog && searchDialog.open) {
+      try { searchDialog.close(); } catch (e) {}
+    }
+    selectedCell = null;
     currentTurn = currentTurn === 'host' ? 'guest' : 'host';
     const activeRoleName = currentTurn === 'host' ? '🟢 Joueur 1' : '🔵 Joueur 2';
     addGameFeed(`⏱️ Temps écoulé (30s) pour l'adversaire ! Le tour passe à ${activeRoleName}.`, 'wrong');
     updateMultiplayerUI();
+    renderBoard();
   }
 
   if (data.type === 'PROPOSE_NEW_GRID') {
@@ -1313,16 +1413,9 @@ function handleIncomingData(data) {
 
   if (data.type === 'ACCEPT_NEW_GRID') {
     closeAllGameModals('ACCEPT_NEW_GRID reçu');
-    answers = Array(9).fill(null);
-    currentTurn = 'host';
     if (myRole === 'host') {
-      generateGrid();
-      const rowIndices = rows.map(r => allCriteria.indexOf(r));
-      const colIndices = columns.map(c => allCriteria.indexOf(c));
-      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+      startNextMultiplayerMatch(false);
     }
-    renderBoard();
-    updateMultiplayerUI();
   }
 
   if (data.type === 'DECLINE_NEW_GRID') {
@@ -1332,29 +1425,16 @@ function handleIncomingData(data) {
 
   if (data.type === 'REMATCH') {
     closeAllGameModals('REMATCH reçu');
-    answers = Array(9).fill(null);
-    currentTurn = 'host';
     if (myRole === 'host') {
-      const rowIndices = rows.map(r => allCriteria.indexOf(r));
-      const colIndices = columns.map(c => allCriteria.indexOf(c));
-      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+      startNextMultiplayerMatch(true);
     }
-    renderBoard();
-    updateMultiplayerUI();
   }
 
   if (data.type === 'NEW_MATCH_REQUEST') {
     closeAllGameModals('NEW_MATCH_REQUEST reçu');
-    answers = Array(9).fill(null);
-    currentTurn = 'host';
     if (myRole === 'host') {
-      generateGrid();
-      const rowIndices = rows.map(r => allCriteria.indexOf(r));
-      const colIndices = columns.map(c => allCriteria.indexOf(c));
-      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+      startNextMultiplayerMatch(false);
     }
-    renderBoard();
-    updateMultiplayerUI();
   }
 }
 
@@ -1639,32 +1719,19 @@ resetButton.addEventListener('click', () => {
 if (acceptRematchGridBtn) {
   acceptRematchGridBtn.addEventListener('click', () => {
     closeAllGameModals('Accept rematch btn');
-    answers = Array(9).fill(null);
-    currentTurn = 'host';
     if (myRole === 'host') {
-      const rowIndices = rows.map(r => allCriteria.indexOf(r));
-      const colIndices = columns.map(c => allCriteria.indexOf(c));
-      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+      startNextMultiplayerMatch(true);
     } else {
       safeSend({ type: 'REMATCH' });
     }
-    renderBoard();
-    updateMultiplayerUI();
   });
 }
 
 if (acceptNewGridBtn) {
   acceptNewGridBtn.addEventListener('click', () => {
     closeAllGameModals('Accept new grid btn');
-    answers = Array(9).fill(null);
-    currentTurn = 'host';
     if (myRole === 'host') {
-      generateGrid();
-      const rowIndices = rows.map(r => allCriteria.indexOf(r));
-      const colIndices = columns.map(c => allCriteria.indexOf(c));
-      safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
-      renderBoard();
-      updateMultiplayerUI();
+      startNextMultiplayerMatch(false);
     } else {
       safeSend({ type: 'NEW_MATCH_REQUEST' });
     }
@@ -1686,29 +1753,17 @@ if (closeGridProposal) {
 
 mpRematchBtn.addEventListener('click', () => {
   closeAllGameModals('Rematch btn');
-  safeSend({ type: 'REMATCH' });
-  answers = Array(9).fill(null);
-  currentTurn = 'host';
   if (myRole === 'host') {
-    const rowIndices = rows.map(r => allCriteria.indexOf(r));
-    const colIndices = columns.map(c => allCriteria.indexOf(c));
-    safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
+    startNextMultiplayerMatch(true);
+  } else {
+    safeSend({ type: 'REMATCH' });
   }
-  renderBoard();
-  updateMultiplayerUI();
 });
 
 mpNewMatchBtn.addEventListener('click', () => {
   closeAllGameModals('New match btn');
-  answers = Array(9).fill(null);
-  currentTurn = 'host';
   if (myRole === 'host') {
-    generateGrid();
-    const rowIndices = rows.map(r => allCriteria.indexOf(r));
-    const colIndices = columns.map(c => allCriteria.indexOf(c));
-    safeSend({ type: 'INIT_GAME', rowIndices, colIndices });
-    renderBoard();
-    updateMultiplayerUI();
+    startNextMultiplayerMatch(false);
   } else {
     safeSend({ type: 'NEW_MATCH_REQUEST' });
   }

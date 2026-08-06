@@ -67,7 +67,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Kaboul"
+      "capital": "Kaboul",
+      "flagTriangle": false
     },
     {
       "code": "ZAF",
@@ -144,7 +145,8 @@
       "flagStripes": null,
       "flagColorCount": 6,
       "capitalSameLetter": false,
-      "capital": "Pretoria"
+      "capital": "Pretoria",
+      "flagTriangle": false
     },
     {
       "code": "ALB",
@@ -199,7 +201,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Tirana"
+      "capital": "Tirana",
+      "flagTriangle": false
     },
     {
       "code": "DZA",
@@ -267,7 +270,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Alger"
+      "capital": "Alger",
+      "flagTriangle": false
     },
     {
       "code": "DEU",
@@ -343,7 +347,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Berlin"
+      "capital": "Berlin",
+      "flagTriangle": false
     },
     {
       "code": "AND",
@@ -391,7 +396,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Andorre-la-Vieille"
+      "capital": "Andorre-la-Vieille",
+      "flagTriangle": false
     },
     {
       "code": "AGO",
@@ -447,7 +453,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Luanda"
+      "capital": "Luanda",
+      "flagTriangle": false
     },
     {
       "code": "ATG",
@@ -488,7 +495,8 @@
       "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Saint John's"
+      "capital": "Saint John's",
+      "flagTriangle": true
     },
     {
       "code": "SAU",
@@ -555,7 +563,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Riyad"
+      "capital": "Riyad",
+      "flagTriangle": false
     },
     {
       "code": "ARG",
@@ -616,7 +625,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Buenos Aires"
+      "capital": "Buenos Aires",
+      "flagTriangle": false
     },
     {
       "code": "ARM",
@@ -668,11 +678,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": true,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Erevan"
+      "capital": "Erevan",
+      "flagTriangle": false
     },
     {
       "code": "AUS",
@@ -711,7 +722,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Canberra"
+      "capital": "Canberra",
+      "flagTriangle": false
     },
     {
       "code": "AUT",
@@ -782,7 +794,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Vienne"
+      "capital": "Vienne",
+      "flagTriangle": false
     },
     {
       "code": "AZE",
@@ -844,7 +857,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Baku"
+      "capital": "Baku",
+      "flagTriangle": false
     },
     {
       "code": "BHS",
@@ -888,7 +902,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Nassau"
+      "capital": "Nassau",
+      "flagTriangle": true
     },
     {
       "code": "BHR",
@@ -926,7 +941,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Manama"
+      "capital": "Manama",
+      "flagTriangle": false
     },
     {
       "code": "BGD",
@@ -973,7 +989,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Dacca"
+      "capital": "Dacca",
+      "flagTriangle": false
     },
     {
       "code": "BRB",
@@ -1012,7 +1029,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Bridgetown"
+      "capital": "Bridgetown",
+      "flagTriangle": false
     },
     {
       "code": "BEL",
@@ -1070,7 +1088,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Bruxelles"
+      "capital": "Bruxelles",
+      "flagTriangle": false
     },
     {
       "code": "BLZ",
@@ -1120,7 +1139,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Belmopan"
+      "capital": "Belmopan",
+      "flagTriangle": false
     },
     {
       "code": "BEN",
@@ -1172,11 +1192,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Porto-Novo"
+      "capital": "Porto-Novo",
+      "flagTriangle": false
     },
     {
       "code": "BTN",
@@ -1229,7 +1250,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Thimphou"
+      "capital": "Thimphou",
+      "flagTriangle": false
     },
     {
       "code": "BLR",
@@ -1290,7 +1312,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Minsk"
+      "capital": "Minsk",
+      "flagTriangle": false
     },
     {
       "code": "MMR",
@@ -1351,7 +1374,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Naypyidaw"
+      "capital": "Naypyidaw",
+      "flagTriangle": false
     },
     {
       "code": "BOL",
@@ -1414,7 +1438,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Sucre"
+      "capital": "Sucre",
+      "flagTriangle": false
     },
     {
       "code": "BIH",
@@ -1468,7 +1493,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Sarajevo"
+      "capital": "Sarajevo",
+      "flagTriangle": false
     },
     {
       "code": "BWA",
@@ -1525,7 +1551,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Gaborone"
+      "capital": "Gaborone",
+      "flagTriangle": false
     },
     {
       "code": "BRA",
@@ -1606,7 +1633,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": true,
-      "capital": "Brasília"
+      "capital": "Brasília",
+      "flagTriangle": false
     },
     {
       "code": "BRN",
@@ -1656,7 +1684,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": true,
-      "capital": "Bandar Seri Begawan"
+      "capital": "Bandar Seri Begawan",
+      "flagTriangle": false
     },
     {
       "code": "BGR",
@@ -1712,11 +1741,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Sofia"
+      "capital": "Sofia",
+      "flagTriangle": false
     },
     {
       "code": "BFA",
@@ -1780,7 +1810,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Ouagadougou"
+      "capital": "Ouagadougou",
+      "flagTriangle": false
     },
     {
       "code": "BDI",
@@ -1833,7 +1864,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Gitega"
+      "capital": "Gitega",
+      "flagTriangle": false
     },
     {
       "code": "KHM",
@@ -1890,7 +1922,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Phnom Penh"
+      "capital": "Phnom Penh",
+      "flagTriangle": false
     },
     {
       "code": "CMR",
@@ -1955,7 +1988,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Yaoundé"
+      "capital": "Yaoundé",
+      "flagTriangle": false
     },
     {
       "code": "CAN",
@@ -1999,7 +2033,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Ottawa"
+      "capital": "Ottawa",
+      "flagTriangle": false
     },
     {
       "code": "CHL",
@@ -2051,7 +2086,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Santiago"
+      "capital": "Santiago",
+      "flagTriangle": false
     },
     {
       "code": "CHN",
@@ -2154,7 +2190,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Pékin"
+      "capital": "Pékin",
+      "flagTriangle": false
     },
     {
       "code": "CYP",
@@ -2194,7 +2231,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Nicosie"
+      "capital": "Nicosie",
+      "flagTriangle": false
     },
     {
       "code": "COL",
@@ -2250,11 +2288,12 @@
       "equator": true,
       "oecd": true,
       "peak4000": true,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Bogota"
+      "capital": "Bogota",
+      "flagTriangle": false
     },
     {
       "code": "COM",
@@ -2297,7 +2336,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Moroni"
+      "capital": "Moroni",
+      "flagTriangle": true
     },
     {
       "code": "COG",
@@ -2359,7 +2399,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Brazzaville"
+      "capital": "Brazzaville",
+      "flagTriangle": false
     },
     {
       "code": "COD",
@@ -2439,7 +2480,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Kinshasa"
+      "capital": "Kinshasa",
+      "flagTriangle": false
     },
     {
       "code": "PRK",
@@ -2491,7 +2533,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Pyongyang"
+      "capital": "Pyongyang",
+      "flagTriangle": false
     },
     {
       "code": "KOR",
@@ -2536,7 +2579,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Séoul"
+      "capital": "Séoul",
+      "flagTriangle": false
     },
     {
       "code": "CRI",
@@ -2584,7 +2628,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "San José"
+      "capital": "San José",
+      "flagTriangle": false
     },
     {
       "code": "CIV",
@@ -2644,7 +2689,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Yamoussoukro"
+      "capital": "Yamoussoukro",
+      "flagTriangle": false
     },
     {
       "code": "HRV",
@@ -2704,7 +2750,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Zagreb"
+      "capital": "Zagreb",
+      "flagTriangle": false
     },
     {
       "code": "CUB",
@@ -2748,7 +2795,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "La Havane"
+      "capital": "La Havane",
+      "flagTriangle": true
     },
     {
       "code": "DNK",
@@ -2791,7 +2839,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Copenhague"
+      "capital": "Copenhague",
+      "flagTriangle": false
     },
     {
       "code": "DJI",
@@ -2845,7 +2894,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": true,
-      "capital": "Djibouti"
+      "capital": "Djibouti",
+      "flagTriangle": true
     },
     {
       "code": "DMA",
@@ -2886,7 +2936,8 @@
       "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Roseau"
+      "capital": "Roseau",
+      "flagTriangle": false
     },
     {
       "code": "EGY",
@@ -2943,7 +2994,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Le Caire"
+      "capital": "Le Caire",
+      "flagTriangle": false
     },
     {
       "code": "ARE",
@@ -2992,7 +3044,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Abou Dabi"
+      "capital": "Abou Dabi",
+      "flagTriangle": false
     },
     {
       "code": "ECU",
@@ -3040,7 +3093,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Quito"
+      "capital": "Quito",
+      "flagTriangle": false
     },
     {
       "code": "ERI",
@@ -3095,7 +3149,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Asmara"
+      "capital": "Asmara",
+      "flagTriangle": true
     },
     {
       "code": "ESP",
@@ -3154,7 +3209,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Madrid"
+      "capital": "Madrid",
+      "flagTriangle": false
     },
     {
       "code": "EST",
@@ -3202,7 +3258,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Tallinn"
+      "capital": "Tallinn",
+      "flagTriangle": false
     },
     {
       "code": "SWZ",
@@ -3258,7 +3315,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Mbabane"
+      "capital": "Mbabane",
+      "flagTriangle": false
     },
     {
       "code": "USA",
@@ -3306,7 +3364,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Washington"
+      "capital": "Washington",
+      "flagTriangle": false
     },
     {
       "code": "ETH",
@@ -3371,7 +3430,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Addis-Abeba"
+      "capital": "Addis-Abeba",
+      "flagTriangle": false
     },
     {
       "code": "FJI",
@@ -3412,7 +3472,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Suva"
+      "capital": "Suva",
+      "flagTriangle": false
     },
     {
       "code": "FIN",
@@ -3464,7 +3525,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Helsinki"
+      "capital": "Helsinki",
+      "flagTriangle": false
     },
     {
       "code": "FRA",
@@ -3536,7 +3598,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Paris"
+      "capital": "Paris",
+      "flagTriangle": false
     },
     {
       "code": "GAB",
@@ -3584,11 +3647,12 @@
       "equator": true,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Libreville"
+      "capital": "Libreville",
+      "flagTriangle": false
     },
     {
       "code": "GMB",
@@ -3633,7 +3697,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Banjul"
+      "capital": "Banjul",
+      "flagTriangle": false
     },
     {
       "code": "GEO",
@@ -3688,7 +3753,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Tbilissi"
+      "capital": "Tbilissi",
+      "flagTriangle": false
     },
     {
       "code": "GHA",
@@ -3741,7 +3807,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Accra"
+      "capital": "Accra",
+      "flagTriangle": false
     },
     {
       "code": "GRC",
@@ -3796,7 +3863,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Athènes"
+      "capital": "Athènes",
+      "flagTriangle": false
     },
     {
       "code": "GRD",
@@ -3835,7 +3903,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Saint-Georges"
+      "capital": "Saint-Georges",
+      "flagTriangle": false
     },
     {
       "code": "GTM",
@@ -3890,9 +3959,10 @@
       "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": "vertical",
-      "flagColorCount": 2,
+      "flagColorCount": 4,
       "capitalSameLetter": true,
-      "capital": "Guatemala"
+      "capital": "Guatemala",
+      "flagTriangle": false
     },
     {
       "code": "GIN",
@@ -3952,11 +4022,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Conakry"
+      "capital": "Conakry",
+      "flagTriangle": false
     },
     {
       "code": "GNQ",
@@ -4007,7 +4078,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Malabo"
+      "capital": "Malabo",
+      "flagTriangle": true
     },
     {
       "code": "GNB",
@@ -4057,7 +4129,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Bissau"
+      "capital": "Bissau",
+      "flagTriangle": true
     },
     {
       "code": "GUY",
@@ -4111,7 +4184,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": true,
-      "capital": "Georgetown"
+      "capital": "Georgetown",
+      "flagTriangle": true
     },
     {
       "code": "HTI",
@@ -4156,7 +4230,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Port-au-Prince"
+      "capital": "Port-au-Prince",
+      "flagTriangle": false
     },
     {
       "code": "HND",
@@ -4207,7 +4282,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Tegucigalpa"
+      "capital": "Tegucigalpa",
+      "flagTriangle": false
     },
     {
       "code": "HUN",
@@ -4275,7 +4351,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Budapest"
+      "capital": "Budapest",
+      "flagTriangle": false
     },
     {
       "code": "MUS",
@@ -4313,11 +4390,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Port-Louis"
+      "capital": "Port-Louis",
+      "flagTriangle": false
     },
     {
       "code": "CPV",
@@ -4357,7 +4435,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Praia"
+      "capital": "Praia",
+      "flagTriangle": false
     },
     {
       "code": "MHL",
@@ -4397,7 +4476,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Majuro"
+      "capital": "Majuro",
+      "flagTriangle": false
     },
     {
       "code": "SLB",
@@ -4437,7 +4517,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Honiara"
+      "capital": "Honiara",
+      "flagTriangle": false
     },
     {
       "code": "IND",
@@ -4504,7 +4585,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "New Delhi"
+      "capital": "New Delhi",
+      "flagTriangle": false
     },
     {
       "code": "IDN",
@@ -4551,11 +4633,12 @@
       "equator": true,
       "oecd": false,
       "peak4000": true,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Nusantara"
+      "capital": "Nusantara",
+      "flagTriangle": false
     },
     {
       "code": "IRQ",
@@ -4622,7 +4705,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Bagdad"
+      "capital": "Bagdad",
+      "flagTriangle": false
     },
     {
       "code": "IRN",
@@ -4690,7 +4774,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Téhéran"
+      "capital": "Téhéran",
+      "flagTriangle": false
     },
     {
       "code": "IRL",
@@ -4735,7 +4820,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Dublin"
+      "capital": "Dublin",
+      "flagTriangle": false
     },
     {
       "code": "ISL",
@@ -4774,7 +4860,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Reykjavik"
+      "capital": "Reykjavik",
+      "flagTriangle": false
     },
     {
       "code": "ISR",
@@ -4834,7 +4921,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Jérusalem"
+      "capital": "Jérusalem",
+      "flagTriangle": false
     },
     {
       "code": "ITA",
@@ -4894,11 +4982,12 @@
       "equator": false,
       "oecd": true,
       "peak4000": true,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Rome"
+      "capital": "Rome",
+      "flagTriangle": false
     },
     {
       "code": "JAM",
@@ -4938,7 +5027,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Kingston"
+      "capital": "Kingston",
+      "flagTriangle": true
     },
     {
       "code": "JPN",
@@ -4976,7 +5066,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Tokyo"
+      "capital": "Tokyo",
+      "flagTriangle": false
     },
     {
       "code": "JOR",
@@ -5037,7 +5128,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Amman"
+      "capital": "Amman",
+      "flagTriangle": true
     },
     {
       "code": "KAZ",
@@ -5097,7 +5189,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Astana"
+      "capital": "Astana",
+      "flagTriangle": false
     },
     {
       "code": "KEN",
@@ -5159,7 +5252,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Nairobi"
+      "capital": "Nairobi",
+      "flagTriangle": false
     },
     {
       "code": "KGZ",
@@ -5215,7 +5309,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Bichkek"
+      "capital": "Bichkek",
+      "flagTriangle": false
     },
     {
       "code": "KIR",
@@ -5261,7 +5356,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Tarawa-Sud"
+      "capital": "Tarawa-Sud",
+      "flagTriangle": false
     },
     {
       "code": "KWT",
@@ -5310,7 +5406,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": true,
-      "capital": "Koweït"
+      "capital": "Koweït",
+      "flagTriangle": false
     },
     {
       "code": "LAO",
@@ -5370,7 +5467,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Vientiane"
+      "capital": "Vientiane",
+      "flagTriangle": false
     },
     {
       "code": "LSO",
@@ -5421,7 +5519,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Maseru"
+      "capital": "Maseru",
+      "flagTriangle": false
     },
     {
       "code": "LVA",
@@ -5476,7 +5575,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Riga"
+      "capital": "Riga",
+      "flagTriangle": false
     },
     {
       "code": "LBN",
@@ -5525,7 +5625,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Beyrouth"
+      "capital": "Beyrouth",
+      "flagTriangle": false
     },
     {
       "code": "LBR",
@@ -5577,7 +5678,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Monrovia"
+      "capital": "Monrovia",
+      "flagTriangle": false
     },
     {
       "code": "LBY",
@@ -5642,7 +5744,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Tripoli"
+      "capital": "Tripoli",
+      "flagTriangle": false
     },
     {
       "code": "LIE",
@@ -5690,7 +5793,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Vaduz"
+      "capital": "Vaduz",
+      "flagTriangle": false
     },
     {
       "code": "LTU",
@@ -5742,11 +5846,12 @@
       "equator": false,
       "oecd": true,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Vilnius"
+      "capital": "Vilnius",
+      "flagTriangle": false
     },
     {
       "code": "LUX",
@@ -5800,7 +5905,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Luxembourg"
+      "capital": "Luxembourg",
+      "flagTriangle": false
     },
     {
       "code": "MKD",
@@ -5859,7 +5965,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Skopje"
+      "capital": "Skopje",
+      "flagTriangle": false
     },
     {
       "code": "MDG",
@@ -5895,11 +6002,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Antananarivo"
+      "capital": "Antananarivo",
+      "flagTriangle": false
     },
     {
       "code": "MYS",
@@ -5953,7 +6061,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Kuala Lumpur"
+      "capital": "Kuala Lumpur",
+      "flagTriangle": false
     },
     {
       "code": "MWI",
@@ -6006,7 +6115,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Lilongwe"
+      "capital": "Lilongwe",
+      "flagTriangle": false
     },
     {
       "code": "MDV",
@@ -6045,7 +6155,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Malé"
+      "capital": "Malé",
+      "flagTriangle": false
     },
     {
       "code": "MLI",
@@ -6109,11 +6220,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Bamako"
+      "capital": "Bamako",
+      "flagTriangle": false
     },
     {
       "code": "MLT",
@@ -6152,7 +6264,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "La Valette"
+      "capital": "La Valette",
+      "flagTriangle": false
     },
     {
       "code": "MAR",
@@ -6204,7 +6317,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Rabat"
+      "capital": "Rabat",
+      "flagTriangle": false
     },
     {
       "code": "MRT",
@@ -6260,7 +6374,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Nouakchott"
+      "capital": "Nouakchott",
+      "flagTriangle": false
     },
     {
       "code": "MEX",
@@ -6312,7 +6427,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Mexico"
+      "capital": "Mexico",
+      "flagTriangle": false
     },
     {
       "code": "FSM",
@@ -6350,7 +6466,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Palikir"
+      "capital": "Palikir",
+      "flagTriangle": false
     },
     {
       "code": "MDA",
@@ -6398,7 +6515,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Chisinau"
+      "capital": "Chisinau",
+      "flagTriangle": false
     },
     {
       "code": "MCO",
@@ -6438,10 +6556,11 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": false,
-      "flagStripes": "vertical",
+      "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
-      "capital": "Monaco"
+      "capital": "Monaco",
+      "flagTriangle": false
     },
     {
       "code": "MNG",
@@ -6489,7 +6608,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Oulan-Bator"
+      "capital": "Oulan-Bator",
+      "flagTriangle": false
     },
     {
       "code": "MNE",
@@ -6545,10 +6665,11 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "vertical",
+      "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Podgorica"
+      "capital": "Podgorica",
+      "flagTriangle": false
     },
     {
       "code": "MOZ",
@@ -6614,7 +6735,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": true,
-      "capital": "Maputo"
+      "capital": "Maputo",
+      "flagTriangle": true
     },
     {
       "code": "NAM",
@@ -6685,7 +6807,8 @@
       "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Windhoek"
+      "capital": "Windhoek",
+      "flagTriangle": false
     },
     {
       "code": "NRU",
@@ -6725,7 +6848,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Yaren"
+      "capital": "Yaren",
+      "flagTriangle": false
     },
     {
       "code": "NPL",
@@ -6773,7 +6897,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Katmandou"
+      "capital": "Katmandou",
+      "flagTriangle": false
     },
     {
       "code": "NIC",
@@ -6820,7 +6945,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Managua"
+      "capital": "Managua",
+      "flagTriangle": false
     },
     {
       "code": "NER",
@@ -6888,7 +7014,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Niamey"
+      "capital": "Niamey",
+      "flagTriangle": false
     },
     {
       "code": "NGA",
@@ -6939,11 +7066,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Abuja"
+      "capital": "Abuja",
+      "flagTriangle": false
     },
     {
       "code": "NOR",
@@ -6997,7 +7125,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Oslo"
+      "capital": "Oslo",
+      "flagTriangle": false
     },
     {
       "code": "NZL",
@@ -7038,7 +7167,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Wellington"
+      "capital": "Wellington",
+      "flagTriangle": false
     },
     {
       "code": "OMN",
@@ -7090,7 +7220,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Mascate"
+      "capital": "Mascate",
+      "flagTriangle": false
     },
     {
       "code": "UGA",
@@ -7152,7 +7283,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Kampala"
+      "capital": "Kampala",
+      "flagTriangle": false
     },
     {
       "code": "UZB",
@@ -7214,7 +7346,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Tachkent"
+      "capital": "Tachkent",
+      "flagTriangle": false
     },
     {
       "code": "PAK",
@@ -7270,7 +7403,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Islamabad"
+      "capital": "Islamabad",
+      "flagTriangle": false
     },
     {
       "code": "PLW",
@@ -7309,7 +7443,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Ngerulmud"
+      "capital": "Ngerulmud",
+      "flagTriangle": false
     },
     {
       "code": "PAN",
@@ -7362,7 +7497,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Panama"
+      "capital": "Panama",
+      "flagTriangle": false
     },
     {
       "code": "PNG",
@@ -7409,7 +7545,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": true,
-      "capital": "Port Moresby"
+      "capital": "Port Moresby",
+      "flagTriangle": false
     },
     {
       "code": "PRY",
@@ -7462,7 +7599,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Asuncion"
+      "capital": "Asuncion",
+      "flagTriangle": false
     },
     {
       "code": "NLD",
@@ -7510,7 +7648,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Amsterdam"
+      "capital": "Amsterdam",
+      "flagTriangle": false
     },
     {
       "code": "PER",
@@ -7567,11 +7706,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": true,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Lima"
+      "capital": "Lima",
+      "flagTriangle": false
     },
     {
       "code": "PHL",
@@ -7612,7 +7752,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Manille"
+      "capital": "Manille",
+      "flagTriangle": true
     },
     {
       "code": "POL",
@@ -7679,7 +7820,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Varsovie"
+      "capital": "Varsovie",
+      "flagTriangle": false
     },
     {
       "code": "PRT",
@@ -7723,7 +7865,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Lisbonne"
+      "capital": "Lisbonne",
+      "flagTriangle": false
     },
     {
       "code": "QAT",
@@ -7766,7 +7909,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Doha"
+      "capital": "Doha",
+      "flagTriangle": false
     },
     {
       "code": "CAF",
@@ -7833,7 +7977,8 @@
       "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Bangui"
+      "capital": "Bangui",
+      "flagTriangle": false
     },
     {
       "code": "DOM",
@@ -7877,7 +8022,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Saint-Domingue"
+      "capital": "Saint-Domingue",
+      "flagTriangle": false
     },
     {
       "code": "ROU",
@@ -7933,11 +8079,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Bucarest"
+      "capital": "Bucarest",
+      "flagTriangle": false
     },
     {
       "code": "GBR",
@@ -7981,7 +8128,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Londres"
+      "capital": "Londres",
+      "flagTriangle": false
     },
     {
       "code": "RUS",
@@ -8077,7 +8225,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Moscou"
+      "capital": "Moscou",
+      "flagTriangle": false
     },
     {
       "code": "RWA",
@@ -8135,7 +8284,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Kigali"
+      "capital": "Kigali",
+      "flagTriangle": false
     },
     {
       "code": "KNA",
@@ -8176,7 +8326,8 @@
       "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Basseterre"
+      "capital": "Basseterre",
+      "flagTriangle": false
     },
     {
       "code": "SMR",
@@ -8219,7 +8370,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
-      "capital": "Saint-Marin"
+      "capital": "Saint-Marin",
+      "flagTriangle": false
     },
     {
       "code": "VCT",
@@ -8258,7 +8410,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Kingstown"
+      "capital": "Kingstown",
+      "flagTriangle": false
     },
     {
       "code": "LCA",
@@ -8298,7 +8451,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Castries"
+      "capital": "Castries",
+      "flagTriangle": false
     },
     {
       "code": "SLV",
@@ -8345,7 +8499,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
-      "capital": "San Salvador"
+      "capital": "San Salvador",
+      "flagTriangle": false
     },
     {
       "code": "WSM",
@@ -8385,7 +8540,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Apia"
+      "capital": "Apia",
+      "flagTriangle": false
     },
     {
       "code": "STP",
@@ -8422,10 +8578,11 @@
       "oecd": false,
       "peak4000": false,
       "symbolOnFlag": true,
-      "flagStripes": "vertical",
+      "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": true,
-      "capital": "São Tomé"
+      "capital": "São Tomé",
+      "flagTriangle": true
     },
     {
       "code": "SEN",
@@ -8485,7 +8642,8 @@
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Dakar"
+      "capital": "Dakar",
+      "flagTriangle": false
     },
     {
       "code": "SRB",
@@ -8557,7 +8715,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Belgrade"
+      "capital": "Belgrade",
+      "flagTriangle": false
     },
     {
       "code": "SYC",
@@ -8596,11 +8755,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": null,
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Victoria"
+      "capital": "Victoria",
+      "flagTriangle": false
     },
     {
       "code": "SLE",
@@ -8644,11 +8804,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Freetown"
+      "capital": "Freetown",
+      "flagTriangle": false
     },
     {
       "code": "SGP",
@@ -8689,7 +8850,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": true,
-      "capital": "Singapour"
+      "capital": "Singapour",
+      "flagTriangle": false
     },
     {
       "code": "SVK",
@@ -8749,7 +8911,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Bratislava"
+      "capital": "Bratislava",
+      "flagTriangle": false
     },
     {
       "code": "SVN",
@@ -8805,7 +8968,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Ljubljana"
+      "capital": "Ljubljana",
+      "flagTriangle": false
     },
     {
       "code": "SOM",
@@ -8857,7 +9021,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Mogadiscio"
+      "capital": "Mogadiscio",
+      "flagTriangle": false
     },
     {
       "code": "SDN",
@@ -8927,7 +9092,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Khartoum"
+      "capital": "Khartoum",
+      "flagTriangle": true
     },
     {
       "code": "SSD",
@@ -8993,7 +9159,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Djouba"
+      "capital": "Djouba",
+      "flagTriangle": true
     },
     {
       "code": "LKA",
@@ -9038,7 +9205,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": true,
-      "capital": "Sri Jayawardenepura Kotte"
+      "capital": "Sri Jayawardenepura Kotte",
+      "flagTriangle": false
     },
     {
       "code": "SWE",
@@ -9085,7 +9253,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": true,
-      "capital": "Stockholm"
+      "capital": "Stockholm",
+      "flagTriangle": false
     },
     {
       "code": "CHE",
@@ -9147,7 +9316,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Berne"
+      "capital": "Berne",
+      "flagTriangle": false
     },
     {
       "code": "SUR",
@@ -9200,7 +9370,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Paramaribo"
+      "capital": "Paramaribo",
+      "flagTriangle": false
     },
     {
       "code": "SYR",
@@ -9261,7 +9432,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Damas"
+      "capital": "Damas",
+      "flagTriangle": false
     },
     {
       "code": "TJK",
@@ -9319,7 +9491,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Douchanbé"
+      "capital": "Douchanbé",
+      "flagTriangle": false
     },
     {
       "code": "TZA",
@@ -9393,7 +9566,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Dodoma"
+      "capital": "Dodoma",
+      "flagTriangle": false
     },
     {
       "code": "TCD",
@@ -9454,11 +9628,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "vertical",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "N'Djamena"
+      "capital": "N'Djamena",
+      "flagTriangle": false
     },
     {
       "code": "CZE",
@@ -9515,7 +9690,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Prague"
+      "capital": "Prague",
+      "flagTriangle": true
     },
     {
       "code": "THA",
@@ -9571,7 +9747,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Bangkok"
+      "capital": "Bangkok",
+      "flagTriangle": false
     },
     {
       "code": "TLS",
@@ -9617,7 +9794,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Dili"
+      "capital": "Dili",
+      "flagTriangle": true
     },
     {
       "code": "TGO",
@@ -9670,7 +9848,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Lomé"
+      "capital": "Lomé",
+      "flagTriangle": false
     },
     {
       "code": "TON",
@@ -9709,7 +9888,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Nuku'alofa"
+      "capital": "Nuku'alofa",
+      "flagTriangle": false
     },
     {
       "code": "TTO",
@@ -9748,7 +9928,8 @@
       "flagStripes": null,
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Port-d'Espagne"
+      "capital": "Port-d'Espagne",
+      "flagTriangle": false
     },
     {
       "code": "TUN",
@@ -9795,7 +9976,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": true,
-      "capital": "Tunis"
+      "capital": "Tunis",
+      "flagTriangle": false
     },
     {
       "code": "TKM",
@@ -9852,7 +10034,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Achgabat"
+      "capital": "Achgabat",
+      "flagTriangle": false
     },
     {
       "code": "TUR",
@@ -9923,7 +10106,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Ankara"
+      "capital": "Ankara",
+      "flagTriangle": false
     },
     {
       "code": "TUV",
@@ -9969,7 +10153,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Funafuti"
+      "capital": "Funafuti",
+      "flagTriangle": false
     },
     {
       "code": "UKR",
@@ -10036,7 +10221,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Kiev"
+      "capital": "Kiev",
+      "flagTriangle": false
     },
     {
       "code": "URY",
@@ -10084,7 +10270,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Montevideo"
+      "capital": "Montevideo",
+      "flagTriangle": false
     },
     {
       "code": "VUT",
@@ -10126,7 +10313,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Port-Vila"
+      "capital": "Port-Vila",
+      "flagTriangle": true
     },
     {
       "code": "VEN",
@@ -10179,7 +10367,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Caracas"
+      "capital": "Caracas",
+      "flagTriangle": false
     },
     {
       "code": "VNM",
@@ -10230,7 +10419,8 @@
       "flagStripes": null,
       "flagColorCount": 2,
       "capitalSameLetter": false,
-      "capital": "Hanoï"
+      "capital": "Hanoï",
+      "flagTriangle": false
     },
     {
       "code": "YEM",
@@ -10274,11 +10464,12 @@
       "equator": false,
       "oecd": false,
       "peak4000": false,
-      "symbolOnFlag": true,
+      "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
       "capitalSameLetter": false,
-      "capital": "Sanaâ"
+      "capital": "Sanaâ",
+      "flagTriangle": false
     },
     {
       "code": "ZMB",
@@ -10351,7 +10542,8 @@
       "flagStripes": null,
       "flagColorCount": 4,
       "capitalSameLetter": false,
-      "capital": "Lusaka"
+      "capital": "Lusaka",
+      "flagTriangle": false
     },
     {
       "code": "ZWE",
@@ -10463,7 +10655,8 @@
       "flagStripes": "horizontal",
       "flagColorCount": 5,
       "capitalSameLetter": false,
-      "capital": "Harare"
+      "capital": "Harare",
+      "flagTriangle": true
     }
   ]
 }
