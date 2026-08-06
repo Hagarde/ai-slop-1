@@ -140,7 +140,16 @@
         
         <!-- Écran 1 : Choix Créer / Rejoindre -->
         <div id="room-options-view">
-          <p style="font-size: 14px; color: var(--ink-secondary);">Affrontez un ami avec un minuteur de 30s par tour ! Alignez 3 cases (🟢 J1 ou 🔵 J2) pour gagner.</p>
+          <!-- Explication claire des règles 1v1 -->
+          <div class="rules-box-1v1" style="background: var(--bg-app); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 12px 14px; margin: 10px 0 16px 0; text-align: left; font-size: 13px;">
+            <strong style="color: var(--ink-primary); font-size: 13.5px; display: block; margin-bottom: 6px;">📜 Règles du Mode 1v1 (Morpion Géographique) :</strong>
+            <ul style="margin: 0; padding-left: 18px; color: var(--ink-secondary); display: flex; flex-direction: column; gap: 5px;">
+              <li>🎯 <strong>Objectif</strong> : Aligner 3 cases de votre couleur (🟢 J1 ou 🔵 J2) pour gagner le match.</li>
+              <li>⏱️ <strong>Minuteur 30s</strong> : Vous avez 30 secondes par tour pour choisir un pays. En cas de dépassement, le tour passe à l'adversaire.</li>
+              <li>❌ <strong>Erreur = Tour suivant</strong> : Tenter un pays incorrect fait immédiatement passer la main à votre adversaire.</li>
+              <li>🔄 <strong>Équité</strong> : Le joueur qui débute la partie alterne automatiquement à chaque revanche ou nouveau match.</li>
+            </ul>
+          </div>
 
           <div class="room-action-cards">
             <div class="room-card">
@@ -335,6 +344,6 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=12"></script>
+    <script src="app.js?v=13"></script>
   </body>
 </html>
