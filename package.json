@@ -1,4 +1,12 @@
 {
+  "name": "countrydoku",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/verify-all-criteria.js",
+    "audit": "node scripts/audit-and-fix-database.js"
+  },
   "dependencies": {
     "peerjs": "^1.5.5"
   }
