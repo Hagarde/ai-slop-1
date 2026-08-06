@@ -228,6 +228,9 @@ function buildCriteria(data) {
     criterion('Nom composé (plusieurs mots)', 'language', 'Le nom du pays en français comporte plusieurs mots ou un trait d’union (ex: Afrique du Sud, Costa Rica, Royaume-Uni...).', (c) => /[\s-]/.test(c.name)),
     criterion('Présence d’un triangle sur le drapeau', 'history', 'Le motif du drapeau comporte un chevron ou au moins un triangle (ex: Jordanie, Tchéquie, Cuba, Zimbabwe, Bahamas...).', (c) => c.flagTriangle === true),
     criterion('Drapeau sans rouge ni bleu', 'history', 'Le drapeau officiel ne comporte ni couleur rouge ni couleur bleue (ex: Nigeria, Irlande, Jamaïque, Arabie Saoudite...).', (c) => !(c.flagColors || []).includes('#d21034') && !(c.flagColors || []).includes('#005eb8')),
+    criterion('Pays en zone intertropicale', 'geography', 'Le territoire du pays est situé dans la zone intertropicale (entre le Tropique du Cancer et du Capricorne).', (c) => c.intertropical === true),
+    criterion('Climat aride ou désertique', 'geography', 'Le pays possède un climat désertique ou aride avec précipitations < 250 mm/an (ex: Égypte, Arabie Saoudite, Algérie...).', (c) => c.aridClimate === true),
+    criterion('Présence de glaciers / neiges éternelles', 'geography', 'Le pays abrite au moins un glacier ou des neiges éternelles répertoriés (ex: Suisse, France, Chili, Népal, Tanzanie...).', (c) => c.glacier === true),
   ].filter((item) => data.filter(item.test).length >= 5);
 }
 

@@ -68,7 +68,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Kaboul",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": true
     },
     {
       "code": "ZAF",
@@ -146,7 +149,10 @@
       "flagColorCount": 6,
       "capitalSameLetter": false,
       "capital": "Pretoria",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "ALB",
@@ -202,7 +208,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Tirana",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "DZA",
@@ -271,7 +280,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Alger",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "DEU",
@@ -348,7 +360,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Berlin",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "AND",
@@ -397,7 +412,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Andorre-la-Vieille",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "AGO",
@@ -454,7 +472,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Luanda",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "ATG",
@@ -496,7 +517,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Saint John's",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SAU",
@@ -564,7 +588,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Riyad",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "ARG",
@@ -626,7 +653,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Buenos Aires",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "ARM",
@@ -683,7 +713,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Erevan",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "AUS",
@@ -723,7 +756,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Canberra",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "AUT",
@@ -795,7 +831,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Vienne",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "AZE",
@@ -858,7 +897,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Baku",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "BHS",
@@ -903,7 +945,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Nassau",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BHR",
@@ -942,7 +987,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Manama",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "BGD",
@@ -990,7 +1038,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Dacca",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BRB",
@@ -1030,7 +1081,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Bridgetown",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BEL",
@@ -1089,7 +1143,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Bruxelles",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BLZ",
@@ -1140,7 +1197,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Belmopan",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BEN",
@@ -1197,7 +1257,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Porto-Novo",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BTN",
@@ -1251,7 +1314,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Thimphou",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "BLR",
@@ -1313,7 +1379,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Minsk",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MMR",
@@ -1375,7 +1444,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Naypyidaw",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BOL",
@@ -1439,7 +1511,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Sucre",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "BIH",
@@ -1494,7 +1569,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Sarajevo",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BWA",
@@ -1552,7 +1630,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Gaborone",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BRA",
@@ -1634,7 +1715,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Brasília",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BRN",
@@ -1685,7 +1769,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Bandar Seri Begawan",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BGR",
@@ -1746,7 +1833,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Sofia",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BFA",
@@ -1811,7 +1901,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Ouagadougou",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "BDI",
@@ -1865,7 +1958,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Gitega",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "KHM",
@@ -1923,7 +2019,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Phnom Penh",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "CMR",
@@ -1989,7 +2088,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Yaoundé",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "CAN",
@@ -2034,7 +2136,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Ottawa",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "CHL",
@@ -2087,7 +2192,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Santiago",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "CHN",
@@ -2191,7 +2299,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Pékin",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "CYP",
@@ -2232,7 +2343,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Nicosie",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "COL",
@@ -2293,7 +2407,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bogota",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "COM",
@@ -2337,7 +2454,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Moroni",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "COG",
@@ -2400,7 +2520,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Brazzaville",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "COD",
@@ -2481,7 +2604,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Kinshasa",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "PRK",
@@ -2534,7 +2660,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Pyongyang",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "KOR",
@@ -2580,7 +2709,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Séoul",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "CRI",
@@ -2629,7 +2761,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "San José",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "CIV",
@@ -2690,7 +2825,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Yamoussoukro",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "HRV",
@@ -2751,7 +2889,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Zagreb",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "CUB",
@@ -2796,7 +2937,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "La Havane",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "DNK",
@@ -2840,7 +2984,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Copenhague",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "DJI",
@@ -2895,7 +3042,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Djibouti",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "DMA",
@@ -2937,7 +3087,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Roseau",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "EGY",
@@ -2995,7 +3148,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Le Caire",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "ARE",
@@ -3045,7 +3201,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Abou Dabi",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "ECU",
@@ -3094,7 +3253,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Quito",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "ERI",
@@ -3150,7 +3312,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Asmara",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "ESP",
@@ -3210,7 +3375,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Madrid",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "EST",
@@ -3259,7 +3427,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Tallinn",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SWZ",
@@ -3316,7 +3487,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Mbabane",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "USA",
@@ -3365,7 +3539,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Washington",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "ETH",
@@ -3431,7 +3608,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Addis-Abeba",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "FJI",
@@ -3473,7 +3653,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Suva",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "FIN",
@@ -3526,7 +3709,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Helsinki",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "FRA",
@@ -3599,7 +3785,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Paris",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "GAB",
@@ -3652,7 +3841,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Libreville",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GMB",
@@ -3698,7 +3890,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Banjul",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GEO",
@@ -3754,7 +3949,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Tbilissi",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "GHA",
@@ -3808,7 +4006,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Accra",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GRC",
@@ -3864,7 +4065,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Athènes",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GRD",
@@ -3904,7 +4108,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Saint-Georges",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GTM",
@@ -3962,7 +4169,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Guatemala",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "GIN",
@@ -4027,7 +4237,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Conakry",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GNQ",
@@ -4079,7 +4292,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Malabo",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GNB",
@@ -4130,7 +4346,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Bissau",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GUY",
@@ -4185,7 +4404,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": true,
       "capital": "Georgetown",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "HTI",
@@ -4231,7 +4453,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Port-au-Prince",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "HND",
@@ -4283,7 +4508,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Tegucigalpa",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "HUN",
@@ -4352,7 +4580,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Budapest",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MUS",
@@ -4395,7 +4626,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Port-Louis",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "CPV",
@@ -4436,7 +4670,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Praia",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MHL",
@@ -4477,7 +4714,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Majuro",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SLB",
@@ -4518,7 +4758,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Honiara",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "IND",
@@ -4586,7 +4829,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "New Delhi",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "IDN",
@@ -4638,7 +4884,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Nusantara",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "IRQ",
@@ -4706,7 +4955,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Bagdad",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "IRN",
@@ -4775,7 +5027,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Téhéran",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "IRL",
@@ -4821,7 +5076,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Dublin",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "ISL",
@@ -4861,7 +5119,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Reykjavik",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "ISR",
@@ -4922,7 +5183,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Jérusalem",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "ITA",
@@ -4987,7 +5251,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Rome",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "JAM",
@@ -5028,7 +5295,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Kingston",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "JPN",
@@ -5067,7 +5337,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Tokyo",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "JOR",
@@ -5129,7 +5402,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Amman",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "KAZ",
@@ -5190,7 +5466,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Astana",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "KEN",
@@ -5253,7 +5532,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Nairobi",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "KGZ",
@@ -5310,7 +5592,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Bichkek",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "KIR",
@@ -5357,7 +5642,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Tarawa-Sud",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "KWT",
@@ -5407,7 +5695,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Koweït",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "LAO",
@@ -5468,7 +5759,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Vientiane",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LSO",
@@ -5520,7 +5814,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Maseru",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LVA",
@@ -5576,7 +5873,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Riga",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LBN",
@@ -5626,7 +5926,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Beyrouth",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LBR",
@@ -5679,7 +5982,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Monrovia",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LBY",
@@ -5745,7 +6051,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Tripoli",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "LIE",
@@ -5794,7 +6103,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Vaduz",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LTU",
@@ -5851,7 +6163,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Vilnius",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LUX",
@@ -5906,7 +6221,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Luxembourg",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MKD",
@@ -5966,7 +6284,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Skopje",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MDG",
@@ -6007,7 +6328,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Antananarivo",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MYS",
@@ -6062,7 +6386,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Kuala Lumpur",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MWI",
@@ -6116,7 +6443,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Lilongwe",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MDV",
@@ -6156,7 +6486,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Malé",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MLI",
@@ -6225,7 +6558,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bamako",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "MLT",
@@ -6265,7 +6601,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "La Valette",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MAR",
@@ -6318,7 +6657,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Rabat",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MRT",
@@ -6375,7 +6717,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Nouakchott",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "MEX",
@@ -6428,7 +6773,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Mexico",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "FSM",
@@ -6467,7 +6815,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Palikir",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MDA",
@@ -6516,7 +6867,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Chisinau",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MCO",
@@ -6560,7 +6914,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Monaco",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MNG",
@@ -6609,7 +6966,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Oulan-Bator",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "MNE",
@@ -6669,7 +7029,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Podgorica",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "MOZ",
@@ -6736,7 +7099,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": true,
       "capital": "Maputo",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "NAM",
@@ -6808,7 +7174,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Windhoek",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "NRU",
@@ -6849,7 +7218,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Yaren",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "NPL",
@@ -6898,7 +7270,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Katmandou",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "NIC",
@@ -6946,7 +7321,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Managua",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "NER",
@@ -7015,7 +7393,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Niamey",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "NGA",
@@ -7071,7 +7452,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Abuja",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "NOR",
@@ -7126,7 +7510,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Oslo",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "NZL",
@@ -7168,7 +7555,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Wellington",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "OMN",
@@ -7221,7 +7611,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Mascate",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "UGA",
@@ -7284,7 +7677,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Kampala",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "UZB",
@@ -7347,7 +7743,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Tachkent",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": true
     },
     {
       "code": "PAK",
@@ -7404,7 +7803,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Islamabad",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": true
     },
     {
       "code": "PLW",
@@ -7444,7 +7846,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Ngerulmud",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "PAN",
@@ -7498,7 +7903,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Panama",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "PNG",
@@ -7546,7 +7954,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Port Moresby",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "PRY",
@@ -7600,7 +8011,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Asuncion",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "NLD",
@@ -7649,7 +8063,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Amsterdam",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "PER",
@@ -7711,7 +8128,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Lima",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "PHL",
@@ -7753,7 +8173,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Manille",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "POL",
@@ -7821,7 +8244,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Varsovie",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "PRT",
@@ -7866,7 +8292,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Lisbonne",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "QAT",
@@ -7910,7 +8339,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Doha",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "CAF",
@@ -7978,7 +8410,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Bangui",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "DOM",
@@ -8023,7 +8458,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Saint-Domingue",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "ROU",
@@ -8084,7 +8522,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bucarest",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "GBR",
@@ -8129,7 +8570,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Londres",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "RUS",
@@ -8226,7 +8670,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Moscou",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "RWA",
@@ -8285,7 +8732,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Kigali",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "KNA",
@@ -8327,7 +8777,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Basseterre",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SMR",
@@ -8371,7 +8824,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Saint-Marin",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "VCT",
@@ -8411,7 +8867,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Kingstown",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LCA",
@@ -8452,7 +8911,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Castries",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SLV",
@@ -8500,7 +8962,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "San Salvador",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "WSM",
@@ -8541,7 +9006,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Apia",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "STP",
@@ -8582,7 +9050,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "São Tomé",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SEN",
@@ -8643,7 +9114,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Dakar",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SRB",
@@ -8716,7 +9190,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Belgrade",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SYC",
@@ -8760,7 +9237,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Victoria",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SLE",
@@ -8809,7 +9289,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Freetown",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SGP",
@@ -8851,7 +9334,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Singapour",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SVK",
@@ -8912,7 +9398,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bratislava",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SVN",
@@ -8969,7 +9458,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Ljubljana",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SOM",
@@ -9022,7 +9514,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Mogadiscio",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "SDN",
@@ -9093,7 +9588,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Khartoum",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "SSD",
@@ -9160,7 +9658,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Djouba",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "LKA",
@@ -9206,7 +9707,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": true,
       "capital": "Sri Jayawardenepura Kotte",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SWE",
@@ -9254,7 +9758,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Stockholm",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "CHE",
@@ -9317,7 +9824,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Berne",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "SUR",
@@ -9371,7 +9881,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Paramaribo",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "SYR",
@@ -9433,7 +9946,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Damas",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "TJK",
@@ -9492,7 +10008,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Douchanbé",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "TZA",
@@ -9567,7 +10086,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Dodoma",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "TCD",
@@ -9633,7 +10155,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "N'Djamena",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "CZE",
@@ -9691,7 +10216,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Prague",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "THA",
@@ -9748,7 +10276,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Bangkok",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "TLS",
@@ -9795,7 +10326,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Dili",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "TGO",
@@ -9849,7 +10383,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Lomé",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "TON",
@@ -9889,7 +10426,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Nuku'alofa",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "TTO",
@@ -9929,7 +10469,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Port-d'Espagne",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "TUN",
@@ -9977,7 +10520,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "Tunis",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "TKM",
@@ -10035,7 +10581,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Achgabat",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "TUR",
@@ -10107,7 +10656,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Ankara",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": true
     },
     {
       "code": "TUV",
@@ -10154,7 +10706,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Funafuti",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "UKR",
@@ -10222,7 +10777,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Kiev",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "URY",
@@ -10271,7 +10829,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Montevideo",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": false,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "VUT",
@@ -10314,7 +10875,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Port-Vila",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "VEN",
@@ -10368,7 +10932,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Caracas",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "VNM",
@@ -10420,7 +10987,10 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Hanoï",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "YEM",
@@ -10469,7 +11039,10 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Sanaâ",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": true,
+      "glacier": false
     },
     {
       "code": "ZMB",
@@ -10543,7 +11116,10 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Lusaka",
-      "flagTriangle": false
+      "flagTriangle": false,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     },
     {
       "code": "ZWE",
@@ -10656,7 +11232,10 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Harare",
-      "flagTriangle": true
+      "flagTriangle": true,
+      "intertropical": true,
+      "aridClimate": false,
+      "glacier": false
     }
   ]
 }
