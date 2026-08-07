@@ -12,7 +12,7 @@ export let turnTimeLeft = 30;
 
 let peer = null;
 let conn = null;
-let currentRoomCode = null;
+export let currentRoomCode = null;
 let roomChannel = null;
 
 const METERED_API_URL = 'https://countrydoku.metered.live/api/v1/turn/credentials';
