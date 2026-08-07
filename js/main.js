@@ -203,6 +203,12 @@ function setupEventListeners() {
       if (search) search.style.display = 'none';
       const candidatesCountEl = document.querySelector('#candidates-count');
       if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} solution(s)`;
+      const searchDialogClues = document.querySelector('#search-dialog-clues');
+      if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].name} + ${gameState.columns[columnIndex].name}`;
+      
+      const cellTargetTag = document.querySelector('#cell-target-tag');
+      if (cellTargetTag) cellTargetTag.textContent = `CASE ${id + 1}`;
+      
       renderCountriesForSolution(candidates);
       searchDialog.showModal();
       return;
@@ -213,6 +219,12 @@ function setupEventListeners() {
     if (searchDialogTitle) searchDialogTitle.textContent = 'Choisir un pays';
     const candidatesCountEl = document.querySelector('#candidates-count');
     if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} pays possibles`;
+    const searchDialogClues = document.querySelector('#search-dialog-clues');
+    if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].name} + ${gameState.columns[columnIndex].name}`;
+
+    const cellTargetTag = document.querySelector('#cell-target-tag');
+    if (cellTargetTag) cellTargetTag.textContent = `CASE ${id + 1}`;
+
     search.value = '';
     renderBoard();
     renderCountries(handleCellChoose);

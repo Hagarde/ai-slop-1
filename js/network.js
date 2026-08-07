@@ -322,6 +322,15 @@ export function forceLeaveRoom() {
   const confirmLeaveDialog = document.querySelector('#confirm-leave-dialog');
   if (confirmLeaveDialog && confirmLeaveDialog.open) confirmLeaveDialog.close();
   
+  const roomDialog = document.querySelector('#room-dialog');
+  if (roomDialog && roomDialog.open) roomDialog.close();
+  
+  const roomOptionsView = document.querySelector('#room-options-view');
+  if (roomOptionsView) roomOptionsView.classList.remove('hidden');
+  
+  const roomCreatedView = document.querySelector('#room-created-view');
+  if (roomCreatedView) roomCreatedView.classList.add('hidden');
+  
   resetGameState(true);
   updateMultiplayerUI();
 }

@@ -98,16 +98,20 @@ export function resetGameState(newSeed = true) {
 // Validation d'un coup
 export function validateMove(cellId, countryCode) {
   const country = countries.find((item) => item.code === countryCode);
-  if (!country) return false;
+  const row = Math.floor(cellId / 3);
+  const col = cellId % 3;
 
-  const rowIndex = Math.floor(cellId / 3);
-  const columnIndex = cellId % 3;
-  const row = gameState.rows[rowIndex];
-  const column = gameState.columns[columnIndex];
+  const rowCriterion = gameState.rows[row];
+  const colCriterion = gameState.columns[col];
 
-  if (!row || !column) return false;
+  const rowPass = rowCriterion.test(country);
+  const colPass = colCriterion.test(country);
+  const isValid = rowPass && colPass;
+  
+  console.log(`[VALIDATION] Évaluation de : ${country.name} pour la Case ${cellId + 1}`);
+  console.log(`  -> Critère Ligne "${rowCriterion.name}" : ${rowPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
+  console.log(`  -> Critère Colonne "${colCriterion.name}" : ${colPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
+  console.log(`  => Résultat global : ${isValid ? "✅ CORRECT" : "❌ FAUX"}`);
 
-  const isMatchRow = row.test(country);
-  const isMatchCol = column.test(country);
-  return isMatchRow && isMatchCol;
+  return isValid;
 }
