@@ -192,14 +192,17 @@ function setupEventListeners() {
       return;
     }
 
+    const rowIndex = Math.floor(id / 3);
+    const columnIndex = id % 3;
+    const candidates = cellCandidates(gameState.rows[rowIndex], gameState.columns[columnIndex]);
+
     if (!isMultiplayer && gameState.lives <= 0) {
-      const rowIndex = Math.floor(id / 3);
-      const columnIndex = id % 3;
-      const candidates = cellCandidates(gameState.rows[rowIndex], gameState.columns[columnIndex]);
       gameState.selectedCell = id;
       renderBoard();
       if (searchDialogTitle) searchDialogTitle.textContent = `💡 Solutions pour la Case ${id + 1}`;
       if (search) search.style.display = 'none';
+      const candidatesCountEl = document.querySelector('#candidates-count');
+      if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} solution(s)`;
       renderCountriesForSolution(candidates);
       searchDialog.showModal();
       return;
@@ -208,6 +211,8 @@ function setupEventListeners() {
     gameState.selectedCell = id;
     if (search) search.style.display = '';
     if (searchDialogTitle) searchDialogTitle.textContent = 'Choisir un pays';
+    const candidatesCountEl = document.querySelector('#candidates-count');
+    if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} pays possibles`;
     search.value = '';
     renderBoard();
     renderCountries(handleCellChoose);

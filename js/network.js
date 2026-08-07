@@ -161,6 +161,7 @@ function setupConnectionListeners() {
 
 export function safeSend(data) {
   if (conn && conn.open) {
+    console.log("[WebRTC] Envoi des données:", data);
     conn.send(data);
     return true;
   }
@@ -230,16 +231,14 @@ export function startNextMultiplayerMatch(sameGrid = false) {
   updateMultiplayerUI();
 }
 
-function handleIncomingData(data) {
-  if (!data || !data.type) return;
+export function handleIncomingData(data) {
+  console.log("[WebRTC] Données reçues:", data);
 
-  if (data.type === 'GUEST_JOINED') {
-    if (myRole === 'host') {
-      if (!gameState.currentGridIndices) {
-        generateGrid();
-      }
-      safeSend({ type: 'INIT_GAME', rowIndices: gameState.currentGridIndices.rowIndices, colIndices: gameState.currentGridIndices.colIndices, startingPlayer });
+  if (data.type === 'GUEST_JOINED' && myRole === 'host') {
+    if (!gameState.currentGridIndices) {
+      generateGrid();
     }
+    safeSend({ type: 'INIT_GAME', rowIndices: gameState.currentGridIndices.rowIndices, colIndices: gameState.currentGridIndices.colIndices, startingPlayer });
   }
 
   if (data.type === 'GUEST_READY') {
@@ -319,6 +318,10 @@ export function forceLeaveRoom() {
   myRole = null;
   currentRoomCode = null;
   window.history.pushState({}, '', window.location.pathname);
+  
+  const confirmLeaveDialog = document.querySelector('#confirm-leave-dialog');
+  if (confirmLeaveDialog && confirmLeaveDialog.open) confirmLeaveDialog.close();
+  
   resetGameState(true);
   updateMultiplayerUI();
 }
