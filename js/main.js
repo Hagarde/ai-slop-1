@@ -2,7 +2,7 @@ import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback } from './ui.js';
-import { isMultiplayer, myRole, currentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
+import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 
 // Setup Global Error Handling
 window.addEventListener('error', (event) => {
@@ -84,12 +84,14 @@ function handleCellChoose(code) {
   if (!isMatch) {
     if (isMultiplayer) {
       const nextTurn = myRole === 'host' ? 'guest' : 'host';
+      setCurrentTurn(nextTurn);
       safeSend({ type: 'WRONG_MOVE', cellId: selectedCell, countryCode: code, player: myRole, nextTurn });
       feedback.textContent = `❌ Choix INCORRECT ! Tour à l'adversaire.`;
       addGameFeed(`❌ Vous avez proposé un pays incorrect. Tour à l'adversaire.`, 'wrong');
       gameState.selectedCell = null;
       updateMultiplayerUI();
       renderBoard();
+      startTurnTimer();
       return;
     }
 
@@ -128,6 +130,8 @@ function handleCellChoose(code) {
       stopTurnTimer();
       mpVictoryDialog.showModal();
     } else {
+      const nextTurn = myRole === 'host' ? 'guest' : 'host';
+      setCurrentTurn(nextTurn);
       addGameFeed(`✅ Vous avez placé ${country.name}. Tour à l'adversaire.`, 'correct');
       updateMultiplayerUI();
       startTurnTimer();

@@ -168,6 +168,10 @@ export function safeSend(data) {
   return false;
 }
 
+export function setCurrentTurn(newTurn) {
+  currentTurn = newTurn;
+}
+
 export function startTurnTimer() {
   stopTurnTimer();
   turnTimeLeft = 30;
@@ -192,6 +196,7 @@ export function startTurnTimer() {
         addGameFeed(msg, 'wrong');
         updateMultiplayerUI();
         renderBoard();
+        startTurnTimer();
       }
     }
   }, 1000);
@@ -229,6 +234,7 @@ export function startNextMultiplayerMatch(sameGrid = false) {
 
   renderBoard();
   updateMultiplayerUI();
+  startTurnTimer();
 }
 
 export function handleIncomingData(data) {
@@ -256,6 +262,7 @@ export function handleIncomingData(data) {
     currentTurn = startingPlayer;
     updateMultiplayerUI();
     renderBoard();
+    startTurnTimer();
     safeSend({ type: 'GUEST_READY' });
   }
 
