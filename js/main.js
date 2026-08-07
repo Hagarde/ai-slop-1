@@ -310,7 +310,7 @@ function setupEventListeners() {
   document.querySelector('#brand-logo')?.addEventListener('click', (e) => {
     e.preventDefault();
     if (isMultiplayer) {
-      forceLeaveRoom();
+      handleRoomClose();
     } else {
       resetGame(true);
     }
