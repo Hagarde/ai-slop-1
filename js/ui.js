@@ -104,7 +104,7 @@ export function updateLivesUI() {
     livesBox.classList.add('hidden');
   } else {
     livesBox.classList.remove('hidden');
-    if (heartsListEl) heartsListEl.textContent = '❤️'.repeat(gameState.lives) + '🖤'.repeat(3 - gameState.lives);
+    if (heartsListEl) heartsListEl.textContent = Array(Math.max(0, gameState.lives)).fill('❤️').concat(Array(Math.max(0, 3 - gameState.lives)).fill('🖤')).join(' ');
   }
 }
 

@@ -1,6 +1,6 @@
 import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
-import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates } from './game.js';
+import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 
@@ -19,7 +19,14 @@ const APP_VERSION = "v1.3";
 
 // Init App
 async function initApp() {
-  console.log(`🌍 CountryDoku ${APP_VERSION}`);
+  try {
+    const text = await fetch(import.meta.url).then(r => r.text());
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 8);
+    console.log(`🌍 CountryDoku ${APP_VERSION} [Hash: #${hash}]`);
+  } catch (e) {
+    console.log(`🌍 CountryDoku ${APP_VERSION}`);
+  }
   
   const success = await loadData();
   if (!success) {
@@ -76,18 +83,26 @@ function handleCellChoose(code) {
     return;
   }
 
-  const selectedCell = gameState.selectedCell;
-  if (selectedCell === null) return;
-  const isMatch = validateMove(selectedCell, code);
+  const details = getMoveValidationDetails(selectedCell, code);
+  const isMatch = details.isValid;
   searchDialog.close();
 
   if (!isMatch) {
     if (isMultiplayer) {
       const nextTurn = myRole === 'host' ? 'guest' : 'host';
       setCurrentTurn(nextTurn);
-      safeSend({ type: 'WRONG_MOVE', cellId: selectedCell, countryCode: code, player: myRole, nextTurn });
-      feedback.textContent = `❌ Choix INCORRECT ! Tour à l'adversaire.`;
-      addGameFeed(`❌ Vous avez proposé un pays incorrect. Tour à l'adversaire.`, 'wrong');
+      const countryName = details.country ? details.country.name : code;
+      safeSend({ 
+        type: 'WRONG_MOVE', 
+        cellId: selectedCell, 
+        countryCode: code, 
+        countryName, 
+        reason: details.reason, 
+        player: myRole, 
+        nextTurn 
+      });
+      feedback.textContent = `❌ ${countryName} INCORRECT (${details.reason}) ! Tour à l'adversaire.`;
+      addGameFeed(`❌ ${countryName} pour la Case ${selectedCell + 1} (Refusé : ${details.reason}).`, 'wrong');
       gameState.selectedCell = null;
       updateMultiplayerUI();
       renderBoard();

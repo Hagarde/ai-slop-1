@@ -4346,7 +4346,7 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Bissau",
-      "flagTriangle": true,
+      "flagTriangle": false,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false

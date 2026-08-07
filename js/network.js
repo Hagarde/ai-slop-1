@@ -74,6 +74,8 @@ export async function initPeer(customCode = null, isCreating = false) {
       currentTurn = 'host';
       isMultiplayer = true;
       resetRoomScores();
+      generateGrid();
+      gameState.answers = Array(9).fill(null);
       
       const newUrl = `${window.location.origin}${window.location.pathname}?room=${code}`;
       window.history.pushState({}, '', newUrl);
@@ -241,10 +243,10 @@ export function handleIncomingData(data) {
   console.log("[WebRTC] Données reçues:", data);
 
   if (data.type === 'GUEST_JOINED' && myRole === 'host') {
-    if (!gameState.currentGridIndices) {
-      generateGrid();
-    }
+    generateGrid();
+    gameState.answers = Array(9).fill(null);
     safeSend({ type: 'INIT_GAME', rowIndices: gameState.currentGridIndices.rowIndices, colIndices: gameState.currentGridIndices.colIndices, startingPlayer });
+    renderBoard();
   }
 
   if (data.type === 'GUEST_READY') {
@@ -303,6 +305,7 @@ export function handleIncomingData(data) {
   if (data.type === 'WRONG_MOVE') {
     currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
     if (searchDialog && searchDialog.open) searchDialog.close();
+    addGameFeed(`❌ L'adversaire a proposé "${data.countryName || 'un pays'}" pour la Case ${(data.cellId || 0) + 1} (Refusé : ${data.reason || 'Critère non respecté'}).`, 'wrong');
     updateMultiplayerUI();
     renderBoard();
     startTurnTimer();

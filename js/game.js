@@ -95,23 +95,41 @@ export function resetGameState(newSeed = true) {
   }
 }
 
-// Validation d'un coup
-export function validateMove(cellId, countryCode) {
+export function getMoveValidationDetails(cellId, countryCode) {
   const country = countries.find((item) => item.code === countryCode);
+  if (!country) return { isValid: false, country: null, reason: 'Pays inconnu' };
+
   const row = Math.floor(cellId / 3);
   const col = cellId % 3;
-
   const rowCriterion = gameState.rows[row];
   const colCriterion = gameState.columns[col];
 
-  const rowPass = rowCriterion.test(country);
-  const colPass = colCriterion.test(country);
+  const rowPass = rowCriterion ? rowCriterion.test(country) : false;
+  const colPass = colCriterion ? colCriterion.test(country) : false;
   const isValid = rowPass && colPass;
-  
-  console.log(`[VALIDATION] Évaluation de : ${country.name} pour la Case ${cellId + 1}`);
-  console.log(`  -> Critère Ligne "${rowCriterion.label}" : ${rowPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
-  console.log(`  -> Critère Colonne "${colCriterion.label}" : ${colPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
-  console.log(`  => Résultat global : ${isValid ? "✅ CORRECT" : "❌ FAUX"}`);
 
-  return isValid;
+  let reason = '';
+  if (!rowPass && !colPass) {
+    reason = `Ne respecte ni "${rowCriterion.label}" ni "${colCriterion.label}"`;
+  } else if (!rowPass) {
+    reason = `Ne respecte pas "${rowCriterion.label}"`;
+  } else if (!colPass) {
+    reason = `Ne respecte pas "${colCriterion.label}"`;
+  }
+
+  return { isValid, country, rowCriterion, colCriterion, rowPass, colPass, reason };
+}
+
+// Validation d'un coup
+export function validateMove(cellId, countryCode) {
+  const details = getMoveValidationDetails(cellId, countryCode);
+  
+  if (details.country && details.rowCriterion && details.colCriterion) {
+    console.log(`[VALIDATION] Évaluation de : ${details.country.name} pour la Case ${cellId + 1}`);
+    console.log(`  -> Critère Ligne "${details.rowCriterion.label}" : ${details.rowPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
+    console.log(`  -> Critère Colonne "${details.colCriterion.label}" : ${details.colPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
+    console.log(`  => Résultat global : ${details.isValid ? "✅ CORRECT" : "❌ FAUX"}`);
+  }
+
+  return details.isValid;
 }
