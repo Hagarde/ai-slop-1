@@ -244,6 +244,8 @@ export function handleIncomingData(data) {
   if (data.type === 'GUEST_READY') {
     updateMultiplayerUI();
     addGameFeed(`🎮 Joueur 2 connecté ! Le match commence.`);
+    startTurnTimer();
+    renderBoard();
   }
 
   if (data.type === 'INIT_GAME') {
@@ -305,6 +307,30 @@ export function handleIncomingData(data) {
     updateMultiplayerUI();
     renderBoard();
     startTurnTimer();
+  }
+
+  if (data.type === 'PROPOSE_REMATCH' || data.type === 'PROPOSE_NEW_GRID') {
+    const isRematch = data.type === 'PROPOSE_REMATCH';
+    if (gridProposalDesc) {
+      gridProposalDesc.textContent = isRematch 
+        ? "L'adversaire propose de rejouer sur la même grille." 
+        : "L'adversaire propose de jouer sur une nouvelle grille.";
+    }
+    if (gridProposalDialog) gridProposalDialog.showModal();
+  }
+
+  if (data.type === 'ACCEPT_PROPOSAL') {
+    addGameFeed("✅ L'adversaire a accepté la proposition !", "correct");
+    if (gridProposalDialog && gridProposalDialog.open) gridProposalDialog.close();
+    if (mpVictoryDialog && mpVictoryDialog.open) mpVictoryDialog.close();
+    if (myRole === 'host') {
+      startNextMultiplayerMatch(data.sameGrid || false);
+    }
+  }
+
+  if (data.type === 'DECLINE_PROPOSAL') {
+    addGameFeed("❌ L'adversaire a refusé la proposition.", "wrong");
+    if (gridProposalDialog && gridProposalDialog.open) gridProposalDialog.close();
   }
 }
 

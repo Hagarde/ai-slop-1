@@ -109,8 +109,8 @@ export function validateMove(cellId, countryCode) {
   const isValid = rowPass && colPass;
   
   console.log(`[VALIDATION] Évaluation de : ${country.name} pour la Case ${cellId + 1}`);
-  console.log(`  -> Critère Ligne "${rowCriterion.name}" : ${rowPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
-  console.log(`  -> Critère Colonne "${colCriterion.name}" : ${colPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
+  console.log(`  -> Critère Ligne "${rowCriterion.label}" : ${rowPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
+  console.log(`  -> Critère Colonne "${colCriterion.label}" : ${colPass ? "✅ VALIDÉ" : "❌ REFUSÉ"}`);
   console.log(`  => Résultat global : ${isValid ? "✅ CORRECT" : "❌ FAUX"}`);
 
   return isValid;

@@ -179,14 +179,28 @@ function setupEventListeners() {
   document.querySelector('#leave-mp-btn').addEventListener('click', forceLeaveRoom);
 
   document.querySelector('#copy-link-btn')?.addEventListener('click', () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.querySelector('#copy-link-btn');
+      const oldText = btn.innerHTML;
+      btn.innerHTML = '✅ Copié !';
+      setTimeout(() => btn.innerHTML = oldText, 2000);
+    }).catch(() => {
+      // Fallback si clipboard API indisponible
+      const linkInput = document.querySelector('#invite-link-input');
+      if (linkInput) { linkInput.select(); document.execCommand('copy'); }
+    });
+  });
+
+  document.querySelector('#modal-copy-link-btn')?.addEventListener('click', () => {
     const linkInput = document.querySelector('#invite-link-input');
-    if (!linkInput) return;
-    linkInput.select();
-    document.execCommand('copy');
-    const btn = document.querySelector('#copy-link-btn');
-    const oldText = btn.innerHTML;
-    btn.innerHTML = '✅ Copié !';
-    setTimeout(() => btn.innerHTML = oldText, 2000);
+    const url = linkInput ? linkInput.value : window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.querySelector('#modal-copy-link-btn');
+      const oldText = btn.innerHTML;
+      btn.innerHTML = '✅ Lien copié !';
+      setTimeout(() => btn.innerHTML = oldText, 2000);
+    });
   });
 
   // Search Dialog
@@ -222,7 +236,7 @@ function setupEventListeners() {
       const candidatesCountEl = document.querySelector('#candidates-count');
       if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} solution(s)`;
       const searchDialogClues = document.querySelector('#search-dialog-clues');
-      if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].name} + ${gameState.columns[columnIndex].name}`;
+      if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
       
       const cellTargetTag = document.querySelector('#cell-target-tag');
       if (cellTargetTag) cellTargetTag.textContent = `CASE ${id + 1}`;
@@ -238,7 +252,7 @@ function setupEventListeners() {
     const candidatesCountEl = document.querySelector('#candidates-count');
     if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} pays possibles`;
     const searchDialogClues = document.querySelector('#search-dialog-clues');
-    if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].name} + ${gameState.columns[columnIndex].name}`;
+    if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
 
     const cellTargetTag = document.querySelector('#cell-target-tag');
     if (cellTargetTag) cellTargetTag.textContent = `CASE ${id + 1}`;
@@ -295,14 +309,14 @@ function setupEventListeners() {
   });
 
   document.querySelector('#accept-rematch-grid-btn')?.addEventListener('click', () => {
-    safeSend({ type: 'ACCEPT_PROPOSAL' });
-    startNextMultiplayerMatch(true);
+    safeSend({ type: 'ACCEPT_PROPOSAL', sameGrid: true });
+    if (myRole === 'host') startNextMultiplayerMatch(true);
     document.querySelector('#grid-proposal-dialog')?.close();
   });
 
   document.querySelector('#accept-new-grid-btn')?.addEventListener('click', () => {
-    safeSend({ type: 'ACCEPT_PROPOSAL' });
-    startNextMultiplayerMatch(false);
+    safeSend({ type: 'ACCEPT_PROPOSAL', sameGrid: false });
+    if (myRole === 'host') startNextMultiplayerMatch(false);
     document.querySelector('#grid-proposal-dialog')?.close();
   });
 
