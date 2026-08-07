@@ -162,8 +162,14 @@ export function showTooltip(label, description) {
   tooltipDialog.showModal();
 }
 
-export function renderBoard() {
+export function renderBoard(isNewGrid = false) {
   const isSolutionMode = !isMultiplayer && gameState.lives <= 0;
+
+  if (isNewGrid) {
+    board.classList.add('grid-animating');
+    setTimeout(() => board.classList.remove('grid-animating'), 500);
+  }
+
   board.innerHTML = '<div class="corner"></div>' + gameState.columns.map((item) => clueHTML(item)).join('');
   
   gameState.rows.forEach((row, rowIndex) => {

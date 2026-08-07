@@ -1,13 +1,12 @@
 import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
-import { gameState, resetGameState, validateMove, checkTicTacToeWin } from './game.js';
-import { renderBoard, renderCountries, updateMultiplayerUI, addGameFeed, searchDialog, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback } from './ui.js';
+import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates } from './game.js';
+import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom } from './network.js';
 
 // Setup Global Error Handling
 window.addEventListener('error', (event) => {
   console.error("Erreur globale capturée:", event.error || event.message);
-  // Optionnel : afficher une notif UI discrète
 });
 window.addEventListener('unhandledrejection', (event) => {
   console.error("Promesse rejetée non gérée:", event.reason);
@@ -59,7 +58,7 @@ function resetGame(newSeed = true) {
   document.querySelector('#progress').textContent = '0';
   document.querySelector('#feedback').textContent = 'Cliquez sur une case de la grille pour commencer.';
   
-  renderBoard();
+  renderBoard(newSeed);
 }
 
 function handleCellChoose(code) {
@@ -194,10 +193,21 @@ function setupEventListeners() {
     }
 
     if (!isMultiplayer && gameState.lives <= 0) {
-      return; // Solutions logic omitted for brevity in main file, handle if needed
+      const rowIndex = Math.floor(id / 3);
+      const columnIndex = id % 3;
+      const candidates = cellCandidates(gameState.rows[rowIndex], gameState.columns[columnIndex]);
+      gameState.selectedCell = id;
+      renderBoard();
+      if (searchDialogTitle) searchDialogTitle.textContent = `💡 Solutions pour la Case ${id + 1}`;
+      if (search) search.style.display = 'none';
+      renderCountriesForSolution(candidates);
+      searchDialog.showModal();
+      return;
     }
 
     gameState.selectedCell = id;
+    if (search) search.style.display = '';
+    if (searchDialogTitle) searchDialogTitle.textContent = 'Choisir un pays';
     search.value = '';
     renderBoard();
     renderCountries(handleCellChoose);

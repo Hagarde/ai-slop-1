@@ -114,7 +114,7 @@ export async function connectAsGuest(code) {
   
   const peerConfig = await buildPeerConfig();
   if (peer) { try { peer.destroy(); } catch (e) {} }
-  peer = new Peer(null, peerConfig);
+  peer = new Peer(peerConfig);
 
   peer.on('open', (id) => {
     updateStatus(`🤝 Recherche du salon ${code}...`, "connecting");
@@ -125,16 +125,28 @@ export async function connectAsGuest(code) {
   peer.on('error', (err) => {
     isMultiplayer = false;
     myRole = null;
-    updateStatus(`⚠️ Erreur : ${err.type}`, "error");
+    updateStatus(`⚠️ Erreur de connexion : ${err.type}`, "error");
   });
 }
 
 function setupConnectionListeners() {
-  conn.on('open', () => {
+  if (!conn) return;
+
+  const onConnected = () => {
+    updateStatus("🟢 Connecté au salon !", "success");
+    const roomDialog = document.querySelector('#room-dialog');
+    if (roomDialog && roomDialog.open) roomDialog.close();
+
     if (myRole === 'guest') {
       safeSend({ type: 'GUEST_JOINED' });
     }
-  });
+  };
+
+  if (conn.open) {
+    onConnected();
+  } else {
+    conn.on('open', onConnected);
+  }
 
   conn.on('data', (data) => {
     handleIncomingData(data);

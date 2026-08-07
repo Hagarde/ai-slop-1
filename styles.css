@@ -729,14 +729,16 @@ button, input {
 .clue.history { background: var(--cat-history-bg); border-color: rgba(56, 161, 105, 0.15); }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(15px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+#board.grid-animating .cell {
+  animation: fadeInUp 0.35s ease-out forwards;
 }
 
 /* Case de Réponse & Captures 1v1 */
 .cell {
-  animation: fadeInUp 0.4s ease-out forwards;
-  opacity: 0;
   background: var(--bg-card);
   border: 2px dashed var(--border-medium);
   border-radius: var(--radius-md);
@@ -761,13 +763,16 @@ button, input {
 
 .cell.correct {
   border-style: solid;
-  border-color: #1b5e20;
-  background: #2e7d32;
+  border-color: #1b4332;
+  background: #2d6a4f;
   color: #ffffff;
   cursor: default;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
 }
 .cell.correct .answer-name, .cell.correct .player-claim-badge {
   color: #ffffff !important;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .cell.claimed-host {
