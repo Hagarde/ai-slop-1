@@ -2,7 +2,7 @@ import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback } from './ui.js';
-import { isMultiplayer, myRole, currentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom } from './network.js';
+import { isMultiplayer, myRole, currentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 
 // Setup Global Error Handling
 window.addEventListener('error', (event) => {
@@ -15,7 +15,7 @@ window.addEventListener('unhandledrejection', (event) => {
 // Setup custom logger for bug reports
 setupLogging();
 
-const APP_VERSION = "v1.2 (Commit 9401ecf)";
+const APP_VERSION = "v1.3";
 
 // Init App
 async function initApp() {
@@ -267,7 +267,62 @@ function setupEventListeners() {
     if (reportDialog) reportDialog.showModal();
   });
   document.querySelector('#close-report').addEventListener('click', () => {
-    document.querySelector('#report-dialog').close();
+    const reportDialog = document.querySelector('#report-dialog');
+    if (reportDialog) reportDialog.close();
+  });
+
+  // Rebranchement des événements manquants suite à la modularisation
+  document.querySelector('#brand-logo')?.addEventListener('click', () => window.location.reload());
+  
+  document.querySelector('#help-button')?.addEventListener('click', () => document.querySelector('#help-dialog')?.showModal());
+  document.querySelector('#close-help')?.addEventListener('click', () => document.querySelector('#help-dialog')?.close());
+  document.querySelector('#start-button')?.addEventListener('click', () => document.querySelector('#help-dialog')?.close());
+
+  document.querySelector('#retry-same-btn')?.addEventListener('click', () => { document.querySelector('#game-over-dialog')?.close(); resetGame(false); });
+  document.querySelector('#new-grid-btn')?.addEventListener('click', () => { document.querySelector('#game-over-dialog')?.close(); resetGame(true); });
+
+  document.querySelector('#close-mp-victory')?.addEventListener('click', () => document.querySelector('#mp-victory-dialog')?.close());
+  document.querySelector('#mp-view-board-btn')?.addEventListener('click', () => document.querySelector('#mp-victory-dialog')?.close());
+
+  document.querySelector('#mp-rematch-btn')?.addEventListener('click', () => {
+    safeSend({ type: 'PROPOSE_REMATCH', sender: myRole });
+    document.querySelector('#mp-victory-dialog')?.close();
+  });
+  
+  document.querySelector('#mp-new-match-btn')?.addEventListener('click', () => {
+    safeSend({ type: 'PROPOSE_NEW_GRID', sender: myRole });
+    document.querySelector('#mp-victory-dialog')?.close();
+  });
+
+  document.querySelector('#accept-rematch-grid-btn')?.addEventListener('click', () => {
+    safeSend({ type: 'ACCEPT_PROPOSAL' });
+    startNextMultiplayerMatch(true);
+    document.querySelector('#grid-proposal-dialog')?.close();
+  });
+
+  document.querySelector('#accept-new-grid-btn')?.addEventListener('click', () => {
+    safeSend({ type: 'ACCEPT_PROPOSAL' });
+    startNextMultiplayerMatch(false);
+    document.querySelector('#grid-proposal-dialog')?.close();
+  });
+
+  document.querySelector('#decline-grid-btn')?.addEventListener('click', () => {
+    safeSend({ type: 'DECLINE_PROPOSAL' });
+    document.querySelector('#grid-proposal-dialog')?.close();
+  });
+
+  document.querySelector('#close-grid-proposal')?.addEventListener('click', () => document.querySelector('#grid-proposal-dialog')?.close());
+
+  document.querySelector('#send-report-email-btn')?.addEventListener('click', () => {
+    window.location.href = 'mailto:support@countrydoku.com?subject=Bug Report';
+  });
+  
+  document.querySelector('#copy-report-logs-btn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText(JSON.stringify(sessionLogs, null, 2));
+    const btn = document.querySelector('#copy-report-logs-btn');
+    const old = btn.textContent;
+    btn.textContent = '✅ Copié !';
+    setTimeout(() => btn.textContent = old, 2000);
   });
 }
 
