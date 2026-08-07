@@ -728,8 +728,15 @@ button, input {
 .clue.economy { background: var(--cat-economy-bg); border-color: rgba(221, 107, 32, 0.15); }
 .clue.history { background: var(--cat-history-bg); border-color: rgba(56, 161, 105, 0.15); }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Case de Réponse & Captures 1v1 */
 .cell {
+  animation: fadeInUp 0.4s ease-out forwards;
+  opacity: 0;
   background: var(--bg-card);
   border: 2px dashed var(--border-medium);
   border-radius: var(--radius-md);
@@ -754,9 +761,13 @@ button, input {
 
 .cell.correct {
   border-style: solid;
-  border-color: #2e7d32;
-  background: #edf7ed;
+  border-color: #1b5e20;
+  background: #2e7d32;
+  color: #ffffff;
   cursor: default;
+}
+.cell.correct .answer-name, .cell.correct .player-claim-badge {
+  color: #ffffff !important;
 }
 
 .cell.claimed-host {
