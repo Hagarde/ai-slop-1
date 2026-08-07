@@ -83,6 +83,9 @@ function handleCellChoose(code) {
     return;
   }
 
+  const selectedCell = gameState.selectedCell;
+  if (selectedCell === null) return;
+
   const details = getMoveValidationDetails(selectedCell, code);
   const isMatch = details.isValid;
   searchDialog.close();

@@ -1,7 +1,7 @@
 import { gameState, cellCandidates, resetGameState, validateMove } from './game.js';
 import { countries, aliases } from './data.js';
 import { escapeHtml, sessionLogs } from './utils.js';
-import { isMultiplayer, myRole, currentTurn, roomScores, startTurnTimer, stopTurnTimer, turnTimeLeft, safeSend, startNextMultiplayerMatch, handleRoomClose, forceLeaveRoom } from './network.js';
+import { isMultiplayer, myRole, currentTurn, roomScores, startTurnTimer, stopTurnTimer, turnTimeLeft, safeSend, startNextMultiplayerMatch, handleRoomClose, forceLeaveRoom, currentRoomCode } from './network.js';
 import { 
   board, countriesEl, feedback, search, searchDialog, searchDialogTitle, searchDialogClues, 
   cellTargetTag, candidatesCountEl, tooltipDialog, tooltipTitle, tooltipDesc, progressEl, 
@@ -154,9 +154,9 @@ export function updateMultiplayerUI() {
   if (multiplayerBar) multiplayerBar.classList.remove('hidden');
   if (mpTurnBanner) mpTurnBanner.classList.remove('hidden');
   if (mpFeedCard) mpFeedCard.classList.remove('hidden');
-  
-  // Note: on utilise import dynamique ou var partagées.
-  // mpRoomCodeDisplay est mis à jour depuis network.js
+  if (mpRoomCodeDisplay && currentRoomCode) {
+    mpRoomCodeDisplay.textContent = `CODE : ${currentRoomCode}`;
+  }
 }
 
 export function clueHTML(item, row = false) {
