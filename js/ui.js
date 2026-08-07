@@ -30,6 +30,7 @@ export const mpFeedCount = document.querySelector('#mp-feed-count');
 export const multiplayerBar = document.querySelector('#multiplayer-bar');
 export const turnTimerDisplay = document.querySelector('#turn-timer-display');
 export const mpRoomCodeDisplay = document.querySelector('#mp-room-code-display');
+export const mpStatusMsg = document.querySelector('#mp-status-msg');
 export const playerHostPill = document.querySelector('#player-host-pill');
 export const playerGuestPill = document.querySelector('#player-guest-pill');
 export const mpVictoryDialog = document.querySelector('#mp-victory-dialog');
