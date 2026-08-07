@@ -50,7 +50,21 @@ export function setupFocusTrap(dialogElement) {
 }
 
 // Initialisation des traps sur les modals existants
-document.querySelectorAll('.custom-dialog').forEach(setupFocusTrap);
+document.querySelectorAll('.custom-dialog').forEach(dialogElement => {
+  setupFocusTrap(dialogElement);
+  
+  // Fermer la modale si on clique à l'extérieur
+  dialogElement.addEventListener('click', (e) => {
+    const rect = dialogElement.getBoundingClientRect();
+    const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+    if (!isInDialog) dialogElement.close();
+  });
+});
+
+const closeTooltipBtn = document.querySelector('#close-tooltip');
+const understandTooltipBtn = document.querySelector('#tooltip-understand-btn');
+if (closeTooltipBtn) closeTooltipBtn.addEventListener('click', () => tooltipDialog.close());
+if (understandTooltipBtn) understandTooltipBtn.addEventListener('click', () => tooltipDialog.close());
 
 export function updateScoresUI() {
   const hostScoreEl = document.querySelector('#mp-score-host');

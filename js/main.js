@@ -15,8 +15,12 @@ window.addEventListener('unhandledrejection', (event) => {
 // Setup custom logger for bug reports
 setupLogging();
 
+const APP_VERSION = "v1.2 (Commit 9401ecf)";
+
 // Init App
 async function initApp() {
+  console.log(`🌍 CountryDoku ${APP_VERSION}`);
+  
   const success = await loadData();
   if (!success) {
     document.querySelector('#feedback').textContent = 'Erreur lors du chargement des données.';
@@ -57,6 +61,9 @@ function resetGame(newSeed = true) {
   if (resetBtnLabel) resetBtnLabel.textContent = isMultiplayer ? "Proposer une nouvelle grille" : "Nouvelle grille";
   document.querySelector('#progress').textContent = '0';
   document.querySelector('#feedback').textContent = 'Cliquez sur une case de la grille pour commencer.';
+  
+  const heartsListEl = document.querySelector('#hearts-list');
+  if (heartsListEl) heartsListEl.innerHTML = '❤️ ❤️ ❤️';
   
   renderBoard(newSeed);
 }
@@ -170,6 +177,17 @@ function setupEventListeners() {
   document.querySelector('#cancel-leave-btn').addEventListener('click', () => document.querySelector('#confirm-leave-dialog').close());
   document.querySelector('#confirm-leave-btn').addEventListener('click', forceLeaveRoom);
   document.querySelector('#leave-mp-btn').addEventListener('click', forceLeaveRoom);
+
+  document.querySelector('#copy-link-btn')?.addEventListener('click', () => {
+    const linkInput = document.querySelector('#invite-link-input');
+    if (!linkInput) return;
+    linkInput.select();
+    document.execCommand('copy');
+    const btn = document.querySelector('#copy-link-btn');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = '✅ Copié !';
+    setTimeout(() => btn.innerHTML = oldText, 2000);
+  });
 
   // Search Dialog
   search.addEventListener('input', () => renderCountries(handleCellChoose));
