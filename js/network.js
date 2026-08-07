@@ -369,6 +369,7 @@ export function forceLeaveRoom() {
   
   resetGameState(true);
   updateMultiplayerUI();
+  renderBoard(true);
 }
 
 export function handleRoomClose() {

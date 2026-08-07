@@ -307,8 +307,14 @@ function setupEventListeners() {
     if (reportDialog) reportDialog.close();
   });
 
-  // Rebranchement des événements manquants suite à la modularisation
-  document.querySelector('#brand-logo')?.addEventListener('click', () => window.location.reload());
+  document.querySelector('#brand-logo')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (isMultiplayer) {
+      forceLeaveRoom();
+    } else {
+      resetGame(true);
+    }
+  });
   
   document.querySelector('#help-button')?.addEventListener('click', () => document.querySelector('#help-dialog')?.showModal());
   document.querySelector('#close-help')?.addEventListener('click', () => document.querySelector('#help-dialog')?.close());
