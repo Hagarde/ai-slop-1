@@ -315,25 +315,11 @@ export function renderCountries(onChooseCallback) {
     return;
   }
 
-  const selectedCell = gameState.selectedCell;
-  let rowLabel = '', colLabel = '';
-  if (selectedCell !== null && selectedCell !== undefined) {
-    const r = Math.floor(selectedCell / 3);
-    const c = selectedCell % 3;
-    rowLabel = gameState.rows[r]?.label;
-    colLabel = gameState.columns[c]?.label;
-  }
-
-  countriesEl.innerHTML = sliced.map(({ country, isUsed }) => {
-    const pct = getChoicePercentage(rowLabel, colLabel, country.code);
-    const pctBadge = (pct !== null && pct !== undefined && pct > 0) ? `<span class="country-stat-badge" title="${pct}% des choix">📊 ${pct}%</span>` : '';
-    return `
-      <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
-        <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
-        ${pctBadge}
-      </button>
-    `;
-  }).join('');
+  countriesEl.innerHTML = sliced.map(({ country, isUsed }) => `
+    <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
+      <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
+    </button>
+  `).join('');
 
   countriesEl.querySelectorAll('.country-option-btn:not(.used)').forEach((button) => {
     button.addEventListener('click', () => onChooseCallback(button.dataset.code));
