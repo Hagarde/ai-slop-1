@@ -1,8 +1,9 @@
-const CACHE_NAME = 'countrydoku-cache-v16';
+const CACHE_NAME = 'countrydoku-cache-v17';
 const urlsToCache = [
   './',
   './index.html',
   './styles.css',
+  './favicon.svg',
   './js/main.js',
   './js/data.js',
   './js/criteria.js',

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#24825e" />
+      <stop offset="100%" stop-color="#0f402d" />
+    </linearGradient>
+    <linearGradient id="globeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#d1e7dd" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" />
+
+  <!-- 3x3 Grid Lines (Doku concept) -->
+  <path d="M 186 90 V 422 M 326 90 V 422 M 90 186 H 422 M 90 326 H 422" stroke="#ffffff" stroke-opacity="0.22" stroke-width="22" stroke-linecap="round" />
+
+  <!-- Globe (Country concept) -->
+  <circle cx="256" cy="256" r="135" fill="none" stroke="url(#globeGrad)" stroke-width="30" />
+  <ellipse cx="256" cy="256" rx="135" ry="54" fill="none" stroke="url(#globeGrad)" stroke-width="26" />
+  <line x1="256" y1="121" x2="256" y2="391" stroke="url(#globeGrad)" stroke-width="26" stroke-linecap="round" />
+  <line x1="121" y1="256" x2="391" y2="256" stroke="url(#globeGrad)" stroke-width="26" stroke-linecap="round" />
+</svg>
