@@ -3,6 +3,7 @@ import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
+import { recordChoice, getChoicePercentage } from './stats.js';
 
 // Setup Global Error Handling
 window.addEventListener('error', (event) => {
@@ -131,6 +132,15 @@ function handleCellChoose(code) {
 
   // Coup Valide
   const country = getCountryByCode(code);
+  const rowIndex = Math.floor(selectedCell / 3);
+  const columnIndex = selectedCell % 3;
+  const rowLabel = gameState.rows[rowIndex]?.label;
+  const colLabel = gameState.columns[columnIndex]?.label;
+
+  recordChoice(rowLabel, colLabel, code);
+  const pct = getChoicePercentage(rowLabel, colLabel, code);
+  const pctText = (pct !== null && pct !== undefined) ? ` (${pct}% des joueurs)` : '';
+
   if (isMultiplayer) {
     gameState.answers[selectedCell] = { country, player: myRole };
     const nextTurn = myRole === 'host' ? 'guest' : 'host';
@@ -150,7 +160,7 @@ function handleCellChoose(code) {
     } else {
       const nextTurn = myRole === 'host' ? 'guest' : 'host';
       setCurrentTurn(nextTurn);
-      addGameFeed(`✅ Vous avez placé ${country.name}. Tour à l'adversaire.`, 'correct');
+      addGameFeed(`✅ Vous avez placé ${country.name}${pctText}. Tour à l'adversaire.`, 'correct');
       updateMultiplayerUI();
       startTurnTimer();
     }
@@ -158,7 +168,7 @@ function handleCellChoose(code) {
     gameState.answers[selectedCell] = { country };
     const count = gameState.answers.filter(Boolean).length;
     document.querySelector('#progress').textContent = count;
-    feedback.textContent = count === 9 ? '🎉 Bravo ! Grille entièrement complétée !' : `✅ Bonne réponse (${country.name}) !`;
+    feedback.textContent = count === 9 ? '🎉 Bravo ! Grille entièrement complétée !' : `✅ Bonne réponse (${country.name})${pctText} !`;
   }
 
   gameState.selectedCell = null;

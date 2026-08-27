@@ -1,4 +1,4 @@
-const CACHE_NAME = 'countrydoku-cache-v17';
+const CACHE_NAME = 'countrydoku-cache-v18';
 const urlsToCache = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const urlsToCache = [
   './js/network.js',
   './js/ui.js',
   './js/utils.js',
+  './js/stats.js',
   './data/countries.json',
   'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js',
   'https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap'

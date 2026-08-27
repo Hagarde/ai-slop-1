@@ -2,6 +2,7 @@ import { gameState, cellCandidates, resetGameState, validateMove } from './game.
 import { countries, aliases } from './data.js';
 import { escapeHtml, sessionLogs } from './utils.js';
 import { isMultiplayer, myRole, currentTurn, roomScores, startTurnTimer, stopTurnTimer, turnTimeLeft, safeSend, startNextMultiplayerMatch, handleRoomClose, forceLeaveRoom, currentRoomCode } from './network.js';
+import { getChoicePercentage } from './stats.js';
 import { 
   board, countriesEl, feedback, search, searchDialog, searchDialogTitle, searchDialogClues, 
   cellTargetTag, candidatesCountEl, tooltipDialog, tooltipTitle, tooltipDesc, progressEl, 
@@ -209,11 +210,17 @@ export function renderBoard(isNewGrid = false) {
         const isMe = player === myRole;
         const playerBadge = player ? `<span class="player-claim-badge ${isMe ? 'self' : 'opponent'}">${player === 'host' ? '🟢 J1' : '🟣 J2'} ${isMe ? '<small style="font-size: 9.5px; margin-left: 2px;">(Vous)</small>' : '<small style="font-size: 9.5px; margin-left: 2px; font-weight: 800;">(Adversaire)</small>'}</span>` : '';
 
+        const rowCriterion = gameState.rows[rowIndex];
+        const colCriterion = gameState.columns[columnIndex];
+        const pct = getChoicePercentage(rowCriterion?.label, colCriterion?.label, country.code);
+        const statBadge = (pct !== null && pct !== undefined) ? `<span class="stat-badge" title="${pct}% des joueurs ont choisi ce pays pour cette case">📊 ${pct}%</span>` : '';
+
         content += `
           <div class="answer-card">
             <img class="answer-flag-img" src="${country.flagUrl}" alt="Drapeau ${escapeHtml(country.name)}" loading="lazy" onerror="this.onerror=null; this.src='https://flagcdn.com/w160/${(country.iso2 || 'jm').toLowerCase()}.png';" />
             <span class="answer-name">${escapeHtml(country.name)}</span>
             ${playerBadge}
+            ${statBadge}
           </div>
         `;
       } else if (isSolutionMode) {
@@ -246,15 +253,29 @@ export function renderCountriesForSolution(candidates) {
     return;
   }
 
-  countriesEl.innerHTML = candidates.map((country) => `
+  const selectedCell = gameState.selectedCell;
+  let rowLabel = '', colLabel = '';
+  if (selectedCell !== null && selectedCell !== undefined) {
+    const r = Math.floor(selectedCell / 3);
+    const c = selectedCell % 3;
+    rowLabel = gameState.rows[r]?.label;
+    colLabel = gameState.columns[c]?.label;
+  }
+
+  countriesEl.innerHTML = candidates.map((country) => {
+    const pct = getChoicePercentage(rowLabel, colLabel, country.code);
+    const pctBadge = (pct !== null && pct !== undefined) ? `<span class="country-stat-badge" title="${pct}% des choix">📊 ${pct}%</span>` : '';
+    return `
     <div class="country-option-btn solution-item" style="cursor: default; background: var(--bg-app); border: 1px solid var(--border-medium); margin-bottom: 6px; padding: 8px 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px;">
       <img class="country-option-flag" src="${country.flagUrl}" alt="${escapeHtml(country.name)}" style="width: 32px; height: 22px; object-fit: cover; border-radius: 3px; flex-shrink: 0;" />
       <div style="display: flex; flex-direction: column; text-align: left;">
         <strong class="country-option-name" style="font-size: 14px; color: var(--ink-primary);">${escapeHtml(country.name)}</strong>
         <small style="font-size: 11.5px; color: var(--ink-secondary);">Capitale : ${escapeHtml(country.capital || 'N/A')} • ${(country.population || 0).toLocaleString('fr-FR')} hab.</small>
       </div>
+      ${pctBadge}
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 export function renderCountries(onChooseCallback) {
@@ -294,11 +315,25 @@ export function renderCountries(onChooseCallback) {
     return;
   }
 
-  countriesEl.innerHTML = sliced.map(({ country, isUsed }) => `
-    <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
-      <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
-    </button>
-  `).join('');
+  const selectedCell = gameState.selectedCell;
+  let rowLabel = '', colLabel = '';
+  if (selectedCell !== null && selectedCell !== undefined) {
+    const r = Math.floor(selectedCell / 3);
+    const c = selectedCell % 3;
+    rowLabel = gameState.rows[r]?.label;
+    colLabel = gameState.columns[c]?.label;
+  }
+
+  countriesEl.innerHTML = sliced.map(({ country, isUsed }) => {
+    const pct = getChoicePercentage(rowLabel, colLabel, country.code);
+    const pctBadge = (pct !== null && pct !== undefined && pct > 0) ? `<span class="country-stat-badge" title="${pct}% des choix">📊 ${pct}%</span>` : '';
+    return `
+      <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
+        <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
+        ${pctBadge}
+      </button>
+    `;
+  }).join('');
 
   countriesEl.querySelectorAll('.country-option-btn:not(.used)').forEach((button) => {
     button.addEventListener('click', () => onChooseCallback(button.dataset.code));

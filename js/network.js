@@ -1,6 +1,7 @@
 import { gameState, generateGrid, checkTicTacToeWin, validateMove, resetGameState } from './game.js';
 import { countries } from './data.js';
 import { addGameFeed, updateScoresUI, updateMultiplayerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg } from './ui.js';
+import { recordChoice, getChoicePercentage } from './stats.js';
 
 export let isMultiplayer = false;
 export let myRole = null;
@@ -279,6 +280,14 @@ export function handleIncomingData(data) {
       const country = countries.find(c => c.code === data.countryCode);
       gameState.answers[targetCellId] = { country, player: data.player };
       
+      const row = Math.floor(targetCellId / 3);
+      const col = targetCellId % 3;
+      const rowLabel = gameState.rows[row]?.label;
+      const colLabel = gameState.columns[col]?.label;
+      recordChoice(rowLabel, colLabel, data.countryCode);
+      const pct = getChoicePercentage(rowLabel, colLabel, data.countryCode);
+      const pctText = (pct !== null && pct !== undefined) ? ` (${pct}% des joueurs)` : '';
+
       const winLine = checkTicTacToeWin(data.player);
       if (winLine) {
         stopTurnTimer();
@@ -286,12 +295,13 @@ export function handleIncomingData(data) {
         updateScoresUI();
         mpVictoryTitle.textContent = `Défaite !`;
         mpVictoryDesc.textContent = `L'adversaire a aligné 3 cases et remporte ce match !`;
-        addGameFeed(`🎉 L'adversaire a remporté le match de Tic-Tac-Toe !`, 'correct');
+        addGameFeed(`🎉 L'adversaire a placé ${country ? country.name : data.countryCode}${pctText} et remporte le match !`, 'correct');
         mpVictoryDialog.showModal();
       } else if (gameState.answers.filter(Boolean).length === 9) {
         stopTurnTimer();
         mpVictoryDialog.showModal();
       } else {
+        addGameFeed(`🔵 L'adversaire a placé ${country ? country.name : data.countryCode}${pctText} (Case ${targetCellId + 1}).`, 'info');
         currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
         updateMultiplayerUI();
         startTurnTimer();

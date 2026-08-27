@@ -1455,3 +1455,35 @@ button, input {
     justify-content: space-around;
   }
 }
+
+/* Badges de proportion des choix (statistiques) */
+.stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 99px;
+  margin-top: 4px;
+  border: 1px solid rgba(31, 111, 80, 0.2);
+}
+
+.country-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 99px;
+  margin-left: auto;
+  border: 1px solid rgba(31, 111, 80, 0.25);
+  flex-shrink: 0;
+}
