@@ -149,7 +149,7 @@
       "flagColorCount": 6,
       "capitalSameLetter": false,
       "capital": "Pretoria",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": false,
       "aridClimate": false,
       "glacier": false
@@ -987,7 +987,7 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Manama",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": false,
       "aridClimate": true,
       "glacier": false
@@ -1569,7 +1569,7 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Sarajevo",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": false,
       "aridClimate": false,
       "glacier": false
@@ -4108,7 +4108,7 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Saint-Georges",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false
@@ -4758,7 +4758,7 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Honiara",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false
@@ -7270,7 +7270,7 @@
       "flagColorCount": 3,
       "capitalSameLetter": false,
       "capital": "Katmandou",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": false,
       "aridClimate": false,
       "glacier": true
@@ -7321,7 +7321,7 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Managua",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false
@@ -7954,7 +7954,7 @@
       "flagColorCount": 4,
       "capitalSameLetter": true,
       "capital": "Port Moresby",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false
@@ -8339,7 +8339,7 @@
       "flagColorCount": 2,
       "capitalSameLetter": false,
       "capital": "Doha",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": false,
       "aridClimate": true,
       "glacier": false
@@ -8911,7 +8911,7 @@
       "flagColorCount": 4,
       "capitalSameLetter": false,
       "capital": "Castries",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false
@@ -8962,7 +8962,7 @@
       "flagColorCount": 2,
       "capitalSameLetter": true,
       "capital": "San Salvador",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false
@@ -9237,7 +9237,7 @@
       "flagColorCount": 5,
       "capitalSameLetter": false,
       "capital": "Victoria",
-      "flagTriangle": false,
+      "flagTriangle": true,
       "intertropical": true,
       "aridClimate": false,
       "glacier": false
