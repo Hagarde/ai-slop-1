@@ -117,14 +117,15 @@ function handleCellChoose(code) {
     gameState.lives -= 1;
     import('./ui.js').then(ui => ui.updateLivesUI());
     
+    const countryName = details.country ? details.country.name : code;
     if (gameState.lives <= 0) {
-      feedback.textContent = `💔 Défaite ! Vos 3 vies sont épuisées.`;
+      feedback.textContent = `💔 Défaite ! ${countryName} : ${details.reason}. Vos 3 vies sont épuisées.`;
       gameState.selectedCell = null;
       renderBoard();
       return;
     }
     
-    feedback.textContent = `❌ Pays incorrect (-1 vie).`;
+    feedback.textContent = `❌ ${countryName} incorrect (${details.reason}). -1 vie, il vous reste ${gameState.lives}.`;
     gameState.selectedCell = null;
     renderBoard();
     return;
