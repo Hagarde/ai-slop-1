@@ -1,27 +1,31 @@
 // Gestionnaire de statistiques de choix des joueurs (Proportions par couple de critères)
+// O-01 FIX: Cache RAM pour éviter les accès localStorage synchrones répétés
 
 const STORAGE_KEY = 'countrydoku_stats_v1';
 
 // Base de statistiques pré-remplie pour offrir des pourcentages réalistes dès le départ
 const BASELINE_STATS = {
-  // Exemples génériques pour alimenter le démarrage
   "En Afrique___Drapeau avec du rouge": { total: 30, countries: { "AGO": 10, "EGY": 8, "MAR": 7, "KEN": 5 } },
   "En Europe___Possède un accès à la mer": { total: 45, countries: { "FRA": 18, "ESP": 15, "ITA": 12 } },
-  "Dans l’hémisphère Nord___Superficie > 1 000 000 km²": { total: 40, countries: { "CAN": 16, "USA": 14, "CHN": 10 } }
+  "Dans l'hémisphère Nord___Superficie > 1 000 000 km²": { total: 40, countries: { "CAN": 16, "USA": 14, "CHN": 10 } }
 };
 
+// Cache mémoire — chargé une seule fois, lu depuis la RAM ensuite
+let memoryStats = null;
+
 function loadStats() {
+  if (memoryStats) return memoryStats;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { ...BASELINE_STATS };
-    const parsed = JSON.parse(raw);
-    return { ...BASELINE_STATS, ...parsed };
+    memoryStats = raw ? { ...BASELINE_STATS, ...JSON.parse(raw) } : { ...BASELINE_STATS };
   } catch (e) {
-    return { ...BASELINE_STATS };
+    memoryStats = { ...BASELINE_STATS };
   }
+  return memoryStats;
 }
 
 function saveStats(stats) {
+  memoryStats = stats; // Mise à jour du cache RAM
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
   } catch (e) {

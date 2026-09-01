@@ -1,7 +1,7 @@
 import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
-import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback } from './ui.js';
+import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
 
@@ -16,7 +16,7 @@ window.addEventListener('unhandledrejection', (event) => {
 // Setup custom logger for bug reports
 setupLogging();
 
-const APP_VERSION = "v1.3";
+const APP_VERSION = "v1.4";
 
 // Init App
 async function initApp() {
@@ -122,6 +122,8 @@ function handleCellChoose(code) {
       feedback.textContent = `💔 Défaite ! ${countryName} : ${details.reason}. Vos 3 vies sont épuisées.`;
       gameState.selectedCell = null;
       renderBoard();
+      // F-01 FIX: Afficher la modale Game Over
+      if (gameoverDialog && !gameoverDialog.open) gameoverDialog.showModal();
       return;
     }
     
@@ -154,10 +156,10 @@ function handleCellChoose(code) {
       updateScoresUI();
       mpVictoryTitle.textContent = `Victoire ! 🎉`;
       mpVictoryDesc.textContent = `Vous avez aligné 3 cases et remporté ce match de Tic-Tac-Toe !`;
-      mpVictoryDialog.showModal();
+      safeShowModal(mpVictoryDialog);
     } else if (gameState.answers.filter(Boolean).length === 9) {
       stopTurnTimer();
-      mpVictoryDialog.showModal();
+      safeShowModal(mpVictoryDialog);
     } else {
       const nextTurn = myRole === 'host' ? 'guest' : 'host';
       setCurrentTurn(nextTurn);
@@ -185,7 +187,8 @@ function setupEventListeners() {
   const openMultiplayerModal = () => {
     document.querySelector('#room-options-view').classList.remove('hidden');
     document.querySelector('#room-created-view').classList.add('hidden');
-    document.querySelector('#room-dialog').showModal();
+    const roomDialog = document.querySelector('#room-dialog');
+    safeShowModal(roomDialog); // F-05 FIX
   };
 
   if (multiToggleBtn) multiToggleBtn.addEventListener('click', openMultiplayerModal);
@@ -206,6 +209,15 @@ function setupEventListeners() {
     const code = document.querySelector('#room-code-input').value.trim().toUpperCase();
     if (code) connectAsGuest(code);
   });
+
+  // E-02 FIX: Touche Entrée pour rejoindre un salon
+  document.querySelector('#room-code-input')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const code = e.target.value.trim().toUpperCase();
+      if (code) connectAsGuest(code);
+    }
+  });
   
   document.querySelector('#cancel-leave-btn').addEventListener('click', () => document.querySelector('#confirm-leave-dialog').close());
   document.querySelector('#confirm-leave-btn').addEventListener('click', forceLeaveRoom);
@@ -219,7 +231,6 @@ function setupEventListeners() {
       btn.innerHTML = '✅ Copié !';
       setTimeout(() => btn.innerHTML = oldText, 2000);
     }).catch(() => {
-      // Fallback si clipboard API indisponible
       const linkInput = document.querySelector('#invite-link-input');
       if (linkInput) { linkInput.select(); document.execCommand('copy'); }
     });
@@ -275,7 +286,7 @@ function setupEventListeners() {
       if (cellTargetTag) cellTargetTag.textContent = `CASE ${id + 1}`;
       
       renderCountriesForSolution(candidates);
-      searchDialog.showModal();
+      safeShowModal(searchDialog); // F-05 FIX
       return;
     }
 
@@ -293,7 +304,7 @@ function setupEventListeners() {
     search.value = '';
     renderBoard();
     renderCountries(handleCellChoose);
-    searchDialog.showModal();
+    safeShowModal(searchDialog); // F-05 FIX
     setTimeout(() => search.focus(), 50);
   });
 
@@ -311,7 +322,7 @@ function setupEventListeners() {
     const reportDialog = document.querySelector('#report-dialog');
     const logsPreview = document.querySelector('#report-logs-preview');
     if (logsPreview) logsPreview.value = sessionLogs.join('\n');
-    if (reportDialog) reportDialog.showModal();
+    safeShowModal(reportDialog); // F-05 FIX
   });
   document.querySelector('#close-report').addEventListener('click', () => {
     const reportDialog = document.querySelector('#report-dialog');
@@ -327,12 +338,16 @@ function setupEventListeners() {
     }
   });
   
-  document.querySelector('#help-button')?.addEventListener('click', () => document.querySelector('#help-dialog')?.showModal());
+  document.querySelector('#help-button')?.addEventListener('click', () => {
+    const d = document.querySelector('#help-dialog');
+    safeShowModal(d); // F-05 FIX
+  });
   document.querySelector('#close-help')?.addEventListener('click', () => document.querySelector('#help-dialog')?.close());
   document.querySelector('#start-button')?.addEventListener('click', () => document.querySelector('#help-dialog')?.close());
 
-  document.querySelector('#retry-same-btn')?.addEventListener('click', () => { document.querySelector('#game-over-dialog')?.close(); resetGame(false); });
-  document.querySelector('#new-grid-btn')?.addEventListener('click', () => { document.querySelector('#game-over-dialog')?.close(); resetGame(true); });
+  // F-01 FIX: Utiliser le bon sélecteur #gameover-dialog
+  document.querySelector('#retry-same-btn')?.addEventListener('click', () => { document.querySelector('#gameover-dialog')?.close(); resetGame(false); });
+  document.querySelector('#new-grid-btn')?.addEventListener('click', () => { document.querySelector('#gameover-dialog')?.close(); resetGame(true); });
 
   document.querySelector('#close-mp-victory')?.addEventListener('click', () => document.querySelector('#mp-victory-dialog')?.close());
   document.querySelector('#mp-view-board-btn')?.addEventListener('click', () => document.querySelector('#mp-victory-dialog')?.close());

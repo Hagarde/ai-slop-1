@@ -705,8 +705,10 @@ button, input {
   font-weight: 700;
   color: var(--accent-primary);
   background: var(--accent-light);
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -715,6 +717,9 @@ button, input {
   flex-shrink: 0;
   transition: all 0.2s ease;
   border: 1px solid rgba(31, 111, 80, 0.2);
+  /* E-01 FIX: Zone tactile étendue invisible pour respecter WCAG 44px */
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .info-icon:hover {
@@ -1487,3 +1492,282 @@ button, input {
   border: 1px solid rgba(31, 111, 80, 0.25);
   flex-shrink: 0;
 }
+
+/* ====== RESPONSIVE ENHANCEMENTS ====== */
+
+/* Tablet breakpoint */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 12px 16px;
+  }
+
+  .multi-toggle-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .custom-dialog {
+    max-width: 95vw;
+    width: 95vw;
+  }
+
+  .search-dialog {
+    max-height: 85vh;
+  }
+
+  .dialog-content {
+    padding: 20px 16px;
+  }
+
+  .room-action-cards {
+    flex-direction: column;
+  }
+
+  .mp-turn-banner {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+}
+
+/* Small phone breakpoint */
+@media (max-width: 400px) {
+  .header-container {
+    padding: 8px 10px;
+  }
+
+  .brand {
+    font-size: 17px;
+    gap: 5px;
+  }
+
+  .brand-globe {
+    font-size: 18px;
+  }
+
+  .header-right {
+    gap: 4px;
+  }
+
+  .multi-toggle-btn {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  .icon-button {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .main-container {
+    padding: 8px 6px 24px;
+    gap: 8px;
+  }
+
+  .mode-tab {
+    padding: 10px 8px;
+  }
+
+  .mode-icon {
+    font-size: 18px;
+  }
+
+  .mode-info strong {
+    font-size: 13px;
+  }
+
+  .mode-info small {
+    font-size: 10px;
+  }
+
+  .mode-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .intro-section {
+    padding: 10px;
+  }
+
+  #game-title {
+    font-size: 16px;
+  }
+
+  .intro-desc {
+    font-size: 12px;
+  }
+
+  .lives-label, .progress-label {
+    font-size: 9px;
+  }
+
+  .hearts-list {
+    font-size: 14px;
+  }
+
+  .board-card {
+    padding: 4px;
+    border-radius: 8px;
+  }
+
+  .board {
+    grid-template-columns: minmax(60px, 22%) repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto repeat(3, minmax(72px, 1fr));
+    gap: 3px;
+  }
+
+  .clue {
+    font-size: clamp(8.5px, 2.5vw, 10px);
+    padding: 4px 2px;
+    line-height: 1.1;
+  }
+
+  .info-icon {
+    width: 14px;
+    height: 14px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 8px;
+  }
+
+  .cell {
+    padding: 3px;
+    border-radius: 5px;
+  }
+
+  .cell-number {
+    font-size: 8px;
+  }
+
+  .answer-flag-img {
+    width: 22px;
+    height: 14px;
+  }
+
+  .answer-name {
+    font-size: 10px;
+  }
+
+  .stat-badge {
+    font-size: 9px;
+    padding: 1px 4px;
+  }
+
+  .feedback-banner {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .secondary-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  /* Dialog fullscreen sur petits écrans */
+  .custom-dialog {
+    max-width: 100vw;
+    width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .search-dialog {
+    max-height: 100vh;
+    height: 100vh;
+  }
+
+  .search-dialog-content {
+    padding: 12px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .countries-list {
+    flex: 1;
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  /* Multiplayer bar compacte */
+  .multiplayer-bar-container {
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .mp-room-info {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .copy-link-btn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .player-pill {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .timer-badge-pill {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .leave-mp-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .mp-turn-banner {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .mp-feed-card {
+    padding: 8px;
+  }
+
+  .mp-feed-title {
+    font-size: 11px;
+  }
+
+  .mp-feed-item {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}
+
+/* Safe area insets for notched phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .site-header {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Hover only for mouse devices (prevent sticky hover on touch) */
+@media (hover: hover) and (pointer: fine) {
+  .cell:hover:not(.correct):not(.solution-mode-cell) {
+    transform: scale(1.03);
+  }
+
+  .country-option-btn:not(.used):hover {
+    background: var(--accent-light);
+  }
+}
+
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

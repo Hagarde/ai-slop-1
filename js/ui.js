@@ -1,5 +1,5 @@
 import { gameState, cellCandidates, resetGameState, validateMove } from './game.js';
-import { countries, aliases } from './data.js';
+import { countries, aliases, countriesSearchIndex } from './data.js';
 import { escapeHtml, sessionLogs } from './utils.js';
 import { isMultiplayer, myRole, currentTurn, roomScores, startTurnTimer, stopTurnTimer, turnTimeLeft, safeSend, startNextMultiplayerMatch, handleRoomClose, forceLeaveRoom, currentRoomCode } from './network.js';
 import { getChoicePercentage } from './stats.js';
@@ -24,6 +24,7 @@ export {
 const feedHistory = [];
 const maxFeedHistory = 40;
 
+// O-04: fold reste ici pour la query utilisateur uniquement (appelé 1 seule fois par frappe)
 const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 // --- Focus Trap logic pour l'accessibilité ---
@@ -64,8 +65,10 @@ document.querySelectorAll('.custom-dialog').forEach(dialogElement => {
 
 const closeTooltipBtn = document.querySelector('#close-tooltip');
 const understandTooltipBtn = document.querySelector('#tooltip-understand-btn');
+const confirmTooltipBtn = document.querySelector('#confirm-tooltip-btn');
 if (closeTooltipBtn) closeTooltipBtn.addEventListener('click', () => tooltipDialog.close());
 if (understandTooltipBtn) understandTooltipBtn.addEventListener('click', () => tooltipDialog.close());
+if (confirmTooltipBtn) confirmTooltipBtn.addEventListener('click', () => tooltipDialog.close());
 
 export function updateScoresUI() {
   const hostScoreEl = document.querySelector('#mp-score-host');
@@ -174,9 +177,16 @@ export function clueHTML(item, row = false) {
 export function showTooltip(label, description) {
   tooltipTitle.textContent = label;
   tooltipDesc.textContent = description;
-  tooltipDialog.showModal();
+  // F-05 FIX: Guard showModal
+  if (!tooltipDialog.open) tooltipDialog.showModal();
 }
 
+// F-05 FIX: Safe showModal helper
+export function safeShowModal(dialog) {
+  if (dialog && !dialog.open) dialog.showModal();
+}
+
+// O-05 FIX: Single innerHTML pour renderBoard (au lieu de multiples insertAdjacentHTML)
 export function renderBoard(isNewGrid = false) {
   const isSolutionMode = !isMultiplayer && gameState.lives <= 0;
 
@@ -185,10 +195,11 @@ export function renderBoard(isNewGrid = false) {
     setTimeout(() => board.classList.remove('grid-animating'), 500);
   }
 
-  board.innerHTML = '<div class="corner"></div>' + gameState.columns.map((item) => clueHTML(item)).join('');
+  // Construire tout le HTML en mémoire d'abord
+  let html = '<div class="corner"></div>' + gameState.columns.map((item) => clueHTML(item)).join('');
   
   gameState.rows.forEach((row, rowIndex) => {
-    board.insertAdjacentHTML('beforeend', clueHTML(row, true));
+    html += clueHTML(row, true);
     gameState.columns.forEach((column, columnIndex) => {
       const id = rowIndex * 3 + columnIndex;
       const cellData = gameState.answers[id];
@@ -229,13 +240,16 @@ export function renderBoard(isNewGrid = false) {
         content += `<span class="cell-empty-hint">🔍 Choisir</span>`;
       }
       
-      board.insertAdjacentHTML('beforeend', `
+      html += `
         <button class="cell ${isSelected ? 'selected' : ''} ${cellData ? 'correct' : ''} ${isSolutionMode && !cellData ? 'solution-mode-cell' : ''} ${claimClass}" data-cell="${id}" role="gridcell" aria-label="Case ${id + 1}" style="animation-delay: ${id * 0.05}s">
           ${content}
         </button>
-      `);
+      `;
     });
   });
+
+  // O-05: Injection unique dans le DOM
+  board.innerHTML = html;
 
   board.querySelectorAll('.info-icon').forEach((btn) => {
     btn.addEventListener('click', (e) => {
@@ -243,8 +257,6 @@ export function renderBoard(isNewGrid = false) {
       showTooltip(btn.dataset.label, btn.dataset.desc);
     });
   });
-
-  // Events attachés dans main.js pour éviter références cycliques
 }
 
 export function renderCountriesForSolution(candidates) {
@@ -267,7 +279,7 @@ export function renderCountriesForSolution(candidates) {
     const pctBadge = (pct !== null && pct !== undefined) ? `<span class="country-stat-badge" title="${pct}% des choix">📊 ${pct}%</span>` : '';
     return `
     <div class="country-option-btn solution-item" style="cursor: default; background: var(--bg-app); border: 1px solid var(--border-medium); margin-bottom: 6px; padding: 8px 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px;">
-      <img class="country-option-flag" src="${country.flagUrl}" alt="${escapeHtml(country.name)}" style="width: 32px; height: 22px; object-fit: cover; border-radius: 3px; flex-shrink: 0;" />
+      <img class="country-option-flag" src="${country.flagUrl}" alt="${escapeHtml(country.name)}" loading="lazy" style="width: 32px; height: 22px; object-fit: cover; border-radius: 3px; flex-shrink: 0;" />
       <div style="display: flex; flex-direction: column; text-align: left;">
         <strong class="country-option-name" style="font-size: 14px; color: var(--ink-primary);">${escapeHtml(country.name)}</strong>
         <small style="font-size: 11.5px; color: var(--ink-secondary);">Capitale : ${escapeHtml(country.capital || 'N/A')} • ${(country.population || 0).toLocaleString('fr-FR')} hab.</small>
@@ -278,24 +290,37 @@ export function renderCountriesForSolution(candidates) {
   }).join('');
 }
 
+// O-02 FIX: Variable pour stocker le callback de choix (pour délégation d'événements)
+let _currentChooseCallback = null;
+
+// O-02 FIX: Délégation d'événements — un seul listener sur countriesEl
+if (countriesEl) {
+  countriesEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.country-option-btn:not(.used)');
+    if (btn && _currentChooseCallback) {
+      _currentChooseCallback(btn.dataset.code);
+    }
+  });
+}
+
+// O-04 FIX: Utiliser l'index pré-calculé au lieu de fold() à chaque frappe
 export function renderCountries(onChooseCallback) {
+  _currentChooseCallback = onChooseCallback;
   const query = fold(search.value.trim());
   const usedCodes = new Set(gameState.answers.filter(Boolean).map((a) => (a.country ? a.country.code : a.code)));
   
-  let matches = countries.map((country) => {
-    const nameFr = fold(country.name);
-    const nameEn = fold(country.nameEnglish);
-    const extraAliases = (aliases[country.code] || []).map(fold);
+  let matches = countries.map((country, i) => {
+    const idx = countriesSearchIndex[i];
     const isUsed = usedCodes.has(country.code);
 
     let matchScore = -1;
     if (!query) {
       matchScore = 0;
-    } else if (nameFr.startsWith(query) || extraAliases.some(a => a.startsWith(query))) {
+    } else if (idx.nameFr.startsWith(query) || idx.aliasesFolded.some(a => a.startsWith(query))) {
       matchScore = 3;
-    } else if (nameEn.startsWith(query)) {
+    } else if (idx.nameEn.startsWith(query)) {
       matchScore = 2;
-    } else if (nameFr.includes(query) || nameEn.includes(query) || extraAliases.some(a => a.includes(query))) {
+    } else if (idx.nameFr.includes(query) || idx.nameEn.includes(query) || idx.aliasesFolded.some(a => a.includes(query))) {
       matchScore = 1;
     }
 
@@ -315,13 +340,10 @@ export function renderCountries(onChooseCallback) {
     return;
   }
 
+  // O-02: Plus besoin de boucle addEventListener — délégation gérée au-dessus
   countriesEl.innerHTML = sliced.map(({ country, isUsed }) => `
     <button class="country-option-btn ${isUsed ? 'used' : ''}" data-code="${country.code}" ${isUsed ? 'disabled' : ''} role="option">
       <span class="country-option-name">${escapeHtml(country.name)} ${isUsed ? '<small class="used-badge">(Déjà placé)</small>' : ''}</span>
     </button>
   `).join('');
-
-  countriesEl.querySelectorAll('.country-option-btn:not(.used)').forEach((button) => {
-    button.addEventListener('click', () => onChooseCallback(button.dataset.code));
-  });
 }

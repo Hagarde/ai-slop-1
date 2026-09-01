@@ -1,6 +1,7 @@
 import { gameState, generateGrid, checkTicTacToeWin, validateMove, resetGameState } from './game.js';
 import { countries } from './data.js';
-import { addGameFeed, updateScoresUI, updateMultiplayerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg } from './ui.js';
+import { escapeHtml } from './utils.js';
+import { addGameFeed, updateScoresUI, updateMultiplayerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal } from './ui.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
 
 export let isMultiplayer = false;
@@ -15,6 +16,9 @@ let peer = null;
 let conn = null;
 export let currentRoomCode = null;
 let roomChannel = null;
+
+// F-02 FIX: Timestamp absolu pour le timer (immunisé au throttling d'onglet inactif)
+let turnEndTime = null;
 
 const METERED_API_URL = 'https://countrydoku.metered.live/api/v1/turn/credentials';
 const METERED_API_KEY = 'aa340d9ab8937dc2645bfb6845b86c60c969';
@@ -45,11 +49,24 @@ function updateStatus(msg, state = 'info') {
 }
 
 async function buildPeerConfig() {
-  // Simplified STUN only for robust modularization if TURN fails quickly
+  // F-03: Tentative d'utilisation des serveurs TURN via Metered API
+  let iceServers = [...STUN_SERVERS];
+  try {
+    const resp = await fetch(`${METERED_API_URL}?apiKey=${METERED_API_KEY}`);
+    if (resp.ok) {
+      const turnServers = await resp.json();
+      if (Array.isArray(turnServers) && turnServers.length > 0) {
+        iceServers = [...STUN_SERVERS, ...turnServers];
+        console.log('[WebRTC] Serveurs TURN Metered chargés avec succès');
+      }
+    }
+  } catch (e) {
+    console.warn('[WebRTC] Impossible de charger les serveurs TURN, fallback STUN uniquement', e);
+  }
   return {
     debug: 2,
     config: {
-      iceServers: STUN_SERVERS,
+      iceServers,
       iceCandidatePoolSize: 10,
     }
   };
@@ -158,7 +175,10 @@ function setupConnectionListeners() {
   conn.on('close', () => {
     isMultiplayer = false;
     stopTurnTimer();
+    addGameFeed("🔌 L'adversaire s'est déconnecté.", "wrong");
+    feedback.textContent = "🔌 Connexion perdue avec l'adversaire.";
     updateMultiplayerUI();
+    renderBoard();
   });
 }
 
@@ -175,15 +195,18 @@ export function setCurrentTurn(newTurn) {
   currentTurn = newTurn;
 }
 
+// F-02 FIX: Timer basé sur Date.now() — immunisé au throttling
 export function startTurnTimer() {
   stopTurnTimer();
   turnTimeLeft = 30;
+  turnEndTime = Date.now() + 30000;
   import('./ui.js').then(ui => ui.updateTimerUI());
 
   if (!isMultiplayer) return;
 
   turnTimerInterval = setInterval(() => {
-    turnTimeLeft -= 1;
+    // F-02: Calcul du temps restant par différence absolue
+    turnTimeLeft = Math.max(0, Math.round((turnEndTime - Date.now()) / 1000));
     import('./ui.js').then(ui => ui.updateTimerUI());
 
     if (turnTimeLeft <= 0) {
@@ -202,7 +225,7 @@ export function startTurnTimer() {
         startTurnTimer();
       }
     }
-  }, 1000);
+  }, 250); // Intervalle plus court (250ms) pour compenser le throttling
 }
 
 export function stopTurnTimer() {
@@ -210,6 +233,7 @@ export function stopTurnTimer() {
     clearInterval(turnTimerInterval);
     turnTimerInterval = null;
   }
+  turnEndTime = null;
 }
 
 export function startNextMultiplayerMatch(sameGrid = false) {
@@ -271,9 +295,8 @@ export function handleIncomingData(data) {
 
   // VALIDATION STRICTE
   if (data.type === 'MAKE_MOVE') {
-    // Audit Security Fix: Verify move validity on client side
     const targetCellId = data.cellId;
-    const isTurnValid = currentTurn === data.player; // It must be their turn
+    const isTurnValid = currentTurn === data.player;
     const isCellValid = targetCellId >= 0 && targetCellId < 9 && !gameState.answers[targetCellId];
     
     if (isTurnValid && isCellValid && validateMove(targetCellId, data.countryCode)) {
@@ -288,6 +311,9 @@ export function handleIncomingData(data) {
       const pct = getChoicePercentage(rowLabel, colLabel, data.countryCode);
       const pctText = (pct !== null && pct !== undefined) ? ` (${pct}% des joueurs)` : '';
 
+      // S-03 FIX: escapeHtml sur le nom du pays venant de WebRTC
+      const safeName = country ? escapeHtml(country.name) : escapeHtml(data.countryCode);
+
       const winLine = checkTicTacToeWin(data.player);
       if (winLine) {
         stopTurnTimer();
@@ -295,13 +321,13 @@ export function handleIncomingData(data) {
         updateScoresUI();
         mpVictoryTitle.textContent = `Défaite !`;
         mpVictoryDesc.textContent = `L'adversaire a aligné 3 cases et remporte ce match !`;
-        addGameFeed(`🎉 L'adversaire a placé ${country ? country.name : data.countryCode}${pctText} et remporte le match !`, 'correct');
-        mpVictoryDialog.showModal();
+        addGameFeed(`🎉 L'adversaire a placé ${safeName}${pctText} et remporte le match !`, 'correct');
+        safeShowModal(mpVictoryDialog); // F-05 FIX
       } else if (gameState.answers.filter(Boolean).length === 9) {
         stopTurnTimer();
-        mpVictoryDialog.showModal();
+        safeShowModal(mpVictoryDialog); // F-05 FIX
       } else {
-        addGameFeed(`🔵 L'adversaire a placé ${country ? country.name : data.countryCode}${pctText} (Case ${targetCellId + 1}).`, 'info');
+        addGameFeed(`🔵 L'adversaire a placé ${safeName}${pctText} (Case ${targetCellId + 1}).`, 'info');
         currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
         updateMultiplayerUI();
         startTurnTimer();
@@ -313,9 +339,14 @@ export function handleIncomingData(data) {
   }
 
   if (data.type === 'WRONG_MOVE') {
+    // S-02 FIX: Validation basique du message entrant
+    if (typeof data.cellId !== 'number' || data.cellId < 0 || data.cellId > 8) return;
     currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
     if (searchDialog && searchDialog.open) searchDialog.close();
-    addGameFeed(`❌ L'adversaire a proposé "${data.countryName || 'un pays'}" pour la Case ${(data.cellId || 0) + 1} (Refusé : ${data.reason || 'Critère non respecté'}).`, 'wrong');
+    // S-03 FIX: escapeHtml sur les données WebRTC
+    const safeCountryName = escapeHtml(data.countryName || 'un pays');
+    const safeReason = escapeHtml(data.reason || 'Critère non respecté');
+    addGameFeed(`❌ L'adversaire a proposé "${safeCountryName}" pour la Case ${(data.cellId || 0) + 1} (Refusé : ${safeReason}).`, 'wrong');
     updateMultiplayerUI();
     renderBoard();
     startTurnTimer();
@@ -336,7 +367,7 @@ export function handleIncomingData(data) {
         ? "L'adversaire propose de rejouer sur la même grille." 
         : "L'adversaire propose de jouer sur une nouvelle grille.";
     }
-    if (gridProposalDialog) gridProposalDialog.showModal();
+    safeShowModal(gridProposalDialog); // F-05 FIX
   }
 
   if (data.type === 'ACCEPT_PROPOSAL') {
@@ -385,7 +416,7 @@ export function forceLeaveRoom() {
 export function handleRoomClose() {
   if (isMultiplayer) {
     const confirmLeaveDialog = document.querySelector('#confirm-leave-dialog');
-    if (confirmLeaveDialog) confirmLeaveDialog.showModal();
+    safeShowModal(confirmLeaveDialog); // F-05 FIX
     return false;
   }
   const roomDialog = document.querySelector('#room-dialog');
