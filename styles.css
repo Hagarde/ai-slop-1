@@ -705,10 +705,10 @@ button, input {
   font-weight: 700;
   color: var(--accent-primary);
   background: var(--accent-light);
-  width: 24px;
-  height: 24px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -717,9 +717,22 @@ button, input {
   flex-shrink: 0;
   transition: all 0.2s ease;
   border: 1px solid rgba(31, 111, 80, 0.2);
-  /* E-01 FIX: Zone tactile étendue invisible pour respecter WCAG 44px */
   padding: 0;
+  position: relative;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Zone tactile étendue 44x44px conforme WCAG sans impacter le layout */
+.info-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .info-icon:hover {
@@ -1181,10 +1194,15 @@ button, input {
   border-radius: var(--radius-lg);
   padding: 0;
   width: calc(100% - 24px);
+  max-width: 520px;
+  max-height: 88vh;
+  max-height: 88dvh;
   background: var(--bg-card);
   box-shadow: var(--shadow-xl);
   margin: auto;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   animation: modal-fade-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1236,6 +1254,10 @@ button, input {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(88vh - 2px);
+  max-height: calc(88dvh - 2px);
 }
 
 .text-center {
@@ -1335,33 +1357,75 @@ button, input {
 
 /* RESPONSIVE DESIGN MOBILITY */
 @media (max-width: 640px) {
+  /* Prevent iOS Safari auto-zoom on input focus */
+  input[type="text"],
+  input[type="search"],
+  textarea {
+    font-size: 16px !important;
+  }
+
   .header-container {
-    padding: 10px 16px;
+    padding: 8px 12px;
   }
 
   .brand {
-    font-size: 20px;
+    font-size: 19px;
   }
 
   .puzzle-badge {
     font-size: 10px;
-    padding: 4px 8px;
+    padding: 3px 6px;
   }
 
   .main-container {
-    padding: 14px 10px 36px;
-    gap: 12px;
+    padding: 10px 8px 28px;
+    gap: 10px;
   }
 
+  /* Mode selector : 2 colonnes côte à côte compactes pour sauver ~60px de hauteur */
   .mode-selector-bar {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
+    padding: 4px;
+  }
+
+  .mode-tab {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .mode-icon {
+    font-size: 18px;
+  }
+
+  .mode-info strong {
+    font-size: 13px;
+  }
+
+  .mode-info small {
+    font-size: 10px;
+  }
+
+  .mode-badge {
+    font-size: 8px;
+    padding: 1px 5px;
+    top: -6px;
+    right: 6px;
   }
 
   .intro-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 8px;
+  }
+
+  .intro-section h1 {
+    font-size: 20px;
+  }
+
+  .intro-desc {
+    font-size: 12px;
+    line-height: 1.3;
   }
 
   .stats-bar {
@@ -1369,46 +1433,77 @@ button, input {
     width: 100%;
   }
 
+  .lives-box, .progress-box {
+    padding: 6px 10px;
+  }
+
   .board-card {
-    padding: 8px;
+    padding: 6px;
     border-radius: var(--radius-md);
   }
 
   .board {
-    grid-template-columns: minmax(72px, 23%) repeat(3, minmax(0, 1fr));
-    grid-template-rows: auto repeat(3, minmax(82px, 1fr));
+    grid-template-columns: minmax(68px, 22%) repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto repeat(3, minmax(80px, 1fr));
     gap: 4px;
   }
 
+  /* Clues : Indices de colonnes verticaux et indices de lignes horizontaux */
   .clue {
-    font-size: clamp(9.5px, 2.7vw, 11px);
-    padding: 6px 3px;
+    font-size: clamp(9px, 2.6vw, 11px);
+    padding: 4px;
     line-height: 1.15;
+    position: relative;
+  }
+
+  .clue:not(.row) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4px 2px 6px;
+    min-height: 48px;
+  }
+
+  .clue:not(.row) .info-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  .clue.row {
+    padding: 4px 6px;
   }
 
   .info-icon {
     width: 16px;
     height: 16px;
+    min-width: 16px;
+    min-height: 16px;
     font-size: 9px;
   }
 
   .cell {
-    padding: 5px;
+    padding: 4px;
     border-radius: 6px;
   }
 
   .cell-number {
-    top: 3px;
-    right: 4px;
-    font-size: 9px;
+    top: 2px;
+    right: 3px;
+    font-size: 8.5px;
   }
 
   .cell-empty-hint {
-    font-size: 10.5px;
+    font-size: 10px;
   }
 
   .answer-card {
     gap: 2px;
+    align-items: center;
+    text-align: center;
+    width: 100%;
   }
 
   .answer-flag-img {
@@ -1417,11 +1512,21 @@ button, input {
   }
 
   .answer-name {
-    font-size: 11.5px;
+    font-size: 11px;
+    line-height: 1.1;
+    text-align: center;
+    max-width: 100%;
   }
 
-  .answer-status {
-    font-size: 8.5px;
+  .player-claim-badge {
+    font-size: 9px;
+    padding: 1px 4px;
+  }
+
+  .stat-badge {
+    font-size: 9px;
+    padding: 1px 4px;
+    margin-top: 1px;
   }
 
   .board-actions {
@@ -1441,8 +1546,13 @@ button, input {
     max-height: 240px;
   }
 
+  .country-option-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
   .search-dialog-content {
-    padding: 16px;
+    padding: 14px 12px;
   }
 
   .search-dialog h2 {
@@ -1450,7 +1560,7 @@ button, input {
   }
 
   .multiplayer-bar-container {
-    padding: 8px 12px;
+    padding: 8px 10px;
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
@@ -1617,16 +1727,22 @@ button, input {
   }
 
   .clue {
-    font-size: clamp(8.5px, 2.5vw, 10px);
-    padding: 4px 2px;
+    font-size: clamp(8px, 2.4vw, 9.5px);
+    padding: 3px 2px;
     line-height: 1.1;
+  }
+
+  .clue:not(.row) .info-icon {
+    position: absolute;
+    top: 1px;
+    right: 1px;
   }
 
   .info-icon {
     width: 14px;
     height: 14px;
-    min-width: 36px;
-    min-height: 36px;
+    min-width: 14px;
+    min-height: 14px;
     font-size: 8px;
   }
 
