@@ -23,7 +23,8 @@
           <span class="brand-globe">🌍</span> Country<span class="accent">Doku</span>
         </a>
         <div class="header-right">
-          <button class="multi-toggle-btn" id="multi-toggle-btn">⚔️ Mode 1v1</button>
+          <button class="multi-toggle-btn" id="multi-toggle-btn" data-i18n="nav.mode_1v1">⚔️ Mode 1v1</button>
+          <button class="lang-toggle-btn" id="lang-toggle-btn" title="Changer la langue / Change language" aria-label="Langue">🇬🇧 EN</button>
           <button class="icon-button" id="report-button" aria-label="Signaler un problème" title="Signaler un problème">🐛</button>
           <button class="icon-button" id="help-button" aria-label="Voir les règles de jeu" title="Règles du jeu">?</button>
         </div>
@@ -34,16 +35,16 @@
     <section class="multiplayer-bar hidden" id="multiplayer-bar">
       <div class="multiplayer-bar-container">
         <div class="mp-room-info">
-          <span class="mp-badge live">● EN DIRECT</span>
+          <span class="mp-badge live" id="mp-live-badge" data-i18n="mp.live_badge">● EN DIRECT</span>
           <span class="mp-room-code" id="mp-room-code-display">CODE : ---</span>
-          <button class="copy-link-btn" id="copy-link-btn" title="Copier le lien d'invitation">
+          <button class="copy-link-btn" id="copy-link-btn" title="Copier le lien d'invitation" data-i18n="mp.copy_link">
             📋 Copier le lien
           </button>
         </div>
         
         <div class="mp-players-status">
           <div class="player-pill host" id="player-host-pill">
-            <span class="player-dot host">🟢</span> Joueur 1 <span class="score-badge" id="mp-score-host" title="Score total Hôte">0</span>
+            <span class="player-dot host">🟢</span> <span id="player-host-label" data-i18n="mp.player_host">Joueur 1</span> <span class="score-badge" id="mp-score-host" title="Score total Hôte">0</span>
           </div>
           
           <div class="timer-badge-pill" id="turn-timer-display" title="Temps restant pour le tour">
@@ -51,11 +52,11 @@
           </div>
 
           <div class="player-pill guest" id="player-guest-pill">
-            <span class="player-dot guest">🔵</span> Joueur 2 <span class="score-badge" id="mp-score-guest" title="Score total Invité">0</span>
+            <span class="player-dot guest">🔵</span> <span id="player-guest-label" data-i18n="mp.player_guest">Joueur 2</span> <span class="score-badge" id="mp-score-guest" title="Score total Invité">0</span>
           </div>
         </div>
 
-        <button class="leave-mp-btn" id="leave-mp-btn">Quitter 1v1</button>
+        <button class="leave-mp-btn" id="leave-mp-btn" data-i18n="mp.leave_btn">Quitter 1v1</button>
       </div>
     </section>
 
@@ -66,25 +67,25 @@
           <button class="mode-tab active" id="mode-solo-tab">
             <span class="mode-icon">👤</span>
             <div class="mode-info">
-              <strong>Mode Solo</strong>
-              <small>3 vies • Jeu illimité</small>
+              <strong id="mode-solo-title" data-i18n="mode.solo_title">Mode Solo</strong>
+              <small id="mode-solo-desc" data-i18n="mode.solo_desc">3 vies • Jeu illimité</small>
             </div>
           </button>
           
           <button class="mode-tab highlight" id="mode-multi-tab">
             <span class="mode-icon">⚔️</span>
             <div class="mode-info">
-              <strong>Multijoueur (1v1)</strong>
-              <small>Affrontez vos amis en direct !</small>
+              <strong id="mode-multi-title" data-i18n="mode.multi_title">Multijoueur (1v1)</strong>
+              <small id="mode-multi-desc" data-i18n="mode.multi_desc">Affrontez vos amis en direct !</small>
             </div>
-            <span class="mode-badge">JOUER À 2 🎮</span>
+            <span class="mode-badge" data-i18n="mode.multi_badge">JOUER À 2 🎮</span>
           </button>
         </div>
       </section>
 
       <!-- Bannière de Statut du Tour 1v1 Ultra-Lisible -->
       <div class="mp-turn-banner hidden" id="mp-turn-banner">
-        <div class="mp-turn-content" id="mp-turn-text">
+        <div class="mp-turn-content" id="mp-turn-text" data-i18n="mp.your_turn_banner">
           🎲 C'EST À VOTRE TOUR DE JOUER !
         </div>
       </div>
@@ -92,16 +93,16 @@
       <section class="intro-section" aria-labelledby="game-title">
         <div class="intro-header">
           <div>
-            <h1 id="game-title">Reliez les pays aux critères</h1>
+            <h1 id="game-title" data-i18n="intro.title">Reliez les pays aux critères</h1>
             <p class="intro-desc" id="intro-desc-text">Cliquez sur une case pour choisir le pays correspondant. Cliquez sur <span class="info-badge">ⓘ</span> pour voir les explications des critères.</p>
           </div>
           <div class="stats-bar">
             <div class="lives-box" id="lives-box" aria-label="Vies restantes">
-              <span class="lives-label">VIES</span>
+              <span class="lives-label" data-i18n="stats.lives">VIES</span>
               <span class="hearts-list" id="hearts-list">❤️❤️❤️</span>
             </div>
             <div class="progress-box">
-              <span class="progress-label">PROGRESSION</span>
+              <span class="progress-label" data-i18n="stats.progress">PROGRESSION</span>
               <span class="progress-value"><strong id="progress">0</strong> / 9</span>
             </div>
           </div>
@@ -116,19 +117,19 @@
         <!-- Journal de Partie Live Feed 1v1 -->
         <div class="mp-feed-card hidden" id="mp-feed-card">
           <div class="mp-feed-header">
-            <span class="mp-feed-title">📢 JOURNAL DE LA PARTIE EN DIRECT</span>
+            <span class="mp-feed-title" data-i18n="mp.feed_title">📢 JOURNAL DE LA PARTIE EN DIRECT</span>
             <span class="mp-feed-count" id="mp-feed-count">0 évènement</span>
           </div>
           <div class="mp-feed-list" id="mp-feed-list">
-            <div class="mp-feed-item info">🎮 Le match 1v1 commence ! Joueur 1 a la main.</div>
+            <div class="mp-feed-item info" data-i18n="mp.feed_started">🎮 Le match 1v1 commence ! Joueur 1 a la main.</div>
           </div>
         </div>
 
         <div class="board-actions">
-          <p class="feedback-banner" id="feedback" role="status" aria-live="polite">Cliquez sur une case de la grille pour faire votre choix.</p>
+          <p class="feedback-banner" id="feedback" role="status" aria-live="polite" data-i18n="board.default_feedback">Cliquez sur une case de la grille pour faire votre choix.</p>
           <button class="secondary-button" id="reset-button">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8M22 12.5a10 10 0 0 1-18.8 4.2L2.5 16"/></svg>
-            <span id="reset-btn-label">Nouvelle grille</span>
+            <span id="reset-btn-label" data-i18n="board.reset_btn">Nouvelle grille</span>
           </button>
         </div>
       </section>
@@ -138,48 +139,48 @@
     <dialog id="room-dialog" class="custom-dialog">
       <div class="dialog-content">
         <button class="close-dialog-btn" id="close-room" aria-label="Fermer la fenêtre">×</button>
-        <span class="dialog-eyebrow">MODE MULTIJOUEUR 1V1</span>
-        <h2>Morpion Géographique (Tic-Tac-Toe)</h2>
+        <span class="dialog-eyebrow" data-i18n="dialog.room_eyebrow">MODE MULTIJOUEUR 1V1</span>
+        <h2 data-i18n="dialog.room_title">Morpion Géographique (Tic-Tac-Toe)</h2>
         
         <!-- Écran 1 : Choix Créer / Rejoindre -->
         <div id="room-options-view">
           <!-- Explication claire des règles 1v1 -->
           <div class="rules-box-1v1" style="background: var(--bg-app); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 12px 14px; margin: 10px 0 16px 0; text-align: left; font-size: 13px;">
-            <strong style="color: var(--ink-primary); font-size: 13.5px; display: block; margin-bottom: 6px;">📜 Règles du Mode 1v1 (Morpion Géographique) :</strong>
+            <strong style="color: var(--ink-primary); font-size: 13.5px; display: block; margin-bottom: 6px;" data-i18n="dialog.room_rules_title">📜 Règles du Mode 1v1 (Morpion Géographique) :</strong>
             <ul style="margin: 0; padding-left: 18px; color: var(--ink-secondary); display: flex; flex-direction: column; gap: 5px;">
-              <li>🎯 <strong>Objectif</strong> : Aligner 3 cases de votre couleur (🟢 J1 ou 🔵 J2) pour gagner le match.</li>
-              <li>⏱️ <strong>Minuteur 30s</strong> : Vous avez 30 secondes par tour pour choisir un pays. En cas de dépassement, le tour passe à l'adversaire.</li>
-              <li>❌ <strong>Erreur = Tour suivant</strong> : Tenter un pays incorrect fait immédiatement passer la main à votre adversaire.</li>
-              <li>🔄 <strong>Équité</strong> : Le joueur qui débute la partie alterne automatiquement à chaque revanche ou nouveau match.</li>
+              <li data-i18n="dialog.room_rule1">🎯 <strong>Objectif</strong> : Aligner 3 cases de votre couleur (🟢 J1 ou 🔵 J2) pour gagner le match.</li>
+              <li data-i18n="dialog.room_rule2">⏱️ <strong>Minuteur 30s</strong> : Vous avez 30 secondes par tour pour choisir un pays. En cas de dépassement, le tour passe à l'adversaire.</li>
+              <li data-i18n="dialog.room_rule3">❌ <strong>Erreur = Tour suivant</strong> : Tenter un pays incorrect fait immédiatement passer la main à votre adversaire.</li>
+              <li data-i18n="dialog.room_rule4">🔄 <strong>Équité</strong> : Le joueur qui débute la partie alterne automatiquement à chaque revanche ou nouveau match.</li>
             </ul>
           </div>
 
           <div class="room-action-cards">
             <div class="room-card">
-              <h3>Créer un salon</h3>
-              <p>Générez un code et envoyez le lien d'invitation à un ami.</p>
-              <button class="primary-button full-width" id="create-room-btn">Créer un salon 1v1</button>
+              <h3 data-i18n="dialog.room_create_title">Créer un salon</h3>
+              <p data-i18n="dialog.room_create_desc">Générez un code et envoyez le lien d'invitation à un ami.</p>
+              <button class="primary-button full-width" id="create-room-btn" data-i18n="dialog.room_create_btn">Créer un salon 1v1</button>
             </div>
 
-            <div class="room-divider"><span>OU</span></div>
+            <div class="room-divider"><span data-i18n="dialog.room_or">OU</span></div>
 
             <div class="room-card">
-              <h3>Rejoindre avec un code</h3>
+              <h3 data-i18n="dialog.room_join_title">Rejoindre avec un code</h3>
               <div class="search-input-wrapper" style="margin-bottom: 8px;">
                 <input id="room-code-input" type="text" placeholder="Code du salon (ex: 8X42K)..." autocomplete="off" style="text-transform: uppercase;" />
               </div>
-              <button class="secondary-button full-width" id="join-room-btn">Rejoindre le salon</button>
+              <button class="secondary-button full-width" id="join-room-btn" data-i18n="dialog.room_join_btn">Rejoindre le salon</button>
             </div>
           </div>
         </div>
 
         <!-- Écran 2 : Code Créé & Invitation -->
         <div id="room-created-view" class="hidden text-center">
-          <span class="dialog-eyebrow" style="color: var(--accent-primary);">SALON PRÊT</span>
-          <h3>Envoyez ce lien à votre ami</h3>
+          <span class="dialog-eyebrow" style="color: var(--accent-primary);" data-i18n="dialog.room_ready_eyebrow">SALON PRÊT</span>
+          <h3 data-i18n="dialog.room_ready_title">Envoyez ce lien à votre ami</h3>
           
           <div class="created-code-box">
-            <span class="created-code-label">CODE DU SALON</span>
+            <span class="created-code-label" data-i18n="dialog.room_code_label">CODE DU SALON</span>
             <div class="created-code-val" id="created-code-val">---</div>
           </div>
 
@@ -187,7 +188,7 @@
             <input id="invite-link-input" type="text" readonly style="font-size: 13px; text-align: center;" />
           </div>
 
-          <button class="primary-button full-width" id="modal-copy-link-btn" style="font-size: 16px; padding: 14px;">
+          <button class="primary-button full-width" id="modal-copy-link-btn" style="font-size: 16px; padding: 14px;" data-i18n="dialog.room_copy_link_btn">
             📋 Copier le lien d'invitation
           </button>
         </div>
@@ -195,7 +196,7 @@
         <!-- Boîte de Statut de Connexion WebRTC Visuelle pour les 2 Joueurs -->
         <div class="mp-status-box" id="mp-status-box">
           <span class="mp-status-dot" id="mp-status-dot">🟡</span>
-          <span class="mp-status-msg" id="mp-status-msg">Prêt à démarrer une partie 1v1...</span>
+          <span class="mp-status-msg" id="mp-status-msg" data-i18n="dialog.room_status_ready">Prêt à démarrer une partie 1v1...</span>
         </div>
       </div>
     </dialog>
@@ -203,14 +204,14 @@
     <!-- Modal de confirmation pour quitter le salon 1v1 -->
     <dialog id="confirm-leave-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
-        <span class="dialog-eyebrow" style="color: #e53e3e;">🚪 QUITTER LE SALON</span>
-        <h3 style="margin-top: 4px;">Quitter le salon 1v1 ?</h3>
-        <p style="font-size: 14px; color: var(--ink-secondary); margin: 10px 0 18px 0;">
+        <span class="dialog-eyebrow" style="color: #e53e3e;" data-i18n="dialog.leave_eyebrow">🚪 QUITTER LE SALON</span>
+        <h3 style="margin-top: 4px;" data-i18n="dialog.leave_title">Quitter le salon 1v1 ?</h3>
+        <p style="font-size: 14px; color: var(--ink-secondary); margin: 10px 0 18px 0;" data-i18n="dialog.leave_desc">
           Êtes-vous sûr de vouloir fermer ce salon ? La partie en cours avec votre adversaire sera interrompue.
         </p>
         <div style="display: flex; gap: 12px;">
-          <button class="secondary-button full-width" id="cancel-leave-btn">Rester dans le salon</button>
-          <button class="danger-button full-width" id="confirm-leave-btn">Quitter le salon</button>
+          <button class="secondary-button full-width" id="cancel-leave-btn" data-i18n="dialog.leave_stay">Rester dans le salon</button>
+          <button class="danger-button full-width" id="confirm-leave-btn" data-i18n="dialog.leave_confirm">Quitter le salon</button>
         </div>
       </div>
     </dialog>
@@ -219,15 +220,15 @@
     <dialog id="grid-proposal-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
         <button class="close-dialog-btn" id="close-grid-proposal" aria-label="Fermer la fenêtre">×</button>
-        <span class="dialog-eyebrow">DEMANDE DE RELANCE</span>
-        <h3 id="grid-proposal-title">Proposition de l'adversaire</h3>
+        <span class="dialog-eyebrow" data-i18n="dialog.proposal_eyebrow">DEMANDE DE RELANCE</span>
+        <h3 id="grid-proposal-title" data-i18n="dialog.proposal_title">Proposition de l'adversaire</h3>
         <p id="grid-proposal-desc">L'adversaire propose de recommencer une partie. Que souhaitez-vous faire ?</p>
         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
           <div style="display: flex; gap: 12px;">
-            <button class="secondary-button full-width" id="accept-rematch-grid-btn">Revanche (Même grille)</button>
-            <button class="primary-button full-width" id="accept-new-grid-btn">Nouveau Match (Nouvelle grille)</button>
+            <button class="secondary-button full-width" id="accept-rematch-grid-btn" data-i18n="dialog.proposal_rematch_btn">Revanche (Même grille)</button>
+            <button class="primary-button full-width" id="accept-new-grid-btn" data-i18n="dialog.proposal_new_btn">Nouveau Match (Nouvelle grille)</button>
           </div>
-          <button class="ghost-button full-width" id="decline-grid-btn" style="margin-top: 2px;">Refuser la demande</button>
+          <button class="ghost-button full-width" id="decline-grid-btn" style="margin-top: 2px;" data-i18n="dialog.proposal_decline">Refuser la demande</button>
         </div>
       </div>
     </dialog>
@@ -236,15 +237,15 @@
     <dialog id="mp-victory-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
         <button class="close-dialog-btn" id="close-mp-victory" aria-label="Fermer la fenêtre">×</button>
-        <span class="dialog-eyebrow" id="mp-victory-eyebrow">PARTIE TERMINÉE</span>
+        <span class="dialog-eyebrow" id="mp-victory-eyebrow" data-i18n="dialog.victory_eyebrow">PARTIE TERMINÉE</span>
         <h2 id="mp-victory-title">Victoire ! 🎉</h2>
         <p id="mp-victory-desc">Le Joueur 1 a aligné 3 cases et remporte le match de Tic-Tac-Toe !</p>
         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
           <div style="display: flex; gap: 12px;">
-            <button class="secondary-button full-width" id="mp-rematch-btn">Revanche (Même grille)</button>
-            <button class="primary-button full-width" id="mp-new-match-btn">Nouveau Match</button>
+            <button class="secondary-button full-width" id="mp-rematch-btn" data-i18n="dialog.victory_rematch">Revanche (Même grille)</button>
+            <button class="primary-button full-width" id="mp-new-match-btn" data-i18n="dialog.victory_new">Nouveau Match</button>
           </div>
-          <button class="ghost-button full-width" id="mp-view-board-btn" style="margin-top: 4px;">🔍 Examiner la grille jouée</button>
+          <button class="ghost-button full-width" id="mp-view-board-btn" style="margin-top: 4px;" data-i18n="dialog.victory_board">🔍 Examiner la grille jouée</button>
         </div>
       </div>
     </dialog>
@@ -257,7 +258,7 @@
           <span class="candidates-badge" id="candidates-count">💡 0 pays valides</span>
           <button class="close-dialog-btn" id="close-search" aria-label="Fermer la recherche">×</button>
         </div>
-        <h2 id="search-dialog-title">Choisissez un pays</h2>
+        <h2 id="search-dialog-title" data-i18n="dialog.search_title">Choisissez un pays</h2>
         <div class="search-dialog-sub" id="search-dialog-clues">Critères : ...</div>
         
         <div class="search-input-wrapper">
@@ -273,24 +274,24 @@
     <dialog id="tooltip-dialog" class="custom-dialog tooltip-dialog">
       <div class="dialog-content">
         <div class="search-dialog-header">
-          <span class="dialog-eyebrow">EXPLICATION DU CRITÈRE</span>
+          <span class="dialog-eyebrow" data-i18n="dialog.tooltip_eyebrow">EXPLICATION DU CRITÈRE</span>
           <button class="close-dialog-btn" id="close-tooltip" aria-label="Fermer l'explication">×</button>
         </div>
         <h3 id="tooltip-title" style="font-size: 18px; font-weight: 700;">Intitulé du critère</h3>
         <p id="tooltip-desc" style="font-size: 14px; color: var(--ink-secondary); line-height: 1.45;">Description détaillée...</p>
-        <button type="button" class="primary-button full-width" id="confirm-tooltip-btn">J'ai compris</button>
+        <button type="button" class="primary-button full-width" id="confirm-tooltip-btn" data-i18n="dialog.tooltip_close">J'ai compris</button>
       </div>
     </dialog>
 
     <!-- Modal Game Over Solo -->
     <dialog id="gameover-dialog" class="custom-dialog">
       <div class="dialog-content text-center">
-        <span class="dialog-eyebrow" style="color: #d32f2f;">FIN DE PARTIE</span>
-        <h2>Plus de vies restantes ! 💔</h2>
-        <p>Vous avez épuisé vos 3 essais sur cette grille. Souhaitez-vous réessayer la même grille ou en générer une nouvelle ?</p>
+        <span class="dialog-eyebrow" style="color: #d32f2f;" data-i18n="dialog.gameover_eyebrow">FIN DE PARTIE</span>
+        <h2 data-i18n="dialog.gameover_title">Plus de vies restantes ! 💔</h2>
+        <p data-i18n="dialog.gameover_desc">Vous avez épuisé vos 3 essais sur cette grille. Souhaitez-vous réessayer la même grille ou en générer une nouvelle ?</p>
         <div style="display: flex; gap: 12px; margin-top: 12px;">
-          <button class="secondary-button full-width" id="retry-same-btn">Réessayer la grille</button>
-          <button class="primary-button full-width" id="new-grid-btn">Nouvelle grille</button>
+          <button class="secondary-button full-width" id="retry-same-btn" data-i18n="dialog.gameover_retry">Réessayer la grille</button>
+          <button class="primary-button full-width" id="new-grid-btn" data-i18n="dialog.gameover_new">Nouvelle grille</button>
         </div>
       </div>
     </dialog>
@@ -299,9 +300,9 @@
     <dialog id="report-dialog" class="custom-dialog">
       <div class="dialog-content">
         <button class="close-dialog-btn" id="close-report" aria-label="Fermer la fenêtre">×</button>
-        <span class="dialog-eyebrow" style="color: #e65100;">🐛 SIGNALER UN PROBLÈME</span>
-        <h2 style="font-size: 19px; margin-top: 4px;">Signaler une erreur ou un bug</h2>
-        <p style="font-size: 13.5px; color: var(--ink-secondary); margin-bottom: 12px; line-height: 1.4;">
+        <span class="dialog-eyebrow" style="color: #e65100;" data-i18n="dialog.report_eyebrow">🐛 SIGNALER UN PROBLÈME</span>
+        <h2 style="font-size: 19px; margin-top: 4px;" data-i18n="dialog.report_title">Signaler une erreur ou un bug</h2>
+        <p style="font-size: 13.5px; color: var(--ink-secondary); margin-bottom: 12px; line-height: 1.4;" data-i18n="dialog.report_desc">
           Un pays manque ? Un critère semble incorrect ? Décrivez le problème ci-dessous. Le journal de la console sera joint à votre email.
         </p>
 
@@ -310,13 +311,13 @@
         </div>
 
         <div style="margin-bottom: 14px;">
-          <label style="font-size: 12px; font-weight: 600; color: var(--ink-secondary); display: block; margin-bottom: 4px;">JOURNAL CONSOLE CAPTURÉ (AUTOMATIQUE) :</label>
+          <label style="font-size: 12px; font-weight: 600; color: var(--ink-secondary); display: block; margin-bottom: 4px;" data-i18n="dialog.report_logs_label">JOURNAL CONSOLE CAPTURÉ (AUTOMATIQUE) :</label>
           <textarea id="report-logs-preview" readonly rows="5" style="width: 100%; font-family: 'DM Mono', monospace; font-size: 11px; background: #1e1e24; color: #a9b7c6; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 8px; resize: vertical; box-sizing: border-box;"></textarea>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px;">
-          <button class="primary-button full-width" id="send-report-email-btn" style="font-size: 14px;">📧 Envoyer par Email (recpetionneurdepubpourmoi@gmail.com)</button>
-          <button class="secondary-button full-width" id="copy-report-logs-btn" style="font-size: 13px;">📋 Copier le rapport complet</button>
+          <button class="primary-button full-width" id="send-report-email-btn" style="font-size: 14px;" data-i18n="dialog.report_send_btn">📧 Envoyer par Email (recpetionneurdepubpourmoi@gmail.com)</button>
+          <button class="secondary-button full-width" id="copy-report-logs-btn" style="font-size: 13px;" data-i18n="dialog.report_copy_btn">📋 Copier le rapport complet</button>
         </div>
       </div>
     </dialog>
@@ -325,25 +326,25 @@
     <dialog id="help-dialog" class="custom-dialog">
       <div class="dialog-content">
         <button class="close-dialog-btn" id="close-help" aria-label="Fermer la fenêtre">×</button>
-        <span class="dialog-eyebrow">RÈGLES DU JEU</span>
-        <h2>Comment jouer à CountryDoku ?</h2>
+        <span class="dialog-eyebrow" data-i18n="dialog.rules_eyebrow">RÈGLES DU JEU</span>
+        <h2 data-i18n="dialog.rules_title">Comment jouer à CountryDoku ?</h2>
         
         <div class="rules-list">
           <div class="rule-item">
             <span class="rule-number">1</span>
-            <p><strong>Mode Solo :</strong> Complétez les 9 cases de la grille avec 3 vies maximum.</p>
+            <p data-i18n="dialog.rule1"><strong>Mode Solo :</strong> Complétez les 9 cases de la grille avec 3 vies maximum.</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">2</span>
-            <p><strong>Mode 1v1 (30s / tour) :</strong> Vous avez 30 secondes par tour. Chaque bonne réponse capture une case. Le premier qui aligne 3 cases (🟢 J1 / 🔵 J2) gagne !</p>
+            <p data-i18n="dialog.rule2"><strong>Mode 1v1 (30s / tour) :</strong> Vous avez 30 secondes par tour. Chaque bonne réponse capture une case. Le premier qui aligne 3 cases (🟢 J1 / 🔵 J2) gagne !</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">3</span>
-            <p><strong>Info-bulles (ⓘ) :</strong> Cliquez sur le symbole ⓘ à côté d'un critère pour voir son explication exacte.</p>
+            <p data-i18n="dialog.rule3"><strong>Info-bulles (ⓘ) :</strong> Cliquez sur le symbole ⓘ à côté d'un critère pour voir son explication exacte.</p>
           </div>
         </div>
 
-        <button type="button" class="primary-button full-width" id="start-button">J'ai compris, jouer !</button>
+        <button type="button" class="primary-button full-width" id="start-button" data-i18n="dialog.rules_close">J'ai compris, jouer !</button>
       </div>
     </dialog>
 

@@ -1,5 +1,6 @@
 import { countries, allCriteria } from './data.js';
 import { shuffle } from './utils.js';
+import { getLanguage } from './i18n.js';
 
 export const gameState = {
   rows: [],
@@ -109,12 +110,19 @@ export function getMoveValidationDetails(cellId, countryCode) {
   const isValid = rowPass && colPass;
 
   let reason = '';
+  const isEn = getLanguage() === 'en';
   if (!rowPass && !colPass) {
-    reason = `Ne respecte ni "${rowCriterion.label}" ni "${colCriterion.label}"`;
+    reason = isEn
+      ? `Does not match "${rowCriterion?.label}" nor "${colCriterion?.label}"`
+      : `Ne respecte ni "${rowCriterion?.label}" ni "${colCriterion?.label}"`;
   } else if (!rowPass) {
-    reason = `Ne respecte pas "${rowCriterion.label}"`;
+    reason = isEn
+      ? `Does not match "${rowCriterion?.label}"`
+      : `Ne respecte pas "${rowCriterion?.label}"`;
   } else if (!colPass) {
-    reason = `Ne respecte pas "${colCriterion.label}"`;
+    reason = isEn
+      ? `Does not match "${colCriterion?.label}"`
+      : `Ne respecte pas "${colCriterion?.label}"`;
   }
 
   return { isValid, country, rowCriterion, colCriterion, rowPass, colPass, reason };

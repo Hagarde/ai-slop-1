@@ -3,6 +3,7 @@ import { countries } from './data.js';
 import { escapeHtml } from './utils.js';
 import { addGameFeed, updateScoresUI, updateMultiplayerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal } from './ui.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
+import { t, getLanguage, getCountryName } from './i18n.js';
 
 export let isMultiplayer = false;
 export let myRole = null;
@@ -77,7 +78,7 @@ export async function initPeer(customCode = null, isCreating = false) {
   currentRoomCode = code;
   const peerId = `cdoku-1v1-${code}`;
 
-  updateStatus("⚙️ Connexion au serveur de signalisation...", "connecting");
+  updateStatus(t('mp.connecting'), "connecting");
 
   if (peer) {
     try { peer.destroy(); } catch (e) {}
@@ -102,14 +103,14 @@ export async function initPeer(customCode = null, isCreating = false) {
       document.querySelector('#invite-link-input').value = newUrl;
       document.querySelector('#room-options-view').classList.add('hidden');
       document.querySelector('#room-created-view').classList.remove('hidden');
-      updateStatus(`🟢 Salon prêt ! Code : ${code}. En attente de l'adversaire...`, "info");
+      updateStatus(t('mp.ready_wait', { code }), "info");
     }
   });
 
   peer.on('connection', (connection) => {
     conn = connection;
     setupConnectionListeners();
-    updateStatus("🤝 Joueur 2 détecté ! Connexion en cours...", "connecting");
+    updateStatus(t('mp.player2_detected'), "connecting");
   });
 
   peer.on('error', (err) => {
@@ -130,14 +131,14 @@ export async function connectAsGuest(code) {
   isMultiplayer = true;
   resetRoomScores();
 
-  updateStatus(`⚙️ Connexion au serveur de signalisation...`, "connecting");
+  updateStatus(t('mp.connecting'), "connecting");
   
   const peerConfig = await buildPeerConfig();
   if (peer) { try { peer.destroy(); } catch (e) {} }
   peer = new Peer(peerConfig);
 
   peer.on('open', (id) => {
-    updateStatus(`🤝 Recherche du salon ${code}...`, "connecting");
+    updateStatus(t('mp.finding_room', { code }), "connecting");
     conn = peer.connect(`cdoku-1v1-${code}`, { reliable: true });
     setupConnectionListeners();
   });
@@ -145,7 +146,7 @@ export async function connectAsGuest(code) {
   peer.on('error', (err) => {
     isMultiplayer = false;
     myRole = null;
-    updateStatus(`⚠️ Erreur de connexion : ${err.type}`, "error");
+    updateStatus(`⚠️ Erreur : ${err.type}`, "error");
   });
 }
 
@@ -153,7 +154,7 @@ function setupConnectionListeners() {
   if (!conn) return;
 
   const onConnected = () => {
-    updateStatus("🟢 Connecté au salon !", "success");
+    updateStatus(t('mp.connected'), "success");
     const roomDialog = document.querySelector('#room-dialog');
     if (roomDialog && roomDialog.open) roomDialog.close();
 
@@ -175,8 +176,8 @@ function setupConnectionListeners() {
   conn.on('close', () => {
     isMultiplayer = false;
     stopTurnTimer();
-    addGameFeed("🔌 L'adversaire s'est déconnecté.", "wrong");
-    feedback.textContent = "🔌 Connexion perdue avec l'adversaire.";
+    addGameFeed(t('mp.disconnected'), "wrong");
+    feedback.textContent = t('mp.conn_lost');
     updateMultiplayerUI();
     renderBoard();
   });
@@ -195,7 +196,7 @@ export function setCurrentTurn(newTurn) {
   currentTurn = newTurn;
 }
 
-// F-02 FIX: Timer basé sur Date.now() — immunisé au throttling
+// F-02 FIX: Timer basé sur Date.now()
 export function startTurnTimer() {
   stopTurnTimer();
   turnTimeLeft = 30;
@@ -205,7 +206,6 @@ export function startTurnTimer() {
   if (!isMultiplayer) return;
 
   turnTimerInterval = setInterval(() => {
-    // F-02: Calcul du temps restant par différence absolue
     turnTimeLeft = Math.max(0, Math.round((turnEndTime - Date.now()) / 1000));
     import('./ui.js').then(ui => ui.updateTimerUI());
 
@@ -216,8 +216,10 @@ export function startTurnTimer() {
         gameState.selectedCell = null;
         currentTurn = currentTurn === 'host' ? 'guest' : 'host';
         safeSend({ type: 'TIMEOUT_PASS' });
-        const senderName = myRole === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
-        const msg = `⏱️ Temps écoulé (30s) pour ${senderName} ! Le tour passe à l'adversaire.`;
+        const senderName = myRole === 'host' 
+          ? (getLanguage() === 'en' ? '🟢 Player 1 (Host)' : '🟢 Joueur 1 (Hôte)') 
+          : (getLanguage() === 'en' ? '🔵 Player 2 (Guest)' : '🔵 Joueur 2 (Invité)');
+        const msg = t('board.timeout_msg', { player: senderName });
         feedback.textContent = msg;
         addGameFeed(msg, 'wrong');
         updateMultiplayerUI();
@@ -225,7 +227,7 @@ export function startTurnTimer() {
         startTurnTimer();
       }
     }
-  }, 250); // Intervalle plus court (250ms) pour compenser le throttling
+  }, 250);
 }
 
 export function stopTurnTimer() {
@@ -256,8 +258,13 @@ export function startNextMultiplayerMatch(sameGrid = false) {
     startingPlayer
   });
 
-  const starterName = startingPlayer === 'host' ? '🟢 Joueur 1 (Hôte)' : '🔵 Joueur 2 (Invité)';
-  addGameFeed(`🎲 Nouveau match lancé ! C'est ${starterName} qui commence.`, 'info');
+  const starterName = startingPlayer === 'host' 
+    ? (getLanguage() === 'en' ? '🟢 Player 1 (Host)' : '🟢 Joueur 1 (Hôte)') 
+    : (getLanguage() === 'en' ? '🔵 Player 2 (Guest)' : '🔵 Joueur 2 (Invité)');
+  const newMatchMsg = getLanguage() === 'en' 
+    ? `🎲 New match started! ${starterName} begins.` 
+    : `🎲 Nouveau match lancé ! C'est ${starterName} qui commence.`;
+  addGameFeed(newMatchMsg, 'info');
 
   renderBoard();
   updateMultiplayerUI();
@@ -276,7 +283,7 @@ export function handleIncomingData(data) {
 
   if (data.type === 'GUEST_READY') {
     updateMultiplayerUI();
-    addGameFeed(`🎮 Joueur 2 connecté ! Le match commence.`);
+    addGameFeed(t('mp.guest_connected'));
     startTurnTimer();
     renderBoard();
   }
@@ -305,29 +312,41 @@ export function handleIncomingData(data) {
       
       const row = Math.floor(targetCellId / 3);
       const col = targetCellId % 3;
-      const rowLabel = gameState.rows[row]?.label;
-      const colLabel = gameState.columns[col]?.label;
+      const rowCriterion = gameState.rows[row];
+      const colCriterion = gameState.columns[col];
+      const rowLabel = rowCriterion?.labelFr || rowCriterion?.label;
+      const colLabel = colCriterion?.labelFr || colCriterion?.label;
       recordChoice(rowLabel, colLabel, data.countryCode);
       const pct = getChoicePercentage(rowLabel, colLabel, data.countryCode);
-      const pctText = (pct !== null && pct !== undefined) ? ` (${pct}% des joueurs)` : '';
+      const pctText = (pct !== null && pct !== undefined) 
+        ? (getLanguage() === 'en' ? ` (${pct}% of players)` : ` (${pct}% des joueurs)`) 
+        : '';
 
-      // S-03 FIX: escapeHtml sur le nom du pays venant de WebRTC
-      const safeName = country ? escapeHtml(country.name) : escapeHtml(data.countryCode);
+      const countryName = country ? getCountryName(country) : data.countryCode;
+      const safeName = escapeHtml(countryName);
 
       const winLine = checkTicTacToeWin(data.player);
       if (winLine) {
         stopTurnTimer();
         roomScores[data.player] += 1;
         updateScoresUI();
-        mpVictoryTitle.textContent = `Défaite !`;
-        mpVictoryDesc.textContent = `L'adversaire a aligné 3 cases et remporte ce match !`;
-        addGameFeed(`🎉 L'adversaire a placé ${safeName}${pctText} et remporte le match !`, 'correct');
-        safeShowModal(mpVictoryDialog); // F-05 FIX
+        mpVictoryTitle.textContent = t('dialog.defeat_title');
+        mpVictoryDesc.textContent = t('dialog.defeat_desc');
+        const feedMsg = getLanguage() === 'en' 
+          ? `🎉 Opponent placed ${safeName}${pctText} and won the match!` 
+          : `🎉 L'adversaire a placé ${safeName}${pctText} et remporte le match !`;
+        addGameFeed(feedMsg, 'correct');
+        safeShowModal(mpVictoryDialog);
       } else if (gameState.answers.filter(Boolean).length === 9) {
         stopTurnTimer();
-        safeShowModal(mpVictoryDialog); // F-05 FIX
+        mpVictoryTitle.textContent = t('dialog.draw_title');
+        mpVictoryDesc.textContent = t('dialog.draw_desc');
+        safeShowModal(mpVictoryDialog);
       } else {
-        addGameFeed(`🔵 L'adversaire a placé ${safeName}${pctText} (Case ${targetCellId + 1}).`, 'info');
+        const feedMsg = getLanguage() === 'en'
+          ? `🔵 Opponent placed ${safeName}${pctText} (Cell ${targetCellId + 1}).`
+          : `🔵 L'adversaire a placé ${safeName}${pctText} (Case ${targetCellId + 1}).`;
+        addGameFeed(feedMsg, 'info');
         currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
         updateMultiplayerUI();
         startTurnTimer();
@@ -339,14 +358,15 @@ export function handleIncomingData(data) {
   }
 
   if (data.type === 'WRONG_MOVE') {
-    // S-02 FIX: Validation basique du message entrant
     if (typeof data.cellId !== 'number' || data.cellId < 0 || data.cellId > 8) return;
     currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
     if (searchDialog && searchDialog.open) searchDialog.close();
-    // S-03 FIX: escapeHtml sur les données WebRTC
-    const safeCountryName = escapeHtml(data.countryName || 'un pays');
-    const safeReason = escapeHtml(data.reason || 'Critère non respecté');
-    addGameFeed(`❌ L'adversaire a proposé "${safeCountryName}" pour la Case ${(data.cellId || 0) + 1} (Refusé : ${safeReason}).`, 'wrong');
+    const safeCountryName = escapeHtml(data.countryName || (getLanguage() === 'en' ? 'a country' : 'un pays'));
+    const safeReason = escapeHtml(data.reason || (getLanguage() === 'en' ? 'Criterion not met' : 'Critère non respecté'));
+    const feedMsg = getLanguage() === 'en'
+      ? `❌ Opponent proposed "${safeCountryName}" for Cell ${(data.cellId || 0) + 1} (Rejected: ${safeReason}).`
+      : `❌ L'adversaire a proposé "${safeCountryName}" pour la Case ${(data.cellId || 0) + 1} (Refusé : ${safeReason}).`;
+    addGameFeed(feedMsg, 'wrong');
     updateMultiplayerUI();
     renderBoard();
     startTurnTimer();
@@ -363,15 +383,16 @@ export function handleIncomingData(data) {
   if (data.type === 'PROPOSE_REMATCH' || data.type === 'PROPOSE_NEW_GRID') {
     const isRematch = data.type === 'PROPOSE_REMATCH';
     if (gridProposalDesc) {
-      gridProposalDesc.textContent = isRematch 
-        ? "L'adversaire propose de rejouer sur la même grille." 
-        : "L'adversaire propose de jouer sur une nouvelle grille.";
+      gridProposalDesc.textContent = isRematch ? t('dialog.proposal_desc_rematch') : t('dialog.proposal_desc_new');
     }
-    safeShowModal(gridProposalDialog); // F-05 FIX
+    safeShowModal(gridProposalDialog);
   }
 
   if (data.type === 'ACCEPT_PROPOSAL') {
-    addGameFeed("✅ L'adversaire a accepté la proposition !", "correct");
+    const acceptedMsg = getLanguage() === 'en' 
+      ? "✅ Opponent accepted the proposal!" 
+      : "✅ L'adversaire a accepté la proposition !";
+    addGameFeed(acceptedMsg, "correct");
     if (gridProposalDialog && gridProposalDialog.open) gridProposalDialog.close();
     if (mpVictoryDialog && mpVictoryDialog.open) mpVictoryDialog.close();
     if (myRole === 'host') {
@@ -380,7 +401,10 @@ export function handleIncomingData(data) {
   }
 
   if (data.type === 'DECLINE_PROPOSAL') {
-    addGameFeed("❌ L'adversaire a refusé la proposition.", "wrong");
+    const declinedMsg = getLanguage() === 'en' 
+      ? "❌ Opponent declined the proposal." 
+      : "❌ L'adversaire a refusé la proposition.";
+    addGameFeed(declinedMsg, "wrong");
     if (gridProposalDialog && gridProposalDialog.open) gridProposalDialog.close();
   }
 }
@@ -416,7 +440,7 @@ export function forceLeaveRoom() {
 export function handleRoomClose() {
   if (isMultiplayer) {
     const confirmLeaveDialog = document.querySelector('#confirm-leave-dialog');
-    safeShowModal(confirmLeaveDialog); // F-05 FIX
+    safeShowModal(confirmLeaveDialog);
     return false;
   }
   const roomDialog = document.querySelector('#room-dialog');

@@ -1,9 +1,10 @@
 import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
-import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal } from './ui.js';
+import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
+import { initLanguage, getLanguage, setLanguage, t, getCountryName } from './i18n.js';
 
 // Setup Global Error Handling
 window.addEventListener('error', (event) => {
@@ -16,7 +17,7 @@ window.addEventListener('unhandledrejection', (event) => {
 // Setup custom logger for bug reports
 setupLogging();
 
-const APP_VERSION = "v1.4";
+const APP_VERSION = "v1.5";
 
 // Init App
 async function initApp() {
@@ -29,14 +30,20 @@ async function initApp() {
     console.log(`🌍 CountryDoku ${APP_VERSION}`);
   }
   
+  // Initialiser la langue (FR / EN)
+  initLanguage();
+
   const success = await loadData();
   if (!success) {
-    document.querySelector('#feedback').textContent = 'Erreur lors du chargement des données.';
+    document.querySelector('#feedback').textContent = getLanguage() === 'en' ? 'Error loading country data.' : 'Erreur lors du chargement des données.';
     return;
   }
 
   // Setup UI Event Listeners
   setupEventListeners();
+
+  // Appliquer les textes traduits
+  applyStaticTranslations();
 
   // URL Room check
   const urlParams = new URLSearchParams(window.location.search);
@@ -66,9 +73,9 @@ function resetGame(newSeed = true) {
   search.style.display = '';
   
   const resetBtnLabel = document.querySelector('#reset-btn-label');
-  if (resetBtnLabel) resetBtnLabel.textContent = isMultiplayer ? "Proposer une nouvelle grille" : "Nouvelle grille";
+  if (resetBtnLabel) resetBtnLabel.textContent = isMultiplayer ? t('board.propose_grid_btn') : t('board.reset_btn');
   document.querySelector('#progress').textContent = '0';
-  document.querySelector('#feedback').textContent = 'Cliquez sur une case de la grille pour commencer.';
+  document.querySelector('#feedback').textContent = t('board.default_feedback');
   
   const heartsListEl = document.querySelector('#hearts-list');
   if (heartsListEl) heartsListEl.innerHTML = '❤️ ❤️ ❤️';
@@ -80,7 +87,7 @@ function handleCellChoose(code) {
   if (isMultiplayer && currentTurn !== myRole) {
     if (searchDialog && searchDialog.open) searchDialog.close();
     gameState.selectedCell = null;
-    feedback.textContent = "⏱️ Temps écoulé ! Ce n'est plus votre tour de jouer.";
+    feedback.textContent = t('board.timeout_loss');
     return;
   }
 
@@ -92,10 +99,10 @@ function handleCellChoose(code) {
   searchDialog.close();
 
   if (!isMatch) {
+    const countryName = details.country ? getCountryName(details.country) : code;
     if (isMultiplayer) {
       const nextTurn = myRole === 'host' ? 'guest' : 'host';
       setCurrentTurn(nextTurn);
-      const countryName = details.country ? details.country.name : code;
       safeSend({ 
         type: 'WRONG_MOVE', 
         cellId: selectedCell, 
@@ -105,8 +112,8 @@ function handleCellChoose(code) {
         player: myRole, 
         nextTurn 
       });
-      feedback.textContent = `❌ ${countryName} INCORRECT (${details.reason}) ! Tour à l'adversaire.`;
-      addGameFeed(`❌ ${countryName} pour la Case ${selectedCell + 1} (Refusé : ${details.reason}).`, 'wrong');
+      feedback.textContent = `❌ ${countryName} (${details.reason})`;
+      addGameFeed(`❌ ${countryName} [Cell ${selectedCell + 1}] (${details.reason})`, 'wrong');
       gameState.selectedCell = null;
       updateMultiplayerUI();
       renderBoard();
@@ -117,9 +124,8 @@ function handleCellChoose(code) {
     gameState.lives -= 1;
     import('./ui.js').then(ui => ui.updateLivesUI());
     
-    const countryName = details.country ? details.country.name : code;
     if (gameState.lives <= 0) {
-      feedback.textContent = `💔 Défaite ! ${countryName} : ${details.reason}. Vos 3 vies sont épuisées.`;
+      feedback.textContent = t('board.game_over', { country: countryName, reason: details.reason });
       gameState.selectedCell = null;
       renderBoard();
       // F-01 FIX: Afficher la modale Game Over
@@ -127,7 +133,7 @@ function handleCellChoose(code) {
       return;
     }
     
-    feedback.textContent = `❌ ${countryName} incorrect (${details.reason}). -1 vie, il vous reste ${gameState.lives}.`;
+    feedback.textContent = t('board.incorrect_answer', { country: countryName, reason: details.reason, lives: gameState.lives });
     gameState.selectedCell = null;
     renderBoard();
     return;
@@ -135,14 +141,19 @@ function handleCellChoose(code) {
 
   // Coup Valide
   const country = getCountryByCode(code);
+  const countryName = getCountryName(country);
   const rowIndex = Math.floor(selectedCell / 3);
   const columnIndex = selectedCell % 3;
-  const rowLabel = gameState.rows[rowIndex]?.label;
-  const colLabel = gameState.columns[columnIndex]?.label;
+  const rowCriterion = gameState.rows[rowIndex];
+  const colCriterion = gameState.columns[columnIndex];
+  const rowLabel = rowCriterion?.labelFr || rowCriterion?.label;
+  const colLabel = colCriterion?.labelFr || colCriterion?.label;
 
   recordChoice(rowLabel, colLabel, code);
   const pct = getChoicePercentage(rowLabel, colLabel, code);
-  const pctText = (pct !== null && pct !== undefined) ? ` (${pct}% des joueurs)` : '';
+  const pctText = (pct !== null && pct !== undefined) 
+    ? (getLanguage() === 'en' ? ` (${pct}% of players)` : ` (${pct}% des joueurs)`) 
+    : '';
 
   if (isMultiplayer) {
     gameState.answers[selectedCell] = { country, player: myRole };
@@ -154,16 +165,21 @@ function handleCellChoose(code) {
       stopTurnTimer();
       roomScores[myRole] += 1;
       updateScoresUI();
-      mpVictoryTitle.textContent = `Victoire ! 🎉`;
-      mpVictoryDesc.textContent = `Vous avez aligné 3 cases et remporté ce match de Tic-Tac-Toe !`;
+      mpVictoryTitle.textContent = t('dialog.victory_title');
+      mpVictoryDesc.textContent = t('dialog.victory_desc');
       safeShowModal(mpVictoryDialog);
     } else if (gameState.answers.filter(Boolean).length === 9) {
       stopTurnTimer();
+      mpVictoryTitle.textContent = t('dialog.draw_title');
+      mpVictoryDesc.textContent = t('dialog.draw_desc');
       safeShowModal(mpVictoryDialog);
     } else {
       const nextTurn = myRole === 'host' ? 'guest' : 'host';
       setCurrentTurn(nextTurn);
-      addGameFeed(`✅ Vous avez placé ${country.name}${pctText}. Tour à l'adversaire.`, 'correct');
+      const placedMsg = getLanguage() === 'en' 
+        ? `✅ You placed ${countryName}${pctText}. Opponent's turn.` 
+        : `✅ Vous avez placé ${countryName}${pctText}. Tour à l'adversaire.`;
+      addGameFeed(placedMsg, 'correct');
       updateMultiplayerUI();
       startTurnTimer();
     }
@@ -171,7 +187,7 @@ function handleCellChoose(code) {
     gameState.answers[selectedCell] = { country };
     const count = gameState.answers.filter(Boolean).length;
     document.querySelector('#progress').textContent = count;
-    feedback.textContent = count === 9 ? '🎉 Bravo ! Grille entièrement complétée !' : `✅ Bonne réponse (${country.name})${pctText} !`;
+    feedback.textContent = count === 9 ? t('board.game_complete') : t('board.correct_answer', { country: countryName, pct: pctText });
   }
 
   gameState.selectedCell = null;
@@ -203,6 +219,15 @@ function setupEventListeners() {
     });
   }
 
+  // Sélecteur de langue (FR / EN)
+  const langToggleBtn = document.querySelector('#lang-toggle-btn');
+  if (langToggleBtn) {
+    langToggleBtn.addEventListener('click', () => {
+      const nextLang = getLanguage() === 'fr' ? 'en' : 'fr';
+      setLanguage(nextLang);
+    });
+  }
+
   document.querySelector('#close-room').addEventListener('click', handleRoomClose);
   document.querySelector('#create-room-btn').addEventListener('click', () => initPeer(null, true));
   document.querySelector('#join-room-btn').addEventListener('click', () => {
@@ -228,7 +253,7 @@ function setupEventListeners() {
     navigator.clipboard.writeText(url).then(() => {
       const btn = document.querySelector('#copy-link-btn');
       const oldText = btn.innerHTML;
-      btn.innerHTML = '✅ Copié !';
+      btn.innerHTML = t('mp.copied');
       setTimeout(() => btn.innerHTML = oldText, 2000);
     }).catch(() => {
       const linkInput = document.querySelector('#invite-link-input');
@@ -242,7 +267,7 @@ function setupEventListeners() {
     navigator.clipboard.writeText(url).then(() => {
       const btn = document.querySelector('#modal-copy-link-btn');
       const oldText = btn.innerHTML;
-      btn.innerHTML = '✅ Lien copié !';
+      btn.innerHTML = t('mp.link_copied');
       setTimeout(() => btn.innerHTML = oldText, 2000);
     });
   });
@@ -264,7 +289,7 @@ function setupEventListeners() {
     if (gameState.answers[id]) return;
 
     if (isMultiplayer && currentTurn !== myRole) {
-      feedback.textContent = `⏳ Ce n'est pas votre tour ! Attendez le coup de l'adversaire.`;
+      feedback.textContent = t('board.not_your_turn');
       return;
     }
 
@@ -275,15 +300,15 @@ function setupEventListeners() {
     if (!isMultiplayer && gameState.lives <= 0) {
       gameState.selectedCell = id;
       renderBoard();
-      if (searchDialogTitle) searchDialogTitle.textContent = `💡 Solutions pour la Case ${id + 1}`;
+      if (searchDialogTitle) searchDialogTitle.textContent = t('dialog.search_solutions_title', { cell: id + 1 });
       if (search) search.style.display = 'none';
       const candidatesCountEl = document.querySelector('#candidates-count');
-      if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} solution(s)`;
+      if (candidatesCountEl) candidatesCountEl.textContent = t('dialog.search_solutions_count', { count: candidates.length });
       const searchDialogClues = document.querySelector('#search-dialog-clues');
-      if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
+      if (searchDialogClues) searchDialogClues.textContent = `${t('dialog.search_clues_prefix')}${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
       
       const cellTargetTag = document.querySelector('#cell-target-tag');
-      if (cellTargetTag) cellTargetTag.textContent = `CASE ${id + 1}`;
+      if (cellTargetTag) cellTargetTag.textContent = t('dialog.cell_tag', { cell: id + 1 });
       
       renderCountriesForSolution(candidates);
       safeShowModal(searchDialog); // F-05 FIX
@@ -292,14 +317,14 @@ function setupEventListeners() {
 
     gameState.selectedCell = id;
     if (search) search.style.display = '';
-    if (searchDialogTitle) searchDialogTitle.textContent = 'Choisir un pays';
+    if (searchDialogTitle) searchDialogTitle.textContent = t('dialog.search_title');
     const candidatesCountEl = document.querySelector('#candidates-count');
-    if (candidatesCountEl) candidatesCountEl.textContent = `💡 ${candidates.length} pays possibles`;
+    if (candidatesCountEl) candidatesCountEl.textContent = t('dialog.search_valid_count', { count: candidates.length });
     const searchDialogClues = document.querySelector('#search-dialog-clues');
-    if (searchDialogClues) searchDialogClues.textContent = `${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
+    if (searchDialogClues) searchDialogClues.textContent = `${t('dialog.search_clues_prefix')}${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
 
     const cellTargetTag = document.querySelector('#cell-target-tag');
-    if (cellTargetTag) cellTargetTag.textContent = `CASE ${id + 1}`;
+    if (cellTargetTag) cellTargetTag.textContent = t('dialog.cell_tag', { cell: id + 1 });
 
     search.value = '';
     renderBoard();
@@ -311,7 +336,7 @@ function setupEventListeners() {
   document.querySelector('#reset-button').addEventListener('click', () => {
     if (isMultiplayer) {
       safeSend({ type: 'PROPOSE_NEW_GRID', sender: myRole });
-      feedback.textContent = "⏳ Demande envoyée à l'adversaire...";
+      feedback.textContent = t('board.req_sent');
     } else {
       resetGame(true);
     }
@@ -389,7 +414,7 @@ function setupEventListeners() {
     navigator.clipboard.writeText(JSON.stringify(sessionLogs, null, 2));
     const btn = document.querySelector('#copy-report-logs-btn');
     const old = btn.textContent;
-    btn.textContent = '✅ Copié !';
+    btn.textContent = t('mp.copied');
     setTimeout(() => btn.textContent = old, 2000);
   });
 }

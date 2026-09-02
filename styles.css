@@ -125,6 +125,30 @@ button, input {
   color: white;
 }
 
+.lang-toggle-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  color: var(--ink-primary);
+  font-weight: 700;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  padding: 5px 10px;
+  border-radius: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.lang-toggle-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
 .puzzle-badge {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -1189,6 +1213,16 @@ button, input {
 }
 
 /* Custom Dialog General & Animations */
+dialog:not([open]),
+.custom-dialog:not([open]) {
+  display: none !important;
+}
+
+.custom-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
 .custom-dialog {
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
@@ -1201,8 +1235,6 @@ button, input {
   box-shadow: var(--shadow-xl);
   margin: auto;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   animation: modal-fade-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1661,6 +1693,11 @@ button, input {
   .multi-toggle-btn {
     font-size: 11px;
     padding: 5px 8px;
+  }
+
+  .lang-toggle-btn {
+    font-size: 11px;
+    padding: 4px 7px;
   }
 
   .icon-button {
