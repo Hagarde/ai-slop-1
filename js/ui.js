@@ -84,6 +84,14 @@ export function updateScoresUI() {
   if (guestScoreEl) guestScoreEl.textContent = `${roomScores.guest} pts`;
 }
 
+export function setFeedback(text, type = 'normal') {
+  if (!feedback) return;
+  feedback.textContent = text;
+  feedback.classList.remove('wrong', 'correct');
+  if (type === 'wrong') feedback.classList.add('wrong');
+  else if (type === 'correct') feedback.classList.add('correct');
+}
+
 export function addGameFeed(msg, type = 'info') {
   const locale = getLanguage() === 'en' ? 'en-US' : 'fr-FR';
   const time = new Date().toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', second: '2-digit' });

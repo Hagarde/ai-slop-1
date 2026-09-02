@@ -940,6 +940,19 @@ button, input {
   border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
   flex: 1;
+  transition: all 0.25s ease;
+}
+
+.feedback-banner.wrong {
+  background: rgba(229, 62, 62, 0.08);
+  border-color: rgba(229, 62, 62, 0.4);
+  color: #d32f2f;
+}
+
+.feedback-banner.correct {
+  background: rgba(46, 133, 64, 0.08);
+  border-color: rgba(46, 133, 64, 0.4);
+  color: #1f6f50;
 }
 
 .secondary-button {

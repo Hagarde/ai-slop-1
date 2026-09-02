@@ -1,7 +1,7 @@
 import { gameState, generateGrid, checkTicTacToeWin, validateMove, resetGameState } from './game.js';
 import { countries } from './data.js';
 import { escapeHtml } from './utils.js';
-import { addGameFeed, updateScoresUI, updateMultiplayerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal } from './ui.js';
+import { addGameFeed, updateScoresUI, updateMultiplayerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal, setFeedback } from './ui.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
 import { t, getLanguage, getCountryName } from './i18n.js';
 
@@ -220,7 +220,7 @@ export function startTurnTimer() {
           ? (getLanguage() === 'en' ? '🟢 Player 1 (Host)' : '🟢 Joueur 1 (Hôte)') 
           : (getLanguage() === 'en' ? '🔵 Player 2 (Guest)' : '🔵 Joueur 2 (Invité)');
         const msg = t('board.timeout_msg', { player: senderName });
-        feedback.textContent = msg;
+        setFeedback(msg, 'wrong');
         addGameFeed(msg, 'wrong');
         updateMultiplayerUI();
         renderBoard();
@@ -343,10 +343,13 @@ export function handleIncomingData(data) {
         mpVictoryDesc.textContent = t('dialog.draw_desc');
         safeShowModal(mpVictoryDialog);
       } else {
+        const cellNumber = targetCellId + 1;
         const feedMsg = getLanguage() === 'en'
-          ? `🔵 Opponent placed ${safeName}${pctText} (Cell ${targetCellId + 1}).`
-          : `🔵 L'adversaire a placé ${safeName}${pctText} (Case ${targetCellId + 1}).`;
+          ? `🔵 Opponent placed ${safeName}${pctText} (Cell ${cellNumber}).`
+          : `🔵 L'adversaire a placé ${safeName}${pctText} (Case ${cellNumber}).`;
         addGameFeed(feedMsg, 'info');
+        const oppPlacedMsg = t('board.mp_correct_opp', { country: safeName, cell: cellNumber, pct: pctText });
+        setFeedback(oppPlacedMsg, 'correct');
         currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
         updateMultiplayerUI();
         startTurnTimer();
@@ -361,12 +364,15 @@ export function handleIncomingData(data) {
     if (typeof data.cellId !== 'number' || data.cellId < 0 || data.cellId > 8) return;
     currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
     if (searchDialog && searchDialog.open) searchDialog.close();
+    const cellNumber = (data.cellId || 0) + 1;
     const safeCountryName = escapeHtml(data.countryName || (getLanguage() === 'en' ? 'a country' : 'un pays'));
     const safeReason = escapeHtml(data.reason || (getLanguage() === 'en' ? 'Criterion not met' : 'Critère non respecté'));
     const feedMsg = getLanguage() === 'en'
-      ? `❌ Opponent proposed "${safeCountryName}" for Cell ${(data.cellId || 0) + 1} (Rejected: ${safeReason}).`
-      : `❌ L'adversaire a proposé "${safeCountryName}" pour la Case ${(data.cellId || 0) + 1} (Refusé : ${safeReason}).`;
+      ? `❌ Opponent proposed "${safeCountryName}" for Cell ${cellNumber} (Rejected: ${safeReason}).`
+      : `❌ L'adversaire a proposé "${safeCountryName}" pour la Case ${cellNumber} (Refusé : ${safeReason}).`;
     addGameFeed(feedMsg, 'wrong');
+    const oppWrongMsg = t('board.mp_wrong_opp', { country: safeCountryName, cell: cellNumber, reason: safeReason });
+    setFeedback(oppWrongMsg, 'wrong');
     updateMultiplayerUI();
     renderBoard();
     startTurnTimer();

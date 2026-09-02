@@ -1,7 +1,7 @@
 import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
-import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations } from './ui.js';
+import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
 import { initLanguage, getLanguage, setLanguage, t, getCountryName } from './i18n.js';
@@ -75,7 +75,7 @@ function resetGame(newSeed = true) {
   const resetBtnLabel = document.querySelector('#reset-btn-label');
   if (resetBtnLabel) resetBtnLabel.textContent = isMultiplayer ? t('board.propose_grid_btn') : t('board.reset_btn');
   document.querySelector('#progress').textContent = '0';
-  document.querySelector('#feedback').textContent = t('board.default_feedback');
+  setFeedback(t('board.default_feedback'), 'normal');
   
   const heartsListEl = document.querySelector('#hearts-list');
   if (heartsListEl) heartsListEl.innerHTML = '❤️ ❤️ ❤️';
@@ -87,13 +87,14 @@ function handleCellChoose(code) {
   if (isMultiplayer && currentTurn !== myRole) {
     if (searchDialog && searchDialog.open) searchDialog.close();
     gameState.selectedCell = null;
-    feedback.textContent = t('board.timeout_loss');
+    setFeedback(t('board.timeout_loss'), 'wrong');
     return;
   }
 
   const selectedCell = gameState.selectedCell;
   if (selectedCell === null) return;
 
+  const cellNumber = selectedCell + 1;
   const details = getMoveValidationDetails(selectedCell, code);
   const isMatch = details.isValid;
   searchDialog.close();
@@ -112,8 +113,9 @@ function handleCellChoose(code) {
         player: myRole, 
         nextTurn 
       });
-      feedback.textContent = `❌ ${countryName} (${details.reason})`;
-      addGameFeed(`❌ ${countryName} [Cell ${selectedCell + 1}] (${details.reason})`, 'wrong');
+      const wrongSelfMsg = t('board.mp_wrong_self', { country: countryName, cell: cellNumber, reason: details.reason });
+      setFeedback(wrongSelfMsg, 'wrong');
+      addGameFeed(`❌ ${countryName} [Case ${cellNumber}] (${details.reason})`, 'wrong');
       gameState.selectedCell = null;
       updateMultiplayerUI();
       renderBoard();
@@ -125,7 +127,7 @@ function handleCellChoose(code) {
     import('./ui.js').then(ui => ui.updateLivesUI());
     
     if (gameState.lives <= 0) {
-      feedback.textContent = t('board.game_over', { country: countryName, reason: details.reason });
+      setFeedback(t('board.game_over', { country: countryName, cell: cellNumber, reason: details.reason }), 'wrong');
       gameState.selectedCell = null;
       renderBoard();
       // F-01 FIX: Afficher la modale Game Over
@@ -133,7 +135,8 @@ function handleCellChoose(code) {
       return;
     }
     
-    feedback.textContent = t('board.incorrect_answer', { country: countryName, reason: details.reason, lives: gameState.lives });
+    const plural = gameState.lives > 1 ? 's' : '';
+    setFeedback(t('board.incorrect_answer', { country: countryName, cell: cellNumber, reason: details.reason, lives: gameState.lives, plural }), 'wrong');
     gameState.selectedCell = null;
     renderBoard();
     return;
@@ -176,10 +179,9 @@ function handleCellChoose(code) {
     } else {
       const nextTurn = myRole === 'host' ? 'guest' : 'host';
       setCurrentTurn(nextTurn);
-      const placedMsg = getLanguage() === 'en' 
-        ? `✅ You placed ${countryName}${pctText}. Opponent's turn.` 
-        : `✅ Vous avez placé ${countryName}${pctText}. Tour à l'adversaire.`;
-      addGameFeed(placedMsg, 'correct');
+      const placedSelfMsg = t('board.mp_correct_self', { country: countryName, cell: cellNumber, pct: pctText });
+      setFeedback(placedSelfMsg, 'correct');
+      addGameFeed(`✅ ${countryName}${pctText} (Case ${cellNumber})`, 'correct');
       updateMultiplayerUI();
       startTurnTimer();
     }
@@ -187,7 +189,8 @@ function handleCellChoose(code) {
     gameState.answers[selectedCell] = { country };
     const count = gameState.answers.filter(Boolean).length;
     document.querySelector('#progress').textContent = count;
-    feedback.textContent = count === 9 ? t('board.game_complete') : t('board.correct_answer', { country: countryName, pct: pctText });
+    const correctMsg = count === 9 ? t('board.game_complete') : t('board.correct_answer', { country: countryName, pct: pctText });
+    setFeedback(correctMsg, 'correct');
   }
 
   gameState.selectedCell = null;
@@ -289,7 +292,7 @@ function setupEventListeners() {
     if (gameState.answers[id]) return;
 
     if (isMultiplayer && currentTurn !== myRole) {
-      feedback.textContent = t('board.not_your_turn');
+      setFeedback(t('board.not_your_turn'), 'wrong');
       return;
     }
 
@@ -336,7 +339,7 @@ function setupEventListeners() {
   document.querySelector('#reset-button').addEventListener('click', () => {
     if (isMultiplayer) {
       safeSend({ type: 'PROPOSE_NEW_GRID', sender: myRole });
-      feedback.textContent = t('board.req_sent');
+      setFeedback(t('board.req_sent'), 'normal');
     } else {
       resetGame(true);
     }
