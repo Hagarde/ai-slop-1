@@ -66,9 +66,15 @@ document.querySelectorAll('.custom-dialog').forEach(dialogElement => {
 const closeTooltipBtn = document.querySelector('#close-tooltip');
 const understandTooltipBtn = document.querySelector('#tooltip-understand-btn');
 const confirmTooltipBtn = document.querySelector('#confirm-tooltip-btn');
-if (closeTooltipBtn) closeTooltipBtn.addEventListener('click', () => tooltipDialog.close());
-if (understandTooltipBtn) understandTooltipBtn.addEventListener('click', () => tooltipDialog.close());
-if (confirmTooltipBtn) confirmTooltipBtn.addEventListener('click', () => tooltipDialog.close());
+if (closeTooltipBtn) closeTooltipBtn.addEventListener('click', () => tooltipDialog?.close());
+if (understandTooltipBtn) understandTooltipBtn.addEventListener('click', () => tooltipDialog?.close());
+if (confirmTooltipBtn) confirmTooltipBtn.addEventListener('click', () => tooltipDialog?.close());
+
+const helpDialog = document.querySelector('#help-dialog');
+const closeHelpBtn = document.querySelector('#close-help');
+const startBtn = document.querySelector('#start-button');
+if (closeHelpBtn) closeHelpBtn.addEventListener('click', () => helpDialog?.close());
+if (startBtn) startBtn.addEventListener('click', () => helpDialog?.close());
 
 export function updateScoresUI() {
   const hostScoreEl = document.querySelector('#mp-score-host');
