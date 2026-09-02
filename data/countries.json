@@ -825,7 +825,7 @@
       "landlocked": true,
       "equator": false,
       "oecd": true,
-      "peak4000": true,
+      "peak4000": false,
       "symbolOnFlag": false,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
@@ -1447,7 +1447,7 @@
       "flagTriangle": false,
       "intertropical": true,
       "aridClimate": false,
-      "glacier": false
+      "glacier": true
     },
     {
       "code": "BOL",
@@ -2082,7 +2082,7 @@
       "landlocked": false,
       "equator": false,
       "oecd": false,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": "vertical",
       "flagColorCount": 3,
@@ -3369,7 +3369,7 @@
       "landlocked": false,
       "equator": false,
       "oecd": true,
-      "peak4000": true,
+      "peak4000": false,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 2,
@@ -4172,7 +4172,7 @@
       "flagTriangle": false,
       "intertropical": true,
       "aridClimate": false,
-      "glacier": true
+      "glacier": false
     },
     {
       "code": "GIN",
@@ -6380,7 +6380,7 @@
       "landlocked": false,
       "equator": false,
       "oecd": false,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 4,
@@ -6651,7 +6651,7 @@
       "landlocked": false,
       "equator": false,
       "oecd": false,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": null,
       "flagColorCount": 2,
@@ -6960,7 +6960,7 @@
       "landlocked": true,
       "equator": false,
       "oecd": false,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": "horizontal",
       "flagColorCount": 3,
@@ -6969,7 +6969,7 @@
       "flagTriangle": false,
       "intertropical": false,
       "aridClimate": true,
-      "glacier": false
+      "glacier": true
     },
     {
       "code": "MNE",
@@ -7549,7 +7549,7 @@
       "landlocked": false,
       "equator": false,
       "oecd": true,
-      "peak4000": true,
+      "peak4000": false,
       "symbolOnFlag": true,
       "flagStripes": null,
       "flagColorCount": 3,
@@ -9679,12 +9679,7 @@
       "latitude": 7,
       "region": "Asia",
       "subregion": "Southern Asia",
-      "borders": [
-        {
-          "code": "IND",
-          "name": "Inde"
-        }
-      ],
+      "borders": [],
       "languages": [
         "Sinhala",
         "Tamil"
@@ -9818,7 +9813,7 @@
       "landlocked": true,
       "equator": false,
       "oecd": true,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": null,
       "flagColorCount": 2,
@@ -10650,7 +10645,7 @@
       "landlocked": false,
       "equator": false,
       "oecd": true,
-      "peak4000": false,
+      "peak4000": true,
       "symbolOnFlag": true,
       "flagStripes": null,
       "flagColorCount": 2,
