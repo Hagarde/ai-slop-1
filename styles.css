@@ -699,30 +699,66 @@ button, input {
   border-radius: var(--radius-sm);
 }
 
+.clue.geography {
+  --cat-color: #2563eb;
+  --cat-bg: #f0f7ff;
+  --cat-border: #bfdbfe;
+  --cat-badge-bg: #dbeafe;
+}
+.clue.language {
+  --cat-color: #db2777;
+  --cat-bg: #fdf2f8;
+  --cat-border: #fbcfe8;
+  --cat-badge-bg: #fce7f3;
+}
+.clue.economy {
+  --cat-color: #d97706;
+  --cat-bg: #fffbeb;
+  --cat-border: #fde68a;
+  --cat-badge-bg: #fef3c7;
+}
+.clue.history {
+  --cat-color: #059669;
+  --cat-bg: #f0fdf4;
+  --cat-border: #bbf7d0;
+  --cat-badge-bg: #dcfce7;
+}
+
 .clue {
-  background: var(--bg-subtle);
+  background: var(--cat-bg, var(--bg-subtle));
   border-radius: var(--radius-sm);
   padding: 8px 10px;
   font-size: clamp(11px, 2.5vw, 13px);
-  font-weight: 600;
   line-height: 1.25;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 5px;
+  gap: 6px;
   color: var(--ink-primary);
-  border: 1px solid transparent;
+  border: 1px solid var(--cat-border, var(--border-light));
   position: relative;
   word-break: normal;
   overflow-wrap: break-word;
   hyphens: auto;
   cursor: pointer;
   min-width: 0;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Ruban de catégorie : accentué en haut pour colonnes, à gauche pour lignes */
+.clue:not(.row) {
+  border-top: 3.5px solid var(--cat-color);
+}
+
+.clue.row {
+  border-left: 3.5px solid var(--cat-color);
 }
 
 .clue:hover {
-  border-color: var(--border-medium);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border-color: var(--cat-color);
 }
 
 .clue-header {
@@ -731,44 +767,58 @@ button, input {
   justify-content: space-between;
   width: 100%;
   line-height: 1;
+  gap: 4px;
+}
+
+.clue-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2.5px 6px;
+  border-radius: 6px;
+  background: var(--cat-badge-bg, rgba(255, 255, 255, 0.8));
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  color: var(--cat-color, var(--ink-primary));
+  line-height: 1;
 }
 
 .clue-icon {
-  font-size: 16px;
-  flex-shrink: 0;
+  font-size: 13px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
+.clue-category {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .clue-text {
   flex: 1;
   min-width: 0;
-  font-size: clamp(10px, 2.3vw, 12px);
-  font-weight: 600;
+  font-size: clamp(10.5px, 2.3vw, 12px);
+  font-weight: 650;
   line-height: 1.25;
   color: var(--ink-primary);
-}
-
-.clue:not(.row) .clue-text {
-  text-align: center;
-}
-
-.clue.row .clue-text {
   text-align: left;
+  letter-spacing: -0.01em;
 }
 
 .info-icon {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  color: var(--accent-primary);
-  background: var(--accent-light);
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
-  min-height: 20px;
+  color: var(--ink-secondary);
+  background: rgba(255, 255, 255, 0.9);
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -776,35 +826,18 @@ button, input {
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.2s ease;
-  border: 1px solid rgba(31, 111, 80, 0.2);
+  border: 1px solid var(--cat-border, rgba(0, 0, 0, 0.1));
   padding: 0;
   position: relative;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Zone tactile étendue 44x44px conforme WCAG sans impacter le layout */
-.info-icon::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
-}
-
 .info-icon:hover {
-  background: var(--accent-primary);
-  color: white;
-  transform: scale(1.1);
+  background: var(--cat-color, var(--accent-primary));
+  color: #ffffff;
+  border-color: var(--cat-color, var(--accent-primary));
+  transform: scale(1.12);
 }
-
-.clue.geography { background: var(--cat-geography-bg); border-color: rgba(43, 108, 176, 0.15); }
-.clue.language { background: var(--cat-language-bg); border-color: rgba(213, 63, 140, 0.15); }
-.clue.economy { background: var(--cat-economy-bg); border-color: rgba(221, 107, 32, 0.15); }
-.clue.history { background: var(--cat-history-bg); border-color: rgba(56, 161, 105, 0.15); }
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(12px); }
@@ -1530,15 +1563,23 @@ dialog:not([open]),
   }
 
   /* Clues : Indices de colonnes verticaux et indices de lignes horizontaux */
+  /* Clues : Option 2 - Rubans et tags de catégories adaptés au mobile */
   .clue {
     font-size: clamp(9px, 2.5vw, 11px);
-    padding: 4px 5px;
+    padding: 5px 6px;
     line-height: 1.15;
-    gap: 3px;
+    gap: 4px;
+    border-radius: 6px;
   }
 
   .clue:not(.row) {
-    min-height: 48px;
+    min-height: 52px;
+    border-top-width: 3px;
+  }
+
+  .clue.row {
+    border-left-width: 3px;
+    padding: 5px 6px;
   }
 
   .clue-header {
@@ -1546,11 +1587,23 @@ dialog:not([open]),
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    gap: 3px;
     margin-bottom: 1px;
   }
 
+  .clue-tag {
+    padding: 1.5px 4px;
+    gap: 3px;
+    border-radius: 4px;
+  }
+
   .clue-icon {
-    font-size: 13px;
+    font-size: 11px;
+  }
+
+  .clue-category {
+    font-size: 7.5px;
+    letter-spacing: 0.02em;
   }
 
   .clue-text {
@@ -1563,15 +1616,11 @@ dialog:not([open]),
     height: 15px;
     min-width: 15px;
     min-height: 15px;
-    font-size: 8.5px;
+    font-size: 8px;
   }
 
   .info-icon::after {
     display: none;
-  }
-
-  .clue.row {
-    padding: 4px 5px;
   }
 
   .cell {
@@ -1823,13 +1872,17 @@ dialog:not([open]),
 
   .clue {
     font-size: clamp(8px, 2.4vw, 9.5px);
-    padding: 3px 3px;
+    padding: 3px 4px;
     line-height: 1.1;
     gap: 2px;
   }
 
+  .clue-category {
+    display: none;
+  }
+
   .clue-icon {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .clue-text {
@@ -1842,7 +1895,7 @@ dialog:not([open]),
     height: 13px;
     min-width: 13px;
     min-height: 13px;
-    font-size: 7.5px;
+    font-size: 7px;
   }
 
   .cell {

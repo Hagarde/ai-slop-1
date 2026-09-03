@@ -186,15 +186,35 @@ export function updateMultiplayerUI() {
   }
 }
 
+const CATEGORY_NAMES = {
+  fr: {
+    geography: 'GÉO',
+    language: 'LANGUE',
+    economy: 'ÉCO',
+    history: 'HIST.'
+  },
+  en: {
+    geography: 'GEO',
+    language: 'LANG',
+    economy: 'ECON',
+    history: 'HIST.'
+  }
+};
+
 export function clueHTML(item, row = false) {
   const label = getCriterionLabel(item);
   const desc = getCriterionDesc(item);
   const icon = item.icon || '';
+  const lang = getLanguage() === 'en' ? 'en' : 'fr';
+  const catShort = (CATEGORY_NAMES[lang] && CATEGORY_NAMES[lang][item.type]) || '';
   const tooltipAria = t('board.clue_tooltip');
   return `
     <div class="clue ${item.type} ${row ? 'row' : ''}">
       <div class="clue-header">
-        ${icon ? `<span class="clue-icon" aria-hidden="true">${icon}</span>` : '<span></span>'}
+        <div class="clue-tag">
+          ${icon ? `<span class="clue-icon" aria-hidden="true">${icon}</span>` : ''}
+          <span class="clue-category">${escapeHtml(catShort)}</span>
+        </div>
         <button class="info-icon" data-label="${escapeHtml((icon ? icon + ' ' : '') + label)}" data-desc="${escapeHtml(desc)}" aria-label="${escapeHtml(tooltipAria)}" title="${escapeHtml(tooltipAria)}">ⓘ</button>
       </div>
       <div class="clue-text">${escapeHtml(label)}</div>
