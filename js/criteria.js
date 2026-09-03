@@ -127,8 +127,8 @@ export function buildCriteria(data) {
     criterion(
       'Présence de sommets > 4 000 m', 'Peaks over 4,000 m',
       'geography',
-      'Le territoire du pays comprend des sommets montagneux dépassant 4 000 mètres d’altitude (ex: France, Népal, Chili...).',
-      'The country includes mountain peaks exceeding 4,000 meters in altitude (e.g. France, Nepal, Chile...).',
+      'Le territoire du pays comprend un ou plusieurs sommets montagneux naturels dépassant 4 000 mètres d’altitude.',
+      'The country’s territory includes one or more natural mountain peaks exceeding 4,000 meters in altitude.',
       (c) => c.peak4000 === true
     ,
       '⛰️'),
@@ -151,16 +151,16 @@ export function buildCriteria(data) {
     criterion(
       'Superficie > 1 000 000 km²', 'Area > 1,000,000 km²',
       'economy',
-      'La superficie totale du pays dépasse 1 million de km² (ex: Canada, Chine, Algérie, Brésil...).',
-      'Total land area exceeds 1 million km² (e.g. Canada, China, Algeria, Brazil...).',
+      'La superficie totale du territoire national dépasse 1 000 000 de kilomètres carrés.',
+      'Total national land area exceeds 1,000,000 square kilometers.',
       (c) => (c.area || 0) >= 1_000_000
     ,
       '📐'),
     criterion(
       'Superficie < 50 000 km²', 'Area < 50,000 km²',
       'economy',
-      'La superficie totale du pays est inférieure à 50 000 km² (ex: Belgique, Suisse, Luxembourg...).',
-      'Total land area is under 50,000 km² (e.g. Belgium, Switzerland, Luxembourg...).',
+      'La superficie totale du territoire national est strictement inférieure à 50 000 kilomètres carrés.',
+      'Total national land area is strictly under 50,000 square kilometers.',
       (c) => (c.area || 0) > 0 && (c.area || 0) < 50_000
     ,
       '🔍'),
@@ -191,7 +191,7 @@ export function buildCriteria(data) {
     criterion(
       'Membre de l’OCDE', 'OECD member state',
       'economy',
-      'Le pays fait partie des 38 États membres développés de l’OCDE (ex: France, Japon, Mexique, Allemagne...).',
+      'Le pays est officiellement membre de l’Organisation de coopération et de développement économiques (38 États membres).',
       'The country is one of the 38 developed member states of the OECD.',
       (c) => c.oecd === true
     ,
@@ -247,16 +247,16 @@ export function buildCriteria(data) {
     criterion(
       'Au moins 2 langues officielles', 'At least 2 official languages',
       'language',
-      'Le pays possède 2 langues officielles ou nationales ou plus (ex: Canada, Suisse, Cameroun...).',
-      'The country has 2 or more official or national languages (e.g. Canada, Switzerland, Cameroon...).',
+      'La législation ou constitution du pays reconnaît au moins deux langues officielles ou nationales distinctes.',
+      'The country legally or constitutionally recognizes at least two distinct official or national languages.',
       (c) => c.languages.length >= 2
     ,
       '💬'),
     criterion(
       'Capitale même initiale que le pays', 'Capital has same initial as country',
       'language',
-      'Le nom de la capitale commence par la même lettre que le nom du pays (ex: Algérie ➔ Alger, Brésil ➔ Brasília, Mexique ➔ Mexico...).',
-      'The capital starts with the same letter as the country name in French (e.g. Algérie ➔ Alger, Brésil ➔ Brasília...).',
+      'La première lettre du nom de la capitale officielle est identique à la première lettre du nom du pays.',
+      'The official capital name begins with the exact same initial letter as the country name in French.',
       (c) => c.capitalSameLetter === true
     ,
       '🔠'),
@@ -284,16 +284,16 @@ export function buildCriteria(data) {
     criterion(
       'Drapeau à bandes verticales', 'Vertical stripes on flag',
       'history',
-      'Le motif principal du drapeau est composé de bandes verticales (ex: France, Italie, Mali...).',
-      'The flag features vertical stripes as its main pattern (e.g. France, Italy, Mali...).',
+      'Le motif officiel du drapeau national est principalement composé de bandes verticales.',
+      'The official national flag features vertical stripes as its primary pattern.',
       (c) => c.flagStripes === 'vertical'
     ,
       '║'),
     criterion(
       'Drapeau à bandes horizontales', 'Horizontal stripes on flag',
       'history',
-      'Le motif principal du drapeau est composé de bandes horizontales (ex: Allemagne, Espagne, Pays-Bas...).',
-      'The flag features horizontal stripes as its main pattern (e.g. Germany, Spain, Netherlands...).',
+      'Le motif officiel du drapeau national est principalement composé de bandes horizontales.',
+      'The official national flag features horizontal stripes as its primary pattern.',
       (c) => c.flagStripes === 'horizontal'
     ,
       '═'),
@@ -348,40 +348,40 @@ export function buildCriteria(data) {
     criterion(
       'Nom en 5 lettres ou moins', 'French name has 5 letters or fewer',
       'history',
-      'Le nom du pays en français comporte 5 lettres ou moins (ex: Cuba, Mali, Pérou, Inde...).',
-      'The country name in French has 5 letters or fewer (e.g. Cuba, Mali, Pérou, Inde...).',
+      'Le nom courant du pays en français s’écrit avec 5 lettres ou moins (sans compter les espaces).',
+      'The country name in French consists of 5 letters or fewer.',
       (c) => c.name.length <= 5
     ,
       '🔤'),
     criterion(
       'Nom se terminant par -ia ou -ie', 'French name ends in -ia or -ie',
       'history',
-      'Le nom courant du pays en français se termine par les lettres "ia" ou "ie" (ex: Algérie, Italie, Australie...).',
-      'The country name in French ends with "ia" or "ie" (e.g. Algérie, Italie, Australie...).',
+      'La terminaison du nom courant du pays en français s’achève par les lettres "ia" ou "ie".',
+      'The country name in French ends with the letters "ia" or "ie".',
       (c) => /i[ae]$/i.test(c.name)
     ,
       '🔤'),
     criterion(
       'Nom composé (plusieurs mots)', 'Compound name (several words)',
       'language',
-      'Le nom du pays en français comporte plusieurs mots ou un trait d’union (ex: Afrique du Sud, Costa Rica, Royaume-Uni...).',
-      'The country name in French consists of multiple words or hyphens (e.g. Afrique du Sud, Costa Rica...).',
+      'Le nom officiel ou usuel du pays en français est composé d’au moins deux mots distincts ou comporte un trait d’union.',
+      'The country name in French consists of multiple words separated by spaces or hyphens.',
       (c) => /[\s-]/.test(c.name)
     ,
       '✍️'),
     criterion(
       'Présence d’un triangle sur le drapeau', 'Triangle on flag',
       'history',
-      'Le motif du drapeau comporte un chevron ou au moins un triangle (ex: Jordanie, Tchéquie, Cuba, Zimbabwe, Bahamas...).',
-      'The flag design includes a chevron or at least one triangle (e.g. Jordan, Czechia, Cuba, South Africa...).',
+      'Le dessin officiel du drapeau national intègre au moins une forme géométrique triangulaire ou un chevron.',
+      'The official flag design features at least one triangle or chevron element.',
       (c) => c.flagTriangle === true
     ,
       '🔺'),
     criterion(
       'Drapeau sans rouge ni bleu', 'Flag without red or blue',
       'history',
-      'Le drapeau officiel ne comporte ni couleur rouge ni couleur bleue (ex: Nigeria, Irlande, Jamaïque, Arabie Saoudite...).',
-      'The official flag contains neither red nor blue (e.g. Nigeria, Jamaica, Saudi Arabia...).',
+      'Le drapeau national officiel ne comporte aucune nuance de couleur rouge ni de couleur bleue.',
+      'The official national flag contains neither the color red nor the color blue.',
       (c) => !(c.flagColors || []).includes('#d21034') && !(c.flagColors || []).includes('#005eb8')
     ,
       '🎨'),
@@ -396,56 +396,56 @@ export function buildCriteria(data) {
     criterion(
       'Climat aride ou désertique', 'Arid or desert climate',
       'geography',
-      'Le pays possède un climat désertique ou aride avec précipitations < 250 mm/an (ex: Égypte, Arabie Saoudite, Algérie...).',
-      'The country has an arid or desert climate with precipitation < 250 mm/year (e.g. Egypt, Saudi Arabia, Algeria...).',
+      'Le territoire est majoritairement caractérisé par un climat désertique ou aride avec précipitations annuelles moyennes < 250 mm.',
+      'The territory is characterized by an arid or desert climate with average precipitation < 250 mm/year.',
       (c) => c.aridClimate === true
     ,
       '🏜️'),
     criterion(
       'Présence de glaciers / neiges éternelles', 'Glaciers or permanent snow',
       'geography',
-      'Le pays abrite au moins un glacier ou des neiges éternelles répertoriés (ex: Suisse, France, Chili, Népal, Tanzanie...).',
-      'The country hosts at least one documented glacier or permanent snow field (e.g. Switzerland, France, Chile, Nepal...).',
+      'Le territoire national abrite au moins un glacier naturel actif ou une zone de neiges éternelles répertoriés.',
+      'The country hosts at least one documented active natural glacier or permanent snow field.',
       (c) => c.glacier === true
     ,
       '🏔️'),
     criterion(
       'Présence d’une croix sur le drapeau', 'Cross on flag',
       'history',
-      'Le drapeau officiel comporte une croix visible (scandinave, grecque, en sautoir ou chrétienne, ex: Suède, Suisse, Royaume-Uni...).',
-      'The official flag features a prominent cross (Scandinavian, Greek, saltire or Christian, e.g. Sweden, Switzerland, UK...).',
+      'Le drapeau officiel national comporte une croix clairement identifiable (croix scandinave, grecque, sautoir ou latine).',
+      'The official national flag features a prominent cross design (Scandinavian, Greek, saltire, or Latin cross).',
       (c) => c.flagCross === true
     ,
       '✝️'),
     criterion(
       'Croissant de lune sur le drapeau', 'Crescent moon on flag',
       'history',
-      'Le drapeau officiel comporte un croissant de lune (ex: Turquie, Algérie, Tunisie, Pakistan, Singapour...).',
-      'The official flag includes a crescent moon (e.g. Turkey, Algeria, Tunisia, Pakistan, Singapore...).',
+      'Le motif officiel du drapeau national comprend la représentation graphique d’un croissant de lune.',
+      'The official national flag includes the graphic representation of a crescent moon.',
       (c) => c.flagCrescent === true
     ,
       '🌙'),
     criterion(
       'Au moins une étoile sur le drapeau', 'At least one star on flag',
       'history',
-      'Le drapeau officiel comporte au moins une étoile (ex: États-Unis, Chine, Chili, Sénégal, Australie...).',
-      'The official flag contains at least one star (e.g. United States, China, Chile, Senegal, Australia...).',
+      'Le drapeau officiel national comporte au moins une étoile dans son dessin (à cinq branches ou plus).',
+      'The official national flag features at least one star in its design.',
       (c) => c.flagStar === true
     ,
       '⭐'),
     criterion(
       'Sens de circulation : conduite à gauche', 'Drives on the left',
       'geography',
-      'La circulation automobile se fait obligatoirement sur la voie de gauche (ex: Royaume-Uni, Japon, Inde, Australie, Afrique du Sud...).',
-      'Motor vehicle traffic legally drives on the left side of the road (e.g. United Kingdom, Japan, India, Australia, South Africa...).',
+      'Le code de la route national impose obligatoirement la circulation automobile sur la voie de gauche de la chaussée.',
+      'Traffic laws mandate driving on the left-hand side of the road.',
       (c) => c.driveLeft === true
     ,
       '🚗'),
     criterion(
       'Exploite l’énergie nucléaire civile', 'Operates civil nuclear power',
       'economy',
-      'Le pays dispose d’au moins un réacteur électronucléaire en exploitation commerciale (source AIEA : France, Japon, États-Unis, Chine...).',
-      'The country operates at least one commercial nuclear power reactor (IAEA source: France, Japan, USA, China...).',
+      'Le pays exploite au moins un réacteur électronucléaire commercial en activité sur son sol pour produire de l’électricité (base AIEA PRIS).',
+      'The country operates at least one active commercial nuclear power reactor on its territory for electricity generation (IAEA PRIS).',
       (c) => c.nuclearPower === true
     ,
       '⚡'),
@@ -460,16 +460,16 @@ export function buildCriteria(data) {
     criterion(
       'État indépendant en 1990 ou après', 'Independent in 1990 or later',
       'history',
-      'Le pays a accédé à l’indépendance ou a été constitué comme nouvel État souverain en 1990 ou après (ex-URSS, ex-Yougoslavie, etc.).',
-      'The country gained independence or was created as a sovereign state in 1990 or later (ex-USSR, ex-Yugoslavia, etc.).',
+      'Le pays a accédé à sa pleine souveraineté internationale ou a été constitué comme nouvel État indépendant en 1990 ou ultérieurement.',
+      'The country gained full sovereignty or was established as an independent sovereign state in 1990 or later.',
       (c) => c.independent1990 === true
     ,
       '⏳'),
     criterion(
       'État fédéral (fédération d’États)', 'Federal state',
       'history',
-      'La constitution du pays établit une structure fédérale d’États ou de provinces autonomes (ex: États-Unis, Allemagne, Suisse, Canada, Brésil...).',
-      'The national constitution establishes a federal structure of autonomous states or provinces (e.g. USA, Germany, Switzerland, Canada, Brazil...).',
+      'La constitution nationale établit une organisation politique fédérale composée d’États, provinces ou cantons autonomes.',
+      'The national constitution establishes a federal structure comprising autonomous states, provinces, or cantons.',
       (c) => c.federalState === true
     ,
       '🏛️'),
