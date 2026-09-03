@@ -17,7 +17,7 @@ window.addEventListener('unhandledrejection', (event) => {
 // Setup custom logger for bug reports
 setupLogging();
 
-const APP_VERSION = "v1.5";
+const APP_VERSION = "v1.8";
 
 // Init App
 async function initApp() {
@@ -55,11 +55,22 @@ async function initApp() {
     resetGame(true);
   }
 
-  // Service Worker Registration (PWA)
+  // Service Worker Registration (PWA) avec mise à jour automatique
   if ('serviceWorker' in navigator) {
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) {
+        refreshing = true;
+        console.log('[App] Nouveau Service Worker activé, rechargement automatique...');
+        window.location.reload();
+      }
+    });
+
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js').then(registration => {
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        // Force la détection immédiate de mise à jour au chargement
+        registration.update();
       }).catch(err => {
         console.log('ServiceWorker registration failed: ', err);
       });
