@@ -193,11 +193,11 @@ export function clueHTML(item, row = false) {
   const tooltipAria = t('board.clue_tooltip');
   return `
     <div class="clue ${item.type} ${row ? 'row' : ''}">
-      <div class="clue-label-area">
-        ${icon ? `<span class="clue-icon" aria-hidden="true">${icon}</span>` : ''}
-        <span class="clue-text">${escapeHtml(label)}</span>
+      <div class="clue-header">
+        ${icon ? `<span class="clue-icon" aria-hidden="true">${icon}</span>` : '<span></span>'}
+        <button class="info-icon" data-label="${escapeHtml((icon ? icon + ' ' : '') + label)}" data-desc="${escapeHtml(desc)}" aria-label="${escapeHtml(tooltipAria)}" title="${escapeHtml(tooltipAria)}">ⓘ</button>
       </div>
-      <button class="info-icon" data-label="${escapeHtml((icon ? icon + ' ' : '') + label)}" data-desc="${escapeHtml(desc)}" aria-label="${escapeHtml(tooltipAria)}">ⓘ</button>
+      <div class="clue-text">${escapeHtml(label)}</div>
     </div>
   `;
 }
@@ -287,6 +287,15 @@ export function renderBoard(isNewGrid = false) {
 
   // O-05: Injection unique dans le DOM
   board.innerHTML = html;
+
+  board.querySelectorAll('.clue').forEach((clueEl) => {
+    clueEl.addEventListener('click', (e) => {
+      const btn = clueEl.querySelector('.info-icon');
+      if (btn) {
+        showTooltip(btn.dataset.label, btn.dataset.desc);
+      }
+    });
+  });
 
   board.querySelectorAll('.info-icon').forEach((btn) => {
     btn.addEventListener('click', (e) => {
