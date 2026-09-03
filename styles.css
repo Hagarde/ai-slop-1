@@ -721,6 +721,23 @@ button, input {
 .clue-label-area {
   flex: 1;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clue-icon {
+  font-size: 1.2em;
+  flex-shrink: 0;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clue-text {
+  flex: 1;
+  min-width: 0;
 }
 
 .info-icon {
@@ -1509,6 +1526,21 @@ dialog:not([open]),
     text-align: center;
     padding: 4px 2px 6px;
     min-height: 48px;
+  }
+
+  .clue:not(.row) .clue-label-area {
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .clue:not(.row) .clue-icon {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .clue.row .clue-icon {
+    font-size: 13px;
   }
 
   .clue:not(.row) .info-icon {

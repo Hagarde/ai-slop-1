@@ -308,7 +308,13 @@ function setupEventListeners() {
       const candidatesCountEl = document.querySelector('#candidates-count');
       if (candidatesCountEl) candidatesCountEl.textContent = t('dialog.search_solutions_count', { count: candidates.length });
       const searchDialogClues = document.querySelector('#search-dialog-clues');
-      if (searchDialogClues) searchDialogClues.textContent = `${t('dialog.search_clues_prefix')}${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
+      if (searchDialogClues) {
+        const rCrit = gameState.rows[rowIndex];
+        const cCrit = gameState.columns[columnIndex];
+        const rLabel = (rCrit?.icon ? `${rCrit.icon} ` : '') + (rCrit?.label || '');
+        const cLabel = (cCrit?.icon ? `${cCrit.icon} ` : '') + (cCrit?.label || '');
+        searchDialogClues.textContent = `${t('dialog.search_clues_prefix')}${rLabel} + ${cLabel}`;
+      }
       
       const cellTargetTag = document.querySelector('#cell-target-tag');
       if (cellTargetTag) cellTargetTag.textContent = t('dialog.cell_tag', { cell: id + 1 });
@@ -324,7 +330,13 @@ function setupEventListeners() {
     const candidatesCountEl = document.querySelector('#candidates-count');
     if (candidatesCountEl) candidatesCountEl.textContent = t('dialog.search_valid_count', { count: candidates.length });
     const searchDialogClues = document.querySelector('#search-dialog-clues');
-    if (searchDialogClues) searchDialogClues.textContent = `${t('dialog.search_clues_prefix')}${gameState.rows[rowIndex].label} + ${gameState.columns[columnIndex].label}`;
+    if (searchDialogClues) {
+      const rCrit = gameState.rows[rowIndex];
+      const cCrit = gameState.columns[columnIndex];
+      const rLabel = (rCrit?.icon ? `${rCrit.icon} ` : '') + (rCrit?.label || '');
+      const cLabel = (cCrit?.icon ? `${cCrit.icon} ` : '') + (cCrit?.label || '');
+      searchDialogClues.textContent = `${t('dialog.search_clues_prefix')}${rLabel} + ${cLabel}`;
+    }
 
     const cellTargetTag = document.querySelector('#cell-target-tag');
     if (cellTargetTag) cellTargetTag.textContent = t('dialog.cell_tag', { cell: id + 1 });

@@ -189,13 +189,15 @@ export function updateMultiplayerUI() {
 export function clueHTML(item, row = false) {
   const label = getCriterionLabel(item);
   const desc = getCriterionDesc(item);
+  const icon = item.icon || '';
   const tooltipAria = t('board.clue_tooltip');
   return `
     <div class="clue ${item.type} ${row ? 'row' : ''}">
       <div class="clue-label-area">
-        <span>${escapeHtml(label)}</span>
+        ${icon ? `<span class="clue-icon" aria-hidden="true">${icon}</span>` : ''}
+        <span class="clue-text">${escapeHtml(label)}</span>
       </div>
-      <button class="info-icon" data-label="${escapeHtml(label)}" data-desc="${escapeHtml(desc)}" aria-label="${escapeHtml(tooltipAria)}">ⓘ</button>
+      <button class="info-icon" data-label="${escapeHtml((icon ? icon + ' ' : '') + label)}" data-desc="${escapeHtml(desc)}" aria-label="${escapeHtml(tooltipAria)}">ⓘ</button>
     </div>
   `;
 }
