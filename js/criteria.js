@@ -207,40 +207,40 @@ export function buildCriteria(data) {
     criterion(
       'Devise : Euro (€)', 'Currency: Euro (€)',
       'economy',
-      'Le pays utilise l’Euro (€) comme monnaie officielle.',
-      'The country uses the Euro (€) as its official currency.',
+      'Le pays utilise l’Euro (€) comme monnaie officielle ou légale.',
+      'The country uses the Euro (€) as its official currency or legal tender.',
       hasCurrencyCode('EUR')
     ,
       '💶'),
     criterion(
       'Devise : Dollar ($)', 'Currency: Dollar ($)',
       'economy',
-      'Le pays utilise une monnaie appelée Dollar (USD, CAD, AUD, etc.).',
-      'The country uses a currency called Dollar (USD, CAD, AUD, etc.).',
+      'La monnaie légale du pays porte le nom officiel de Dollar (symbole : $).',
+      'The country’s official currency is called Dollar (symbol: $).',
       hasCurrencyName('dollar')
     ,
       '💵'),
     criterion(
-      'Devise : Franc', 'Currency: Franc',
+      'Devise : Franc (₣)', 'Currency: Franc (₣)',
       'economy',
-      'Le pays utilise une monnaie appelée Franc (CFA, CFP, CHF, etc.).',
-      'The country uses a currency called Franc (CFA, CFP, CHF, etc.).',
+      'La monnaie légale du pays porte le nom officiel de Franc (symbole : ₣ ou Fr).',
+      'The country’s official currency is called Franc (symbol: ₣ or Fr).',
       hasCurrencyName('franc')
     ,
       '₣'),
     criterion(
-      'Devise : Dinar', 'Currency: Dinar',
+      'Devise : Dinar (din.)', 'Currency: Dinar (din.)',
       'economy',
-      'Le pays utilise une monnaie appelée Dinar (Algérie, Koweït, Tunisie, etc.).',
-      'The country uses a currency called Dinar (Algeria, Kuwait, Tunisia, etc.).',
+      'La monnaie légale du pays porte le nom officiel de Dinar (abréviation : din.).',
+      'The country’s official currency is called Dinar (abbreviation: din.).',
       hasCurrencyName('dinar')
     ,
       '🪙'),
     criterion(
-      'Devise : Roupie', 'Currency: Rupee',
+      'Devise : Roupie (₹ / ₨)', 'Currency: Rupee (₹ / ₨)',
       'economy',
-      'Le pays utilise une monnaie appelée Roupie (Inde, Pakistan, Maurice, etc.).',
-      'The country uses a currency called Rupee (India, Pakistan, Mauritius, etc.).',
+      'La monnaie légale du pays porte le nom officiel de Roupie (symbole : ₹ ou ₨).',
+      'The country’s official currency is called Rupee (symbol: ₹ or ₨).',
       hasCurrencyName('rupee')
     ,
       '₨'),
