@@ -362,6 +362,62 @@ export function buildCriteria(data) {
       'The country hosts at least one documented glacier or permanent snow field (e.g. Switzerland, France, Chile, Nepal...).',
       (c) => c.glacier === true
     ),
+    criterion(
+      'Présence d’une croix sur le drapeau', 'Cross on flag',
+      'history',
+      'Le drapeau officiel comporte une croix visible (scandinave, grecque, en sautoir ou chrétienne, ex: Suède, Suisse, Royaume-Uni...).',
+      'The official flag features a prominent cross (Scandinavian, Greek, saltire or Christian, e.g. Sweden, Switzerland, UK...).',
+      (c) => c.flagCross === true
+    ),
+    criterion(
+      'Croissant de lune sur le drapeau', 'Crescent moon on flag',
+      'history',
+      'Le drapeau officiel comporte un croissant de lune (ex: Turquie, Algérie, Tunisie, Pakistan, Singapour...).',
+      'The official flag includes a crescent moon (e.g. Turkey, Algeria, Tunisia, Pakistan, Singapore...).',
+      (c) => c.flagCrescent === true
+    ),
+    criterion(
+      'Au moins une étoile sur le drapeau', 'At least one star on flag',
+      'history',
+      'Le drapeau officiel comporte au moins une étoile (ex: États-Unis, Chine, Chili, Sénégal, Australie...).',
+      'The official flag contains at least one star (e.g. United States, China, Chile, Senegal, Australia...).',
+      (c) => c.flagStar === true
+    ),
+    criterion(
+      'Sens de circulation : conduite à gauche', 'Drives on the left',
+      'geography',
+      'La circulation automobile se fait obligatoirement sur la voie de gauche (ex: Royaume-Uni, Japon, Inde, Australie, Afrique du Sud...).',
+      'Motor vehicle traffic legally drives on the left side of the road (e.g. United Kingdom, Japan, India, Australia, South Africa...).',
+      (c) => c.driveLeft === true
+    ),
+    criterion(
+      'Exploite l’énergie nucléaire civile', 'Operates civil nuclear power',
+      'economy',
+      'Le pays dispose d’au moins un réacteur électronucléaire en exploitation commerciale (source AIEA : France, Japon, États-Unis, Chine...).',
+      'The country operates at least one commercial nuclear power reactor (IAEA source: France, Japan, USA, China...).',
+      (c) => c.nuclearPower === true
+    ),
+    criterion(
+      'Union monétaire partagée', 'Shared currency union',
+      'economy',
+      'Le pays partage sa monnaie officielle avec d’autres États souverains (Zone Euro, Franc CFA, Dollar des Caraïbes, dollarisation...).',
+      'The country shares its official currency with other sovereign states (Eurozone, CFA Franc, East Caribbean Dollar, official dollarization...).',
+      (c) => c.sharedCurrency === true
+    ),
+    criterion(
+      'État indépendant en 1990 ou après', 'Independent in 1990 or later',
+      'history',
+      'Le pays a accédé à l’indépendance ou a été constitué comme nouvel État souverain en 1990 ou après (ex-URSS, ex-Yougoslavie, etc.).',
+      'The country gained independence or was created as a sovereign state in 1990 or later (ex-USSR, ex-Yugoslavia, etc.).',
+      (c) => c.independent1990 === true
+    ),
+    criterion(
+      'État fédéral (fédération d’États)', 'Federal state',
+      'history',
+      'La constitution du pays établit une structure fédérale d’États ou de provinces autonomes (ex: États-Unis, Allemagne, Suisse, Canada, Brésil...).',
+      'The national constitution establishes a federal structure of autonomous states or provinces (e.g. USA, Germany, Switzerland, Canada, Brazil...).',
+      (c) => c.federalState === true
+    ),
   ].filter((item) => data.filter(item.test).length >= 5);
 }
 
