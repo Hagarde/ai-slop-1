@@ -3,7 +3,7 @@ import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
-import { recordChoice, getChoicePercentage } from './stats.js';
+import { recordChoice, getChoicePercentage, syncGlobalStats } from './stats.js';
 import { initLanguage, getLanguage, setLanguage, t, getCountryName } from './i18n.js';
 
 // Setup Global Error Handling
@@ -44,6 +44,9 @@ async function initApp() {
 
   // Appliquer les textes traduits
   applyStaticTranslations();
+
+  // Synchronisation asynchrone des statistiques mondiales Supabase
+  syncGlobalStats();
 
   // URL Room check
   const urlParams = new URLSearchParams(window.location.search);
