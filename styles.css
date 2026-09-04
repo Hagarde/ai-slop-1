@@ -705,11 +705,18 @@ button, input {
   --cat-border: #bfdbfe;
   --cat-badge-bg: #dbeafe;
 }
+.clue.flag {
+  --cat-color: #e11d48;
+  --cat-bg: #fff1f2;
+  --cat-border: #fecdd3;
+  --cat-badge-bg: #ffe4e6;
+}
+.clue.linguistic,
 .clue.language {
-  --cat-color: #db2777;
-  --cat-bg: #fdf2f8;
-  --cat-border: #fbcfe8;
-  --cat-badge-bg: #fce7f3;
+  --cat-color: #9333ea;
+  --cat-bg: #faf5ff;
+  --cat-border: #e9d5ff;
+  --cat-badge-bg: #f3e8ff;
 }
 .clue.economy {
   --cat-color: #d97706;

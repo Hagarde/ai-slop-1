@@ -189,13 +189,17 @@ export function updateMultiplayerUI() {
 const CATEGORY_NAMES = {
   fr: {
     geography: 'GÉO',
-    language: 'LANGUE',
+    flag: 'DRAPEAU',
+    linguistic: 'LING.',
+    language: 'LING.',
     economy: 'ÉCO',
     history: 'HIST.'
   },
   en: {
     geography: 'GEO',
-    language: 'LANG',
+    flag: 'FLAG',
+    linguistic: 'LING.',
+    language: 'LING.',
     economy: 'ECON',
     history: 'HIST.'
   }

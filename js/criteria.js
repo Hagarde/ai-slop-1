@@ -150,7 +150,7 @@ export function buildCriteria(data) {
       '🏝️'),
     criterion(
       'Superficie > 1 000 000 km²', 'Area > 1,000,000 km²',
-      'economy',
+      'geography',
       'La superficie totale du territoire national dépasse 1 000 000 de kilomètres carrés.',
       'Total national land area exceeds 1,000,000 square kilometers.',
       (c) => (c.area || 0) >= 1_000_000
@@ -158,7 +158,7 @@ export function buildCriteria(data) {
       '📐'),
     criterion(
       'Superficie < 50 000 km²', 'Area < 50,000 km²',
-      'economy',
+      'geography',
       'La superficie totale du territoire national est strictement inférieure à 50 000 kilomètres carrés.',
       'Total national land area is strictly under 50,000 square kilometers.',
       (c) => (c.area || 0) > 0 && (c.area || 0) < 50_000
@@ -246,7 +246,7 @@ export function buildCriteria(data) {
       '₨'),
     criterion(
       'Au moins 2 langues officielles', 'At least 2 official languages',
-      'language',
+      'linguistic',
       'La législation ou constitution du pays reconnaît au moins deux langues officielles ou nationales distinctes.',
       'The country legally or constitutionally recognizes at least two distinct official or national languages.',
       (c) => c.languages.length >= 2
@@ -254,7 +254,7 @@ export function buildCriteria(data) {
       '💬'),
     criterion(
       'Capitale même initiale que le pays', 'Capital has same initial as country',
-      'language',
+      'linguistic',
       'La première lettre du nom de la capitale officielle est identique à la première lettre du nom du pays.',
       'The official capital name begins with the exact same initial letter as the country name in French.',
       (c) => c.capitalSameLetter === true
@@ -266,7 +266,7 @@ export function buildCriteria(data) {
       const icon = { English:'🇬🇧', French:'🇫🇷', Spanish:'🇪🇸', Arabic:'🇸🇦', Portuguese:'🇵🇹', Russian:'🇷🇺', Chinese:'🇨🇳' }[language];
       return criterion(
         `Langue : ${nameFr}`, `Language: ${nameEn}`,
-        'language',
+        'linguistic',
         `Une des langues officielles ou nationales du pays est ${nameFr}.`,
         `One of the country’s official or national languages is ${nameEn}.`,
         hasLanguage(language),
@@ -275,7 +275,7 @@ export function buildCriteria(data) {
     }),
     criterion(
       'Symbole sur le drapeau', 'Symbol on flag',
-      'history',
+      'flag',
       'Le drapeau comporte un symbole particulier (étoile, croissant de lune, soleil ou armoiries).',
       'The flag features a distinctive symbol (star, crescent, sun, or coat of arms).',
       (c) => c.symbolOnFlag === true
@@ -283,7 +283,7 @@ export function buildCriteria(data) {
       '⚜️'),
     criterion(
       'Drapeau à bandes verticales', 'Vertical stripes on flag',
-      'history',
+      'flag',
       'Le motif officiel du drapeau national est principalement composé de bandes verticales.',
       'The official national flag features vertical stripes as its primary pattern.',
       (c) => c.flagStripes === 'vertical'
@@ -291,7 +291,7 @@ export function buildCriteria(data) {
       '║'),
     criterion(
       'Drapeau à bandes horizontales', 'Horizontal stripes on flag',
-      'history',
+      'flag',
       'Le motif officiel du drapeau national est principalement composé de bandes horizontales.',
       'The official national flag features horizontal stripes as its primary pattern.',
       (c) => c.flagStripes === 'horizontal'
@@ -299,7 +299,7 @@ export function buildCriteria(data) {
       '═'),
     criterion(
       'Drapeau avec au moins 4 couleurs', 'Flag with at least 4 colors',
-      'history',
+      'flag',
       'Le drapeau comporte 4 couleurs principales distinctes ou plus.',
       'The flag contains 4 or more distinct main colors.',
       (c) => (c.flagColorCount || 0) >= 4
@@ -307,7 +307,7 @@ export function buildCriteria(data) {
       '🌈'),
     criterion(
       'Drapeau avec du rouge', 'Flag contains red',
-      'history',
+      'flag',
       'Le drapeau officiel comporte de la couleur rouge.',
       'The official flag contains the color red.',
       hasColor('#d21034')
@@ -315,7 +315,7 @@ export function buildCriteria(data) {
       '🟥'),
     criterion(
       'Drapeau avec du bleu', 'Flag contains blue',
-      'history',
+      'flag',
       'Le drapeau officiel comporte de la couleur bleue.',
       'The official flag contains the color blue.',
       hasColor('#005eb8')
@@ -323,7 +323,7 @@ export function buildCriteria(data) {
       '🟦'),
     criterion(
       'Drapeau avec du vert', 'Flag contains green',
-      'history',
+      'flag',
       'Le drapeau officiel comporte de la couleur verte.',
       'The official flag contains the color green.',
       hasColor('#007a3d')
@@ -331,7 +331,7 @@ export function buildCriteria(data) {
       '🟩'),
     criterion(
       'Drapeau avec du jaune / or', 'Flag contains yellow / gold',
-      'history',
+      'flag',
       'Le drapeau officiel comporte de la couleur jaune ou or.',
       'The official flag contains yellow or gold.',
       hasColor('#ffd100')
@@ -339,7 +339,7 @@ export function buildCriteria(data) {
       '🟨'),
     criterion(
       'Drapeau avec du noir', 'Flag contains black',
-      'history',
+      'flag',
       'Le drapeau officiel comporte de la couleur noire.',
       'The official flag contains the color black.',
       hasColor('#000000')
@@ -347,7 +347,7 @@ export function buildCriteria(data) {
       '⬛'),
     criterion(
       'Nom en 5 lettres ou moins', 'French name has 5 letters or fewer',
-      'history',
+      'linguistic',
       'Le nom courant du pays en français s’écrit avec 5 lettres ou moins (sans compter les espaces).',
       'The country name in French consists of 5 letters or fewer.',
       (c) => c.name.length <= 5
@@ -355,7 +355,7 @@ export function buildCriteria(data) {
       '🔤'),
     criterion(
       'Nom se terminant par -ia ou -ie', 'French name ends in -ia or -ie',
-      'history',
+      'linguistic',
       'La terminaison du nom courant du pays en français s’achève par les lettres "ia" ou "ie".',
       'The country name in French ends with the letters "ia" or "ie".',
       (c) => /i[ae]$/i.test(c.name)
@@ -363,7 +363,7 @@ export function buildCriteria(data) {
       '🔤'),
     criterion(
       'Nom composé (plusieurs mots)', 'Compound name (several words)',
-      'language',
+      'linguistic',
       'Le nom officiel ou usuel du pays en français est composé d’au moins deux mots distincts ou comporte un trait d’union.',
       'The country name in French consists of multiple words separated by spaces or hyphens.',
       (c) => /[\s-]/.test(c.name)
@@ -371,7 +371,7 @@ export function buildCriteria(data) {
       '✍️'),
     criterion(
       'Présence d’un triangle sur le drapeau', 'Triangle on flag',
-      'history',
+      'flag',
       'Le dessin officiel du drapeau national intègre au moins une forme géométrique triangulaire ou un chevron.',
       'The official flag design features at least one triangle or chevron element.',
       (c) => c.flagTriangle === true
@@ -379,7 +379,7 @@ export function buildCriteria(data) {
       '🔺'),
     criterion(
       'Drapeau sans rouge ni bleu', 'Flag without red or blue',
-      'history',
+      'flag',
       'Le drapeau national officiel ne comporte aucune nuance de couleur rouge ni de couleur bleue.',
       'The official national flag contains neither the color red nor the color blue.',
       (c) => !(c.flagColors || []).includes('#d21034') && !(c.flagColors || []).includes('#005eb8')
@@ -411,7 +411,7 @@ export function buildCriteria(data) {
       '🏔️'),
     criterion(
       'Présence d’une croix sur le drapeau', 'Cross on flag',
-      'history',
+      'flag',
       'Le drapeau officiel national comporte une croix clairement identifiable (croix scandinave, grecque, sautoir ou latine).',
       'The official national flag features a prominent cross design (Scandinavian, Greek, saltire, or Latin cross).',
       (c) => c.flagCross === true
@@ -419,7 +419,7 @@ export function buildCriteria(data) {
       '✝️'),
     criterion(
       'Croissant de lune sur le drapeau', 'Crescent moon on flag',
-      'history',
+      'flag',
       'Le motif officiel du drapeau national comprend la représentation graphique d’un croissant de lune.',
       'The official national flag includes the graphic representation of a crescent moon.',
       (c) => c.flagCrescent === true
@@ -427,7 +427,7 @@ export function buildCriteria(data) {
       '🌙'),
     criterion(
       'Au moins une étoile sur le drapeau', 'At least one star on flag',
-      'history',
+      'flag',
       'Le drapeau officiel national comporte au moins une étoile dans son dessin (à cinq branches ou plus).',
       'The official national flag features at least one star in its design.',
       (c) => c.flagStar === true
@@ -435,7 +435,7 @@ export function buildCriteria(data) {
       '⭐'),
     criterion(
       'Sens de circulation : conduite à gauche', 'Drives on the left',
-      'geography',
+      'history',
       'Le code de la route national impose obligatoirement la circulation automobile sur la voie de gauche de la chaussée.',
       'Traffic laws mandate driving on the left-hand side of the road.',
       (c) => c.driveLeft === true
