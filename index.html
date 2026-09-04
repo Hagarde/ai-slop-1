@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=39" />
+    <link rel="stylesheet" href="styles.css?v=40" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -29,7 +29,7 @@
           </button>
           <button class="nav-action-btn lang-toggle-btn" id="lang-toggle-btn" title="Changer la langue / Change language" aria-label="Changer la langue">
             <span class="nav-btn-icon">🇬🇧</span>
-            <span class="nav-btn-text">EN</span>
+            <span class="nav-btn-text" data-i18n="nav.lang_label">Langue</span>
           </button>
           <button class="nav-action-btn" id="help-button" aria-label="Voir les règles du jeu" title="Règles du jeu" data-i18n-title="nav.help">
             <span class="nav-btn-icon">❓</span>
@@ -344,15 +344,23 @@
         <div class="rules-list">
           <div class="rule-item">
             <span class="rule-number">1</span>
-            <p data-i18n="dialog.rule1"><strong>Mode Solo :</strong> Complétez les 9 cases de la grille avec 3 vies maximum.</p>
+            <p data-i18n="dialog.rule1"><strong>Le croisement des critères :</strong> Chaque case de la grille 3×3 est à l’intersection d’une ligne et d’une colonne. Le pays choisi doit valider <em>simultanément les deux conditions</em> (ex: <em>En Europe</em> + <em>Drapeau avec du rouge</em>).</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">2</span>
-            <p data-i18n="dialog.rule2"><strong>Mode 1v1 (30s / tour) :</strong> Vous avez 30 secondes par tour. Chaque bonne réponse capture une case. Le premier qui aligne 3 cases (🟢 J1 / 🔵 J2) gagne !</p>
+            <p data-i18n="dialog.rule2"><strong>Unicité des pays :</strong> Un même pays ne peut être placé <em>qu’une seule fois</em> par grille. Choisissez bien son emplacement !</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">3</span>
-            <p data-i18n="dialog.rule3"><strong>Info-bulles (ⓘ) :</strong> Cliquez sur le symbole ⓘ à côté d'un critère pour voir son explication exacte.</p>
+            <p data-i18n="dialog.rule3"><strong>Mode Solo (3 vies) :</strong> Vous disposez de 3 cœurs ❤️. Une erreur ou un pays hors critères fait perdre 1 vie. Complétez les 9 cases pour remporter la victoire.</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-number">4</span>
+            <p data-i18n="dialog.rule4"><strong>Mode Multijoueur 1v1 (30s / tour) :</strong> Affrontez un ami en direct ! Chaque bonne réponse capture une case (🟢 J1 / 🟣 J2). Le premier à aligner 3 cases (ou qui en contrôle le plus à la fin) gagne le match.</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-number">5</span>
+            <p data-i18n="dialog.rule5"><strong>Indices & Statistiques mondiales :</strong> Cliquez sur n’importe quelle carte de critère (ou sur ⓘ) pour lire sa définition sans spoiler. Vos réussites alimentent les pourcentages de popularité mondiaux (📊 %).</p>
           </div>
         </div>
 
@@ -360,6 +368,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=39"></script>
+    <script type="module" src="js/main.js?v=40"></script>
   </body>
 </html>

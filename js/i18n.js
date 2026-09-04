@@ -74,9 +74,11 @@ export const translations = {
     // Dialogs: Rules
     'dialog.rules_eyebrow': 'RÈGLES DU JEU',
     'dialog.rules_title': 'Comment jouer à CountryDoku ?',
-    'dialog.rule1': '<strong>Mode Solo :</strong> Complétez les 9 cases de la grille avec 3 vies maximum.',
-    'dialog.rule2': '<strong>Mode 1v1 (30s / tour) :</strong> Vous avez 30 secondes par tour. Chaque bonne réponse capture une case. Le premier qui aligne 3 cases (🟢 J1 / 🔵 J2) gagne !',
-    'dialog.rule3': '<strong>Info-bulles (ⓘ) :</strong> Cliquez sur le symbole ⓘ à côté d\'un critère pour voir son explication exacte.',
+    'dialog.rule1': '<strong>Le croisement des critères :</strong> Chaque case de la grille 3×3 est à l’intersection d’une ligne et d’une colonne. Le pays choisi doit valider <em>simultanément les deux conditions</em> (ex: <em>En Europe</em> + <em>Drapeau avec du rouge</em>).',
+    'dialog.rule2': '<strong>Unicité des pays :</strong> Un même pays ne peut être placé <em>qu’une seule fois</em> par grille. Choisissez bien son emplacement !',
+    'dialog.rule3': '<strong>Mode Solo (3 vies) :</strong> Vous disposez de 3 cœurs ❤️. Une erreur ou un pays hors critères fait perdre 1 vie. Complétez les 9 cases pour remporter la victoire.',
+    'dialog.rule4': '<strong>Mode Multijoueur 1v1 (30s / tour) :</strong> Affrontez un ami en direct ! Chaque bonne réponse capture une case (🟢 J1 / 🟣 J2). Le premier à aligner 3 cases (ou qui en contrôle le plus à la fin) gagne le match.',
+    'dialog.rule5': '<strong>Indices & Statistiques mondiales :</strong> Cliquez sur n’importe quelle carte de critère (ou sur ⓘ) pour lire sa définition sans spoiler. Vos réussites alimentent les pourcentages de popularité mondiaux (📊 %).',
     'dialog.rules_close': 'J\'ai compris, jouer !',
 
     // Dialogs: Tooltip
@@ -230,9 +232,11 @@ export const translations = {
     // Dialogs: Rules
     'dialog.rules_eyebrow': 'GAME RULES',
     'dialog.rules_title': 'How to play CountryDoku?',
-    'dialog.rule1': '<strong>Solo Mode:</strong> Complete all 9 grid cells with a maximum of 3 lives.',
-    'dialog.rule2': '<strong>1v1 Mode (30s / turn):</strong> You have 30 seconds per turn. Each correct answer claims a cell. First to align 3 cells (🟢 P1 / 🔵 P2) wins!',
-    'dialog.rule3': '<strong>Info Tooltips (ⓘ):</strong> Click the ⓘ icon next to any criterion to see its exact description.',
+    'dialog.rule1': '<strong>Criteria Intersection:</strong> Each cell in the 3×3 grid sits at the intersection of a row and a column. Your chosen country must satisfy <em>both conditions simultaneously</em> (e.g. <em>In Europe</em> + <em>Flag contains red</em>).',
+    'dialog.rule2': '<strong>One use per country:</strong> Each country can only be used <em>once per game</em>. Choose where to place it wisely!',
+    'dialog.rule3': '<strong>Solo Mode (3 lives):</strong> You start with 3 hearts ❤️. An invalid guess costs 1 life. Complete all 9 cells to win the game.',
+    'dialog.rule4': '<strong>1v1 Multiplayer (30s / turn):</strong> Play live against a friend! Each correct answer claims a cell for your color (🟢 P1 / 🟣 P2). Win by aligning 3 cells (or holding the majority).',
+    'dialog.rule5': '<strong>Clues & Global Stats:</strong> Click any criterion card (or ⓘ) to read its exact spoiler-free definition. Your answers contribute to real-time global popularity stats (📊 %).',
     'dialog.rules_close': 'Got it, let\'s play!',
 
     // Dialogs: Tooltip

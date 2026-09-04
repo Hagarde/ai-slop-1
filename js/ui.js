@@ -466,7 +466,7 @@ export function applyStaticTranslations() {
     const textEl = langBtn.querySelector('.nav-btn-text');
     if (iconEl && textEl) {
       iconEl.textContent = getLanguage() === 'fr' ? '🇬🇧' : '🇫🇷';
-      textEl.textContent = getLanguage() === 'fr' ? 'EN' : 'FR';
+      textEl.textContent = t('nav.lang_label');
     } else {
       langBtn.textContent = t('nav.lang_toggle');
     }
