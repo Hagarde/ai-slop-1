@@ -462,7 +462,14 @@ export function applyStaticTranslations() {
 
   const langBtn = document.querySelector('#lang-toggle-btn');
   if (langBtn) {
-    langBtn.textContent = t('nav.lang_toggle');
+    const iconEl = langBtn.querySelector('.nav-btn-icon');
+    const textEl = langBtn.querySelector('.nav-btn-text');
+    if (iconEl && textEl) {
+      iconEl.textContent = getLanguage() === 'fr' ? '🇬🇧' : '🇫🇷';
+      textEl.textContent = getLanguage() === 'fr' ? 'EN' : 'FR';
+    } else {
+      langBtn.textContent = t('nav.lang_toggle');
+    }
   }
 
   const introDesc = document.querySelector('#intro-desc-text');

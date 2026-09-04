@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=37" />
+    <link rel="stylesheet" href="styles.css?v=38" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -23,10 +23,22 @@
           <span class="brand-globe">🌍</span> Country<span class="accent">Doku</span>
         </a>
         <div class="header-right">
-          <button class="multi-toggle-btn" id="multi-toggle-btn" data-i18n="nav.mode_1v1">⚔️ Mode 1v1</button>
-          <button class="lang-toggle-btn" id="lang-toggle-btn" title="Changer la langue / Change language" aria-label="Langue">🇬🇧 EN</button>
-          <button class="icon-button" id="report-button" aria-label="Signaler un problème" title="Signaler un problème">🐛</button>
-          <button class="icon-button" id="help-button" aria-label="Voir les règles de jeu" title="Règles du jeu">?</button>
+          <button class="nav-action-btn multi-toggle-btn" id="multi-toggle-btn" aria-label="Mode multijoueur 1v1" title="Mode 1v1" data-i18n-title="nav.mode_1v1">
+            <span class="nav-btn-icon">⚔️</span>
+            <span class="nav-btn-text" data-i18n="nav.mode_1v1_short">1v1</span>
+          </button>
+          <button class="nav-action-btn lang-toggle-btn" id="lang-toggle-btn" title="Changer la langue / Change language" aria-label="Changer la langue">
+            <span class="nav-btn-icon">🇬🇧</span>
+            <span class="nav-btn-text">EN</span>
+          </button>
+          <button class="nav-action-btn" id="help-button" aria-label="Voir les règles du jeu" title="Règles du jeu" data-i18n-title="nav.help">
+            <span class="nav-btn-icon">❓</span>
+            <span class="nav-btn-text" data-i18n="nav.rules_label">Règles</span>
+          </button>
+          <button class="nav-action-btn" id="report-button" aria-label="Signaler un problème ou un bug" title="Signaler un problème" data-i18n-title="nav.report_bug">
+            <span class="nav-btn-icon">🐛</span>
+            <span class="nav-btn-text" data-i18n="nav.bug_label">Bug</span>
+          </button>
         </div>
       </div>
     </header>
@@ -348,6 +360,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=37"></script>
+    <script type="module" src="js/main.js?v=38"></script>
   </body>
 </html>

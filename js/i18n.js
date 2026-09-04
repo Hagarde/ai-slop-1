@@ -9,8 +9,11 @@ export const translations = {
     // Header & Navigation
     'brand.sub': 'Doku',
     'nav.mode_1v1': '⚔️ Mode 1v1',
+    'nav.mode_1v1_short': '1v1',
     'nav.report_bug': 'Signaler un problème',
     'nav.help': 'Règles du jeu',
+    'nav.bug_label': 'Bug',
+    'nav.rules_label': 'Règles',
     'nav.lang_toggle': '🇬🇧 EN',
 
     // Mode Selector
@@ -162,8 +165,11 @@ export const translations = {
     // Header & Navigation
     'brand.sub': 'Doku',
     'nav.mode_1v1': '⚔️ 1v1 Mode',
+    'nav.mode_1v1_short': '1v1',
     'nav.report_bug': 'Report an issue',
     'nav.help': 'Game rules',
+    'nav.bug_label': 'Bug',
+    'nav.rules_label': 'Rules',
     'nav.lang_toggle': '🇫🇷 FR',
 
     // Mode Selector

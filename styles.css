@@ -105,48 +105,80 @@ button, input {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
-.multi-toggle-btn {
-  background: var(--accent-light);
-  color: var(--accent-primary);
-  border: 1px solid rgba(31, 111, 80, 0.25);
-  font-weight: 700;
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.multi-toggle-btn:hover {
-  background: var(--accent-primary);
-  color: white;
-}
-
-.lang-toggle-btn {
+/* Boutons d'action dans la navbar (Icône en haut + Libellé en dessous) */
+.nav-action-btn {
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
   color: var(--ink-primary);
-  font-weight: 700;
-  font-size: 12px;
-  font-family: var(--font-mono);
-  padding: 5px 10px;
-  border-radius: 18px;
+  min-width: 48px;
+  height: 44px;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  justify-content: center;
+  gap: 2px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
-.lang-toggle-btn:hover {
+.nav-action-btn:hover {
   background: var(--accent-light);
   border-color: var(--accent-primary);
   color: var(--accent-primary);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-btn-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink-secondary);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.nav-action-btn:hover .nav-btn-text {
+  color: var(--accent-primary);
+}
+
+/* Style spécifique pour 1v1 dans la barre */
+.nav-action-btn.multi-toggle-btn {
+  background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
+  border-color: rgba(43, 108, 176, 0.3);
+  color: #2b6cb0;
+}
+
+.nav-action-btn.multi-toggle-btn .nav-btn-text {
+  color: #2b6cb0;
+  font-weight: 800;
+}
+
+.nav-action-btn.multi-toggle-btn:hover {
+  background: #2b6cb0;
+  border-color: #2b6cb0;
+  color: white;
+}
+
+.nav-action-btn.multi-toggle-btn:hover .nav-btn-text {
+  color: white;
 }
 
 .puzzle-badge {
@@ -159,28 +191,6 @@ button, input {
   padding: 6px 12px;
   border-radius: 20px;
   border: 1px solid var(--border-light);
-}
-
-.icon-button {
-  background: var(--bg-card);
-  border: 1px solid var(--border-medium);
-  color: var(--ink-primary);
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.icon-button:hover {
-  background: var(--bg-subtle);
-  border-color: var(--ink-primary);
-  transform: translateY(-1px);
 }
 
 /* Sélecteur de Mode Prominent */
@@ -1804,20 +1814,20 @@ dialog:not([open]),
     gap: 4px;
   }
 
-  .multi-toggle-btn {
-    font-size: 11px;
-    padding: 5px 8px;
+  .nav-action-btn {
+    min-width: 38px;
+    height: 38px;
+    padding: 2px 4px;
+    gap: 1px;
+    border-radius: 6px;
   }
 
-  .lang-toggle-btn {
-    font-size: 11px;
-    padding: 4px 7px;
+  .nav-btn-icon {
+    font-size: 13px;
   }
 
-  .icon-button {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
+  .nav-btn-text {
+    font-size: 8.5px;
   }
 
   .main-container {
