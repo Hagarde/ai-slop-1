@@ -19,9 +19,18 @@ export const translations = {
     // Mode Selector
     'mode.solo_title': 'Mode Solo',
     'mode.solo_desc': '3 vies • Jeu illimité',
+    'mode.hardcore_title': 'Mode Hardcore',
+    'mode.hardcore_desc': '1 vie • Défi mondial',
+    'mode.hardcore_badge': 'DÉFI 🔥',
     'mode.multi_title': 'Multijoueur (1v1)',
     'mode.multi_desc': 'Affrontez vos amis en direct !',
     'mode.multi_badge': 'JOUER À 2 🎮',
+
+    // Hardcore Banner
+    'hardcore.banner_eyebrow': '🔥 DÉFI MONDIAL HARDCORE',
+    'hardcore.lives_one': 'MORT SUBITE (1 VIE)',
+    'hardcore.reroll': 'Autre défi',
+    'hardcore.reroll_btn': 'Changer le modificateur mondial',
 
     // 1v1 Bar & Status
     'mp.live_badge': '● EN DIRECT',
@@ -62,6 +71,7 @@ export const translations = {
     'board.correct_answer': '✅ Bonne réponse ({country}){pct} !',
     'board.incorrect_answer': '❌ {country} incorrect pour la Case {cell} ({reason}). -1 vie, il vous reste {lives} vie{plural}.',
     'board.game_over': '💔 Défaite ! {country} pour la Case {cell} : {reason}. Vos 3 vies sont épuisées.',
+    'board.hardcore_game_over': '💔 Mort Subite ! {country} pour la Case {cell} : {reason}. Votre unique vie est épuisée.',
     'board.mp_wrong_self': '❌ {country} incorrect pour la Case {cell} ({reason}) ! Tour à l\'adversaire.',
     'board.mp_wrong_opp': '❌ L\'adversaire a tenté {country} pour la Case {cell} ({reason}) ! À votre tour de jouer.',
     'board.mp_correct_self': '✅ Vous avez placé {country} sur la Case {cell}{pct} ! Tour à l\'adversaire.',
@@ -77,6 +87,7 @@ export const translations = {
     'dialog.rule1': '<strong>Le croisement des critères :</strong> Chaque case de la grille 3×3 est à l’intersection d’une ligne et d’une colonne. Le pays choisi doit valider <em>simultanément les deux conditions</em> (ex: <em>En Europe</em> + <em>Drapeau avec du rouge</em>).',
     'dialog.rule2': '<strong>Unicité des pays :</strong> Un même pays ne peut être placé <em>qu’une seule fois</em> par grille. Choisissez bien son emplacement !',
     'dialog.rule3': '<strong>Mode Solo (3 vies) :</strong> Vous disposez de 3 cœurs ❤️. Une erreur ou un pays hors critères fait perdre 1 vie. Complétez les 9 cases pour remporter la victoire.',
+    'dialog.rule_hardcore': '<strong>Mode Hardcore (Mort Subite & Défi mondial) :</strong> Une contrainte globale supplémentaire s’applique à l’ensemble de la grille (ex: interdiction du G20, population < 25M, etc.) et vous ne disposez que d’un seul cœur ❤️. Une seule erreur et la partie s’achève !',
     'dialog.rule4': '<strong>Mode Multijoueur 1v1 (30s / tour) :</strong> Affrontez un ami en direct ! Chaque bonne réponse capture une case (🟢 J1 / 🟣 J2). Le premier à aligner 3 cases (ou qui en contrôle le plus à la fin) gagne le match.',
     'dialog.rule5': '<strong>Indices & Statistiques mondiales :</strong> Cliquez sur n’importe quelle carte de critère (ou sur ⓘ) pour lire sa définition sans spoiler. Vos réussites alimentent les pourcentages de popularité mondiaux (📊 %).',
     'dialog.rules_close': 'J\'ai compris, jouer !',
@@ -151,6 +162,7 @@ export const translations = {
     'dialog.gameover_eyebrow': 'FIN DE PARTIE',
     'dialog.gameover_title': 'Plus de vies restantes ! 💔',
     'dialog.gameover_desc': 'Vous avez épuisé vos 3 essais sur cette grille. Souhaitez-vous réessayer la même grille ou en générer une nouvelle ?',
+    'dialog.gameover_desc_hardcore': 'Votre unique vie a été perdue face au défi mondial ! Souhaitez-vous retenter ce même défi ou en tirer un nouveau ?',
     'dialog.gameover_retry': 'Réessayer la grille',
     'dialog.gameover_new': 'Nouvelle grille',
 
@@ -177,9 +189,18 @@ export const translations = {
     // Mode Selector
     'mode.solo_title': 'Solo Mode',
     'mode.solo_desc': '3 lives • Unlimited play',
+    'mode.hardcore_title': 'Hardcore Mode',
+    'mode.hardcore_desc': '1 life • Global challenge',
+    'mode.hardcore_badge': 'CHALLENGE 🔥',
     'mode.multi_title': 'Multiplayer (1v1)',
     'mode.multi_desc': 'Play live against friends!',
     'mode.multi_badge': '2 PLAYERS 🎮',
+
+    // Hardcore Banner
+    'hardcore.banner_eyebrow': '🔥 HARDCORE GLOBAL CHALLENGE',
+    'hardcore.lives_one': 'SUDDEN DEATH (1 LIFE)',
+    'hardcore.reroll': 'Reroll rule',
+    'hardcore.reroll_btn': 'Reroll global modifier',
 
     // 1v1 Bar & Status
     'mp.live_badge': '● LIVE',
@@ -220,6 +241,7 @@ export const translations = {
     'board.correct_answer': '✅ Correct answer ({country}){pct}!',
     'board.incorrect_answer': '❌ {country} incorrect for Cell {cell} ({reason}). -1 life, {lives} remaining.',
     'board.game_over': '💔 Game Over! {country} for Cell {cell}: {reason}. All 3 lives spent.',
+    'board.hardcore_game_over': '💔 Sudden Death! {country} for Cell {cell}: {reason}. Your only life has ended.',
     'board.mp_wrong_self': '❌ {country} incorrect for Cell {cell} ({reason})! Turn passes to opponent.',
     'board.mp_wrong_opp': '❌ Opponent attempted {country} for Cell {cell} ({reason})! It\'s your turn to play.',
     'board.mp_correct_self': '✅ You placed {country} on Cell {cell}{pct}! Turn passes to opponent.',
@@ -235,6 +257,7 @@ export const translations = {
     'dialog.rule1': '<strong>Criteria Intersection:</strong> Each cell in the 3×3 grid sits at the intersection of a row and a column. Your chosen country must satisfy <em>both conditions simultaneously</em> (e.g. <em>In Europe</em> + <em>Flag contains red</em>).',
     'dialog.rule2': '<strong>One use per country:</strong> Each country can only be used <em>once per game</em>. Choose where to place it wisely!',
     'dialog.rule3': '<strong>Solo Mode (3 lives):</strong> You start with 3 hearts ❤️. An invalid guess costs 1 life. Complete all 9 cells to win the game.',
+    'dialog.rule_hardcore': '<strong>Hardcore Mode (Sudden Death & Global Challenge):</strong> An extra global constraint applies across all 9 cells (e.g. G20 ban, population < 25M, etc.) and you only have a single heart ❤️. One mistake and the game is over!',
     'dialog.rule4': '<strong>1v1 Multiplayer (30s / turn):</strong> Play live against a friend! Each correct answer claims a cell for your color (🟢 P1 / 🟣 P2). Win by aligning 3 cells (or holding the majority).',
     'dialog.rule5': '<strong>Clues & Global Stats:</strong> Click any criterion card (or ⓘ) to read its exact spoiler-free definition. Your answers contribute to real-time global popularity stats (📊 %).',
     'dialog.rules_close': 'Got it, let\'s play!',
@@ -309,6 +332,7 @@ export const translations = {
     'dialog.gameover_eyebrow': 'GAME OVER',
     'dialog.gameover_title': 'No lives remaining! 💔',
     'dialog.gameover_desc': 'You exhausted all 3 attempts on this grid. Would you like to retry the same grid or generate a new one?',
+    'dialog.gameover_desc_hardcore': 'Your only life was lost against the global challenge! Would you like to retry this challenge or draw a new one?',
     'dialog.gameover_retry': 'Retry same grid',
     'dialog.gameover_new': 'New grid',
 

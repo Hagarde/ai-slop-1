@@ -1,4 +1,4 @@
-const CACHE_NAME = 'countrydoku-cache-v40';
+const CACHE_NAME = 'countrydoku-cache-v41';
 
 const urlsToCache = [
   './',
@@ -9,6 +9,7 @@ const urlsToCache = [
   './js/main.js',
   './js/data.js',
   './js/criteria.js',
+  './js/hardcore.js',
   './js/game.js',
   './js/network.js',
   './js/ui.js',

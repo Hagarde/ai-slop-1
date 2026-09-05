@@ -1,7 +1,7 @@
 import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
-import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback } from './ui.js';
+import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 import { recordChoice, getChoicePercentage, syncGlobalStats } from './stats.js';
 import { initLanguage, getLanguage, setLanguage, t, getCountryName } from './i18n.js';
@@ -81,8 +81,8 @@ async function initApp() {
   }
 }
 
-function resetGame(newSeed = true) {
-  resetGameState(newSeed);
+function resetGame(newSeed = true, isHardcore = null) {
+  resetGameState(newSeed, isHardcore);
   search.value = '';
   search.style.display = '';
   
@@ -91,9 +91,8 @@ function resetGame(newSeed = true) {
   document.querySelector('#progress').textContent = '0';
   setFeedback(t('board.default_feedback'), 'normal');
   
-  const heartsListEl = document.querySelector('#hearts-list');
-  if (heartsListEl) heartsListEl.innerHTML = '❤️ ❤️ ❤️';
-  
+  updateLivesUI();
+  updateHardcoreUI();
   renderBoard(newSeed);
 }
 
@@ -138,13 +137,20 @@ function handleCellChoose(code) {
     }
 
     gameState.lives -= 1;
-    import('./ui.js').then(ui => ui.updateLivesUI());
+    updateLivesUI();
     
     if (gameState.lives <= 0) {
-      setFeedback(t('board.game_over', { country: countryName, cell: cellNumber, reason: details.reason }), 'wrong');
+      const gameOverMsg = gameState.isHardcore
+        ? t('board.hardcore_game_over', { country: countryName, cell: cellNumber, reason: details.reason })
+        : t('board.game_over', { country: countryName, cell: cellNumber, reason: details.reason });
+      setFeedback(gameOverMsg, 'wrong');
       gameState.selectedCell = null;
       renderBoard();
-      // F-01 FIX: Afficher la modale Game Over
+      // F-01 FIX: Afficher la modale Game Over avec le texte adapté
+      const gameOverDesc = document.querySelector('#gameover-dialog p');
+      if (gameOverDesc) {
+        gameOverDesc.textContent = gameState.isHardcore ? t('dialog.gameover_desc_hardcore') : t('dialog.gameover_desc');
+      }
       if (gameoverDialog && !gameoverDialog.open) gameoverDialog.showModal();
       return;
     }
@@ -216,6 +222,8 @@ function setupEventListeners() {
   const multiToggleBtn = document.querySelector('#multi-toggle-btn');
   const modeMultiTab = document.querySelector('#mode-multi-tab');
   const modeSoloTab = document.querySelector('#mode-solo-tab');
+  const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
+  const hardcoreRerollBtn = document.querySelector('#hardcore-reroll-btn');
 
   const openMultiplayerModal = () => {
     document.querySelector('#room-options-view').classList.remove('hidden');
@@ -226,12 +234,33 @@ function setupEventListeners() {
 
   if (multiToggleBtn) multiToggleBtn.addEventListener('click', openMultiplayerModal);
   if (modeMultiTab) modeMultiTab.addEventListener('click', openMultiplayerModal);
+
   if (modeSoloTab) {
     modeSoloTab.addEventListener('click', () => {
       if (isMultiplayer) handleRoomClose();
-      else {
+      if (gameState.isHardcore) {
+        resetGame(true, false);
+      } else {
         modeSoloTab.classList.add('active');
         if (modeMultiTab) modeMultiTab.classList.remove('active');
+        if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
+      }
+    });
+  }
+
+  if (modeHardcoreTab) {
+    modeHardcoreTab.addEventListener('click', () => {
+      if (isMultiplayer) handleRoomClose();
+      if (!gameState.isHardcore) {
+        resetGame(true, true);
+      }
+    });
+  }
+
+  if (hardcoreRerollBtn) {
+    hardcoreRerollBtn.addEventListener('click', () => {
+      if (gameState.isHardcore) {
+        resetGame(true, true);
       }
     });
   }

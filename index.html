@@ -83,6 +83,15 @@
               <small id="mode-solo-desc" data-i18n="mode.solo_desc">3 vies • Jeu illimité</small>
             </div>
           </button>
+
+          <button class="mode-tab hardcore-tab" id="mode-hardcore-tab">
+            <span class="mode-icon">🔥</span>
+            <div class="mode-info">
+              <strong id="mode-hardcore-title" data-i18n="mode.hardcore_title">Mode Hardcore</strong>
+              <small id="mode-hardcore-desc" data-i18n="mode.hardcore_desc">1 vie • Défi mondial</small>
+            </div>
+            <span class="mode-badge hardcore-badge" data-i18n="mode.hardcore_badge">DÉFI 🔥</span>
+          </button>
           
           <button class="mode-tab highlight" id="mode-multi-tab">
             <span class="mode-icon">⚔️</span>
@@ -91,6 +100,24 @@
               <small id="mode-multi-desc" data-i18n="mode.multi_desc">Affrontez vos amis en direct !</small>
             </div>
             <span class="mode-badge" data-i18n="mode.multi_badge">JOUER À 2 🎮</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Bannière Défi Hardcore (Affichée uniquement en Mode Hardcore) -->
+      <section class="hardcore-banner hidden" id="hardcore-banner" aria-live="polite">
+        <div class="hardcore-banner-container">
+          <div class="hardcore-icon-badge">🔥</div>
+          <div class="hardcore-details">
+            <div class="hardcore-eyebrow">
+              <span class="hardcore-eyebrow-text" data-i18n="hardcore.banner_eyebrow">🔥 DÉFI MONDIAL HARDCORE</span>
+              <span class="hardcore-life-tag" data-i18n="hardcore.lives_one">MORT SUBITE (1 VIE)</span>
+            </div>
+            <h2 class="hardcore-title" id="hardcore-title-text">Bannissement du G20</h2>
+            <p class="hardcore-desc" id="hardcore-desc-text">Les 19 puissances du G20 sont strictement interdites sur toute la grille !</p>
+          </div>
+          <button class="hardcore-reroll-btn" id="hardcore-reroll-btn" title="Changer de défi" data-i18n-title="hardcore.reroll_btn">
+            🎲 <span data-i18n="hardcore.reroll">Autre défi</span>
           </button>
         </div>
       </section>
@@ -356,10 +383,14 @@
           </div>
           <div class="rule-item">
             <span class="rule-number">4</span>
-            <p data-i18n="dialog.rule4"><strong>Mode Multijoueur 1v1 (30s / tour) :</strong> Affrontez un ami en direct ! Chaque bonne réponse capture une case (🟢 J1 / 🟣 J2). Le premier à aligner 3 cases (ou qui en contrôle le plus à la fin) gagne le match.</p>
+            <p data-i18n="dialog.rule_hardcore"><strong>Mode Hardcore (Mort Subite & Défi mondial) :</strong> Une contrainte globale supplémentaire s’applique à l’ensemble de la grille (ex: interdiction du G20, population &lt; 25M, etc.) et vous ne disposez que d’un seul cœur ❤️. Une seule erreur et la partie s’achève !</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">5</span>
+            <p data-i18n="dialog.rule4"><strong>Mode Multijoueur 1v1 (30s / tour) :</strong> Affrontez un ami en direct ! Chaque bonne réponse capture une case (🟢 J1 / 🟣 J2). Le premier à aligner 3 cases (ou qui en contrôle le plus à la fin) gagne le match.</p>
+          </div>
+          <div class="rule-item">
+            <span class="rule-number">6</span>
             <p data-i18n="dialog.rule5"><strong>Indices & Statistiques mondiales :</strong> Cliquez sur n’importe quelle carte de critère (ou sur ⓘ) pour lire sa définition sans spoiler. Vos réussites alimentent les pourcentages de popularité mondiaux (📊 %).</p>
           </div>
         </div>

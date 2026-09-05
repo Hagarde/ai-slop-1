@@ -1,6 +1,7 @@
 import { countries, allCriteria } from './data.js';
 import { shuffle } from './utils.js';
 import { getLanguage } from './i18n.js';
+import { getRandomHardcoreModifier, getHardcoreModifierById } from './hardcore.js';
 
 export const gameState = {
   rows: [],
@@ -9,6 +10,8 @@ export const gameState = {
   lives: 3,
   selectedCell: null,
   currentGridIndices: null,
+  isHardcore: false,
+  hardcoreModifier: null,
 };
 
 const winningLines = [
@@ -18,7 +21,12 @@ const winningLines = [
 ];
 
 export function cellCandidates(row, column) { 
-  return countries.filter((country) => row.test(country) && column.test(country)); 
+  return countries.filter((country) => {
+    if (gameState.isHardcore && gameState.hardcoreModifier && !gameState.hardcoreModifier.test(country)) {
+      return false;
+    }
+    return row.test(country) && column.test(country);
+  }); 
 }
 
 function solveGrid(candidateLists, locked = {}) {
@@ -86,12 +94,20 @@ export function checkTicTacToeWin(playerRole) {
   return null;
 }
 
-export function resetGameState(newSeed = true) {
+export function resetGameState(newSeed = true, isHardcore = null) {
+  if (isHardcore !== null) {
+    gameState.isHardcore = isHardcore;
+  }
   gameState.answers = Array(9).fill(null);
   gameState.selectedCell = null;
-  gameState.lives = 3;
+  gameState.lives = gameState.isHardcore ? 1 : 3;
 
   if (newSeed) {
+    if (gameState.isHardcore) {
+      gameState.hardcoreModifier = getRandomHardcoreModifier(gameState.hardcoreModifier?.id);
+    } else {
+      gameState.hardcoreModifier = null;
+    }
     generateGrid();
   }
 }
@@ -107,11 +123,27 @@ export function getMoveValidationDetails(cellId, countryCode) {
 
   const rowPass = rowCriterion ? rowCriterion.test(country) : false;
   const colPass = colCriterion ? colCriterion.test(country) : false;
-  const isValid = rowPass && colPass;
+  const modifierPass = (!gameState.isHardcore || !gameState.hardcoreModifier)
+    ? true
+    : gameState.hardcoreModifier.test(country);
+
+  const isValid = rowPass && colPass && modifierPass;
 
   let reason = '';
   const isEn = getLanguage() === 'en';
-  if (!rowPass && !colPass) {
+
+  if (!modifierPass && gameState.hardcoreModifier) {
+    const mod = gameState.hardcoreModifier;
+    const name = isEn ? (country.nameEnglish || country.name) : country.name;
+    const pop = (country.population || 0).toLocaleString(isEn ? 'en-US' : 'fr-FR');
+    const violation = isEn
+      ? mod.violationEn.replace('{country}', name).replace('{pop}', pop)
+      : mod.violationFr.replace('{country}', name).replace('{pop}', pop);
+    const modTitle = isEn ? mod.titleEn : mod.titleFr;
+    reason = isEn
+      ? `Hardcore Rule "${modTitle}" violated: ${violation}`
+      : `Règle Hardcore "${modTitle}" enfreinte : ${violation}`;
+  } else if (!rowPass && !colPass) {
     reason = isEn
       ? `Does not match "${rowCriterion?.label}" nor "${colCriterion?.label}"`
       : `Ne respecte ni "${rowCriterion?.label}" ni "${colCriterion?.label}"`;
@@ -125,7 +157,7 @@ export function getMoveValidationDetails(cellId, countryCode) {
       : `Ne respecte pas "${colCriterion?.label}"`;
   }
 
-  return { isValid, country, rowCriterion, colCriterion, rowPass, colPass, reason };
+  return { isValid, country, rowCriterion, colCriterion, rowPass, colPass, modifierPass, reason };
 }
 
 // Validation d'un coup

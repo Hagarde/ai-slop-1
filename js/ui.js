@@ -127,8 +127,45 @@ export function updateLivesUI() {
     livesBox.classList.add('hidden');
   } else {
     livesBox.classList.remove('hidden');
-    if (heartsListEl) heartsListEl.textContent = Array(Math.max(0, gameState.lives)).fill('❤️').concat(Array(Math.max(0, 3 - gameState.lives)).fill('🖤')).join(' ');
+    if (gameState.isHardcore) {
+      if (heartsListEl) {
+        heartsListEl.innerHTML = gameState.lives > 0 
+          ? '<span class="hardcore-heart" title="Mort Subite (1 vie)">❤️</span>' 
+          : '<span class="hardcore-heart dead">🖤</span>';
+      }
+    } else {
+      if (heartsListEl) {
+        heartsListEl.textContent = Array(Math.max(0, gameState.lives)).fill('❤️').concat(Array(Math.max(0, 3 - gameState.lives)).fill('🖤')).join(' ');
+      }
+    }
   }
+}
+
+export function updateHardcoreUI() {
+  const hardcoreBanner = document.querySelector('#hardcore-banner');
+  const hardcoreTitleText = document.querySelector('#hardcore-title-text');
+  const hardcoreDescText = document.querySelector('#hardcore-desc-text');
+  const modeSoloTab = document.querySelector('#mode-solo-tab');
+  const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
+  const modeMultiTab = document.querySelector('#mode-multi-tab');
+
+  if (gameState.isHardcore && !isMultiplayer) {
+    if (hardcoreBanner) hardcoreBanner.classList.remove('hidden');
+    if (modeHardcoreTab) modeHardcoreTab.classList.add('active');
+    if (modeSoloTab) modeSoloTab.classList.remove('active');
+    if (modeMultiTab) modeMultiTab.classList.remove('active');
+
+    const mod = gameState.hardcoreModifier;
+    if (mod) {
+      const isEn = getLanguage() === 'en';
+      if (hardcoreTitleText) hardcoreTitleText.textContent = `${mod.icon} ${isEn ? mod.titleEn : mod.titleFr}`;
+      if (hardcoreDescText) hardcoreDescText.textContent = isEn ? mod.descEn : mod.descFr;
+    }
+  } else {
+    if (hardcoreBanner) hardcoreBanner.classList.add('hidden');
+    if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
+  }
+  updateLivesUI();
 }
 
 export function updateTimerUI() {
@@ -158,6 +195,7 @@ export function updateTimerUI() {
 
 export function updateMultiplayerUI() {
   const modeSoloTab = document.querySelector('#mode-solo-tab');
+  const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
   const modeMultiTab = document.querySelector('#mode-multi-tab');
 
   if (!isMultiplayer) {
@@ -168,13 +206,21 @@ export function updateMultiplayerUI() {
     if (resetBtnLabel) resetBtnLabel.textContent = t('board.reset_btn');
     const descText = document.querySelector('#intro-desc-text');
     if (descText) descText.innerHTML = t('intro.desc', { badge: '<span class="info-badge">ⓘ</span>' });
-    if (modeSoloTab) modeSoloTab.classList.add('active');
+    if (gameState.isHardcore) {
+      if (modeSoloTab) modeSoloTab.classList.remove('active');
+      if (modeHardcoreTab) modeHardcoreTab.classList.add('active');
+    } else {
+      if (modeSoloTab) modeSoloTab.classList.add('active');
+      if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
+    }
     if (modeMultiTab) modeMultiTab.classList.remove('active');
     stopTurnTimer();
+    updateHardcoreUI();
     return;
   }
 
   if (modeSoloTab) modeSoloTab.classList.remove('active');
+  if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
   if (modeMultiTab) modeMultiTab.classList.add('active');
   
   if (multiplayerBar) multiplayerBar.classList.remove('hidden');
@@ -184,6 +230,7 @@ export function updateMultiplayerUI() {
   if (mpRoomCodeDisplay && currentRoomCode) {
     mpRoomCodeDisplay.textContent = `${t('mp.code_label')}${currentRoomCode}`;
   }
+  updateHardcoreUI();
 }
 
 const CATEGORY_NAMES = {
@@ -494,6 +541,7 @@ export function applyStaticTranslations() {
 
   renderBoard();
   updateMultiplayerUI();
+  updateHardcoreUI();
   updateScoresUI();
   updateTimerUI();
 }
