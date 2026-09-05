@@ -14,6 +14,7 @@ export const translations = {
     'nav.help': 'Règles du jeu',
     'nav.bug_label': 'Bug',
     'nav.rules_label': 'Règles',
+    'nav.lang_label': 'Langue',
     'nav.lang_toggle': '🇬🇧 EN',
 
     // Mode Selector
@@ -184,6 +185,7 @@ export const translations = {
     'nav.help': 'Game rules',
     'nav.bug_label': 'Bug',
     'nav.rules_label': 'Rules',
+    'nav.lang_label': 'Language',
     'nav.lang_toggle': '🇫🇷 FR',
 
     // Mode Selector

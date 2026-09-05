@@ -512,7 +512,9 @@ export function applyStaticTranslations() {
     const iconEl = langBtn.querySelector('.nav-btn-icon');
     const textEl = langBtn.querySelector('.nav-btn-text');
     if (iconEl && textEl) {
-      iconEl.textContent = getLanguage() === 'fr' ? '🇬🇧' : '🇫🇷';
+      const targetFlag = getLanguage() === 'fr' ? 'gb' : 'fr';
+      const flagAlt = getLanguage() === 'fr' ? 'English' : 'Français';
+      iconEl.innerHTML = `<img src="https://flagcdn.com/w40/${targetFlag}.png" alt="${flagAlt}" style="width: 20px; height: 14px; border-radius: 2px; object-fit: cover; display: inline-block; vertical-align: middle;" />`;
       textEl.textContent = t('nav.lang_label');
     } else {
       langBtn.textContent = t('nav.lang_toggle');
