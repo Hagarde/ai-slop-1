@@ -201,15 +201,15 @@ button, input {
 .mode-selector-bar {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
   background: var(--bg-card);
-  padding: 6px;
+  padding: 8px;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-medium);
   box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .mode-selector-bar {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -217,94 +217,115 @@ button, input {
 }
 
 .mode-tab {
-  background: transparent;
-  border: 2px solid transparent;
+  background: var(--bg-app);
+  border: 1.5px solid var(--border-medium);
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  padding: 12px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
   cursor: pointer;
   text-align: left;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .mode-tab:hover {
-  background: var(--bg-app);
+  background: #ffffff;
+  border-color: var(--ink-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+.mode-tab:active {
+  transform: translateY(0);
+}
+
+/* Onglet Solo */
 .mode-tab.active {
-  background: var(--accent-light);
-  border-color: var(--accent-primary);
+  background: #ecfdf5;
+  border-color: #059669;
+  box-shadow: 0 0 0 1.5px #059669, 0 3px 10px rgba(5, 150, 105, 0.18);
 }
 
+/* Onglet Hardcore */
 .mode-tab.hardcore-tab {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
-  border-color: rgba(239, 68, 68, 0.25);
+  border-color: rgba(220, 38, 38, 0.35);
 }
 
 .mode-tab.hardcore-tab:hover {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
-  border-color: rgba(239, 68, 68, 0.5);
-  transform: translateY(-1px);
+  background: #fff5f5;
+  border-color: #dc2626;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
 }
 
 .mode-tab.hardcore-tab.active {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+  background: linear-gradient(135deg, #fef2f2 0%, #fffbeb 100%);
   border-color: #dc2626;
-  box-shadow: 0 0 14px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 0 0 1.5px #dc2626, 0 3px 12px rgba(220, 38, 38, 0.25);
 }
 
+/* Onglet Multijoueur */
 .mode-tab.highlight {
-  background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
-  border-color: #2b6cb0;
+  border-color: rgba(37, 99, 235, 0.35);
 }
 
 .mode-tab.highlight:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
+  background: #eff6ff;
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+.mode-tab.highlight.active {
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1.5px #2563eb, 0 3px 10px rgba(37, 99, 235, 0.2);
 }
 
 .mode-icon {
-  font-size: 22px;
+  font-size: 24px;
   flex-shrink: 0;
 }
 
 .mode-info {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  line-height: 1.25;
+  padding-right: 50px;
 }
 
 .mode-info strong {
   font-size: 14.5px;
+  font-weight: 800;
   color: var(--ink-primary);
 }
 
 .mode-info small {
   font-size: 11px;
   color: var(--ink-secondary);
+  margin-top: 2px;
 }
 
 .mode-badge {
   position: absolute;
-  top: -8px;
-  right: 12px;
+  top: 8px;
+  right: 10px;
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 800;
-  background: #d32f2f;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
   color: white;
-  padding: 2px 8px;
-  border-radius: 10px;
+  padding: 3px 7px;
+  border-radius: 6px;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(211, 47, 47, 0.3);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
 }
 
 .mode-badge.hardcore-badge {
-  background: linear-gradient(135deg, #dc2626 0%, #d97706 100%);
-  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.45);
+  background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
 }
 
 /* Bannière Défi Hardcore */
