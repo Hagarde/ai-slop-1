@@ -1,11 +1,13 @@
 import { gameState, generateGrid, checkTicTacToeWin, validateMove, resetGameState } from './game.js';
 import { countries } from './data.js';
 import { escapeHtml } from './utils.js';
-import { addGameFeed, updateScoresUI, updateMultiplayerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal, setFeedback } from './ui.js';
+import { addGameFeed, updateScoresUI, updateMultiplayerUI, updateHardcoreUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal, setFeedback } from './ui.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
 import { t, getLanguage, getCountryName } from './i18n.js';
+import { getRandomHardcoreModifier, getHardcoreModifierById } from './hardcore.js';
 
 export let isMultiplayer = false;
+export let isHardcoreRoom = false;
 export let myRole = null;
 export let startingPlayer = 'host';
 export let currentTurn = 'host';
@@ -73,9 +75,10 @@ async function buildPeerConfig() {
   };
 }
 
-export async function initPeer(customCode = null, isCreating = false) {
+export async function initPeer(customCode = null, isCreating = false, isHardcore = false) {
   const code = customCode || Math.random().toString(36).substring(2, 7).toUpperCase();
   currentRoomCode = code;
+  isHardcoreRoom = isHardcore;
   const peerId = `cdoku-1v1-${code}`;
 
   updateStatus(t('mp.connecting'), "connecting");
@@ -93,6 +96,15 @@ export async function initPeer(customCode = null, isCreating = false) {
       currentTurn = 'host';
       isMultiplayer = true;
       resetRoomScores();
+
+      if (isHardcoreRoom) {
+        gameState.isHardcore = true;
+        gameState.hardcoreModifier = getRandomHardcoreModifier();
+      } else {
+        gameState.isHardcore = false;
+        gameState.hardcoreModifier = null;
+      }
+
       generateGrid();
       gameState.answers = Array(9).fill(null);
       
@@ -101,9 +113,12 @@ export async function initPeer(customCode = null, isCreating = false) {
 
       document.querySelector('#created-code-val').textContent = code;
       document.querySelector('#invite-link-input').value = newUrl;
+      const hcTag = document.querySelector('#room-created-hardcore-tag');
+      if (hcTag) hcTag.classList.toggle('hidden', !isHardcoreRoom);
       document.querySelector('#room-options-view').classList.add('hidden');
       document.querySelector('#room-created-view').classList.remove('hidden');
       updateStatus(t('mp.ready_wait', { code }), "info");
+      updateHardcoreUI();
     }
   });
 
@@ -115,7 +130,7 @@ export async function initPeer(customCode = null, isCreating = false) {
 
   peer.on('error', (err) => {
     if (err.type === 'unavailable-id' && isCreating) {
-      initPeer(null, true);
+      initPeer(null, true, isHardcore);
     } else if (err.type === 'unavailable-id') {
       connectAsGuest(code);
     } else {
@@ -175,10 +190,14 @@ function setupConnectionListeners() {
 
   conn.on('close', () => {
     isMultiplayer = false;
+    isHardcoreRoom = false;
+    gameState.isHardcore = false;
+    gameState.hardcoreModifier = null;
     stopTurnTimer();
     addGameFeed(t('mp.disconnected'), "wrong");
     feedback.textContent = t('mp.conn_lost');
     updateMultiplayerUI();
+    updateHardcoreUI();
     renderBoard();
   });
 }
@@ -248,6 +267,10 @@ export function startNextMultiplayerMatch(sameGrid = false) {
   currentTurn = startingPlayer;
 
   if (!sameGrid) {
+    if (isHardcoreRoom) {
+      gameState.isHardcore = true;
+      gameState.hardcoreModifier = getRandomHardcoreModifier(gameState.hardcoreModifier?.id);
+    }
     generateGrid();
   }
 
@@ -255,7 +278,9 @@ export function startNextMultiplayerMatch(sameGrid = false) {
     type: 'INIT_GAME',
     rowIndices: gameState.currentGridIndices.rowIndices,
     colIndices: gameState.currentGridIndices.colIndices,
-    startingPlayer
+    startingPlayer,
+    isHardcore: isHardcoreRoom,
+    hardcoreModifierId: gameState.hardcoreModifier ? gameState.hardcoreModifier.id : null
   });
 
   const starterName = startingPlayer === 'host' 
@@ -268,6 +293,7 @@ export function startNextMultiplayerMatch(sameGrid = false) {
 
   renderBoard();
   updateMultiplayerUI();
+  updateHardcoreUI();
   startTurnTimer();
 }
 
@@ -275,10 +301,27 @@ export function handleIncomingData(data) {
   console.log("[WebRTC] Données reçues:", data);
 
   if (data.type === 'GUEST_JOINED' && myRole === 'host') {
+    if (isHardcoreRoom) {
+      gameState.isHardcore = true;
+      if (!gameState.hardcoreModifier) {
+        gameState.hardcoreModifier = getRandomHardcoreModifier();
+      }
+    } else {
+      gameState.isHardcore = false;
+      gameState.hardcoreModifier = null;
+    }
     generateGrid();
     gameState.answers = Array(9).fill(null);
-    safeSend({ type: 'INIT_GAME', rowIndices: gameState.currentGridIndices.rowIndices, colIndices: gameState.currentGridIndices.colIndices, startingPlayer });
+    safeSend({
+      type: 'INIT_GAME',
+      rowIndices: gameState.currentGridIndices.rowIndices,
+      colIndices: gameState.currentGridIndices.colIndices,
+      startingPlayer,
+      isHardcore: isHardcoreRoom,
+      hardcoreModifierId: gameState.hardcoreModifier ? gameState.hardcoreModifier.id : null
+    });
     renderBoard();
+    updateHardcoreUI();
   }
 
   if (data.type === 'GUEST_READY') {
@@ -289,12 +332,20 @@ export function handleIncomingData(data) {
   }
 
   if (data.type === 'INIT_GAME') {
+    isHardcoreRoom = !!data.isHardcore;
+    gameState.isHardcore = isHardcoreRoom;
+    if (isHardcoreRoom && data.hardcoreModifierId) {
+      gameState.hardcoreModifier = getHardcoreModifierById(data.hardcoreModifierId);
+    } else {
+      gameState.hardcoreModifier = null;
+    }
     generateGrid(data.rowIndices, data.colIndices);
     gameState.answers = Array(9).fill(null);
     gameState.selectedCell = null;
     startingPlayer = data.startingPlayer || 'host';
     currentTurn = startingPlayer;
     updateMultiplayerUI();
+    updateHardcoreUI();
     renderBoard();
     startTurnTimer();
     safeSend({ type: 'GUEST_READY' });
@@ -422,6 +473,7 @@ export function forceLeaveRoom() {
   }
   conn = null;
   isMultiplayer = false;
+  isHardcoreRoom = false;
   myRole = null;
   currentRoomCode = null;
   window.history.pushState({}, '', window.location.pathname);
@@ -438,8 +490,9 @@ export function forceLeaveRoom() {
   const roomCreatedView = document.querySelector('#room-created-view');
   if (roomCreatedView) roomCreatedView.classList.add('hidden');
   
-  resetGameState(true);
+  resetGameState(true, false);
   updateMultiplayerUI();
+  updateHardcoreUI();
   renderBoard(true);
 }
 

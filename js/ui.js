@@ -145,25 +145,33 @@ export function updateHardcoreUI() {
   const hardcoreBanner = document.querySelector('#hardcore-banner');
   const hardcoreTitleText = document.querySelector('#hardcore-title-text');
   const hardcoreDescText = document.querySelector('#hardcore-desc-text');
+  const hardcoreRerollBtn = document.querySelector('#hardcore-reroll-btn');
   const modeSoloTab = document.querySelector('#mode-solo-tab');
   const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
   const modeMultiTab = document.querySelector('#mode-multi-tab');
 
-  if (gameState.isHardcore && !isMultiplayer) {
+  if (gameState.isHardcore) {
     if (hardcoreBanner) hardcoreBanner.classList.remove('hidden');
-    if (modeHardcoreTab) modeHardcoreTab.classList.add('active');
-    if (modeSoloTab) modeSoloTab.classList.remove('active');
-    if (modeMultiTab) modeMultiTab.classList.remove('active');
+    if (!isMultiplayer) {
+      if (modeHardcoreTab) modeHardcoreTab.classList.add('active');
+      if (modeSoloTab) modeSoloTab.classList.remove('active');
+      if (modeMultiTab) modeMultiTab.classList.remove('active');
+      if (hardcoreRerollBtn) hardcoreRerollBtn.classList.remove('hidden');
+    } else {
+      if (hardcoreRerollBtn) hardcoreRerollBtn.classList.add('hidden');
+    }
 
     const mod = gameState.hardcoreModifier;
     if (mod) {
       const isEn = getLanguage() === 'en';
-      if (hardcoreTitleText) hardcoreTitleText.textContent = `${mod.icon} ${isEn ? mod.titleEn : mod.titleFr}`;
+      const prefix = isMultiplayer ? (isEn ? '🔥 1v1 HARDCORE: ' : '🔥 1v1 HARDCORE : ') : '';
+      if (hardcoreTitleText) hardcoreTitleText.textContent = `${prefix}${mod.icon} ${isEn ? mod.titleEn : mod.titleFr}`;
       if (hardcoreDescText) hardcoreDescText.textContent = isEn ? mod.descEn : mod.descFr;
     }
   } else {
     if (hardcoreBanner) hardcoreBanner.classList.add('hidden');
     if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
+    if (hardcoreRerollBtn) hardcoreRerollBtn.classList.remove('hidden');
   }
   updateLivesUI();
 }

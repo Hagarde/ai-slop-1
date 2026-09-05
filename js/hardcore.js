@@ -95,5 +95,5 @@ export function getRandomHardcoreModifier(currentId = null) {
  * Récupère un modificateur par son ID
  */
 export function getHardcoreModifierById(id) {
-  return HARDCORE_MODIFIERS.find(m => m.id === id) || HARDCORE_MODIFIERS[0];
+  return HARDCORE_MODIFIERS.find(m => m.id === id) || null;
 }

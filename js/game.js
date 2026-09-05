@@ -112,6 +112,72 @@ export function resetGameState(newSeed = true, isHardcore = null) {
   }
 }
 
+/**
+ * Exporte la graine compacte de la grille active
+ * Format : CD-[r0].[r1].[r2]-[c0].[c1].[c2]
+ * ou en mode Hardcore : CDH-[modId]-[r0].[r1].[r2]-[c0].[c1].[c2]
+ */
+export function exportGridSeed() {
+  if (!gameState.currentGridIndices) return null;
+  const { rowIndices, colIndices } = gameState.currentGridIndices;
+  const rStr = rowIndices.join('.');
+  const cStr = colIndices.join('.');
+  if (gameState.isHardcore && gameState.hardcoreModifier) {
+    return `CDH-${gameState.hardcoreModifier.id}-${rStr}-${cStr}`;
+  }
+  return `CD-${rStr}-${cStr}`;
+}
+
+/**
+ * Analyse et valide une chaîne de graine
+ */
+export function parseGridSeed(seedString) {
+  if (!seedString || typeof seedString !== 'string') return null;
+  const clean = seedString.trim();
+  
+  if (clean.startsWith('CDH-')) {
+    const parts = clean.slice(4).split('-');
+    if (parts.length !== 3) return null;
+    const [modId, rPart, cPart] = parts;
+    const rowIndices = rPart.split('.').map(Number);
+    const colIndices = cPart.split('.').map(Number);
+    if (rowIndices.length !== 3 || colIndices.length !== 3) return null;
+    if (rowIndices.some(i => isNaN(i) || i < 0 || i >= allCriteria.length)) return null;
+    if (colIndices.some(i => isNaN(i) || i < 0 || i >= allCriteria.length)) return null;
+    const mod = getHardcoreModifierById(modId);
+    if (!mod) return null;
+    return { isHardcore: true, hardcoreModifier: mod, rowIndices, colIndices };
+  } else if (clean.startsWith('CD-')) {
+    const parts = clean.slice(3).split('-');
+    if (parts.length !== 2) return null;
+    const [rPart, cPart] = parts;
+    const rowIndices = rPart.split('.').map(Number);
+    const colIndices = cPart.split('.').map(Number);
+    if (rowIndices.length !== 3 || colIndices.length !== 3) return null;
+    if (rowIndices.some(i => isNaN(i) || i < 0 || i >= allCriteria.length)) return null;
+    if (colIndices.some(i => isNaN(i) || i < 0 || i >= allCriteria.length)) return null;
+    return { isHardcore: false, hardcoreModifier: null, rowIndices, colIndices };
+  }
+  return null;
+}
+
+/**
+ * Applique une graine pour restaurer la grille exacte
+ */
+export function applyGridSeed(seedString) {
+  const parsed = parseGridSeed(seedString);
+  if (!parsed) return false;
+
+  gameState.isHardcore = parsed.isHardcore;
+  gameState.hardcoreModifier = parsed.hardcoreModifier;
+  gameState.answers = Array(9).fill(null);
+  gameState.selectedCell = null;
+  gameState.lives = parsed.isHardcore ? 1 : 3;
+
+  generateGrid(parsed.rowIndices, parsed.colIndices);
+  return true;
+}
+
 export function getMoveValidationDetails(cellId, countryCode) {
   const country = countries.find((item) => item.code === countryCode);
   if (!country) return { isValid: false, country: null, reason: 'Pays inconnu' };

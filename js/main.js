@@ -1,6 +1,6 @@
 import { loadData, getCountryByCode } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
-import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails } from './game.js';
+import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails, exportGridSeed, applyGridSeed } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 import { recordChoice, getChoicePercentage, syncGlobalStats } from './stats.js';
@@ -48,12 +48,22 @@ async function initApp() {
   // Synchronisation asynchrone des statistiques mondiales Supabase
   syncGlobalStats();
 
-  // URL Room check
+  // URL Room & Seed check
   const urlParams = new URLSearchParams(window.location.search);
   const roomParam = urlParams.get('room');
+  const seedParam = urlParams.get('seed');
+
   if (roomParam) {
     document.querySelector('#room-code-input').value = roomParam;
     connectAsGuest(roomParam.toUpperCase());
+  } else if (seedParam && applyGridSeed(seedParam)) {
+    search.value = '';
+    search.style.display = '';
+    document.querySelector('#progress').textContent = '0';
+    updateLivesUI();
+    updateHardcoreUI();
+    renderBoard(true);
+    setFeedback(t('dialog.seed_loaded'), 'correct');
   } else {
     resetGame(true);
   }
@@ -274,8 +284,11 @@ function setupEventListeners() {
     });
   }
 
-  document.querySelector('#close-room').addEventListener('click', handleRoomClose);
-  document.querySelector('#create-room-btn').addEventListener('click', () => initPeer(null, true));
+  document.querySelector('#close-room')?.addEventListener('click', handleRoomClose);
+  document.querySelector('#create-room-btn')?.addEventListener('click', () => {
+    const isHardcore = !!document.querySelector('#mp-hardcore-checkbox')?.checked;
+    initPeer(null, true, isHardcore);
+  });
   document.querySelector('#join-room-btn').addEventListener('click', () => {
     const code = document.querySelector('#room-code-input').value.trim().toUpperCase();
     if (code) connectAsGuest(code);
@@ -474,6 +487,100 @@ function setupEventListeners() {
     const old = btn.textContent;
     btn.textContent = t('mp.copied');
     setTimeout(() => btn.textContent = old, 2000);
+  });
+
+  // Seed Dialog Handlers
+  const seedDialogBtn = document.querySelector('#seed-dialog-btn');
+  const seedDialog = document.querySelector('#seed-dialog');
+  const closeSeedDialog = document.querySelector('#close-seed-dialog');
+  const seedCurrentInput = document.querySelector('#seed-current-input');
+  const seedImportInput = document.querySelector('#seed-import-input');
+  const copySeedCodeBtn = document.querySelector('#copy-seed-code-btn');
+  const copySeedLinkBtn = document.querySelector('#copy-seed-link-btn');
+  const loadSeedBtn = document.querySelector('#load-seed-btn');
+  const seedFeedback = document.querySelector('#seed-feedback');
+
+  if (seedDialogBtn && seedDialog) {
+    seedDialogBtn.addEventListener('click', () => {
+      const currentSeed = exportGridSeed();
+      if (seedCurrentInput) seedCurrentInput.value = currentSeed || '';
+      if (seedImportInput) seedImportInput.value = '';
+      if (seedFeedback) {
+        seedFeedback.textContent = '';
+        seedFeedback.className = 'seed-feedback hidden';
+      }
+      safeShowModal(seedDialog);
+    });
+  }
+
+  closeSeedDialog?.addEventListener('click', () => seedDialog?.close());
+
+  copySeedCodeBtn?.addEventListener('click', () => {
+    const seed = seedCurrentInput ? seedCurrentInput.value : exportGridSeed();
+    if (seed) {
+      navigator.clipboard.writeText(seed).then(() => {
+        const oldText = copySeedCodeBtn.textContent;
+        copySeedCodeBtn.textContent = t('dialog.seed_copied');
+        setTimeout(() => { copySeedCodeBtn.textContent = oldText; }, 2000);
+      });
+    }
+  });
+
+  copySeedLinkBtn?.addEventListener('click', () => {
+    const seed = seedCurrentInput ? seedCurrentInput.value : exportGridSeed();
+    if (seed) {
+      const directUrl = `${window.location.origin}${window.location.pathname}?seed=${encodeURIComponent(seed)}`;
+      navigator.clipboard.writeText(directUrl).then(() => {
+        const oldText = copySeedLinkBtn.textContent;
+        copySeedLinkBtn.textContent = t('dialog.seed_link_copied');
+        setTimeout(() => { copySeedLinkBtn.textContent = oldText; }, 2000);
+      });
+    }
+  });
+
+  loadSeedBtn?.addEventListener('click', () => {
+    const inputCode = seedImportInput ? seedImportInput.value.trim() : '';
+    if (!inputCode) return;
+
+    if (isMultiplayer) {
+      if (seedFeedback) {
+        seedFeedback.textContent = getLanguage() === 'en' 
+          ? '⚠️ Seed loading is disabled during 1v1 multiplayer.' 
+          : '⚠️ Le chargement de graine est désactivé en mode 1v1.';
+        seedFeedback.className = 'seed-feedback error';
+        seedFeedback.classList.remove('hidden');
+      }
+      return;
+    }
+
+    const ok = applyGridSeed(inputCode);
+    if (ok) {
+      search.value = '';
+      search.style.display = '';
+      document.querySelector('#progress').textContent = '0';
+      updateLivesUI();
+      updateHardcoreUI();
+      renderBoard(true);
+      setFeedback(t('dialog.seed_loaded'), 'correct');
+
+      const newUrl = `${window.location.origin}${window.location.pathname}?seed=${encodeURIComponent(inputCode)}`;
+      window.history.pushState({}, '', newUrl);
+
+      if (seedFeedback) {
+        seedFeedback.textContent = t('dialog.seed_loaded');
+        seedFeedback.className = 'seed-feedback success';
+        seedFeedback.classList.remove('hidden');
+      }
+      setTimeout(() => {
+        seedDialog?.close();
+      }, 700);
+    } else {
+      if (seedFeedback) {
+        seedFeedback.textContent = t('dialog.seed_invalid');
+        seedFeedback.className = 'seed-feedback error';
+        seedFeedback.classList.remove('hidden');
+      }
+    }
   });
 }
 

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=43" />
+    <link rel="stylesheet" href="styles.css?v=44" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -166,10 +166,16 @@
 
         <div class="board-actions">
           <p class="feedback-banner" id="feedback" role="status" aria-live="polite" data-i18n="board.default_feedback">Cliquez sur une case de la grille pour faire votre choix.</p>
-          <button class="secondary-button" id="reset-button">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8M22 12.5a10 10 0 0 1-18.8 4.2L2.5 16"/></svg>
-            <span id="reset-btn-label" data-i18n="board.reset_btn">Nouvelle grille</span>
-          </button>
+          <div class="board-action-buttons">
+            <button class="secondary-button seed-btn" id="seed-dialog-btn" title="Graine de la grille" aria-label="Graine de la grille">
+              <span class="seed-btn-icon">🌱</span>
+              <span class="seed-btn-text" data-i18n="board.seed_btn">Graine</span>
+            </button>
+            <button class="secondary-button" id="reset-button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8M22 12.5a10 10 0 0 1-18.8 4.2L2.5 16"/></svg>
+              <span id="reset-btn-label" data-i18n="board.reset_btn">Nouvelle grille</span>
+            </button>
+          </div>
         </div>
       </section>
     </main>
@@ -198,6 +204,16 @@
             <div class="room-card">
               <h3 data-i18n="dialog.room_create_title">Créer un salon</h3>
               <p data-i18n="dialog.room_create_desc">Générez un code et envoyez le lien d'invitation à un ami.</p>
+              
+              <!-- Option Mode Hardcore 1v1 -->
+              <label class="mp-hardcore-toggle" for="mp-hardcore-checkbox">
+                <input type="checkbox" id="mp-hardcore-checkbox" />
+                <span class="mp-hardcore-toggle-label">
+                  <span class="mp-hardcore-toggle-title" data-i18n="dialog.mp_hardcore_label">🔥 Activer le Mode Hardcore</span>
+                  <small class="mp-hardcore-toggle-hint" data-i18n="dialog.mp_hardcore_hint">Impose un défi mondial contraignant pour les deux joueurs !</small>
+                </span>
+              </label>
+
               <button class="primary-button full-width" id="create-room-btn" data-i18n="dialog.room_create_btn">Créer un salon 1v1</button>
             </div>
 
@@ -216,6 +232,7 @@
         <!-- Écran 2 : Code Créé & Invitation -->
         <div id="room-created-view" class="hidden text-center">
           <span class="dialog-eyebrow" style="color: var(--accent-primary);" data-i18n="dialog.room_ready_eyebrow">SALON PRÊT</span>
+          <div id="room-created-hardcore-tag" class="room-hardcore-badge hidden" data-i18n="dialog.mp_hardcore_active">🔥 DÉFI 1V1 ACTIF</div>
           <h3 data-i18n="dialog.room_ready_title">Envoyez ce lien à votre ami</h3>
           
           <div class="created-code-box">
@@ -361,6 +378,38 @@
       </div>
     </dialog>
 
+    <!-- Modal Graine de Grille (Seed) -->
+    <dialog id="seed-dialog" class="custom-dialog">
+      <div class="dialog-content">
+        <button class="close-dialog-btn" id="close-seed-dialog" aria-label="Fermer la fenêtre">×</button>
+        <span class="dialog-eyebrow" data-i18n="dialog.seed_eyebrow">GRAINE DE GRILLE</span>
+        <h2 data-i18n="dialog.seed_title">Partager ou rejouer cette grille</h2>
+        <p style="font-size: 13.5px; color: var(--ink-secondary); line-height: 1.4; margin: 0;" data-i18n="dialog.seed_desc">Chaque grille possède une graine unique. Copiez le code ou le lien direct pour y jouer avec un ami, ou collez une graine reçue.</p>
+        
+        <div class="seed-current-box">
+          <label for="seed-current-input" class="seed-label" data-i18n="dialog.seed_current_label">GRAINE ACTUELLE :</label>
+          <div class="seed-input-group">
+            <input type="text" id="seed-current-input" readonly value="" />
+          </div>
+          <div class="seed-btn-row">
+            <button type="button" class="secondary-button" id="copy-seed-code-btn" data-i18n="dialog.seed_copy_btn">📋 Copier le code</button>
+            <button type="button" class="secondary-button" id="copy-seed-link-btn" data-i18n="dialog.seed_copy_link_btn">🔗 Copier le lien direct</button>
+          </div>
+        </div>
+
+        <div class="seed-divider"></div>
+
+        <div class="seed-import-box">
+          <label for="seed-import-input" class="seed-label" data-i18n="dialog.seed_import_title">CHARGER UNE GRILLE :</label>
+          <div class="seed-input-group">
+            <input type="text" id="seed-import-input" placeholder="Collez un code graine (ex: CD-12.4.28-15.3.41)..." />
+          </div>
+          <button type="button" class="primary-button full-width" id="load-seed-btn" data-i18n="dialog.seed_load_btn">🎮 Charger cette grille</button>
+          <div id="seed-feedback" class="seed-feedback hidden"></div>
+        </div>
+      </div>
+    </dialog>
+
     <!-- Modal des Règles -->
     <dialog id="help-dialog" class="custom-dialog">
       <div class="dialog-content">
@@ -399,6 +448,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=43"></script>
+    <script type="module" src="js/main.js?v=44"></script>
   </body>
 </html>
