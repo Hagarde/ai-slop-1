@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=46" />
+    <link rel="stylesheet" href="styles.css?v=47" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -298,18 +298,18 @@
               <label class="br-label" data-i18n="br.avatar_label">CHOISISSEZ VOTRE DRAPEAU :</label>
               <div class="br-avatar-picker" id="br-avatar-picker">
                 <button type="button" class="br-avatar-btn active" data-avatar="👑">👑</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇫🇷">🇫🇷</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇧🇪">🇧🇪</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇨🇦">🇨🇦</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇨🇭">🇨🇭</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇲🇦">🇲🇦</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇩🇪">🇩🇪</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇪🇸">🇪🇸</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇬🇧">🇬🇧</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇮🇹">🇮🇹</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇧🇷">🇧🇷</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇯🇵">🇯🇵</button>
-                <button type="button" class="br-avatar-btn" data-avatar="🇺🇸">🇺🇸</button>
+                <button type="button" class="br-avatar-btn" data-avatar="fr" title="France"><img src="https://flagcdn.com/w40/fr.png" alt="France" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="be" title="Belgique"><img src="https://flagcdn.com/w40/be.png" alt="Belgique" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="ca" title="Canada"><img src="https://flagcdn.com/w40/ca.png" alt="Canada" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="ch" title="Suisse"><img src="https://flagcdn.com/w40/ch.png" alt="Suisse" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="ma" title="Maroc"><img src="https://flagcdn.com/w40/ma.png" alt="Maroc" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="de" title="Allemagne"><img src="https://flagcdn.com/w40/de.png" alt="Allemagne" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="es" title="Espagne"><img src="https://flagcdn.com/w40/es.png" alt="Espagne" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="gb" title="Royaume-Uni"><img src="https://flagcdn.com/w40/gb.png" alt="Royaume-Uni" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="it" title="Italie"><img src="https://flagcdn.com/w40/it.png" alt="Italie" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="br" title="Brésil"><img src="https://flagcdn.com/w40/br.png" alt="Brésil" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="jp" title="Japon"><img src="https://flagcdn.com/w40/jp.png" alt="Japon" class="br-picker-flag" /></button>
+                <button type="button" class="br-avatar-btn" data-avatar="us" title="États-Unis"><img src="https://flagcdn.com/w40/us.png" alt="États-Unis" class="br-picker-flag" /></button>
                 <button type="button" class="br-avatar-btn" data-avatar="🌍">🌍</button>
               </div>
             </div>
@@ -324,9 +324,18 @@
               <div class="br-setup-options">
                 <label class="br-label" data-i18n="br.mode_select_label">MODE DE JEU :</label>
                 <select id="br-mode-select" class="br-select">
-                  <option value="bomb" selected data-i18n="br.mode_bomb_title">💣 Bombe Party (1 condition, tours rapides)</option>
+                  <option value="bomb" selected data-i18n="br.mode_bomb_title">💣 Bombe Party (Tours rapides)</option>
                   <option value="waves" data-i18n="br.mode_waves_title">🌊 Vagues de Survie (Conditions cumulatives)</option>
                 </select>
+
+                <div id="br-bomb-difficulty-wrapper" style="margin-top: 8px;">
+                  <label class="br-label" data-i18n="br.bomb_difficulty_label">DIFFICULTÉ DE LA BOMBE :</label>
+                  <select id="br-bomb-difficulty-select" class="br-select">
+                    <option value="1" selected data-i18n="br.bomb_diff_1">1 condition (Classique 💣)</option>
+                    <option value="2" data-i18n="br.bomb_diff_2">2 conditions croisées (Duo Expert ⚔️)</option>
+                    <option value="escalation" data-i18n="br.bomb_diff_escalation">Progression dynamique (Tension selon les vies 📈)</option>
+                  </select>
+                </div>
 
                 <label class="br-label" style="margin-top: 8px;" data-i18n="br.timer_label">DURÉE DU CHRONO :</label>
                 <select id="br-timer-select" class="br-select">
@@ -701,6 +710,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=46"></script>
+    <script type="module" src="js/main.js?v=47"></script>
   </body>
 </html>

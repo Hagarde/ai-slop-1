@@ -733,7 +733,7 @@ export function updateBrLobbyUI() {
           const card = document.createElement('div');
           card.className = 'br-lobby-player-card';
           card.innerHTML = `
-            <span class="br-player-avatar">${p.avatar || '🌍'}</span>
+            <span class="br-player-avatar">${renderPlayerAvatar(p.avatar || '🌍')}</span>
             <div class="br-player-info">
               <span class="br-player-pseudo">${escapeHtml(p.pseudo)}</span>
               ${p.isHost ? `<span class="br-host-badge">${t('br.host_tag')}</span>` : ''}
@@ -803,7 +803,7 @@ export function updateBrArenaUI() {
 
           const hearts = p.isAlive ? '❤️'.repeat(p.lives) : '💀';
           pill.innerHTML = `
-            <span class="br-survivor-avatar">${p.avatar || '🌍'}</span>
+            <span class="br-survivor-avatar">${renderPlayerAvatar(p.avatar || '🌍')}</span>
             <span class="br-survivor-pseudo">${escapeHtml(p.pseudo)}</span>
             <span class="br-survivor-hearts">${hearts}</span>
           `;
@@ -867,7 +867,7 @@ export function updateBrArenaUI() {
             chip.innerHTML = `
               ${flagImg}
               <span class="br-chip-name">${escapeHtml(item.name || item.code)}</span>
-              <span class="br-chip-author" title="${escapeHtml(item.pseudo)}">${item.avatar || '👤'}</span>
+              <span class="br-chip-author" title="${escapeHtml(item.pseudo)}">${renderPlayerAvatar(item.avatar || '👤')}</span>
             `;
             usedList.appendChild(chip);
           });
@@ -909,6 +909,16 @@ export function updateBrTimerUI(remaining) {
   });
 }
 
+export function renderPlayerAvatar(avatar, className = '') {
+  if (!avatar) return `<span class="br-avatar-emoji ${className}">🌍</span>`;
+  const trimmed = String(avatar).trim();
+  if (/^[a-zA-Z]{2}$/.test(trimmed)) {
+    const iso2 = trimmed.toLowerCase();
+    return `<img src="https://flagcdn.com/w40/${iso2}.png" alt="${iso2.toUpperCase()}" class="br-avatar-flag-img ${className}" loading="lazy" />`;
+  }
+  return `<span class="br-avatar-emoji ${className}">${escapeHtml(trimmed)}</span>`;
+}
+
 export function updateBrPodiumUI(winner) {
   document.querySelector('#br-setup-view')?.classList.add('hidden');
   document.querySelector('#br-lobby-view')?.classList.add('hidden');
@@ -921,7 +931,7 @@ export function updateBrPodiumUI(winner) {
 
   if (winner) {
     if (winnerName) winnerName.textContent = winner.pseudo;
-    if (winnerAvatar) winnerAvatar.textContent = winner.avatar || '👑';
+    if (winnerAvatar) winnerAvatar.innerHTML = renderPlayerAvatar(winner.avatar || '👑', 'br-winner-avatar-icon');
   }
 
   import('./battle_royale.js').then(({ brGameState }) => {
@@ -930,7 +940,7 @@ export function updateBrPodiumUI(winner) {
       if (winner) {
         const row1 = document.createElement('div');
         row1.className = 'br-podium-row gold';
-        row1.innerHTML = `<span>🥇 1er</span> <strong>${escapeHtml(winner.pseudo)}</strong> <span>${winner.avatar}</span>`;
+        row1.innerHTML = `<span>🥇 1er</span> <strong>${escapeHtml(winner.pseudo)}</strong> <span>${renderPlayerAvatar(winner.avatar || '👑')}</span>`;
         podiumList.appendChild(row1);
       }
 
@@ -941,7 +951,7 @@ export function updateBrPodiumUI(winner) {
         if (p) {
           const row = document.createElement('div');
           row.className = `br-podium-row ${idx === 0 ? 'silver' : 'bronze'}`;
-          row.innerHTML = `<span>${rankIcons[idx]}</span> <strong>${escapeHtml(p.pseudo)}</strong> <span>${p.avatar}</span>`;
+          row.innerHTML = `<span>${rankIcons[idx]}</span> <strong>${escapeHtml(p.pseudo)}</strong> <span>${renderPlayerAvatar(p.avatar || '🌍')}</span>`;
           podiumList.appendChild(row);
         }
       });

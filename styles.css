@@ -2481,6 +2481,12 @@ dialog:not([open]),
   padding: 6px 10px;
   cursor: pointer;
   transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 38px;
+  box-sizing: border-box;
 }
 
 .br-avatar-btn:hover {
@@ -2493,6 +2499,25 @@ dialog:not([open]),
   border-color: #d97706;
   box-shadow: 0 0 0 2px #d97706;
   transform: scale(1.1);
+}
+
+.br-picker-flag {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.br-avatar-flag-img {
+  width: 22px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 2px;
+  vertical-align: middle;
+  display: inline-block;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .br-setup-options {
@@ -2581,6 +2606,14 @@ dialog:not([open]),
 
 .br-player-avatar {
   font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.br-player-avatar .br-avatar-flag-img {
+  width: 24px;
+  height: 16px;
 }
 
 .br-player-info {
@@ -2691,6 +2724,18 @@ dialog:not([open]),
   opacity: 0.45;
   filter: grayscale(1);
   text-decoration: line-through;
+}
+
+.br-survivor-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.br-survivor-avatar .br-avatar-flag-img {
+  width: 18px;
+  height: 12px;
 }
 
 /* Timer / Bombe */
@@ -2944,6 +2989,14 @@ dialog:not([open]),
 
 .br-chip-author {
   font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.br-chip-author .br-avatar-flag-img {
+  width: 16px;
+  height: 11px;
 }
 
 .br-no-used-msg {
@@ -3004,6 +3057,17 @@ dialog:not([open]),
   line-height: 1;
   margin-bottom: 8px;
   animation: flame-pulse 2s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.br-winner-avatar .br-avatar-flag-img {
+  width: 72px;
+  height: 48px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: inline-block;
 }
 
 .br-winner-name {
@@ -3037,6 +3101,14 @@ dialog:not([open]),
   padding: 10px 16px;
   border-radius: var(--radius-md);
   font-size: 14px;
+}
+
+.br-podium-row .br-avatar-flag-img {
+  width: 22px;
+  height: 15px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-left: 4px;
 }
 
 .br-podium-row.gold {

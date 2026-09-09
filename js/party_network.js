@@ -2,6 +2,9 @@ import {
   brGameState,
   resetBrState,
   pickBombCriterion,
+  pickBombCriteria,
+  pickCompatibleSecondCriterion,
+  checkEscalationNeed,
   pickCumulativeCriteria,
   validateBattleRoyaleMove,
   getNextAlivePlayer,
@@ -96,7 +99,7 @@ export function sendToHost(data) {
 // ==========================================
 // 1. CRÉATION D'ARÈNE (HÔTE)
 // ==========================================
-export async function initPartyHost(customCode = null, pseudo = 'Joueur 1', avatar = '👑', mode = 'bomb', timer = 15) {
+export async function initPartyHost(customCode = null, pseudo = 'Joueur 1', avatar = '👑', mode = 'bomb', timer = 15, bombDifficulty = '1') {
   const code = customCode || Math.random().toString(36).substring(2, 6).toUpperCase();
   currentBrCode = code;
   isPartyMode = true;
@@ -104,6 +107,7 @@ export async function initPartyHost(customCode = null, pseudo = 'Joueur 1', avat
   resetBrState();
 
   brGameState.mode = mode;
+  brGameState.bombDifficulty = bombDifficulty;
   brGameState.timerDuration = timer;
   brGameState.status = 'lobby';
 
@@ -144,7 +148,7 @@ export async function initPartyHost(customCode = null, pseudo = 'Joueur 1', avat
   peer.on('error', (err) => {
     console.error('[BR Host Error]', err);
     if (err.type === 'unavailable-id') {
-      initPartyHost(null, pseudo, avatar, mode, timer);
+      initPartyHost(null, pseudo, avatar, mode, timer, bombDifficulty);
     }
   });
 }
@@ -176,6 +180,7 @@ function handlePlayerLeft(leftPeerId) {
       type: 'LOBBY_UPDATE',
       players: brGameState.players,
       mode: brGameState.mode,
+      bombDifficulty: brGameState.bombDifficulty,
       timerDuration: brGameState.timerDuration
     });
     updateBrLobbyUI();
@@ -238,6 +243,7 @@ function handleHostIncomingData(conn, data) {
       type: 'LOBBY_UPDATE',
       players: brGameState.players,
       mode: brGameState.mode,
+      bombDifficulty: brGameState.bombDifficulty,
       timerDuration: brGameState.timerDuration,
       code: currentBrCode
     };
@@ -310,6 +316,7 @@ function handleGuestIncomingData(data) {
     brGameState.status = 'lobby';
     brGameState.players = data.players;
     brGameState.mode = data.mode;
+    brGameState.bombDifficulty = data.bombDifficulty || '1';
     brGameState.timerDuration = data.timerDuration;
     updateBrLobbyUI();
   }
@@ -318,6 +325,7 @@ function handleGuestIncomingData(data) {
     brGameState.status = 'playing';
     brGameState.round = data.round;
     brGameState.mode = data.mode;
+    brGameState.bombDifficulty = data.bombDifficulty || '1';
     brGameState.players = data.players;
     brGameState.currentTurnPlayerId = data.currentTurnPlayerId;
     brGameState.turnEndTime = data.turnEndTime;
@@ -337,6 +345,12 @@ function handleGuestIncomingData(data) {
       addBrFeed(data.feedMessage, data.success ? 'correct' : 'wrong');
     }
     startClientTimer();
+    updateBrArenaUI();
+  }
+
+  if (data.type === 'CRITERIA_ESCALATED') {
+    brGameState.activeCriteria = deserializeCriteria(data.criteriaIndices);
+    addBrFeed(t('br.escalation_feed', { count: brGameState.activeCriteria.length }), 'info');
     updateBrArenaUI();
   }
 
@@ -377,12 +391,14 @@ export function hostStartGame() {
   brGameState.status = 'playing';
   brGameState.round = 1;
   brGameState.usedCountries = [];
+  brGameState.initialTotalLives = brGameState.players.reduce((sum, p) => sum + p.lives, 0);
 
-  // Choix des critères de départ selon le mode
+  // Choix des critères de départ selon le mode et la difficulté
   if (brGameState.mode === 'waves') {
     brGameState.activeCriteria = pickCumulativeCriteria(1);
   } else {
-    brGameState.activeCriteria = [pickBombCriterion()];
+    const critCount = brGameState.bombDifficulty === '2' ? 2 : 1;
+    brGameState.activeCriteria = pickBombCriteria(critCount);
   }
 
   // Premier joueur vivant
@@ -394,6 +410,7 @@ export function hostStartGame() {
     type: 'GAME_START',
     round: brGameState.round,
     mode: brGameState.mode,
+    bombDifficulty: brGameState.bombDifficulty,
     players: brGameState.players,
     currentTurnPlayerId: brGameState.currentTurnPlayerId,
     turnEndTime: brGameState.turnEndTime,
@@ -404,6 +421,20 @@ export function hostStartGame() {
   broadcastToGuests(startPayload);
   startClientTimer();
   updateBrArenaUI();
+}
+
+function checkAndApplyEscalation() {
+  if (checkEscalationNeed()) {
+    const secondCrit = pickCompatibleSecondCriterion(brGameState.activeCriteria[0]);
+    if (secondCrit) {
+      brGameState.activeCriteria.push(secondCrit);
+      addBrFeed(t('br.escalation_feed', { count: 2 }), 'info');
+      broadcastToGuests({
+        type: 'CRITERIA_ESCALATED',
+        criteriaIndices: serializeCriteria(brGameState.activeCriteria)
+      });
+    }
+  }
 }
 
 function hostResetTurnTimer() {
@@ -444,6 +475,9 @@ function hostHandleTimeout() {
     updateBrPodiumUI(winner);
     return;
   }
+
+  // Vérifie si la bombe doit escalader vers 2 conditions
+  checkAndApplyEscalation();
 
   const nextPlayer = getNextAlivePlayer(timeoutPlayerId);
   brGameState.currentTurnPlayerId = nextPlayer ? nextPlayer.id : null;
@@ -558,6 +592,9 @@ function hostProcessMove(playerId, countryCode) {
       updateBrPodiumUI(winner);
       return;
     }
+
+    // Vérifie si la bombe doit escalader vers 2 conditions
+    checkAndApplyEscalation();
 
     const nextPlayer = getNextAlivePlayer(playerId);
     brGameState.currentTurnPlayerId = nextPlayer ? nextPlayer.id : null;

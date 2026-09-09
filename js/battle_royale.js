@@ -1,12 +1,14 @@
-﻿import { countries, allCriteria } from './data.js';
+import { countries, allCriteria } from './data.js';
 import { shuffle } from './utils.js';
 
 export const brGameState = {
-  mode: 'bomb', // 'bomb' (1 condition, tour par tour rapide) | 'waves' (conditions cumulatives)
+  mode: 'bomb', // 'bomb' (1 ou 2 conditions, tour par tour rapide) | 'waves' (conditions cumulatives)
+  bombDifficulty: '1', // '1' | '2' | 'escalation'
   timerDuration: 15,
   round: 1,
   status: 'idle', // 'idle' | 'lobby' | 'playing' | 'gameover'
   players: [], // [{ id, pseudo, avatar, isHost, lives: 3, isAlive: true, order: 0 }]
+  initialTotalLives: 0,
   currentTurnPlayerId: null,
   activeCriteria: [], // list of active criteria objects for current round
   usedCountries: [], // [{ code, name, pseudo, avatar, flagUrl }]
@@ -20,10 +22,12 @@ export const brGameState = {
  */
 export function resetBrState() {
   brGameState.mode = 'bomb';
+  brGameState.bombDifficulty = '1';
   brGameState.timerDuration = 15;
   brGameState.round = 1;
   brGameState.status = 'idle';
   brGameState.players = [];
+  brGameState.initialTotalLives = 0;
   brGameState.currentTurnPlayerId = null;
   brGameState.activeCriteria = [];
   brGameState.usedCountries = [];
@@ -46,6 +50,68 @@ export function pickBombCriterion(excludeCritLabel = null) {
   const pool = eligible.length > 0 ? eligible : allCriteria;
   const picked = pool[Math.floor(Math.random() * pool.length)];
   return picked;
+}
+
+/**
+ * Pioche 1 ou 2 critères pour le mode Bombe Party selon la difficulté
+ */
+export function pickBombCriteria(count = 1) {
+  if (count <= 1) {
+    return [pickBombCriterion()];
+  }
+  // 2 critères croisés équilibrés : au moins 12 pays éligibles au croisement
+  for (let attempt = 0; attempt < 300; attempt++) {
+    const crit1 = pickBombCriterion();
+    const shuffled = shuffle(allCriteria);
+    const crit2 = shuffled.find((c2) => {
+      if (c2.labelFr === crit1.labelFr) return false;
+      if (c2.type && c2.type === crit1.type) return false;
+      const countIntersect = countries.filter((c) => crit1.test(c) && c2.test(c)).length;
+      return countIntersect >= 12 && countIntersect <= 65;
+    });
+    if (crit2) {
+      return [crit1, crit2];
+    }
+  }
+  return [pickBombCriterion()];
+}
+
+/**
+ * Trouve un deuxième critère compatible avec le premier pour l'escalade dynamique
+ */
+export function pickCompatibleSecondCriterion(existingCrit) {
+  if (!existingCrit) return null;
+  const shuffled = shuffle(allCriteria);
+  const crit2 = shuffled.find((c2) => {
+    if (c2.labelFr === existingCrit.labelFr) return false;
+    if (c2.type && c2.type === existingCrit.type) return false;
+    const countIntersect = countries.filter((c) => existingCrit.test(c) && c2.test(c)).length;
+    return countIntersect >= 10;
+  });
+  return crit2 || null;
+}
+
+/**
+ * Vérifie si la difficulté Bombe Party doit passer à 2 critères (escalade dynamique)
+ */
+export function checkEscalationNeed() {
+  if (brGameState.mode !== 'bomb' || brGameState.bombDifficulty !== 'escalation') {
+    return false;
+  }
+  if (brGameState.activeCriteria.length >= 2) {
+    return false;
+  }
+  const alivePlayers = brGameState.players.filter((p) => p.isAlive);
+  if (alivePlayers.length <= 1) return false;
+
+  const currentTotalLives = alivePlayers.reduce((sum, p) => sum + p.lives, 0);
+  const initialTotal = brGameState.initialTotalLives || (brGameState.players.length * 3);
+
+  // Déclencher si <= 60% des vies totales restantes OU duel final (2 joueurs vivants)
+  const isThresholdReached = currentTotalLives <= Math.ceil(initialTotal * 0.6);
+  const isFinalDuel = alivePlayers.length <= 2;
+
+  return isThresholdReached || isFinalDuel;
 }
 
 /**

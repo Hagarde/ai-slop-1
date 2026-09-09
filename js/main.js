@@ -323,17 +323,30 @@ function setupEventListeners() {
     });
   }
 
+  const modeSelect = document.querySelector('#br-mode-select');
+  const bombDifficultyWrapper = document.querySelector('#br-bomb-difficulty-wrapper');
+  if (modeSelect && bombDifficultyWrapper) {
+    modeSelect.addEventListener('change', () => {
+      if (modeSelect.value === 'bomb') {
+        bombDifficultyWrapper.classList.remove('hidden');
+      } else {
+        bombDifficultyWrapper.classList.add('hidden');
+      }
+    });
+  }
+
   document.querySelector('#br-create-btn')?.addEventListener('click', () => {
     const pseudoInput = document.querySelector('#br-pseudo-input');
     const pseudo = (pseudoInput?.value || 'Voyageur').trim() || 'Voyageur';
     const activeAvatarBtn = document.querySelector('#br-avatar-picker .br-avatar-btn.active');
     const avatar = activeAvatarBtn?.dataset.avatar || '👑';
-    const modeSelect = document.querySelector('#br-mode-select');
     const mode = modeSelect ? modeSelect.value : 'bomb';
+    const bombDifficultySelect = document.querySelector('#br-bomb-difficulty-select');
+    const bombDifficulty = bombDifficultySelect ? bombDifficultySelect.value : '1';
     const timerSelect = document.querySelector('#br-timer-select');
     const timer = timerSelect ? parseInt(timerSelect.value, 10) : 15;
 
-    initPartyHost(null, pseudo, avatar, mode, timer);
+    initPartyHost(null, pseudo, avatar, mode, timer, bombDifficulty);
   });
 
   const handleBrJoin = () => {
