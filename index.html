@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=44" />
+    <link rel="stylesheet" href="styles.css?v=45" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -23,6 +23,10 @@
           <span class="brand-globe">🌍</span> Country<span class="accent">Doku</span>
         </a>
         <div class="header-right">
+          <button class="nav-action-btn br-toggle-btn" id="br-toggle-btn" aria-label="Mode Battle Royale 3+" title="Battle Royale (3+)" data-i18n-title="nav.mode_br">
+            <span class="nav-btn-icon">👑</span>
+            <span class="nav-btn-text" data-i18n="nav.mode_br_short">BR 👑</span>
+          </button>
           <button class="nav-action-btn multi-toggle-btn" id="multi-toggle-btn" aria-label="Mode multijoueur 1v1" title="Mode 1v1" data-i18n-title="nav.mode_1v1">
             <span class="nav-btn-icon">⚔️</span>
             <span class="nav-btn-text" data-i18n="nav.mode_1v1_short">1v1</span>
@@ -100,6 +104,15 @@
               <small id="mode-multi-desc" data-i18n="mode.multi_desc">Affrontez vos amis en direct !</small>
             </div>
             <span class="mode-badge" data-i18n="mode.multi_badge">JOUER À 2 🎮</span>
+          </button>
+
+          <button class="mode-tab br-tab" id="mode-br-tab">
+            <span class="mode-icon">👑</span>
+            <div class="mode-info">
+              <strong id="mode-br-title" data-i18n="mode.br_title">Battle Royale</strong>
+              <small id="mode-br-desc" data-i18n="mode.br_desc">3+ joueurs • Survie</small>
+            </div>
+            <span class="mode-badge br-badge" data-i18n="mode.br_badge">NOUVEAU 🏆</span>
           </button>
         </div>
       </section>
@@ -253,6 +266,207 @@
         <div class="mp-status-box" id="mp-status-box">
           <span class="mp-status-dot" id="mp-status-dot">🟡</span>
           <span class="mp-status-msg" id="mp-status-msg" data-i18n="dialog.room_status_ready">Prêt à démarrer une partie 1v1...</span>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Modal Battle Royale (3 à 8+ Joueurs) -->
+    <dialog id="battle-royale-dialog" class="custom-dialog br-dialog">
+      <div class="dialog-content br-dialog-content">
+        <button class="close-dialog-btn" id="close-br-dialog" aria-label="Fermer la fenêtre">×</button>
+
+        <!-- VUE 1 : Configuration (Créer / Rejoindre) -->
+        <div id="br-setup-view">
+          <span class="dialog-eyebrow br-eyebrow" data-i18n="br.eyebrow">ARÈNE MULTIJOUEUR 3+</span>
+          <h2 data-i18n="br.title">Battle Royale Géographique</h2>
+          <p class="dialog-desc" data-i18n="br.desc">Défiez vos amis dans une arène de survie : citez des pays selon les conditions avant que le temps ne s'écoule !</p>
+
+          <!-- Profil Joueur (Pseudo & Avatar) -->
+          <div class="br-profile-setup">
+            <div class="br-field-group">
+              <label for="br-pseudo-input" class="br-label" data-i18n="br.pseudo_label">VOTRE PSEUDO :</label>
+              <input type="text" id="br-pseudo-input" class="br-text-input" placeholder="Entrez votre pseudo..." maxlength="15" value="Voyageur" />
+            </div>
+
+            <div class="br-field-group">
+              <label class="br-label" data-i18n="br.avatar_label">CHOISISSEZ VOTRE DRAPEAU :</label>
+              <div class="br-avatar-picker" id="br-avatar-picker">
+                <button type="button" class="br-avatar-btn active" data-avatar="👑">👑</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇫🇷">🇫🇷</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇧🇪">🇧🇪</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇨🇦">🇨🇦</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇨🇭">🇨🇭</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇲🇦">🇲🇦</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇩🇪">🇩🇪</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇪🇸">🇪🇸</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇬🇧">🇬🇧</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇮🇹">🇮🇹</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇧🇷">🇧🇷</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇯🇵">🇯🇵</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🇺🇸">🇺🇸</button>
+                <button type="button" class="br-avatar-btn" data-avatar="🌍">🌍</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="room-action-cards" style="margin-top: 14px;">
+            <!-- Carte 1 : Créer une arène -->
+            <div class="room-card br-room-card">
+              <h3 data-i18n="br.create_section_title">Créer une arène</h3>
+              <p data-i18n="br.create_section_desc">Ouvrez un salon pour 3 à 8 joueurs et choisissez vos règles.</p>
+
+              <div class="br-setup-options">
+                <label class="br-label" data-i18n="br.mode_select_label">MODE DE JEU :</label>
+                <select id="br-mode-select" class="br-select">
+                  <option value="bomb" selected data-i18n="br.mode_bomb_title">💣 Bombe Party (1 condition, tours rapides)</option>
+                  <option value="waves" data-i18n="br.mode_waves_title">🌊 Vagues de Survie (Conditions cumulatives)</option>
+                </select>
+
+                <label class="br-label" style="margin-top: 8px;" data-i18n="br.timer_label">DURÉE DU CHRONO :</label>
+                <select id="br-timer-select" class="br-select">
+                  <option value="10" data-i18n="br.timer_10s">10 secondes (Extrême 🔥)</option>
+                  <option value="15" selected data-i18n="br.timer_15s">15 secondes (Standard ⏱️)</option>
+                  <option value="20" data-i18n="br.timer_20s">20 secondes (Détente 🧘)</option>
+                </select>
+              </div>
+
+              <button class="primary-button full-width" id="br-create-btn" style="margin-top: 12px;" data-i18n="br.create_btn">👑 Créer une arène</button>
+            </div>
+
+            <div class="room-divider"><span data-i18n="dialog.room_or">OU</span></div>
+
+            <!-- Carte 2 : Rejoindre une arène -->
+            <div class="room-card br-room-card">
+              <h3 data-i18n="br.join_section_title">Rejoindre une arène</h3>
+              <div class="search-input-wrapper" style="margin: 10px 0 12px 0;">
+                <input id="br-join-code-input" type="text" placeholder="Code du salon (ex: BR742)..." autocomplete="off" style="text-transform: uppercase;" />
+              </div>
+              <button class="secondary-button full-width" id="br-join-btn" data-i18n="br.join_btn">🎮 Rejoindre l'arène</button>
+            </div>
+          </div>
+
+          <div id="br-setup-feedback" class="br-feedback-banner hidden"></div>
+        </div>
+
+        <!-- VUE 2 : Salon d'attente (Lobby) -->
+        <div id="br-lobby-view" class="hidden text-center">
+          <span class="dialog-eyebrow br-eyebrow" data-i18n="br.eyebrow">ARÈNE MULTIJOUEUR 3+</span>
+          <h2 data-i18n="br.title">Salon d'attente</h2>
+          <p style="font-size: 13.5px; color: var(--ink-secondary); margin: 0 0 14px 0;" data-i18n="br.lobby_invite_hint">Partagez ce code ou ce lien à vos amis pour qu'ils rejoignent l'arène :</p>
+
+          <div class="created-code-box">
+            <span class="created-code-label" data-i18n="br.lobby_code_label">CODE DE L'ARÈNE</span>
+            <div class="created-code-val" id="br-lobby-code-val">---</div>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin: 10px 0 16px 0;">
+            <input id="br-invite-link-input" type="text" readonly style="flex: 1; font-family: var(--font-mono); font-size: 12.5px; padding: 8px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-md); background: var(--bg-app); text-align: center;" />
+            <button type="button" class="secondary-button" id="br-copy-link-btn" data-i18n="br.copy_link_btn">🔗 Copier</button>
+          </div>
+
+          <!-- Liste des Joueurs Connectés -->
+          <div class="br-lobby-players-box">
+            <div class="br-lobby-players-header">
+              <span class="br-label" data-i18n="br.players_in_lobby">JOUEURS CONNECTÉS :</span>
+              <span class="br-lobby-counter" id="br-lobby-player-count">1/8</span>
+            </div>
+            <div class="br-lobby-players-list" id="br-lobby-players-list"></div>
+          </div>
+
+          <!-- Contrôles Hôte vs Invité -->
+          <div id="br-host-controls" class="br-lobby-actions hidden">
+            <button class="primary-button full-width" id="br-start-game-btn" style="font-size: 16px; padding: 14px;" data-i18n="br.start_game_btn">
+              🚀 Lancer la partie
+            </button>
+            <small class="br-min-players-hint" data-i18n="br.need_min_players">⚠️ Au moins 2 joueurs requis pour démarrer (3+ recommandé).</small>
+          </div>
+
+          <div id="br-guest-waiting" class="br-guest-waiting-box hidden">
+            <span class="br-waiting-spinner">⏳</span>
+            <p data-i18n="br.waiting_for_host">En attente que l'hôte lance la partie...</p>
+          </div>
+
+          <button type="button" class="ghost-button full-width" id="br-leave-lobby-btn" style="margin-top: 10px;" data-i18n="br.leave_lobby_btn">
+            Quitter l'arène
+          </button>
+        </div>
+
+        <!-- VUE 3 : Arène de Jeu en Direct (Game Screen) -->
+        <div id="br-arena-view" class="hidden">
+          <!-- En-tête Arène : Manche & Survivants -->
+          <div class="br-arena-topbar">
+            <span class="br-round-badge" id="br-round-badge">MANCHE 1</span>
+            <div class="br-survivors-wrapper">
+              <span class="br-survivors-title" data-i18n="br.survivors_label">SURVIVANTS :</span>
+              <div class="br-survivors-list" id="br-survivors-list"></div>
+            </div>
+          </div>
+
+          <!-- Minuteur / Bombe dynamique -->
+          <div class="br-timer-container">
+            <div class="br-timer-header">
+              <span class="br-bomb-icon" id="br-bomb-icon">💣</span>
+              <div class="br-timer-counter"><span id="br-timer-seconds">15</span>s</div>
+            </div>
+            <div class="br-timer-bar-track">
+              <div class="br-timer-bar-fill" id="br-timer-bar-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- Carte(s) de Condition(s) active(s) -->
+          <div class="br-criteria-container">
+            <div class="br-criteria-title" data-i18n="br.condition_title">CONDITION ACTIVE :</div>
+            <div class="br-criteria-cards" id="br-criteria-cards"></div>
+          </div>
+
+          <!-- Bannière de Statut du Tour (À vous / Tour de X) -->
+          <div class="br-turn-prompt" id="br-turn-prompt">
+            💣 C'EST À VOTRE TOUR ! Citez un pays valide !
+          </div>
+
+          <!-- Zone de saisie pays en direct -->
+          <div class="br-input-zone">
+            <div class="br-input-wrapper">
+              <input type="text" id="br-country-search" class="br-country-input" placeholder="Tapez le nom d'un pays..." autocomplete="off" />
+              <button type="button" class="primary-button" id="br-country-submit" data-i18n="br.submit_btn">Valider</button>
+              <div class="br-autocomplete-list hidden" id="br-autocomplete-list"></div>
+            </div>
+          </div>
+
+          <!-- Historique des pays cités cette manche -->
+          <div class="br-used-section">
+            <div class="br-used-header">
+              <span data-i18n="br.used_countries_title">PAYS DÉJÀ CITÉS CETTE MANCHE :</span>
+              <span class="br-used-count-tag" id="br-used-count">0</span>
+            </div>
+            <div class="br-used-chips-list" id="br-used-countries-list"></div>
+          </div>
+
+          <!-- Journal des événements en direct -->
+          <div class="br-feed-section">
+            <div class="br-feed-list" id="br-feed-list"></div>
+          </div>
+        </div>
+
+        <!-- VUE 4 : Podium de Fin (Victory Royale) -->
+        <div id="br-podium-view" class="hidden text-center">
+          <span class="dialog-eyebrow br-eyebrow" data-i18n="br.eyebrow">PARTIE TERMINÉE</span>
+          <h2 class="br-podium-title" data-i18n="br.winner_title">VICTOIRE ROYALE ! 🏆</h2>
+          <p style="color: var(--ink-secondary); margin-bottom: 16px;" data-i18n="br.winner_desc">Félicitations au dernier survivant !</p>
+
+          <div class="br-winner-card">
+            <div class="br-winner-avatar" id="br-winner-avatar">👑</div>
+            <h3 class="br-winner-name" id="br-winner-name">Joueur 1</h3>
+            <span class="br-winner-badge">TOP 1 🏆</span>
+          </div>
+
+          <!-- Rangs du Podium -->
+          <div class="br-podium-ranks" id="br-podium-ranks"></div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <button class="primary-button full-width" id="br-replay-btn" data-i18n="br.play_again_btn">🔄 Rejouer dans ce salon</button>
+            <button class="secondary-button full-width" id="br-leave-arena-btn" data-i18n="br.back_to_menu">Quitter l'arène</button>
+          </div>
         </div>
       </div>
     </dialog>
@@ -448,6 +662,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=44"></script>
+    <script type="module" src="js/main.js?v=45"></script>
   </body>
 </html>

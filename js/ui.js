@@ -149,6 +149,7 @@ export function updateHardcoreUI() {
   const modeSoloTab = document.querySelector('#mode-solo-tab');
   const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
   const modeMultiTab = document.querySelector('#mode-multi-tab');
+  const modeBrTab = document.querySelector('#mode-br-tab');
 
   if (gameState.isHardcore) {
     if (hardcoreBanner) hardcoreBanner.classList.remove('hidden');
@@ -156,6 +157,7 @@ export function updateHardcoreUI() {
       if (modeHardcoreTab) modeHardcoreTab.classList.add('active');
       if (modeSoloTab) modeSoloTab.classList.remove('active');
       if (modeMultiTab) modeMultiTab.classList.remove('active');
+      if (modeBrTab) modeBrTab.classList.remove('active');
       if (hardcoreRerollBtn) hardcoreRerollBtn.classList.remove('hidden');
     } else {
       if (hardcoreRerollBtn) hardcoreRerollBtn.classList.add('hidden');
@@ -205,6 +207,7 @@ export function updateMultiplayerUI() {
   const modeSoloTab = document.querySelector('#mode-solo-tab');
   const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
   const modeMultiTab = document.querySelector('#mode-multi-tab');
+  const modeBrTab = document.querySelector('#mode-br-tab');
 
   if (!isMultiplayer) {
     if (multiplayerBar) multiplayerBar.classList.add('hidden');
@@ -222,6 +225,7 @@ export function updateMultiplayerUI() {
       if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
     }
     if (modeMultiTab) modeMultiTab.classList.remove('active');
+    if (modeBrTab) modeBrTab.classList.remove('active');
     stopTurnTimer();
     updateHardcoreUI();
     return;
@@ -229,6 +233,7 @@ export function updateMultiplayerUI() {
 
   if (modeSoloTab) modeSoloTab.classList.remove('active');
   if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
+  if (modeBrTab) modeBrTab.classList.remove('active');
   if (modeMultiTab) modeMultiTab.classList.add('active');
   
   if (multiplayerBar) multiplayerBar.classList.remove('hidden');
@@ -554,6 +559,275 @@ export function applyStaticTranslations() {
   updateHardcoreUI();
   updateScoresUI();
   updateTimerUI();
+}
+
+// ==========================================
+// BATTLE ROYALE UI LOGIC (3+ JOUEURS)
+// ==========================================
+export function updateBrLobbyUI() {
+  const brDialog = document.querySelector('#battle-royale-dialog');
+  if (brDialog && !brDialog.open) safeShowModal(brDialog);
+
+  document.querySelector('#br-setup-view')?.classList.add('hidden');
+  document.querySelector('#br-lobby-view')?.classList.remove('hidden');
+  document.querySelector('#br-arena-view')?.classList.add('hidden');
+  document.querySelector('#br-podium-view')?.classList.add('hidden');
+
+  import('./battle_royale.js').then(({ brGameState }) => {
+    import('./party_network.js').then(({ isBrHost, currentBrCode }) => {
+      const codeVal = document.querySelector('#br-lobby-code-val');
+      if (codeVal) codeVal.textContent = currentBrCode || '---';
+
+      const inviteInput = document.querySelector('#br-invite-link-input');
+      if (inviteInput) {
+        inviteInput.value = `${window.location.origin}${window.location.pathname}?br=${currentBrCode || ''}`;
+      }
+
+      const countEl = document.querySelector('#br-lobby-player-count');
+      if (countEl) countEl.textContent = `${brGameState.players.length}/8`;
+
+      const listEl = document.querySelector('#br-lobby-players-list');
+      if (listEl) {
+        listEl.innerHTML = '';
+        brGameState.players.forEach((p) => {
+          const card = document.createElement('div');
+          card.className = 'br-lobby-player-card';
+          card.innerHTML = `
+            <span class="br-player-avatar">${p.avatar || '🌍'}</span>
+            <div class="br-player-info">
+              <span class="br-player-pseudo">${escapeHtml(p.pseudo)}</span>
+              ${p.isHost ? `<span class="br-host-badge">${t('br.host_tag')}</span>` : ''}
+            </div>
+          `;
+          listEl.appendChild(card);
+        });
+      }
+
+      const hostControls = document.querySelector('#br-host-controls');
+      const guestWaiting = document.querySelector('#br-guest-waiting');
+      const startBtn = document.querySelector('#br-start-game-btn');
+
+      if (isBrHost) {
+        if (hostControls) hostControls.classList.remove('hidden');
+        if (guestWaiting) guestWaiting.classList.add('hidden');
+        if (startBtn) {
+          startBtn.disabled = brGameState.players.length < 2;
+          startBtn.textContent = t('br.start_game_btn', { count: brGameState.players.length });
+        }
+      } else {
+        if (hostControls) hostControls.classList.add('hidden');
+        if (guestWaiting) guestWaiting.classList.remove('hidden');
+      }
+    });
+  });
+}
+
+export function updateBrArenaUI() {
+  document.querySelector('#br-setup-view')?.classList.add('hidden');
+  document.querySelector('#br-lobby-view')?.classList.add('hidden');
+  document.querySelector('#br-arena-view')?.classList.remove('hidden');
+  document.querySelector('#br-podium-view')?.classList.add('hidden');
+
+  import('./battle_royale.js').then(({ brGameState }) => {
+    import('./party_network.js').then(({ myBrPlayerId }) => {
+      const roundBadge = document.querySelector('#br-round-badge');
+      if (roundBadge) roundBadge.textContent = t('br.round_badge', { round: brGameState.round });
+
+      const criteriaList = document.querySelector('#br-criteria-cards');
+      if (criteriaList) {
+        criteriaList.innerHTML = '';
+        brGameState.activeCriteria.forEach((crit) => {
+          const card = document.createElement('div');
+          card.className = 'br-criterion-card';
+          const icon = crit.icon || '📌';
+          const label = getCriterionLabel(crit);
+          const desc = getCriterionDesc(crit);
+          card.innerHTML = `
+            <span class="br-crit-icon">${icon}</span>
+            <div class="br-crit-text">
+              <strong>${escapeHtml(label)}</strong>
+              <small>${escapeHtml(desc)}</small>
+            </div>
+          `;
+          criteriaList.appendChild(card);
+        });
+      }
+
+      const survivorsList = document.querySelector('#br-survivors-list');
+      if (survivorsList) {
+        survivorsList.innerHTML = '';
+        brGameState.players.forEach((p) => {
+          const pill = document.createElement('div');
+          const isCurrentTurn = p.id === brGameState.currentTurnPlayerId;
+          pill.className = `br-survivor-pill ${isCurrentTurn ? 'active-turn' : ''} ${!p.isAlive ? 'eliminated' : ''}`;
+
+          const hearts = p.isAlive ? '❤️'.repeat(p.lives) : '💀';
+          pill.innerHTML = `
+            <span class="br-survivor-avatar">${p.avatar || '🌍'}</span>
+            <span class="br-survivor-pseudo">${escapeHtml(p.pseudo)}</span>
+            <span class="br-survivor-hearts">${hearts}</span>
+          `;
+          survivorsList.appendChild(pill);
+        });
+      }
+
+      const turnPrompt = document.querySelector('#br-turn-prompt');
+      const searchInput = document.querySelector('#br-country-search');
+      const submitBtn = document.querySelector('#br-country-submit');
+
+      const isMyTurn = brGameState.currentTurnPlayerId === myBrPlayerId;
+      const me = brGameState.players.find((p) => p.id === myBrPlayerId);
+      const isEliminated = me && !me.isAlive;
+
+      if (isEliminated) {
+        if (turnPrompt) {
+          turnPrompt.textContent = t('br.spectator_msg');
+          turnPrompt.className = 'br-turn-prompt spectator';
+        }
+        if (searchInput) { searchInput.disabled = true; searchInput.value = ''; }
+        if (submitBtn) submitBtn.disabled = true;
+      } else if (isMyTurn) {
+        if (turnPrompt) {
+          turnPrompt.textContent = t('br.your_turn_prompt');
+          turnPrompt.className = 'br-turn-prompt my-turn';
+        }
+        if (searchInput) {
+          searchInput.disabled = false;
+          searchInput.focus();
+        }
+        if (submitBtn) submitBtn.disabled = false;
+      } else {
+        const activePlayer = brGameState.players.find((p) => p.id === brGameState.currentTurnPlayerId);
+        const activeName = activePlayer ? activePlayer.pseudo : '...';
+        if (turnPrompt) {
+          turnPrompt.textContent = t('br.waiting_turn_prompt', { player: activeName });
+          turnPrompt.className = 'br-turn-prompt other-turn';
+        }
+        if (searchInput) { searchInput.disabled = true; searchInput.value = ''; }
+        if (submitBtn) submitBtn.disabled = true;
+      }
+
+      const usedList = document.querySelector('#br-used-countries-list');
+      const usedCount = document.querySelector('#br-used-count');
+      if (usedCount) usedCount.textContent = brGameState.usedCountries.length;
+
+      if (usedList) {
+        if (brGameState.usedCountries.length === 0) {
+          usedList.innerHTML = `<span class="br-no-used-msg">${t('br.no_used_yet')}</span>`;
+        } else {
+          usedList.innerHTML = '';
+          brGameState.usedCountries.forEach((item) => {
+            const country = countries.find((c) => c.code === item.code);
+            const iso2 = country?.iso2?.toLowerCase();
+            const flagImg = iso2
+              ? `<img src="https://flagcdn.com/w40/${iso2}.png" alt="" class="br-chip-flag" />`
+              : '';
+            const chip = document.createElement('div');
+            chip.className = 'br-used-chip';
+            chip.innerHTML = `
+              ${flagImg}
+              <span class="br-chip-name">${escapeHtml(item.name || item.code)}</span>
+              <span class="br-chip-author" title="${escapeHtml(item.pseudo)}">${item.avatar || '👤'}</span>
+            `;
+            usedList.appendChild(chip);
+          });
+        }
+      }
+    });
+  });
+}
+
+export function updateBrTimerUI(remaining) {
+  const timerNum = document.querySelector('#br-timer-seconds');
+  const timerBar = document.querySelector('#br-timer-bar-fill');
+  const bombIcon = document.querySelector('#br-bomb-icon');
+
+  if (timerNum) timerNum.textContent = remaining;
+
+  import('./battle_royale.js').then(({ brGameState }) => {
+    const total = brGameState.timerDuration || 15;
+    const pct = Math.max(0, Math.min(100, (remaining / total) * 100));
+
+    if (timerBar) {
+      timerBar.style.width = `${pct}%`;
+      if (remaining <= 4) {
+        timerBar.style.background = '#dc2626';
+      } else if (remaining <= 8) {
+        timerBar.style.background = '#f59e0b';
+      } else {
+        timerBar.style.background = '#10b981';
+      }
+    }
+
+    if (bombIcon) {
+      if (remaining <= 4) {
+        bombIcon.classList.add('urgent-pulse');
+      } else {
+        bombIcon.classList.remove('urgent-pulse');
+      }
+    }
+  });
+}
+
+export function updateBrPodiumUI(winner) {
+  document.querySelector('#br-setup-view')?.classList.add('hidden');
+  document.querySelector('#br-lobby-view')?.classList.add('hidden');
+  document.querySelector('#br-arena-view')?.classList.add('hidden');
+  document.querySelector('#br-podium-view')?.classList.remove('hidden');
+
+  const winnerName = document.querySelector('#br-winner-name');
+  const winnerAvatar = document.querySelector('#br-winner-avatar');
+  const podiumList = document.querySelector('#br-podium-ranks');
+
+  if (winner) {
+    if (winnerName) winnerName.textContent = winner.pseudo;
+    if (winnerAvatar) winnerAvatar.textContent = winner.avatar || '👑';
+  }
+
+  import('./battle_royale.js').then(({ brGameState }) => {
+    if (podiumList) {
+      podiumList.innerHTML = '';
+      if (winner) {
+        const row1 = document.createElement('div');
+        row1.className = 'br-podium-row gold';
+        row1.innerHTML = `<span>🥇 1er</span> <strong>${escapeHtml(winner.pseudo)}</strong> <span>${winner.avatar}</span>`;
+        podiumList.appendChild(row1);
+      }
+
+      const reversedEliminated = [...brGameState.eliminatedOrder].reverse();
+      const rankIcons = ['🥈 2e', '🥉 3e'];
+      reversedEliminated.slice(0, 2).forEach((pid, idx) => {
+        const p = brGameState.players.find((pl) => pl.id === pid);
+        if (p) {
+          const row = document.createElement('div');
+          row.className = `br-podium-row ${idx === 0 ? 'silver' : 'bronze'}`;
+          row.innerHTML = `<span>${rankIcons[idx]}</span> <strong>${escapeHtml(p.pseudo)}</strong> <span>${p.avatar}</span>`;
+          podiumList.appendChild(row);
+        }
+      });
+    }
+  });
+}
+
+export function addBrFeed(message, type = 'info') {
+  const feedList = document.querySelector('#br-feed-list');
+  if (!feedList) return;
+
+  const item = document.createElement('div');
+  item.className = `br-feed-item ${type}`;
+  item.textContent = message;
+  feedList.prepend(item);
+
+  while (feedList.children.length > 25) {
+    feedList.removeChild(feedList.lastChild);
+  }
+}
+
+export function setBrFeedback(msg, type = 'normal') {
+  const fb = document.querySelector('#br-setup-feedback');
+  if (!fb) return;
+  fb.textContent = msg;
+  fb.className = `br-feedback-banner ${type}`;
 }
 
 // Écouteur global de changement de langue

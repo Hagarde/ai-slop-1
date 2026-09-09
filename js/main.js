@@ -1,8 +1,10 @@
-import { loadData, getCountryByCode } from './data.js';
+import { loadData, getCountryByCode, countriesSearchIndex } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails, exportGridSeed, applyGridSeed } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
+import { initPartyHost, joinPartyGuest, hostStartGame, submitCountryMove, leaveParty, isPartyMode } from './party_network.js';
+import { brGameState } from './battle_royale.js';
 import { recordChoice, getChoicePercentage, syncGlobalStats } from './stats.js';
 import { initLanguage, getLanguage, setLanguage, t, getCountryName } from './i18n.js';
 
@@ -48,14 +50,27 @@ async function initApp() {
   // Synchronisation asynchrone des statistiques mondiales Supabase
   syncGlobalStats();
 
-  // URL Room & Seed check
+  // URL Room, BR & Seed check
   const urlParams = new URLSearchParams(window.location.search);
   const roomParam = urlParams.get('room');
   const seedParam = urlParams.get('seed');
+  const brParam = urlParams.get('br');
 
   if (roomParam) {
     document.querySelector('#room-code-input').value = roomParam;
     connectAsGuest(roomParam.toUpperCase());
+  } else if (brParam) {
+    resetGame(true);
+    const joinCodeInput = document.querySelector('#br-join-code-input');
+    if (joinCodeInput) joinCodeInput.value = brParam.toUpperCase();
+    const brDialog = document.querySelector('#battle-royale-dialog');
+    if (brDialog) {
+      document.querySelector('#br-setup-view')?.classList.remove('hidden');
+      document.querySelector('#br-lobby-view')?.classList.add('hidden');
+      document.querySelector('#br-arena-view')?.classList.add('hidden');
+      document.querySelector('#br-podium-view')?.classList.add('hidden');
+      safeShowModal(brDialog);
+    }
   } else if (seedParam && applyGridSeed(seedParam)) {
     search.value = '';
     search.style.display = '';
@@ -233,27 +248,48 @@ function setupEventListeners() {
   const modeMultiTab = document.querySelector('#mode-multi-tab');
   const modeSoloTab = document.querySelector('#mode-solo-tab');
   const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
+  const modeBrTab = document.querySelector('#mode-br-tab');
+  const brToggleBtn = document.querySelector('#br-toggle-btn');
   const hardcoreRerollBtn = document.querySelector('#hardcore-reroll-btn');
 
   const openMultiplayerModal = () => {
+    if (isPartyMode) leaveParty();
     document.querySelector('#room-options-view').classList.remove('hidden');
     document.querySelector('#room-created-view').classList.add('hidden');
     const roomDialog = document.querySelector('#room-dialog');
     safeShowModal(roomDialog); // F-05 FIX
   };
 
+  const openBattleRoyaleModal = () => {
+    if (isMultiplayer) handleRoomClose();
+    const brDialog = document.querySelector('#battle-royale-dialog');
+    if (brDialog) {
+      if (!isPartyMode) {
+        document.querySelector('#br-setup-view')?.classList.remove('hidden');
+        document.querySelector('#br-lobby-view')?.classList.add('hidden');
+        document.querySelector('#br-arena-view')?.classList.add('hidden');
+        document.querySelector('#br-podium-view')?.classList.add('hidden');
+      }
+      safeShowModal(brDialog);
+    }
+  };
+
   if (multiToggleBtn) multiToggleBtn.addEventListener('click', openMultiplayerModal);
   if (modeMultiTab) modeMultiTab.addEventListener('click', openMultiplayerModal);
+  if (brToggleBtn) brToggleBtn.addEventListener('click', openBattleRoyaleModal);
+  if (modeBrTab) modeBrTab.addEventListener('click', openBattleRoyaleModal);
 
   if (modeSoloTab) {
     modeSoloTab.addEventListener('click', () => {
       if (isMultiplayer) handleRoomClose();
+      if (isPartyMode) leaveParty();
       if (gameState.isHardcore) {
         resetGame(true, false);
       } else {
         modeSoloTab.classList.add('active');
         if (modeMultiTab) modeMultiTab.classList.remove('active');
         if (modeHardcoreTab) modeHardcoreTab.classList.remove('active');
+        if (modeBrTab) modeBrTab.classList.remove('active');
       }
     });
   }
@@ -261,6 +297,7 @@ function setupEventListeners() {
   if (modeHardcoreTab) {
     modeHardcoreTab.addEventListener('click', () => {
       if (isMultiplayer) handleRoomClose();
+      if (isPartyMode) leaveParty();
       if (!gameState.isHardcore) {
         resetGame(true, true);
       }
@@ -273,6 +310,203 @@ function setupEventListeners() {
         resetGame(true, true);
       }
     });
+  }
+
+  // Battle Royale Events
+  const avatarPicker = document.querySelector('#br-avatar-picker');
+  if (avatarPicker) {
+    avatarPicker.addEventListener('click', (e) => {
+      const btn = e.target.closest('.br-avatar-btn');
+      if (!btn) return;
+      avatarPicker.querySelectorAll('.br-avatar-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  }
+
+  document.querySelector('#br-create-btn')?.addEventListener('click', () => {
+    const pseudoInput = document.querySelector('#br-pseudo-input');
+    const pseudo = (pseudoInput?.value || 'Voyageur').trim() || 'Voyageur';
+    const activeAvatarBtn = document.querySelector('#br-avatar-picker .br-avatar-btn.active');
+    const avatar = activeAvatarBtn?.dataset.avatar || '👑';
+    const modeSelect = document.querySelector('#br-mode-select');
+    const mode = modeSelect ? modeSelect.value : 'bomb';
+    const timerSelect = document.querySelector('#br-timer-select');
+    const timer = timerSelect ? parseInt(timerSelect.value, 10) : 15;
+
+    initPartyHost(null, pseudo, avatar, mode, timer);
+  });
+
+  const handleBrJoin = () => {
+    const codeInput = document.querySelector('#br-join-code-input');
+    const code = codeInput ? codeInput.value.trim().toUpperCase() : '';
+    if (!code) {
+      const fb = document.querySelector('#br-setup-feedback');
+      if (fb) {
+        fb.textContent = getLanguage() === 'en' ? 'Please enter a room code.' : 'Veuillez entrer un code de salon.';
+        fb.className = 'br-feedback-banner wrong';
+        fb.classList.remove('hidden');
+      }
+      return;
+    }
+    const pseudoInput = document.querySelector('#br-pseudo-input');
+    const pseudo = (pseudoInput?.value || 'Voyageur').trim() || 'Voyageur';
+    const activeAvatarBtn = document.querySelector('#br-avatar-picker .br-avatar-btn.active');
+    const avatar = activeAvatarBtn?.dataset.avatar || '🌍';
+
+    joinPartyGuest(code, pseudo, avatar);
+  };
+
+  document.querySelector('#br-join-btn')?.addEventListener('click', handleBrJoin);
+  document.querySelector('#br-join-code-input')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleBrJoin();
+    }
+  });
+
+  document.querySelector('#br-copy-link-btn')?.addEventListener('click', () => {
+    const linkInput = document.querySelector('#br-invite-link-input');
+    const url = linkInput ? linkInput.value : window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.querySelector('#br-copy-link-btn');
+      const oldText = btn.textContent;
+      btn.textContent = t('mp.copied');
+      setTimeout(() => { btn.textContent = oldText; }, 2000);
+    }).catch(() => {
+      if (linkInput) {
+        linkInput.select();
+        document.execCommand('copy');
+      }
+    });
+  });
+
+  document.querySelector('#br-start-game-btn')?.addEventListener('click', () => {
+    hostStartGame();
+  });
+
+  const handleLeaveBr = () => {
+    leaveParty();
+    if (gameState.isHardcore) {
+      modeHardcoreTab?.classList.add('active');
+    } else {
+      modeSoloTab?.classList.add('active');
+    }
+    modeBrTab?.classList.remove('active');
+  };
+
+  document.querySelector('#br-leave-lobby-btn')?.addEventListener('click', handleLeaveBr);
+  document.querySelector('#br-leave-arena-btn')?.addEventListener('click', handleLeaveBr);
+  document.querySelector('#close-br-dialog')?.addEventListener('click', handleLeaveBr);
+
+  document.querySelector('#br-replay-btn')?.addEventListener('click', () => {
+    hostStartGame();
+  });
+
+  // Battle Royale Country Input & Autocomplete
+  const brSearchInput = document.querySelector('#br-country-search');
+  const brSubmitBtn = document.querySelector('#br-country-submit');
+  const brAutocompleteList = document.querySelector('#br-autocomplete-list');
+
+  const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  const getBrMatches = (rawQuery) => {
+    const query = fold(rawQuery.trim());
+    if (!query) return [];
+    const isEn = getLanguage() === 'en';
+
+    const matches = countriesSearchIndex.map((idx) => {
+      const country = getCountryByCode(idx.code);
+      let matchScore = -1;
+      if (isEn) {
+        if (idx.nameEn.startsWith(query) || idx.aliasesFolded.some(a => a.startsWith(query))) {
+          matchScore = 3;
+        } else if (idx.nameFr.startsWith(query)) {
+          matchScore = 2;
+        } else if (idx.nameEn.includes(query) || idx.nameFr.includes(query) || idx.aliasesFolded.some(a => a.includes(query))) {
+          matchScore = 1;
+        }
+      } else {
+        if (idx.nameFr.startsWith(query) || idx.aliasesFolded.some(a => a.startsWith(query))) {
+          matchScore = 3;
+        } else if (idx.nameEn.startsWith(query)) {
+          matchScore = 2;
+        } else if (idx.nameFr.includes(query) || idx.nameEn.includes(query) || idx.aliasesFolded.some(a => a.includes(query))) {
+          matchScore = 1;
+        }
+      }
+      return { country, matchScore };
+    }).filter(item => item.matchScore > 0);
+
+    matches.sort((a, b) => {
+      if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
+      const nameA = isEn ? (a.country.nameEnglish || a.country.name) : a.country.name;
+      const nameB = isEn ? (b.country.nameEnglish || b.country.name) : b.country.name;
+      return nameA.localeCompare(nameB, isEn ? 'en' : 'fr');
+    });
+
+    return matches.slice(0, 8);
+  };
+
+  const renderBrAutocomplete = () => {
+    if (!brSearchInput || !brAutocompleteList) return;
+    const matches = getBrMatches(brSearchInput.value);
+    if (matches.length === 0) {
+      brAutocompleteList.innerHTML = '';
+      brAutocompleteList.classList.add('hidden');
+      return;
+    }
+
+    brAutocompleteList.innerHTML = matches.map(({ country }) => {
+      const name = getCountryName(country);
+      const iso2 = country.iso2 ? country.iso2.toLowerCase() : '';
+      const flagImg = iso2 ? `<img src="https://flagcdn.com/w40/${iso2}.png" alt="" class="br-chip-flag" />` : '';
+      return `
+        <button type="button" class="br-autocomplete-item" data-code="${country.code}">
+          ${flagImg}
+          <span>${name}</span>
+        </button>
+      `;
+    }).join('');
+    brAutocompleteList.classList.remove('hidden');
+  };
+
+  const submitBrChosenCountry = () => {
+    if (!brSearchInput) return;
+    const val = brSearchInput.value.trim();
+    if (!val) return;
+    const matches = getBrMatches(val);
+    if (matches.length > 0) {
+      submitCountryMove(matches[0].country.code);
+      brSearchInput.value = '';
+      if (brAutocompleteList) brAutocompleteList.classList.add('hidden');
+    }
+  };
+
+  if (brSearchInput) {
+    brSearchInput.addEventListener('input', renderBrAutocomplete);
+    brSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitBrChosenCountry();
+      }
+    });
+  }
+
+  if (brAutocompleteList) {
+    brAutocompleteList.addEventListener('click', (e) => {
+      const item = e.target.closest('.br-autocomplete-item');
+      if (!item) return;
+      const code = item.dataset.code;
+      if (code) {
+        submitCountryMove(code);
+        if (brSearchInput) brSearchInput.value = '';
+        brAutocompleteList.classList.add('hidden');
+      }
+    });
+  }
+
+  if (brSubmitBtn) {
+    brSubmitBtn.addEventListener('click', submitBrChosenCountry);
   }
 
   // Sélecteur de langue (FR / EN)
