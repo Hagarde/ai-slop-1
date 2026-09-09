@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=45" />
+    <link rel="stylesheet" href="styles.css?v=46" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -135,10 +135,16 @@
         </div>
       </section>
 
-      <!-- Bannière de Statut du Tour 1v1 Ultra-Lisible -->
-      <div class="mp-turn-banner hidden" id="mp-turn-banner">
-        <div class="mp-turn-content" id="mp-turn-text" data-i18n="mp.your_turn_banner">
-          🎲 C'EST À VOTRE TOUR DE JOUER !
+      <!-- Bannière de Statut du Tour 1v1 Ultra-Lisible & Contrastée -->
+      <div class="mp-turn-banner hidden is-my-turn" id="mp-turn-banner" role="status" aria-live="assertive">
+        <div class="mp-turn-badge-icon" id="mp-turn-badge-icon">🟢</div>
+        <div class="mp-turn-info">
+          <div class="mp-turn-title" id="mp-turn-title" data-i18n="mp.your_turn_title">🟢 C'EST À VOTRE TOUR !</div>
+          <div class="mp-turn-sub" id="mp-turn-sub" data-i18n="mp.your_turn_sub">👉 Choisissez une case vide pour poser un pays !</div>
+          <div class="mp-turn-content hidden" id="mp-turn-text"></div>
+        </div>
+        <div class="mp-turn-timer-pill" id="mp-turn-timer-pill">
+          ⏱️ <span id="mp-turn-timer-num">30</span>s
         </div>
       </div>
 
@@ -520,6 +526,30 @@
       </div>
     </dialog>
 
+    <!-- Modal d'introduction Pop-up Défi Hardcore 1v1 -->
+    <dialog id="mp-hardcore-intro-dialog" class="custom-dialog mp-hc-dialog">
+      <div class="dialog-content mp-hc-dialog-content text-center">
+        <span class="dialog-eyebrow mp-hc-eyebrow" data-i18n="mp.hc_intro_eyebrow">🔥 DÉFI 1V1 HARDCORE ACTIVÉ !</span>
+        
+        <div class="mp-hc-icon-wrap" id="mp-hc-intro-icon">🚫</div>
+        <h2 class="mp-hc-title" id="mp-hc-intro-title">Bannissement du G20</h2>
+        
+        <div class="mp-hc-rule-card">
+          <p class="mp-hc-desc" id="mp-hc-intro-desc">Les 19 puissances du G20 sont strictement interdites sur toute la grille pour les deux joueurs !</p>
+        </div>
+
+        <div class="mp-hc-warning-box">
+          <span class="mp-hc-warning-icon">⚠️</span>
+          <span class="mp-hc-warning-text" data-i18n="mp.hc_intro_fatal_warning">Tenter un pays interdit ou invalide fait immédiatement passer la main à votre adversaire !</span>
+        </div>
+
+        <button class="primary-button full-width mp-hc-cta" id="mp-hc-accept-btn">
+          <span data-i18n="mp.hc_intro_btn">⚔️ J'accepte le défi !</span>
+          <span class="mp-hc-autoclose" id="mp-hc-autoclose">(5s)</span>
+        </button>
+      </div>
+    </dialog>
+
     <!-- Modal de recherche façon MetroDoku -->
     <dialog id="search-dialog" class="custom-dialog search-dialog">
       <div class="dialog-content search-dialog-content">
@@ -531,6 +561,15 @@
         <h2 id="search-dialog-title" data-i18n="dialog.search_title">Choisissez un pays</h2>
         <div class="search-dialog-sub" id="search-dialog-clues">Critères : ...</div>
         
+        <!-- Rappel Condition Hardcore Incontournable (affiché si mode Hardcore) -->
+        <div class="search-dialog-hardcore-reminder hidden" id="search-dialog-hardcore-reminder">
+          <span class="sd-hc-icon" id="sd-hc-icon">🔥</span>
+          <div class="sd-hc-text">
+            <strong class="sd-hc-title" id="sd-hc-title">DÉFI : Bannissement du G20</strong>
+            <small class="sd-hc-desc" id="sd-hc-desc">Les pays du G20 sont interdits !</small>
+          </div>
+        </div>
+
         <div class="search-input-wrapper">
           <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input id="country-search" type="search" placeholder="Tapez le nom d'un pays (ex: France, Japon)..." autocomplete="off" />
@@ -662,6 +701,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=45"></script>
+    <script type="module" src="js/main.js?v=46"></script>
   </body>
 </html>

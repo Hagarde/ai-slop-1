@@ -3057,6 +3057,363 @@ dialog:not([open]),
   font-weight: 600;
 }
 
+/* ==========================================================================
+   VISIBILITÉ DU TOUR 1V1 (DESKTOP & MOBILE)
+   ========================================================================== */
+.mp-turn-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  margin: 12px 0 16px 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.mp-turn-badge-icon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.mp-turn-info {
+  flex: 1;
+  text-align: left;
+}
+
+.mp-turn-title {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+
+.mp-turn-sub {
+  font-size: 12.5px;
+  font-weight: 500;
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+.mp-turn-timer-pill {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+/* État : À VOTRE TOUR */
+.mp-turn-banner.is-my-turn {
+  background: linear-gradient(135deg, #065f46 0%, #059669 45%, #10b981 100%);
+  color: #ffffff;
+  border: 2px solid #34d399;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35), 0 8px 22px rgba(5, 150, 105, 0.28);
+  animation: turn-pulse 2.2s infinite ease-in-out;
+}
+
+.mp-turn-banner.is-my-turn .mp-turn-title {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.mp-turn-banner.is-my-turn .mp-turn-sub {
+  color: #ecfdf5;
+}
+
+.mp-turn-banner.is-my-turn .mp-turn-timer-pill {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+/* État : TOUR DE L'ADVERSAIRE */
+.mp-turn-banner.is-opponent-turn {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  color: #334155;
+  border: 2px solid var(--border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.mp-turn-banner.is-opponent-turn .mp-turn-title {
+  color: #334155;
+}
+
+.mp-turn-banner.is-opponent-turn .mp-turn-sub {
+  color: #64748b;
+}
+
+.mp-turn-banner.is-opponent-turn .mp-turn-timer-pill {
+  background: #e2e8f0;
+  border: 1px solid var(--border-medium);
+  color: #475569;
+}
+
+/* État : Alerte Temps Critique (<10s) */
+.mp-turn-banner.warning {
+  background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%) !important;
+  border-color: #f87171 !important;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.4), 0 8px 24px rgba(220, 38, 38, 0.35) !important;
+  animation: urgent-shake 0.8s infinite !important;
+}
+
+.mp-turn-banner.warning .mp-turn-title,
+.mp-turn-banner.warning .mp-turn-sub,
+.mp-turn-banner.warning .mp-turn-timer-pill {
+  color: #ffffff !important;
+}
+
+.mp-turn-banner.warning .mp-turn-timer-pill {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Halo et feedback sur la grille 1v1 */
+#board-card.my-turn {
+  border: 2px solid #10b981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3), var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+#board-card.opponent-waiting {
+  opacity: 0.85;
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+#board-card.opponent-waiting .cell:not(.correct):not(.solution-mode-cell) {
+  cursor: not-allowed;
+}
+
+.player-you-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1px 5px;
+  border-radius: 6px;
+  margin-left: 5px;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   POP-UP D'INTRODUCTION DÉFI 1V1 HARDCORE
+   ========================================================================== */
+.mp-hc-dialog {
+  max-width: 480px;
+  width: calc(100% - 28px);
+  background: linear-gradient(180deg, #1c1917 0%, #292524 100%);
+  color: #f5f5f4;
+  border: 2px solid #ea580c;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(234, 88, 12, 0.35), 0 0 0 1px rgba(251, 146, 60, 0.2);
+  padding: 0;
+  overflow: hidden;
+}
+
+.mp-hc-dialog-content {
+  padding: 24px 22px;
+}
+
+.mp-hc-eyebrow {
+  color: #fb923c !important;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.mp-hc-icon-wrap {
+  font-size: 60px;
+  line-height: 1;
+  margin: 14px 0 10px 0;
+  animation: flame-pulse 2s infinite ease-in-out;
+}
+
+.mp-hc-title {
+  color: #fff7ed;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  margin: 0 0 12px 0;
+}
+
+.mp-hc-rule-card {
+  background: rgba(234, 88, 12, 0.18);
+  border: 1.5px solid rgba(234, 88, 12, 0.45);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.mp-hc-desc {
+  color: #ffedd5;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.mp-hc-warning-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(220, 38, 38, 0.25);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 13px;
+  color: #fecaca;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.mp-hc-warning-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.mp-hc-cta {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  padding: 14px 20px !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.45) !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.mp-hc-cta:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.mp-hc-autoclose {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   RAPPEL DU DÉFI HARDCORE DANS LA RECHERCHE DE PAYS (#search-dialog)
+   ========================================================================== */
+.search-dialog-hardcore-reminder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.12) 0%, rgba(220, 38, 38, 0.12) 100%);
+  border: 1.5px solid rgba(234, 88, 12, 0.45);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.sd-hc-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  animation: flame-pulse 1.8s infinite;
+}
+
+.sd-hc-text {
+  flex: 1;
+}
+
+.sd-hc-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #c2410c;
+  line-height: 1.25;
+}
+
+.sd-hc-desc {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7c2d12;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   ANIMATIONS SPÉCIFIQUES
+   ========================================================================== */
+@keyframes turn-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35), 0 8px 22px rgba(5, 150, 105, 0.28);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.5), 0 10px 28px rgba(5, 150, 105, 0.4);
+  }
+}
+
+@keyframes urgent-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-3px);
+  }
+  40%, 80% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes pill-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 2px currentColor;
+    transform: scale(1.02);
+  }
+  50% {
+    box-shadow: 0 0 0 4px currentColor, 0 0 12px currentColor;
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Mobile 1v1 */
+@media (max-width: 600px) {
+  .mp-turn-banner {
+    padding: 10px 14px;
+    gap: 10px;
+    margin: 8px 0 12px 0;
+  }
+  
+  .mp-turn-title {
+    font-size: 14.5px;
+  }
+  
+  .mp-turn-sub {
+    font-size: 11.5px;
+  }
+  
+  .mp-turn-timer-pill {
+    font-size: 13.5px;
+    padding: 5px 10px;
+  }
+}
+
 /* Safe area insets for notched phones */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   body {

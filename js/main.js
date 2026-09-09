@@ -1,7 +1,7 @@
 import { loadData, getCountryByCode, countriesSearchIndex } from './data.js';
 import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails, exportGridSeed, applyGridSeed } from './game.js';
-import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback } from './ui.js';
+import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback, updateSearchDialogHardcoreReminder } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 import { initPartyHost, joinPartyGuest, hostStartGame, submitCountryMove, leaveParty, isPartyMode } from './party_network.js';
 import { brGameState } from './battle_royale.js';
@@ -610,6 +610,7 @@ function setupEventListeners() {
       if (cellTargetTag) cellTargetTag.textContent = t('dialog.cell_tag', { cell: id + 1 });
       
       renderCountriesForSolution(candidates);
+      updateSearchDialogHardcoreReminder();
       safeShowModal(searchDialog); // F-05 FIX
       return;
     }
@@ -634,6 +635,7 @@ function setupEventListeners() {
     search.value = '';
     renderBoard();
     renderCountries(handleCellChoose);
+    updateSearchDialogHardcoreReminder();
     safeShowModal(searchDialog); // F-05 FIX
     setTimeout(() => search.focus(), 50);
   });

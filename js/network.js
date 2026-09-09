@@ -1,7 +1,7 @@
 import { gameState, generateGrid, checkTicTacToeWin, validateMove, resetGameState } from './game.js';
 import { countries } from './data.js';
 import { escapeHtml } from './utils.js';
-import { addGameFeed, updateScoresUI, updateMultiplayerUI, updateHardcoreUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal, setFeedback } from './ui.js';
+import { addGameFeed, updateScoresUI, updateMultiplayerUI, updateHardcoreUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal, setFeedback, showHardcore1v1Intro } from './ui.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
 import { t, getLanguage, getCountryName } from './i18n.js';
 import { getRandomHardcoreModifier, getHardcoreModifierById } from './hardcore.js';
@@ -295,6 +295,9 @@ export function startNextMultiplayerMatch(sameGrid = false) {
   updateMultiplayerUI();
   updateHardcoreUI();
   startTurnTimer();
+  if (isHardcoreRoom && gameState.hardcoreModifier) {
+    showHardcore1v1Intro(gameState.hardcoreModifier);
+  }
 }
 
 export function handleIncomingData(data) {
@@ -329,6 +332,9 @@ export function handleIncomingData(data) {
     addGameFeed(t('mp.guest_connected'));
     startTurnTimer();
     renderBoard();
+    if (isHardcoreRoom && gameState.hardcoreModifier) {
+      showHardcore1v1Intro(gameState.hardcoreModifier);
+    }
   }
 
   if (data.type === 'INIT_GAME') {
@@ -349,6 +355,9 @@ export function handleIncomingData(data) {
     renderBoard();
     startTurnTimer();
     safeSend({ type: 'GUEST_READY' });
+    if (isHardcoreRoom && gameState.hardcoreModifier) {
+      showHardcore1v1Intro(gameState.hardcoreModifier);
+    }
   }
 
   // VALIDATION STRICTE

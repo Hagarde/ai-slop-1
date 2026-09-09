@@ -176,30 +176,153 @@ export function updateHardcoreUI() {
     if (hardcoreRerollBtn) hardcoreRerollBtn.classList.remove('hidden');
   }
   updateLivesUI();
+  updateSearchDialogHardcoreReminder();
+}
+
+let lastKnownTurn = null;
+let hcAutoCloseInterval = null;
+
+export function updateSearchDialogHardcoreReminder() {
+  const reminderEl = document.querySelector('#search-dialog-hardcore-reminder');
+  if (!reminderEl) return;
+
+  if (gameState.isHardcore && gameState.hardcoreModifier) {
+    reminderEl.classList.remove('hidden');
+    const mod = gameState.hardcoreModifier;
+    const isEn = getLanguage() === 'en';
+    const iconEl = document.querySelector('#sd-hc-icon');
+    const titleEl = document.querySelector('#sd-hc-title');
+    const descEl = document.querySelector('#sd-hc-desc');
+
+    if (iconEl) iconEl.textContent = mod.icon || '🔥';
+    if (titleEl) titleEl.textContent = `${t('mp.hc_reminder_tag')} ${isEn ? mod.titleEn : mod.titleFr}`;
+    if (descEl) descEl.textContent = isEn ? mod.descEn : mod.descFr;
+  } else {
+    reminderEl.classList.add('hidden');
+  }
+}
+
+export function showHardcore1v1Intro(modifier) {
+  if (!modifier) return;
+  const dialog = document.querySelector('#mp-hardcore-intro-dialog');
+  if (!dialog) return;
+
+  const iconEl = document.querySelector('#mp-hc-intro-icon');
+  const titleEl = document.querySelector('#mp-hc-intro-title');
+  const descEl = document.querySelector('#mp-hc-intro-desc');
+  const autoCloseEl = document.querySelector('#mp-hc-autoclose');
+  const acceptBtn = document.querySelector('#mp-hc-accept-btn');
+
+  const isEn = getLanguage() === 'en';
+  if (iconEl) iconEl.textContent = modifier.icon || '🔥';
+  if (titleEl) titleEl.textContent = isEn ? modifier.titleEn : modifier.titleFr;
+  if (descEl) descEl.textContent = isEn ? modifier.descEn : modifier.descFr;
+
+  let secondsLeft = 5;
+  if (autoCloseEl) autoCloseEl.textContent = `(${secondsLeft}s)`;
+
+  if (hcAutoCloseInterval) clearInterval(hcAutoCloseInterval);
+
+  hcAutoCloseInterval = setInterval(() => {
+    secondsLeft -= 1;
+    if (autoCloseEl) autoCloseEl.textContent = `(${secondsLeft}s)`;
+    if (secondsLeft <= 0) {
+      clearInterval(hcAutoCloseInterval);
+      hcAutoCloseInterval = null;
+      if (dialog.open) dialog.close();
+    }
+  }, 1000);
+
+  const closeDialog = () => {
+    if (hcAutoCloseInterval) {
+      clearInterval(hcAutoCloseInterval);
+      hcAutoCloseInterval = null;
+    }
+    if (dialog.open) dialog.close();
+  };
+
+  if (acceptBtn) {
+    acceptBtn.onclick = closeDialog;
+  }
+
+  safeShowModal(dialog);
 }
 
 export function updateTimerUI() {
   if (turnTimerDisplay) turnTimerDisplay.textContent = `⏱️ ${turnTimeLeft}s`;
   
-  if (isMultiplayer && mpTurnText) {
+  const timerNumEl = document.querySelector('#mp-turn-timer-num');
+  if (timerNumEl) timerNumEl.textContent = turnTimeLeft;
+
+  if (isMultiplayer) {
     const isMyTurn = currentTurn === myRole;
     const activeRoleName = currentTurn === 'host' 
       ? (getLanguage() === 'en' ? '🟢 Player 1' : '🟢 Joueur 1') 
       : (getLanguage() === 'en' ? '🔵 Player 2' : '🔵 Joueur 2');
     
-    if (isMyTurn) {
-      mpTurnText.textContent = `${t('mp.your_turn_banner')} (⏱️ ${turnTimeLeft}s)`;
-    } else {
-      mpTurnText.textContent = `${t('mp.opponent_turn_banner')} (${activeRoleName} - ⏱️ ${turnTimeLeft}s)`;
+    // Notification haptique sur smartphone lors du passage de main au joueur
+    if (isMyTurn && lastKnownTurn !== myRole && lastKnownTurn !== null) {
+      try {
+        if ('vibrate' in navigator) navigator.vibrate([120, 60, 120]);
+      } catch (e) {}
     }
-  }
+    lastKnownTurn = currentTurn;
 
-  if (turnTimeLeft <= 10) {
-    if (turnTimerDisplay) turnTimerDisplay.classList.add('warning');
-    if (mpTurnBanner) mpTurnBanner.classList.add('warning');
-  } else {
-    if (turnTimerDisplay) turnTimerDisplay.classList.remove('warning');
-    if (mpTurnBanner) mpTurnBanner.classList.remove('warning');
+    const turnBadgeIcon = document.querySelector('#mp-turn-badge-icon');
+    const turnTitleEl = document.querySelector('#mp-turn-title');
+    const turnSubEl = document.querySelector('#mp-turn-sub');
+
+    if (mpTurnBanner) {
+      mpTurnBanner.classList.remove('hidden');
+      if (isMyTurn) {
+        mpTurnBanner.classList.add('is-my-turn');
+        mpTurnBanner.classList.remove('is-opponent-turn');
+        if (turnBadgeIcon) turnBadgeIcon.textContent = '🟢';
+        if (turnTitleEl) turnTitleEl.textContent = t('mp.your_turn_title');
+        if (turnSubEl) {
+          turnSubEl.textContent = turnTimeLeft <= 10 ? t('mp.urgent_timer_sub') : t('mp.your_turn_sub');
+        }
+      } else {
+        mpTurnBanner.classList.remove('is-my-turn');
+        mpTurnBanner.classList.add('is-opponent-turn');
+        if (turnBadgeIcon) turnBadgeIcon.textContent = '⏳';
+        if (turnTitleEl) turnTitleEl.textContent = `${t('mp.opponent_turn_title')} (${activeRoleName})`;
+        if (turnSubEl) {
+          turnSubEl.textContent = turnTimeLeft <= 10 ? t('mp.urgent_timer_sub') : t('mp.opponent_turn_sub');
+        }
+      }
+
+      if (turnTimeLeft <= 10) {
+        mpTurnBanner.classList.add('warning');
+        if (turnTimerDisplay) turnTimerDisplay.classList.add('warning');
+      } else {
+        mpTurnBanner.classList.remove('warning');
+        if (turnTimerDisplay) turnTimerDisplay.classList.remove('warning');
+      }
+    }
+
+    if (boardCard) {
+      if (isMyTurn) {
+        boardCard.classList.add('my-turn');
+        boardCard.classList.remove('opponent-waiting');
+      } else {
+        boardCard.classList.remove('my-turn');
+        boardCard.classList.add('opponent-waiting');
+      }
+    }
+
+    // Pilules Joueur 1 / Joueur 2
+    if (playerHostPill) playerHostPill.classList.toggle('active-turn', currentTurn === 'host');
+    if (playerGuestPill) playerGuestPill.classList.toggle('active-turn', currentTurn === 'guest');
+
+    // Texte legacy pour rétro-compatibilité
+    if (mpTurnText) {
+      if (isMyTurn) {
+        mpTurnText.textContent = `${t('mp.your_turn_banner')} (⏱️ ${turnTimeLeft}s)`;
+      } else {
+        mpTurnText.textContent = `${t('mp.opponent_turn_banner')} (${activeRoleName} - ⏱️ ${turnTimeLeft}s)`;
+      }
+    }
   }
 }
 
@@ -211,9 +334,12 @@ export function updateMultiplayerUI() {
 
   if (!isMultiplayer) {
     if (multiplayerBar) multiplayerBar.classList.add('hidden');
-    if (mpTurnBanner) mpTurnBanner.classList.add('hidden');
+    if (mpTurnBanner) {
+      mpTurnBanner.classList.add('hidden');
+      mpTurnBanner.classList.remove('is-my-turn', 'is-opponent-turn', 'warning');
+    }
     if (mpFeedCard) mpFeedCard.classList.add('hidden');
-    if (boardCard) boardCard.classList.remove('opponent-turn');
+    if (boardCard) boardCard.classList.remove('my-turn', 'opponent-waiting');
     if (resetBtnLabel) resetBtnLabel.textContent = t('board.reset_btn');
     const descText = document.querySelector('#intro-desc-text');
     if (descText) descText.innerHTML = t('intro.desc', { badge: '<span class="info-badge">ⓘ</span>' });
@@ -226,6 +352,7 @@ export function updateMultiplayerUI() {
     }
     if (modeMultiTab) modeMultiTab.classList.remove('active');
     if (modeBrTab) modeBrTab.classList.remove('active');
+    lastKnownTurn = null;
     stopTurnTimer();
     updateHardcoreUI();
     return;
@@ -243,7 +370,20 @@ export function updateMultiplayerUI() {
   if (mpRoomCodeDisplay && currentRoomCode) {
     mpRoomCodeDisplay.textContent = `${t('mp.code_label')}${currentRoomCode}`;
   }
+
+  // Ajout du badge (VOUS) sur le label du joueur local
+  const hostLabel = document.querySelector('#player-host-label');
+  const guestLabel = document.querySelector('#player-guest-label');
+  const youTag = `<span class="player-you-tag">${t('mp.you_tag')}</span>`;
+  if (hostLabel) {
+    hostLabel.innerHTML = (getLanguage() === 'en' ? 'Player 1' : 'Joueur 1') + (myRole === 'host' ? youTag : '');
+  }
+  if (guestLabel) {
+    guestLabel.innerHTML = (getLanguage() === 'en' ? 'Player 2' : 'Joueur 2') + (myRole === 'guest' ? youTag : '');
+  }
+
   updateHardcoreUI();
+  updateTimerUI();
 }
 
 const CATEGORY_NAMES = {
