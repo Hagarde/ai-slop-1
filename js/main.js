@@ -3,7 +3,7 @@ import { setupLogging, sessionLogs } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails, exportGridSeed, applyGridSeed } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback, updateSearchDialogHardcoreReminder } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
-import { initPartyHost, joinPartyGuest, hostStartGame, submitCountryMove, leaveParty, isPartyMode } from './party_network.js';
+import { initPartyHost, joinPartyGuest, hostStartGame, hostRestartGame, hostReturnToLobby, requestReplayGuest, isBrHost, submitCountryMove, leaveParty, isPartyMode } from './party_network.js';
 import { brGameState } from './battle_royale.js';
 import { recordChoice, getChoicePercentage, syncGlobalStats } from './stats.js';
 import { initLanguage, getLanguage, setLanguage, t, getCountryName } from './i18n.js';
@@ -343,10 +343,12 @@ function setupEventListeners() {
     const mode = modeSelect ? modeSelect.value : 'bomb';
     const bombDifficultySelect = document.querySelector('#br-bomb-difficulty-select');
     const bombDifficulty = bombDifficultySelect ? bombDifficultySelect.value : '1';
+    const livesSelect = document.querySelector('#br-lives-select');
+    const lives = livesSelect ? parseInt(livesSelect.value, 10) : 2;
     const timerSelect = document.querySelector('#br-timer-select');
     const timer = timerSelect ? parseInt(timerSelect.value, 10) : 15;
 
-    initPartyHost(null, pseudo, avatar, mode, timer, bombDifficulty);
+    initPartyHost(null, pseudo, avatar, mode, timer, bombDifficulty, lives);
   });
 
   const handleBrJoin = () => {
@@ -412,7 +414,19 @@ function setupEventListeners() {
   document.querySelector('#close-br-dialog')?.addEventListener('click', handleLeaveBr);
 
   document.querySelector('#br-replay-btn')?.addEventListener('click', () => {
-    hostStartGame();
+    if (isBrHost) {
+      hostRestartGame();
+    } else {
+      requestReplayGuest();
+    }
+  });
+
+  document.querySelector('#br-lobby-return-btn')?.addEventListener('click', () => {
+    if (isBrHost) {
+      hostReturnToLobby();
+    } else {
+      handleLeaveBr();
+    }
   });
 
   // Battle Royale Country Input & Autocomplete

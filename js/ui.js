@@ -770,6 +770,9 @@ export function updateBrArenaUI() {
 
   import('./battle_royale.js').then(({ brGameState }) => {
     import('./party_network.js').then(({ myBrPlayerId }) => {
+      // Met à jour l'arène visuelle circulaire avec l'aiguille rotative
+      updateBrCircleArena(brGameState.currentTurnPlayerId);
+
       const roundBadge = document.querySelector('#br-round-badge');
       if (roundBadge) roundBadge.textContent = t('br.round_badge', { round: brGameState.round });
 
@@ -877,12 +880,89 @@ export function updateBrArenaUI() {
   });
 }
 
+/**
+ * Rendu de l'Arène Visuelle Circulaire (Mode Bombe Party)
+ * Positionne trigonométriquement les joueurs en cercle autour de la bombe
+ * et oriente l'aiguille centrale vers le joueur actif.
+ */
+export function updateBrCircleArena(activePlayerId) {
+  const circleArenaWrapper = document.querySelector('#br-circle-arena-wrapper');
+  const linearTimer = document.querySelector('#br-linear-timer-container');
+  if (!circleArenaWrapper) return;
+
+  import('./battle_royale.js').then(({ brGameState }) => {
+    import('./party_network.js').then(({ myBrPlayerId }) => {
+      // Affiche l'arène circulaire uniquement en mode Bombe, sinon minuteur classique
+      if (brGameState.mode === 'bomb') {
+        circleArenaWrapper.classList.remove('hidden');
+        if (linearTimer) linearTimer.classList.add('hidden');
+      } else {
+        circleArenaWrapper.classList.add('hidden');
+        if (linearTimer) linearTimer.classList.remove('hidden');
+        return;
+      }
+
+      const ringEl = document.querySelector('#br-circle-players-ring');
+      const arrowWrapper = document.querySelector('#br-circle-arrow-wrapper');
+      const players = brGameState.players || [];
+      const numPlayers = players.length;
+      if (numPlayers === 0) return;
+
+      const effectiveActiveId = activePlayerId !== undefined ? activePlayerId : brGameState.currentTurnPlayerId;
+      const activeIdx = players.findIndex((p) => p.id === effectiveActiveId);
+
+      // Rotation de l'aiguille vers le joueur actif (en partant de midi / 0 deg)
+      if (arrowWrapper && activeIdx >= 0) {
+        const arrowAngle = (activeIdx / numPlayers) * 360;
+        arrowWrapper.style.transform = `rotate(${arrowAngle}deg)`;
+      }
+
+      // Rendu des nœuds joueurs autour du cercle
+      if (ringEl) {
+        ringEl.innerHTML = '';
+        players.forEach((p, idx) => {
+          // Angle en degrés : index 0 à midi (-90 deg en trigonométrie standard)
+          const angleDeg = (idx / numPlayers) * 360 - 90;
+          const angleRad = (angleDeg * Math.PI) / 180;
+          const radiusPct = 39; // Rayon à 39% du conteneur (centre = 50%)
+          const xPct = 50 + radiusPct * Math.cos(angleRad);
+          const yPct = 50 + radiusPct * Math.sin(angleRad);
+
+          const isCurrentTurn = p.id === effectiveActiveId;
+          const isMe = p.id === myBrPlayerId;
+          const hearts = p.isAlive ? '❤️'.repeat(p.lives) : '💀';
+
+          const node = document.createElement('div');
+          node.className = `br-circle-player-node ${isCurrentTurn ? 'is-active-turn' : ''} ${!p.isAlive ? 'is-eliminated' : ''}`;
+          node.style.left = `${xPct}%`;
+          node.style.top = `${yPct}%`;
+
+          node.innerHTML = `
+            <span class="br-circle-node-avatar">${renderPlayerAvatar(p.avatar || '🌍')}</span>
+            <span class="br-circle-node-pseudo" title="${escapeHtml(p.pseudo)}">${escapeHtml(p.pseudo)}</span>
+            <span class="br-circle-node-hearts">${hearts}</span>
+            ${isMe ? `<span class="br-circle-you-badge">${t('br.you_badge')}</span>` : ''}
+          `;
+          ringEl.appendChild(node);
+        });
+      }
+    });
+  });
+}
+
 export function updateBrTimerUI(remaining) {
   const timerNum = document.querySelector('#br-timer-seconds');
   const timerBar = document.querySelector('#br-timer-bar-fill');
   const bombIcon = document.querySelector('#br-bomb-icon');
 
   if (timerNum) timerNum.textContent = remaining;
+
+  // Éléments de l'Arène Circulaire
+  const circleTimerText = document.querySelector('#br-circle-timer-text');
+  if (circleTimerText) circleTimerText.textContent = `${remaining}s`;
+  const circleBombIcon = document.querySelector('#br-circle-bomb-icon');
+  const circleHub = document.querySelector('#br-circle-center-hub');
+  const fuseBadge = document.querySelector('#br-circle-fuse-badge');
 
   import('./battle_royale.js').then(({ brGameState }) => {
     const total = brGameState.timerDuration || 15;
@@ -904,6 +984,36 @@ export function updateBrTimerUI(remaining) {
         bombIcon.classList.add('urgent-pulse');
       } else {
         bombIcon.classList.remove('urgent-pulse');
+      }
+    }
+
+    if (circleBombIcon) {
+      if (remaining <= 4) {
+        circleBombIcon.classList.add('urgent-pulse');
+      } else {
+        circleBombIcon.classList.remove('urgent-pulse');
+      }
+    }
+
+    if (circleHub) {
+      if (remaining <= 4) {
+        circleHub.style.borderColor = '#dc2626';
+        circleHub.style.boxShadow = '0 0 18px rgba(220, 38, 38, 0.45)';
+      } else if (remaining <= 8) {
+        circleHub.style.borderColor = '#f59e0b';
+        circleHub.style.boxShadow = '0 0 12px rgba(245, 158, 11, 0.3)';
+      } else {
+        circleHub.style.borderColor = '';
+        circleHub.style.boxShadow = '';
+      }
+    }
+
+    if (fuseBadge) {
+      const currentTurnDuration = Math.max(5, (brGameState.timerDuration || 15) - ((brGameState.usedCountries?.length || 0) * 0.6));
+      if (currentTurnDuration <= 8 || remaining <= 4) {
+        fuseBadge.classList.remove('hidden');
+      } else {
+        fuseBadge.classList.add('hidden');
       }
     }
   });
@@ -928,11 +1038,28 @@ export function updateBrPodiumUI(winner) {
   const winnerName = document.querySelector('#br-winner-name');
   const winnerAvatar = document.querySelector('#br-winner-avatar');
   const podiumList = document.querySelector('#br-podium-ranks');
+  const replayBtn = document.querySelector('#br-replay-btn');
+  const lobbyReturnBtn = document.querySelector('#br-lobby-return-btn');
 
   if (winner) {
     if (winnerName) winnerName.textContent = winner.pseudo;
     if (winnerAvatar) winnerAvatar.innerHTML = renderPlayerAvatar(winner.avatar || '👑', 'br-winner-avatar-icon');
   }
+
+  import('./party_network.js').then(({ isBrHost }) => {
+    if (replayBtn) {
+      replayBtn.disabled = false;
+      replayBtn.textContent = isBrHost ? t('br.restart_game_host') : t('br.request_rematch_guest');
+    }
+    if (lobbyReturnBtn) {
+      if (isBrHost) {
+        lobbyReturnBtn.classList.remove('hidden');
+        lobbyReturnBtn.textContent = t('br.return_lobby_btn');
+      } else {
+        lobbyReturnBtn.classList.add('hidden');
+      }
+    }
+  });
 
   import('./battle_royale.js').then(({ brGameState }) => {
     if (podiumList) {

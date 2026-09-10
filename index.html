@@ -331,18 +331,30 @@
                 <div id="br-bomb-difficulty-wrapper" style="margin-top: 8px;">
                   <label class="br-label" data-i18n="br.bomb_difficulty_label">DIFFICULTÉ DE LA BOMBE :</label>
                   <select id="br-bomb-difficulty-select" class="br-select">
-                    <option value="1" selected data-i18n="br.bomb_diff_1">1 condition (Classique 💣)</option>
+                    <option value="1" data-i18n="br.bomb_diff_1">1 condition (Classique 💣)</option>
                     <option value="2" data-i18n="br.bomb_diff_2">2 conditions croisées (Duo Expert ⚔️)</option>
-                    <option value="escalation" data-i18n="br.bomb_diff_escalation">Progression dynamique (Tension selon les vies 📈)</option>
+                    <option value="escalation" selected data-i18n="br.bomb_diff_escalation">Progression dynamique (Tension selon les vies 📈)</option>
                   </select>
                 </div>
 
-                <label class="br-label" style="margin-top: 8px;" data-i18n="br.timer_label">DURÉE DU CHRONO :</label>
-                <select id="br-timer-select" class="br-select">
-                  <option value="10" data-i18n="br.timer_10s">10 secondes (Extrême 🔥)</option>
-                  <option value="15" selected data-i18n="br.timer_15s">15 secondes (Standard ⏱️)</option>
-                  <option value="20" data-i18n="br.timer_20s">20 secondes (Détente 🧘)</option>
-                </select>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
+                  <div>
+                    <label class="br-label" data-i18n="br.lives_label">NOMBRE DE VIES :</label>
+                    <select id="br-lives-select" class="br-select">
+                      <option value="2" selected data-i18n="br.lives_2">2 vies (Rapide ⚡)</option>
+                      <option value="3" data-i18n="br.lives_3">3 vies (Classique ❤️)</option>
+                      <option value="1" data-i18n="br.lives_1">1 vie (Mort Subite 💀)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="br-label" data-i18n="br.timer_label">DURÉE DU CHRONO :</label>
+                    <select id="br-timer-select" class="br-select">
+                      <option value="10" data-i18n="br.timer_10s">10s (Extrême 🔥)</option>
+                      <option value="15" selected data-i18n="br.timer_15s">15s (Standard ⏱️)</option>
+                      <option value="20" data-i18n="br.timer_20s">20s (Détente 🧘)</option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <button class="primary-button full-width" id="br-create-btn" style="margin-top: 12px;" data-i18n="br.create_btn">👑 Créer une arène</button>
@@ -417,8 +429,26 @@
             </div>
           </div>
 
-          <!-- Minuteur / Bombe dynamique -->
-          <div class="br-timer-container">
+          <!-- Arène Visuelle Circulaire de la Bombe (Mode Bombe Party) -->
+          <div class="br-circle-arena-wrapper" id="br-circle-arena-wrapper">
+            <div class="br-circle-arena" id="br-circle-arena">
+              <!-- Aiguille / Flèche centrale rotative -->
+              <div class="br-circle-arrow-wrapper" id="br-circle-arrow-wrapper">
+                <div class="br-circle-arrow" id="br-circle-arrow"></div>
+              </div>
+              <!-- Centre de la Bombe & Décompte -->
+              <div class="br-circle-center-hub" id="br-circle-center-hub">
+                <span class="br-circle-bomb-icon" id="br-circle-bomb-icon">💣</span>
+                <span class="br-circle-timer-text" id="br-circle-timer-text">15s</span>
+                <span class="br-circle-fuse-badge hidden" id="br-circle-fuse-badge" data-i18n="br.fuse_accelerated">🔥 VITESSE MAX !</span>
+              </div>
+              <!-- Joueurs répartis en anneau autour de la bombe -->
+              <div class="br-circle-players-ring" id="br-circle-players-ring"></div>
+            </div>
+          </div>
+
+          <!-- Minuteur linéaire / Bombe dynamique -->
+          <div class="br-timer-container" id="br-linear-timer-container">
             <div class="br-timer-header">
               <span class="br-bomb-icon" id="br-bomb-icon">💣</span>
               <div class="br-timer-counter"><span id="br-timer-seconds">15</span>s</div>
@@ -478,8 +508,9 @@
           <!-- Rangs du Podium -->
           <div class="br-podium-ranks" id="br-podium-ranks"></div>
 
-          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 20px;">
             <button class="primary-button full-width" id="br-replay-btn" data-i18n="br.play_again_btn">🔄 Rejouer dans ce salon</button>
+            <button class="ghost-button full-width" id="br-lobby-return-btn" data-i18n="br.return_lobby_btn">🏠 Revenir au salon d'attente</button>
             <button class="secondary-button full-width" id="br-leave-arena-btn" data-i18n="br.back_to_menu">Quitter l'arène</button>
           </div>
         </div>
@@ -710,6 +741,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=47"></script>
+    <script type="module" src="js/main.js?v=48"></script>
   </body>
 </html>

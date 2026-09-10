@@ -4,10 +4,11 @@ import { shuffle } from './utils.js';
 export const brGameState = {
   mode: 'bomb', // 'bomb' (1 ou 2 conditions, tour par tour rapide) | 'waves' (conditions cumulatives)
   bombDifficulty: '1', // '1' | '2' | 'escalation'
+  initialLivesPerPlayer: 2,
   timerDuration: 15,
   round: 1,
   status: 'idle', // 'idle' | 'lobby' | 'playing' | 'gameover'
-  players: [], // [{ id, pseudo, avatar, isHost, lives: 3, isAlive: true, order: 0 }]
+  players: [], // [{ id, pseudo, avatar, isHost, lives: 2, isAlive: true, order: 0 }]
   initialTotalLives: 0,
   currentTurnPlayerId: null,
   activeCriteria: [], // list of active criteria objects for current round
@@ -23,6 +24,7 @@ export const brGameState = {
 export function resetBrState() {
   brGameState.mode = 'bomb';
   brGameState.bombDifficulty = '1';
+  brGameState.initialLivesPerPlayer = 2;
   brGameState.timerDuration = 15;
   brGameState.round = 1;
   brGameState.status = 'idle';
@@ -105,13 +107,26 @@ export function checkEscalationNeed() {
   if (alivePlayers.length <= 1) return false;
 
   const currentTotalLives = alivePlayers.reduce((sum, p) => sum + p.lives, 0);
-  const initialTotal = brGameState.initialTotalLives || (brGameState.players.length * 3);
+  const initialTotal = brGameState.initialTotalLives || (brGameState.players.length * (brGameState.initialLivesPerPlayer || 2));
 
-  // Déclencher si <= 60% des vies totales restantes OU duel final (2 joueurs vivants)
-  const isThresholdReached = currentTotalLives <= Math.ceil(initialTotal * 0.6);
+  // Déclencher beaucoup plus vite :
+  // - Dès la première vie perdue (currentTotalLives < initialTotal)
+  // - OU dès 5 pays cités dans la manche
+  // - OU duel final (<= 2 joueurs vivants)
+  const isLifeLost = currentTotalLives < initialTotal;
+  const isPaceReached = (brGameState.usedCountries && brGameState.usedCountries.length >= 5);
   const isFinalDuel = alivePlayers.length <= 2;
 
-  return isThresholdReached || isFinalDuel;
+  return isLifeLost || isPaceReached || isFinalDuel;
+}
+
+/**
+ * Calcule la durée dynamique du tour en Bombe Party
+ * (La mèche de la bombe brûle plus vite au fur et à mesure que les pays sont validés)
+ */
+export function computeBombTurnDuration(baseDuration = 15, validCount = 0) {
+  const reduced = baseDuration - Math.floor(validCount * 0.6);
+  return Math.max(5, reduced);
 }
 
 /**
@@ -176,17 +191,30 @@ export function validateBattleRoyaleMove(countryCode) {
 }
 
 /**
- * Détermine le prochain joueur vivant dans l'ordre de passage
+ * Détermine le prochain joueur vivant dans l'ordre de passage circulaire complet
+ * Résout le bug où un joueur éliminé faisait sauter le joueur suivant.
  */
 export function getNextAlivePlayer(currentId) {
-  const alivePlayers = brGameState.players.filter((p) => p.isAlive);
-  if (alivePlayers.length <= 1) return alivePlayers[0] || null;
+  const all = brGameState.players;
+  if (!all || all.length === 0) return null;
+  const alive = all.filter((p) => p.isAlive);
+  if (alive.length === 0) return null;
+  if (alive.length === 1) return alive[0];
 
-  const currentIndex = alivePlayers.findIndex((p) => p.id === currentId);
-  if (currentIndex === -1) return alivePlayers[0];
+  const currentIndex = all.findIndex((p) => p.id === currentId);
+  if (currentIndex === -1) {
+    return alive[0];
+  }
 
-  const nextIndex = (currentIndex + 1) % alivePlayers.length;
-  return alivePlayers[nextIndex];
+  // Parcourt les joueurs de façon circulaire dans l'ordre complet
+  for (let i = 1; i <= all.length; i++) {
+    const candidate = all[(currentIndex + i) % all.length];
+    if (candidate && candidate.isAlive) {
+      return candidate;
+    }
+  }
+
+  return alive[0];
 }
 
 /**

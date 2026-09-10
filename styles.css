@@ -2738,6 +2738,190 @@ dialog:not([open]),
   height: 12px;
 }
 
+/* ==========================================
+   ARÈNE CIRCULAIRE DE LA BOMBE (3+ JOUEURS)
+   ========================================== */
+.br-circle-arena-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 16px 0;
+  width: 100%;
+}
+
+.br-circle-arena {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, rgba(0, 0, 0, 0.02) 65%, rgba(217, 119, 6, 0.12) 100%);
+  border: 2px dashed rgba(217, 119, 6, 0.32);
+  box-shadow: inset 0 0 24px rgba(217, 119, 6, 0.08);
+}
+
+@media (min-width: 500px) {
+  .br-circle-arena {
+    width: 370px;
+    height: 370px;
+  }
+}
+
+/* Hub central : Bombe et Décompte */
+.br-circle-center-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 96px;
+  height: 96px;
+  background: var(--bg-card);
+  border: 2.5px solid var(--border-medium);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.br-circle-bomb-icon {
+  font-size: 30px;
+  line-height: 1;
+  display: inline-block;
+}
+
+.br-circle-timer-text {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink-primary);
+  margin-top: 2px;
+}
+
+.br-circle-fuse-badge {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  background: #dc2626;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: -7px;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  animation: pulse-red 1s infinite;
+}
+
+/* Flèche rotative directionnelle */
+.br-circle-arrow-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  z-index: 6;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.br-circle-arrow {
+  position: absolute;
+  left: -11px;
+  bottom: 48px; /* Part du rayon du hub central vers l'extérieur */
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 26px solid #d97706; /* Triangle pointé vers l'extérieur */
+  filter: drop-shadow(0 2px 5px rgba(217, 119, 6, 0.5));
+  animation: arrow-bounce 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes arrow-bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+
+/* Nœuds Joueurs disposés en anneau */
+.br-circle-players-ring {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.br-circle-player-node {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 4px 7px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  min-width: 58px;
+  max-width: 105px;
+  text-align: center;
+  z-index: 8;
+}
+
+.br-circle-player-node.is-active-turn {
+  border-color: #d97706;
+  background: #fef3c7;
+  box-shadow: 0 0 0 3px #f59e0b, 0 4px 14px rgba(245, 158, 11, 0.45);
+  transform: translate(-50%, -50%) scale(1.14);
+  z-index: 20;
+}
+
+.br-circle-player-node.is-eliminated {
+  opacity: 0.45;
+  filter: grayscale(1);
+  text-decoration: line-through;
+}
+
+.br-circle-node-avatar {
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.br-circle-node-avatar .br-avatar-flag-img {
+  width: 20px;
+  height: 13px;
+}
+
+.br-circle-node-pseudo {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 88px;
+}
+
+.br-circle-node-hearts {
+  font-size: 9.5px;
+  line-height: 1;
+}
+
+.br-circle-you-badge {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: #2563eb;
+  letter-spacing: 0.3px;
+}
+
 /* Timer / Bombe */
 .br-timer-container {
   background: var(--bg-app);
