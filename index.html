@@ -291,7 +291,7 @@
           <div class="br-profile-setup">
             <div class="br-field-group">
               <label for="br-pseudo-input" class="br-label" data-i18n="br.pseudo_label">VOTRE PSEUDO :</label>
-              <input type="text" id="br-pseudo-input" class="br-text-input" placeholder="Entrez votre pseudo..." maxlength="15" value="Voyageur" />
+              <input type="text" id="br-pseudo-input" class="br-text-input" placeholder="Entrez votre pseudo..." data-i18n-placeholder="br.pseudo_placeholder" maxlength="15" value="Voyageur" />
             </div>
 
             <div class="br-field-group">
@@ -366,7 +366,7 @@
             <div class="room-card br-room-card">
               <h3 data-i18n="br.join_section_title">Rejoindre une arène</h3>
               <div class="search-input-wrapper" style="margin: 10px 0 12px 0;">
-                <input id="br-join-code-input" type="text" placeholder="Code du salon (ex: BR742)..." autocomplete="off" style="text-transform: uppercase;" />
+                <input id="br-join-code-input" type="text" placeholder="Code du salon (ex: BR742)..." data-i18n-placeholder="br.join_code_placeholder" autocomplete="off" style="text-transform: uppercase;" />
               </div>
               <button class="secondary-button full-width" id="br-join-btn" data-i18n="br.join_btn">🎮 Rejoindre l'arène</button>
             </div>
@@ -472,7 +472,7 @@
           <!-- Zone de saisie pays en direct -->
           <div class="br-input-zone">
             <div class="br-input-wrapper">
-              <input type="text" id="br-country-search" class="br-country-input" placeholder="Tapez le nom d'un pays..." autocomplete="off" />
+              <input type="text" id="br-country-search" class="br-country-input" placeholder="Tapez le nom d'un pays..." data-i18n-placeholder="br.search_placeholder" autocomplete="off" />
               <button type="button" class="primary-button" id="br-country-submit" data-i18n="br.submit_btn">Valider</button>
               <div class="br-autocomplete-list hidden" id="br-autocomplete-list"></div>
             </div>
@@ -491,6 +491,11 @@
           <div class="br-feed-section">
             <div class="br-feed-list" id="br-feed-list"></div>
           </div>
+
+          <!-- I8: Bouton discret pour quitter en plein jeu -->
+          <button type="button" class="ghost-button full-width" id="br-leave-arena-btn-game" data-i18n="br.back_to_menu" style="margin-top:12px; opacity: 0.7; font-size: 13px;">
+            Quitter l'arène
+          </button>
         </div>
 
         <!-- VUE 4 : Podium de Fin (Victory Royale) -->
@@ -741,6 +746,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=48"></script>
+    <script type="module" src="js/main.js?v=49"></script>
   </body>
 </html>

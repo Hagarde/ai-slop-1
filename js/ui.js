@@ -924,7 +924,7 @@ export function updateBrCircleArena(activePlayerId) {
           // Angle en degrés : index 0 à midi (-90 deg en trigonométrie standard)
           const angleDeg = (idx / numPlayers) * 360 - 90;
           const angleRad = (angleDeg * Math.PI) / 180;
-          const radiusPct = 39; // Rayon à 39% du conteneur (centre = 50%)
+          const radiusPct = numPlayers > 5 ? 44 : 39; // I7: Rayon élargi si >5 joueurs
           const xPct = 50 + radiusPct * Math.cos(angleRad);
           const yPct = 50 + radiusPct * Math.sin(angleRad);
 
@@ -1041,15 +1041,25 @@ export function updateBrPodiumUI(winner) {
   const replayBtn = document.querySelector('#br-replay-btn');
   const lobbyReturnBtn = document.querySelector('#br-lobby-return-btn');
 
+  // M3: Titre alternatif si match nul (0 survivants)
+  const podiumTitle = document.querySelector('.br-podium-title');
+  const podiumDesc = document.querySelector('#br-podium-view p');
   if (winner) {
     if (winnerName) winnerName.textContent = winner.pseudo;
     if (winnerAvatar) winnerAvatar.innerHTML = renderPlayerAvatar(winner.avatar || '👑', 'br-winner-avatar-icon');
+    if (podiumTitle) podiumTitle.textContent = t('br.winner_title');
+  } else {
+    if (winnerName) winnerName.textContent = t('br.draw_name') || 'Match Nul';
+    if (winnerAvatar) winnerAvatar.innerHTML = '🤝';
+    if (podiumTitle) podiumTitle.textContent = t('br.draw_title') || 'MATCH NUL ! 🤝';
+    if (podiumDesc) podiumDesc.textContent = t('br.draw_desc') || 'Aucun survivant...';
   }
 
   import('./party_network.js').then(({ isBrHost }) => {
     if (replayBtn) {
       replayBtn.disabled = false;
-      replayBtn.textContent = isBrHost ? t('br.restart_game_host') : t('br.request_rematch_guest');
+      // M2: innerHTML avec emoji au lieu de textContent
+      replayBtn.innerHTML = isBrHost ? `🔄 ${t('br.restart_game_host')}` : `🙋 ${t('br.request_rematch_guest')}`;
     }
     if (lobbyReturnBtn) {
       if (isBrHost) {

@@ -288,7 +288,13 @@ export const translations = {
     'br.err_empty_input': '⚠️ Veuillez sélectionner un pays.',
     'br.connecting': 'Connexion à l\'arène en cours...',
     'br.finding_room': 'Recherche de l\'arène {code}...',
-    'br.disconnected': 'Déconnecté de l\'arène.'
+    'br.disconnected': 'Déconnecté de l\'arène.',
+    'br.replay_request_feed': '🙋 {player} veut rejouer !',
+    'br.draw_name': 'Match Nul',
+    'br.draw_title': 'MATCH NUL ! 🤝',
+    'br.draw_desc': 'Aucun survivant — tout le monde a été éliminé !',
+    'br.pseudo_placeholder': 'Entrez votre pseudo...',
+    'br.join_code_placeholder': 'Code du salon (ex: BR742)...'
   },
   en: {
     // Header & Navigation
@@ -573,7 +579,13 @@ export const translations = {
     'br.err_empty_input': '⚠️ Please select a country.',
     'br.connecting': 'Connecting to the arena...',
     'br.finding_room': 'Looking for arena {code}...',
-    'br.disconnected': 'Disconnected from the arena.'
+    'br.disconnected': 'Disconnected from the arena.',
+    'br.replay_request_feed': '🙋 {player} wants to replay!',
+    'br.draw_name': 'Draw',
+    'br.draw_title': 'DRAW! 🤝',
+    'br.draw_desc': 'No survivors — everyone was eliminated!',
+    'br.pseudo_placeholder': 'Enter your nickname...',
+    'br.join_code_placeholder': 'Room code (e.g. BR742)...'
   }
 };
 

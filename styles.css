@@ -2867,8 +2867,8 @@ dialog:not([open]),
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
   transition: all 0.25s ease;
-  min-width: 58px;
-  max-width: 105px;
+  min-width: 50px;
+  max-width: 75px;
   text-align: center;
   z-index: 8;
 }
@@ -2906,7 +2906,7 @@ dialog:not([open]),
   color: var(--ink-primary);
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 88px;
+  max-width: 60px;
 }
 
 .br-circle-node-hearts {
@@ -2944,7 +2944,8 @@ dialog:not([open]),
   display: inline-block;
 }
 
-.br-bomb-icon.urgent-pulse {
+.br-bomb-icon.urgent-pulse,
+.br-circle-bomb-icon.urgent-pulse {
   animation: bomb-shake 0.2s infinite ease-in-out;
 }
 

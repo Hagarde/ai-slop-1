@@ -411,6 +411,7 @@ function setupEventListeners() {
 
   document.querySelector('#br-leave-lobby-btn')?.addEventListener('click', handleLeaveBr);
   document.querySelector('#br-leave-arena-btn')?.addEventListener('click', handleLeaveBr);
+  document.querySelector('#br-leave-arena-btn-game')?.addEventListener('click', handleLeaveBr); // I8
   document.querySelector('#close-br-dialog')?.addEventListener('click', handleLeaveBr);
 
   document.querySelector('#br-replay-btn')?.addEventListener('click', () => {
@@ -535,6 +536,15 @@ function setupEventListeners() {
   if (brSubmitBtn) {
     brSubmitBtn.addEventListener('click', submitBrChosenCountry);
   }
+
+  // C5: Fermer l'autocomplete au clic externe (empêche le blocage sur mobile)
+  document.addEventListener('click', (e) => {
+    if (brAutocompleteList && !brAutocompleteList.classList.contains('hidden')) {
+      if (!e.target.closest('.br-input-wrapper')) {
+        brAutocompleteList.classList.add('hidden');
+      }
+    }
+  });
 
   // Sélecteur de langue (FR / EN)
   const langToggleBtn = document.querySelector('#lang-toggle-btn');

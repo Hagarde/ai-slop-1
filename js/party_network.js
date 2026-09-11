@@ -189,10 +189,14 @@ function handlePlayerLeft(leftPeerId) {
   } else if (brGameState.status === 'playing') {
     player.isAlive = false;
     player.lives = 0;
+    // I3: Ajouter au classement podium les joueurs déconnectés
+    if (!brGameState.eliminatedOrder.includes(leftPeerId)) {
+      brGameState.eliminatedOrder.push(leftPeerId);
+    }
     addBrFeed(t('br.eliminated_feed', { player: player.pseudo }), 'wrong');
 
     const winner = checkBrWinner();
-    if (winner) {
+    if (winner || brGameState.status === 'gameover') {
       stopBrTimer();
       broadcastToGuests({
         type: 'GAME_OVER',
@@ -211,6 +215,10 @@ function handlePlayerLeft(leftPeerId) {
           turnEndTime: brGameState.turnEndTime,
           players: brGameState.players
         });
+      }
+      // I4: En mode Vagues, vérifier si la manche doit avancer après la déconnexion
+      if (brGameState.mode === 'waves') {
+        checkWaveAdvancement();
       }
       updateBrArenaUI();
     }
@@ -258,7 +266,9 @@ function handleHostIncomingData(conn, data) {
 
   if (data.type === 'REQUEST_REPLAY') {
     if (brGameState.status === 'gameover') {
-      hostRestartGame();
+      // I2: N'auto-relance plus — notifie l'hôte pour qu'il décide
+      const guest = brGameState.players.find((p) => p.id === conn.peer);
+      if (guest) addBrFeed(t('br.replay_request_feed', { player: guest.pseudo }), 'info');
     }
   }
 
@@ -322,6 +332,13 @@ export async function joinPartyGuest(code, pseudo = 'Joueur', avatar = '🌍') {
 }
 
 function handleGuestIncomingData(data) {
+  // C2: Traitement des erreurs envoyées par l'hôte (arène pleine, partie en cours, etc.)
+  if (data.type === 'ERROR') {
+    setBrFeedback(data.message || 'Erreur de connexion', 'wrong');
+    leaveParty();
+    return;
+  }
+
   if (data.type === 'LOBBY_UPDATE') {
     brGameState.status = 'lobby';
     brGameState.players = data.players;
@@ -423,6 +440,7 @@ export function hostStartGame(isRestart = false) {
   brGameState.usedCountries = [];
   brGameState.winner = null;
   brGameState.eliminatedOrder = [];
+  brGameState.escalatedThisRound = false;
   brGameState.initialTotalLives = brGameState.players.length * initialLives;
 
   // Choix des critères de départ selon le mode et la difficulté
@@ -510,6 +528,7 @@ function checkAndApplyEscalation() {
     const secondCrit = pickCompatibleSecondCriterion(brGameState.activeCriteria[0]);
     if (secondCrit) {
       brGameState.activeCriteria.push(secondCrit);
+      brGameState.escalatedThisRound = true; // I5: Empêche l'escalade multiple
       addBrFeed(t('br.escalation_feed', { count: 2 }), 'info');
       broadcastToGuests({
         type: 'CRITERIA_ESCALATED',
@@ -517,6 +536,34 @@ function checkAndApplyEscalation() {
       });
     }
   }
+}
+
+/**
+ * I4: Vérifie si la manche Vagues doit avancer (utilisé après déconnexion d'un joueur)
+ */
+function checkWaveAdvancement() {
+  if (brGameState.mode !== 'waves' || brGameState.status !== 'playing') return;
+  const alivePlayers = brGameState.players.filter((p) => p.isAlive);
+  if (alivePlayers.length === 0) return;
+  const playersAnsweredInRound = new Set(brGameState.usedCountries.map((u) => u.playerId));
+  const allAnswered = alivePlayers.every((p) => playersAnsweredInRound.has(p.id));
+  if (!allAnswered) return;
+
+  brGameState.round += 1;
+  brGameState.activeCriteria = pickCumulativeCriteria(brGameState.round);
+  brGameState.usedCountries = [];
+  const nextPlayer = getNextAlivePlayer(brGameState.currentTurnPlayerId);
+  brGameState.currentTurnPlayerId = nextPlayer ? nextPlayer.id : null;
+  hostResetTurnTimer();
+
+  broadcastToGuests({
+    type: 'ROUND_NEXT',
+    round: brGameState.round,
+    criteriaIndices: serializeCriteria(brGameState.activeCriteria),
+    currentTurnPlayerId: brGameState.currentTurnPlayerId,
+    turnEndTime: brGameState.turnEndTime
+  });
+  updateBrArenaUI();
 }
 
 function hostResetTurnTimer() {
@@ -551,7 +598,7 @@ function hostHandleTimeout() {
   addBrFeed(feedMsg, 'wrong');
 
   const winner = checkBrWinner();
-  if (winner) {
+  if (winner || brGameState.status === 'gameover') {
     stopBrTimer();
     broadcastToGuests({
       type: 'GAME_OVER',
@@ -593,6 +640,8 @@ export function submitCountryMove(countryCode) {
 }
 
 function hostProcessMove(playerId, countryCode) {
+  // C1: Vérification de tour — empêche l'hôte de jouer pendant le tour d'un invité
+  if (brGameState.currentTurnPlayerId !== playerId) return;
   const player = brGameState.players.find((p) => p.id === playerId);
   if (!player || !player.isAlive) return;
 
@@ -606,7 +655,8 @@ function hostProcessMove(playerId, countryCode) {
       code: country.code,
       name: countryName,
       pseudo: player.pseudo,
-      avatar: player.avatar
+      avatar: player.avatar,
+      playerId: player.id // C3: Utiliser l'ID unique pour la vérification de manche Vagues
     });
 
     const feedMsg = t('br.correct_feed', { player: player.pseudo, country: countryName });
@@ -614,10 +664,10 @@ function hostProcessMove(playerId, countryCode) {
 
     // Vérifier si la manche doit avancer (en mode Vagues ou si un tour complet est fait)
     if (brGameState.mode === 'waves') {
-      // Si tous les joueurs encore vivants ont validé un pays dans cette manche
+      // C3: Utiliser playerId au lieu de pseudo pour éviter les homonymes
       const alivePlayers = brGameState.players.filter((p) => p.isAlive);
-      const playersAnsweredInRound = new Set(brGameState.usedCountries.map((u) => u.pseudo));
-      const allAnswered = alivePlayers.every((p) => playersAnsweredInRound.has(p.pseudo));
+      const playersAnsweredInRound = new Set(brGameState.usedCountries.map((u) => u.playerId));
+      const allAnswered = alivePlayers.every((p) => playersAnsweredInRound.has(p.id));
 
       if (allAnswered) {
         brGameState.round += 1;
@@ -668,7 +718,7 @@ function hostProcessMove(playerId, countryCode) {
     addBrFeed(feedMsg, 'wrong');
 
     const winner = checkBrWinner();
-    if (winner) {
+    if (winner || brGameState.status === 'gameover') {
       stopBrTimer();
       broadcastToGuests({
         type: 'GAME_OVER',

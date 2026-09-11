@@ -15,7 +15,8 @@ export const brGameState = {
   usedCountries: [], // [{ code, name, pseudo, avatar, flagUrl }]
   turnEndTime: null,
   winner: null,
-  eliminatedOrder: [] // IDs of eliminated players in order of elimination (for podium ranking)
+  eliminatedOrder: [], // IDs of eliminated players in order of elimination (for podium ranking)
+  escalatedThisRound: false // Flag to prevent repeated escalation within same set of criteria
 };
 
 /**
@@ -36,6 +37,7 @@ export function resetBrState() {
   brGameState.turnEndTime = null;
   brGameState.winner = null;
   brGameState.eliminatedOrder = [];
+  brGameState.escalatedThisRound = false;
 }
 
 /**
@@ -75,7 +77,10 @@ export function pickBombCriteria(count = 1) {
       return [crit1, crit2];
     }
   }
-  return [pickBombCriterion()];
+  // Fallback : N critères indépendants plutôt qu'une chute brutale à 1
+  const fallback = [pickBombCriterion()];
+  if (count >= 2) fallback.push(pickBombCriterion(fallback[0].labelFr));
+  return fallback;
 }
 
 /**
@@ -90,7 +95,7 @@ export function pickCompatibleSecondCriterion(existingCrit) {
     const countIntersect = countries.filter((c) => existingCrit.test(c) && c2.test(c)).length;
     return countIntersect >= 10;
   });
-  return crit2 || null;
+  return crit2 || pickBombCriterion(existingCrit.labelFr);
 }
 
 /**
@@ -101,6 +106,10 @@ export function checkEscalationNeed() {
     return false;
   }
   if (brGameState.activeCriteria.length >= 2) {
+    return false;
+  }
+  // Empêche l'escalade multiple dans le même set de critères
+  if (brGameState.escalatedThisRound) {
     return false;
   }
   const alivePlayers = brGameState.players.filter((p) => p.isAlive);
@@ -162,8 +171,14 @@ export function pickCumulativeCriteria(roundNumber) {
     }
   }
 
-  // Fallback si la recherche stricte échoue : 1 critère large
-  return [pickBombCriterion()];
+  // Fallback si la recherche stricte échoue : N critères indépendants
+  const fallback = [];
+  for (let i = 0; i < targetCount; i++) {
+    const usedLabels = fallback.map((c) => c.labelFr);
+    const candidate = pickBombCriterion(usedLabels.length > 0 ? usedLabels[usedLabels.length - 1] : null);
+    fallback.push(candidate);
+  }
+  return fallback;
 }
 
 /**
@@ -250,7 +265,12 @@ export function checkBrWinner() {
   }
   if (alivePlayers.length === 0) {
     brGameState.status = 'gameover';
-    return null;
+    // Assigne le dernier éliminé comme vainqueur par défaut (match nul → dernier tombé gagne)
+    if (brGameState.eliminatedOrder.length > 0) {
+      const lastId = brGameState.eliminatedOrder[brGameState.eliminatedOrder.length - 1];
+      brGameState.winner = brGameState.players.find((p) => p.id === lastId) || null;
+    }
+    return brGameState.winner;
   }
   return null;
 }
