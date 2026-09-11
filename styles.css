@@ -3061,62 +3061,146 @@ dialog:not([open]),
 
 /* Zone de Saisie & Autocomplete */
 .br-input-zone {
+  position: relative;
   margin-bottom: 14px;
 }
 
 .br-input-wrapper {
-  position: relative;
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.br-country-input {
+.br-search-field-box {
+  position: relative;
   flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.br-search-field-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--ink-muted);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.br-country-input {
+  width: 100%;
+  box-sizing: border-box;
   font-size: 15px;
-  padding: 12px 14px;
+  font-weight: 600;
+  padding: 12px 14px 12px 42px;
   border-radius: var(--radius-md);
   border: 1.5px solid var(--border-medium);
-  background: var(--bg-app);
+  background: var(--bg-card);
   color: var(--ink-primary);
-  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  height: 44px;
 }
 
 .br-country-input:focus {
   border-color: #d97706;
+  background: var(--bg-card);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+}
+
+.br-search-field-box:focus-within .br-search-field-icon {
+  color: #d97706;
+}
+
+.br-submit-btn {
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  background: #d97706;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+}
+
+.br-submit-btn:hover {
+  background: #b45309;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.35);
+}
+
+.br-submit-btn:active {
+  transform: scale(0.97);
 }
 
 .br-autocomplete-list {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 6px);
   left: 0;
-  right: 80px;
+  right: 0;
   background: var(--bg-card);
-  border: 1px solid var(--border-medium);
+  border: 1.5px solid var(--border-medium);
   border-radius: var(--radius-md);
-  max-height: 180px;
+  max-height: 220px;
   overflow-y: auto;
   z-index: 100;
-  box-shadow: var(--shadow-lg);
-  margin-top: 4px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.br-autocomplete-list.hidden {
+  display: none;
 }
 
 .br-autocomplete-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 10px;
+  padding: 10px 14px;
   cursor: pointer;
-  font-size: 13.5px;
-  font-weight: 600;
+  background: none;
+  border: none;
   border-bottom: 1px solid var(--border-light);
+  color: var(--ink-primary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
   text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-.br-autocomplete-item:hover {
-  background: var(--bg-subtle);
+.br-autocomplete-item:last-child {
+  border-bottom: none;
+}
+
+.br-autocomplete-item:hover,
+.br-autocomplete-item:focus {
+  background: rgba(217, 119, 6, 0.09);
   color: #d97706;
+  outline: none;
+}
+
+.br-autocomplete-icon {
+  font-size: 15px;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.br-autocomplete-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Pays déjà joués */

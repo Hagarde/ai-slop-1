@@ -1,5 +1,5 @@
 import { loadData, getCountryByCode, countriesSearchIndex } from './data.js';
-import { setupLogging, sessionLogs } from './utils.js';
+import { setupLogging, sessionLogs, escapeHtml } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails, exportGridSeed, applyGridSeed } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback, updateSearchDialogHardcoreReminder } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
@@ -486,12 +486,10 @@ function setupEventListeners() {
 
     brAutocompleteList.innerHTML = matches.map(({ country }) => {
       const name = getCountryName(country);
-      const iso2 = country.iso2 ? country.iso2.toLowerCase() : '';
-      const flagImg = iso2 ? `<img src="https://flagcdn.com/w40/${iso2}.png" alt="" class="br-chip-flag" />` : '';
       return `
         <button type="button" class="br-autocomplete-item" data-code="${country.code}">
-          ${flagImg}
-          <span>${name}</span>
+          <span class="br-autocomplete-icon" aria-hidden="true">📍</span>
+          <span class="br-autocomplete-name">${escapeHtml(name)}</span>
         </button>
       `;
     }).join('');
@@ -540,7 +538,7 @@ function setupEventListeners() {
   // C5: Fermer l'autocomplete au clic externe (empêche le blocage sur mobile)
   document.addEventListener('click', (e) => {
     if (brAutocompleteList && !brAutocompleteList.classList.contains('hidden')) {
-      if (!e.target.closest('.br-input-wrapper')) {
+      if (!e.target.closest('.br-input-zone')) {
         brAutocompleteList.classList.add('hidden');
       }
     }
