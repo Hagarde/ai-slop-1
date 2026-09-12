@@ -23,6 +23,8 @@ import {
   setBrFeedback
 } from './ui.js';
 
+import { buildPeerConfig } from './network.js';
+
 export let isPartyMode = false;
 export let isBrHost = false;
 export let myBrPlayerId = null;
@@ -32,33 +34,6 @@ let peer = null;
 let guestConn = null;
 let hostConnections = new Map(); // peerId -> DataConnection
 let brTimerInterval = null;
-
-const METERED_API_URL = 'https://countrydoku.metered.live/api/v1/turn/credentials';
-const METERED_API_KEY = 'aa340d9ab8937dc2645bfb6845b86c60c969';
-const STUN_SERVERS = [
-  { urls: 'stun:stun.l.google.com:19302' },
-  { urls: 'stun:stun1.l.google.com:19302' },
-  { urls: 'stun:stun.services.mozilla.com' }
-];
-
-async function buildPeerConfig() {
-  let iceServers = [...STUN_SERVERS];
-  try {
-    const resp = await fetch(`${METERED_API_URL}?apiKey=${METERED_API_KEY}`);
-    if (resp.ok) {
-      const turnServers = await resp.json();
-      if (Array.isArray(turnServers) && turnServers.length > 0) {
-        iceServers = [...STUN_SERVERS, ...turnServers];
-      }
-    }
-  } catch (e) {
-    console.warn('[Party WebRTC] Fallback STUN uniquement', e);
-  }
-  return {
-    debug: 1,
-    config: { iceServers, iceCandidatePoolSize: 10 }
-  };
-}
 
 /**
  * Prépare les critères sous forme sérialisable (index dans allCriteria)

@@ -1,10 +1,10 @@
 import { buildCriteria } from './criteria.js';
+import { fold } from './utils.js';
 
 export let countries = [];
 export let allCriteria = [];
 
 // O-04 FIX: Pré-calcul des noms "folded" (sans accents, minuscules) au chargement
-const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 // Index pré-calculé pour la recherche rapide
 export let countriesSearchIndex = [];

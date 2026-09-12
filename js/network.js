@@ -51,7 +51,7 @@ function updateStatus(msg, state = 'info') {
   }
 }
 
-async function buildPeerConfig() {
+export async function buildPeerConfig() {
   // F-03: Tentative d'utilisation des serveurs TURN via Metered API
   let iceServers = [...STUN_SERVERS];
   try {

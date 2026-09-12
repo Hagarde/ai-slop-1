@@ -1,6 +1,5 @@
 import { getLanguage } from './i18n.js';
-
-const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+import { fold } from './utils.js';
 
 const TRANSCONTINENTAL = {
   RUS: ['Europe', 'Asia'],

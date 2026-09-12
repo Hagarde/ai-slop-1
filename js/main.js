@@ -1,5 +1,5 @@
 import { loadData, getCountryByCode, countriesSearchIndex } from './data.js';
-import { setupLogging, sessionLogs, escapeHtml } from './utils.js';
+import { setupLogging, sessionLogs, escapeHtml, fold } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails, exportGridSeed, applyGridSeed } from './game.js';
 import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback, updateSearchDialogHardcoreReminder } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
@@ -23,14 +23,7 @@ const APP_VERSION = "v1.8";
 
 // Init App
 async function initApp() {
-  try {
-    const text = await fetch(import.meta.url).then(r => r.text());
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-    const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 8);
-    console.log(`🌍 CountryDoku ${APP_VERSION} [Hash: #${hash}]`);
-  } catch (e) {
-    console.log(`🌍 CountryDoku ${APP_VERSION}`);
-  }
+  console.log(`🌍 CountryDoku ${APP_VERSION}`);
   
   // Initialiser la langue (FR / EN)
   initLanguage();
@@ -434,8 +427,6 @@ function setupEventListeners() {
   const brSearchInput = document.querySelector('#br-country-search');
   const brSubmitBtn = document.querySelector('#br-country-submit');
   const brAutocompleteList = document.querySelector('#br-autocomplete-list');
-
-  const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
   const getBrMatches = (rawQuery) => {
     const query = fold(rawQuery.trim());
