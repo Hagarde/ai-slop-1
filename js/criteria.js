@@ -457,10 +457,10 @@ export function buildCriteria(data) {
     ,
       '🤝'),
     criterion(
-      'État indépendant en 1990 ou après', 'Independent in 1990 or later',
+      'Devenu indépendant en 1990 ou après', 'Became independent in 1990 or later',
       'history',
-      'Le pays a accédé à sa pleine souveraineté internationale ou a été constitué comme nouvel État indépendant en 1990 ou ultérieurement.',
-      'The country gained full sovereignty or was established as an independent sovereign state in 1990 or later.',
+      'Le pays a accédé à sa pleine souveraineté internationale ou est né comme nouvel État en 1990 ou ultérieurement (ex: dislocation de l’URSS ou de Yougoslavie, Namibie, Érythrée, Soudan du Sud...).',
+      'The country gained full sovereignty or emerged as a new independent state in 1990 or later (e.g. dissolution of USSR or Yugoslavia, Namibia, Eritrea, South Sudan...).',
       (c) => c.independent1990 === true
     ,
       '⏳'),
@@ -472,6 +472,38 @@ export function buildCriteria(data) {
       (c) => c.federalState === true
     ,
       '🏛️'),
+    criterion(
+      'Ancienne colonie britannique', 'Former British colony',
+      'history',
+      'Le pays a été une colonie, un protectorat, un dominion ou un mandat de l’Empire britannique avant d’accéder à l’indépendance.',
+      'The country was a colony, protectorate, dominion, or mandate of the British Empire before gaining independence.',
+      (c) => c.formerBritishColony === true
+    ,
+      '🇬🇧'),
+    criterion(
+      'Ancienne colonie française', 'Former French colony',
+      'history',
+      'Le pays a été une colonie, un protectorat ou un mandat de l’Empire colonial français avant d’accéder à l’indépendance.',
+      'The country was a colony, protectorate, or mandate of the French Colonial Empire before gaining independence.',
+      (c) => c.formerFrenchColony === true
+    ,
+      '🇫🇷'),
+    criterion(
+      'Ancienne colonie espagnole', 'Former Spanish colony',
+      'history',
+      'Le pays a été une colonie, une capitainerie ou une vice-royauté de l’Empire espagnol avant d’accéder à l’indépendance.',
+      'The country was a colony, captaincy, or viceroyalty of the Spanish Empire before gaining independence.',
+      (c) => c.formerSpanishColony === true
+    ,
+      '🇪🇸'),
+    criterion(
+      'Ancien territoire de l’Empire ottoman', 'Former Ottoman Empire territory',
+      'history',
+      'Le pays ou son territoire historique a constitué une province (eyalet/vilayet), un protectorat ou un vassal de l’Empire ottoman (ou son cœur historique).',
+      'The country or its historical territory was a province (eyalet/vilayet), protectorate, or vassal of the Ottoman Empire (or its historical core).',
+      (c) => c.formerOttomanTerritory === true
+    ,
+      '🕌'),
   ].filter((item) => data.filter(item.test).length >= 5);
 }
 

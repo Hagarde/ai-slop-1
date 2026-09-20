@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=51" />
+    <link rel="stylesheet" href="styles.css?v=52" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -152,7 +152,7 @@
         <div class="intro-header">
           <div>
             <h1 id="game-title" data-i18n="intro.title">Reliez les pays aux critères</h1>
-            <p class="intro-desc" id="intro-desc-text">Cliquez sur une case pour choisir le pays correspondant. Cliquez sur <span class="info-badge">ⓘ</span> pour voir les explications des critères.</p>
+            <p class="intro-desc" id="intro-desc-text">Complétez la grille 3×3 en trouvant un pays unique pour chaque croisement de ligne et de colonne. Chaque pays choisi doit valider simultanément les deux critères de sa case (utilisable une seule fois). Visez le sans-faute en Solo (3 vies), survivez au défi mondial Hardcore (1 vie), ou affrontez vos amis en 1v1 et Battle Royale !</p>
           </div>
           <div class="stats-bar">
             <div class="lives-box" id="lives-box" aria-label="Vies restantes">
@@ -724,34 +724,26 @@
         <div class="rules-list">
           <div class="rule-item">
             <span class="rule-number">1</span>
-            <p data-i18n="dialog.rule1"><strong>Le croisement des critères :</strong> Chaque case de la grille 3×3 est à l’intersection d’une ligne et d’une colonne. Le pays choisi doit valider <em>simultanément les deux conditions</em> (ex: <em>En Europe</em> + <em>Drapeau avec du rouge</em>).</p>
+            <p data-i18n="dialog.rule1"><strong>Objectif du jeu :</strong> Complétez la grille 3×3 en trouvant un pays unique pour chaque croisement de ligne et de colonne.</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">2</span>
-            <p data-i18n="dialog.rule2"><strong>Unicité des pays :</strong> Un même pays ne peut être placé <em>qu’une seule fois</em> par grille. Choisissez bien son emplacement !</p>
+            <p data-i18n="dialog.rule2"><strong>Règle d’or :</strong> Chaque pays doit valider simultanément les deux critères de sa case, et chaque pays n’est utilisable qu’une seule fois par partie.</p>
           </div>
           <div class="rule-item">
             <span class="rule-number">3</span>
-            <p data-i18n="dialog.rule3"><strong>Mode Solo (3 vies) :</strong> Vous disposez de 3 cœurs ❤️. Une erreur ou un pays hors critères fait perdre 1 vie. Complétez les 9 cases pour remporter la victoire.</p>
-          </div>
-          <div class="rule-item">
-            <span class="rule-number">4</span>
-            <p data-i18n="dialog.rule_hardcore"><strong>Mode Hardcore (Mort Subite & Défi mondial) :</strong> Une contrainte globale supplémentaire s’applique à l’ensemble de la grille (ex: interdiction du G20, population &lt; 25M, etc.) et vous ne disposez que d’un seul cœur ❤️. Une seule erreur et la partie s’achève !</p>
-          </div>
-          <div class="rule-item">
-            <span class="rule-number">5</span>
-            <p data-i18n="dialog.rule4"><strong>Mode Multijoueur 1v1 (30s / tour) :</strong> Affrontez un ami en direct ! Chaque bonne réponse capture une case (🟢 J1 / 🟣 J2). Le premier à aligner 3 cases (ou qui en contrôle le plus à la fin) gagne le match.</p>
-          </div>
-          <div class="rule-item">
-            <span class="rule-number">6</span>
-            <p data-i18n="dialog.rule5"><strong>Indices & Statistiques mondiales :</strong> Cliquez sur n’importe quelle carte de critère (ou sur ⓘ) pour lire sa définition sans spoiler. Vos réussites alimentent les pourcentages de popularité mondiaux (📊 %).</p>
+            <p data-i18n="dialog.rule3"><strong>Modes de jeu :</strong> Progressez en <strong>Solo</strong> (3 vies), survivez au défi mondial <strong>Hardcore</strong> (1 vie avec contrainte imposée), ou affrontez vos amis en <strong>1v1</strong> et <strong>Battle Royale</strong> !</p>
           </div>
         </div>
 
-        <button type="button" class="primary-button full-width" id="start-button" data-i18n="dialog.rules_close">J'ai compris, jouer !</button>
+        <div style="margin-top: 14px; padding: 10px 12px; background: var(--bg-subtle); border-radius: var(--radius-md); font-size: 12.5px; color: var(--ink-secondary); line-height: 1.4; border: 1px solid var(--border-light);">
+          💡 <span data-i18n="dialog.rule_tip">Cliquez sur une case pour choisir un pays, ou sur un critère (ou ⓘ) pour afficher son explication officielle sans spoiler.</span>
+        </div>
+
+        <button type="button" class="primary-button full-width" id="start-button" data-i18n="dialog.rules_close" style="margin-top: 16px;">J'ai compris, jouer !</button>
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=51"></script>
+    <script type="module" src="js/main.js?v=52"></script>
   </body>
 </html>

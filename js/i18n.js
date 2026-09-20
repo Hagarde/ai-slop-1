@@ -72,7 +72,7 @@ export const translations = {
 
     // Intro & Stats
     'intro.title': 'Reliez les pays aux critères',
-    'intro.desc': 'Cliquez sur une case pour choisir le pays correspondant. Cliquez sur {badge} pour voir les explications des critères.',
+    'intro.desc': 'Complétez la grille 3×3 en trouvant un pays unique pour chaque croisement de ligne et de colonne. Chaque pays choisi doit valider simultanément les deux critères de sa case (utilisable une seule fois). Visez le sans-faute en Solo (3 vies), survivez au défi mondial Hardcore (1 vie), ou affrontez vos amis en 1v1 et Battle Royale !',
     'stats.lives': 'VIES',
     'stats.progress': 'PROGRESSION',
 
@@ -101,12 +101,13 @@ export const translations = {
     // Dialogs: Rules
     'dialog.rules_eyebrow': 'RÈGLES DU JEU',
     'dialog.rules_title': 'Comment jouer à CountryDoku ?',
-    'dialog.rule1': '<strong>Le croisement des critères :</strong> Chaque case de la grille 3×3 est à l’intersection d’une ligne et d’une colonne. Le pays choisi doit valider <em>simultanément les deux conditions</em> (ex: <em>En Europe</em> + <em>Drapeau avec du rouge</em>).',
-    'dialog.rule2': '<strong>Unicité des pays :</strong> Un même pays ne peut être placé <em>qu’une seule fois</em> par grille. Choisissez bien son emplacement !',
-    'dialog.rule3': '<strong>Mode Solo (3 vies) :</strong> Vous disposez de 3 cœurs ❤️. Une erreur ou un pays hors critères fait perdre 1 vie. Complétez les 9 cases pour remporter la victoire.',
-    'dialog.rule_hardcore': '<strong>Mode Hardcore (Mort Subite & Défi mondial) :</strong> Une contrainte globale supplémentaire s’applique à l’ensemble de la grille (ex: interdiction du G20, population < 25M, etc.) et vous ne disposez que d’un seul cœur ❤️. Une seule erreur et la partie s’achève !',
-    'dialog.rule4': '<strong>Mode Multijoueur 1v1 (30s / tour) :</strong> Affrontez un ami en direct ! Chaque bonne réponse capture une case (🟢 J1 / 🟣 J2). Le premier à aligner 3 cases (ou qui en contrôle le plus à la fin) gagne le match.',
-    'dialog.rule5': '<strong>Indices & Statistiques mondiales :</strong> Cliquez sur n’importe quelle carte de critère (ou sur ⓘ) pour lire sa définition sans spoiler. Vos réussites alimentent les pourcentages de popularité mondiaux (📊 %).',
+    'dialog.rule1': '<strong>Objectif du jeu :</strong> Complétez la grille 3×3 en trouvant un pays unique pour chaque croisement de ligne et de colonne.',
+    'dialog.rule2': '<strong>Règle d’or :</strong> Chaque pays doit valider simultanément les deux critères de sa case, et chaque pays n’est utilisable qu’une seule fois par partie.',
+    'dialog.rule3': '<strong>Modes de jeu :</strong> Progressez en <strong>Solo</strong> (3 vies), survivez au défi mondial <strong>Hardcore</strong> (1 vie avec contrainte imposée), ou affrontez vos amis en <strong>1v1</strong> et <strong>Battle Royale</strong> !',
+    'dialog.rule_tip': 'Cliquez sur une case pour choisir un pays, ou sur un critère (ou ⓘ) pour afficher son explication officielle sans spoiler.',
+    'dialog.rule_hardcore': '<strong>Mode Hardcore :</strong> Une contrainte mondiale s’applique à toutes les cases et vous n’avez qu’un seul cœur ❤️.',
+    'dialog.rule4': '<strong>Multijoueur 1v1 (30s/tour) :</strong> Alignez 3 cases de votre couleur pour remporter le match.',
+    'dialog.rule5': '<strong>Indices :</strong> Cliquez sur un critère pour lire sa définition sans spoiler.',
     'dialog.rules_close': 'J\'ai compris, jouer !',
 
     // Dialogs: Tooltip
@@ -363,7 +364,7 @@ export const translations = {
 
     // Intro & Stats
     'intro.title': 'Match countries with criteria',
-    'intro.desc': 'Click a cell to choose the matching country. Click {badge} to read criteria details.',
+    'intro.desc': 'Complete the 3×3 grid by finding a unique country for each row and column intersection. Each chosen country must satisfy both criteria of its cell simultaneously (usable only once). Aim for a perfect game in Solo (3 lives), survive the Hardcore global challenge (1 life), or challenge friends in 1v1 and Battle Royale!',
     'stats.lives': 'LIVES',
     'stats.progress': 'PROGRESS',
 
@@ -392,12 +393,13 @@ export const translations = {
     // Dialogs: Rules
     'dialog.rules_eyebrow': 'GAME RULES',
     'dialog.rules_title': 'How to play CountryDoku?',
-    'dialog.rule1': '<strong>Criteria Intersection:</strong> Each cell in the 3×3 grid sits at the intersection of a row and a column. Your chosen country must satisfy <em>both conditions simultaneously</em> (e.g. <em>In Europe</em> + <em>Flag contains red</em>).',
-    'dialog.rule2': '<strong>One use per country:</strong> Each country can only be used <em>once per game</em>. Choose where to place it wisely!',
-    'dialog.rule3': '<strong>Solo Mode (3 lives):</strong> You start with 3 hearts ❤️. An invalid guess costs 1 life. Complete all 9 cells to win the game.',
-    'dialog.rule_hardcore': '<strong>Hardcore Mode (Sudden Death & Global Challenge):</strong> An extra global constraint applies across all 9 cells (e.g. G20 ban, population < 25M, etc.) and you only have a single heart ❤️. One mistake and the game is over!',
-    'dialog.rule4': '<strong>1v1 Multiplayer (30s / turn):</strong> Play live against a friend! Each correct answer claims a cell for your color (🟢 P1 / 🟣 P2). Win by aligning 3 cells (or holding the majority).',
-    'dialog.rule5': '<strong>Clues & Global Stats:</strong> Click any criterion card (or ⓘ) to read its exact spoiler-free definition. Your answers contribute to real-time global popularity stats (📊 %).',
+    'dialog.rule1': '<strong>Game Objective:</strong> Complete the 3×3 grid by finding a unique country for each row and column intersection.',
+    'dialog.rule2': '<strong>Golden Rule:</strong> Each country must satisfy both criteria of its cell simultaneously, and each country can only be used once per grid.',
+    'dialog.rule3': '<strong>Game Modes:</strong> Aim for a perfect game in <strong>Solo</strong> (3 lives), survive the global <strong>Hardcore</strong> challenge (1 life with global constraint), or battle friends in <strong>1v1</strong> and <strong>Battle Royale</strong>!',
+    'dialog.rule_tip': 'Click a cell to choose a country, or click any criterion (or ⓘ) to view its official spoiler-free explanation.',
+    'dialog.rule_hardcore': '<strong>Hardcore Mode:</strong> A global constraint applies to all cells and you only have 1 single life ❤️.',
+    'dialog.rule4': '<strong>1v1 Multiplayer (30s/turn):</strong> Align 3 cells of your color to win the match.',
+    'dialog.rule5': '<strong>Clues:</strong> Click any criterion to view its definition without spoilers.',
     'dialog.rules_close': 'Got it, let\'s play!',
 
     // Dialogs: Tooltip
