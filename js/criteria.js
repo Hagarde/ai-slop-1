@@ -504,6 +504,70 @@ export function buildCriteria(data) {
       (c) => c.formerOttomanTerritory === true
     ,
       '🕌'),
+    criterion(
+      'Territoire de l’Empire romain', 'Territory of the Roman Empire',
+      'history',
+      'Le territoire du pays a constitué une province ou un protectorat de l’Empire romain (apogée sous Trajan en 117 apr. J.-C.).',
+      'The country’s territory was a province or protectorate of the Roman Empire (peak under Trajan in 117 AD).',
+      (c) => c.formerRomanEmpire === true
+    ,
+      '🏛️'),
+    criterion(
+      'Territoire de l’Empire mongol', 'Territory of the Mongol Empire',
+      'history',
+      'Le territoire du pays a appartenu à l’Empire mongol ou à l’un de ses khanats successeurs (XIIIe–XIVe siècle).',
+      'The country’s territory was part of the Mongol Empire or one of its successor khanates (13th–14th century).',
+      (c) => c.formerMongolEmpire === true
+    ,
+      '🐎'),
+    criterion(
+      'Territoire de l’Empire perse (achéménide)', 'Territory of the Persian Empire (Achaemenid)',
+      'history',
+      'Le territoire du pays a formé une satrapie ou appartenu au Premier Empire perse achéménide (Cyrus le Grand à Darius III).',
+      'The country’s territory was a satrapy or part of the Achaemenid Persian Empire (Cyrus the Great to Darius III).',
+      (c) => c.formerPersianEmpire === true
+    ,
+      '⚔️'),
+    criterion(
+      'Territoire de l’Empire russe / URSS', 'Territory of the Russian Empire / USSR',
+      'history',
+      'Le pays faisait partie intégrante de l’Empire russe des Tsars ou d’une république constituante de l’URSS avant son indépendance.',
+      'The country was part of the Russian Empire or a constituent republic of the USSR before gaining independence.',
+      (c) => c.formerRussianEmpire === true
+    ,
+      '👑'),
+    criterion(
+      'Territoire de l’Empire austro-hongrois', 'Territory of the Austro-Hungarian Empire',
+      'history',
+      'Le pays ou une partie substantielle de son territoire a appartenu à la Double Monarchie austro-hongroise (1867–1918).',
+      'The country or a substantial part of its territory was part of the Austro-Hungarian Dual Monarchy (1867–1918).',
+      (c) => c.formerAustroHungarianEmpire === true
+    ,
+      '🦅'),
+    criterion(
+      'Territoire de l’Empire inca (Tawantinsuyu)', 'Territory of the Inca Empire (Tawantinsuyu)',
+      'history',
+      'Le pays s’étend sur des terres qui faisaient partie intégrante de l’Empire inca (Tawantinsuyu, XVe–XVIe siècle).',
+      'The country spans lands that were part of the Inca Empire (Tawantinsuyu, 15th–16th century).',
+      (c) => c.formerIncaEmpire === true
+    ,
+      '☀️'),
+    criterion(
+      'Territoire de l’Empire éthiopien (Aksoum)', 'Territory of the Ethiopian Empire (Aksum)',
+      'history',
+      'Le territoire du pays a constitué le cœur ou une province du Royaume d’Aksoum ou de l’Empire d’Éthiopie (Abyssinie).',
+      'The country’s territory formed the core or a province of the Kingdom of Aksum or the Ethiopian Empire (Abyssinia).',
+      (c) => c.formerEthiopianEmpire === true
+    ,
+      '🦁'),
+    criterion(
+      'Territoire de l’Empire chinois (Qing)', 'Territory of the Chinese Empire (Qing)',
+      'history',
+      'Le pays s’étend sur des territoires administrés par la Chine impériale sous son apogée territoriale (Dynastie Qing, XVIIIe siècle).',
+      'The country spans territories administered by Imperial China at its peak territorial extent (Qing Dynasty, 18th century).',
+      (c) => c.formerChineseEmpire === true
+    ,
+      '🐉'),
   ].filter((item) => data.filter(item.test).length >= 5);
 }
 

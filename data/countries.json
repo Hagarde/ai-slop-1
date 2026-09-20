@@ -83,7 +83,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ZAF",
@@ -176,7 +184,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ALB",
@@ -247,7 +263,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "DZA",
@@ -332,7 +356,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "DEU",
@@ -424,7 +456,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "AND",
@@ -488,7 +528,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "AGO",
@@ -560,7 +608,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ATG",
@@ -617,7 +673,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SAU",
@@ -700,7 +764,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ARG",
@@ -777,7 +849,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": true,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ARM",
@@ -849,7 +929,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "AUS",
@@ -904,7 +992,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "AUT",
@@ -991,7 +1087,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "AZE",
@@ -1069,7 +1173,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BHS",
@@ -1129,7 +1241,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BHR",
@@ -1183,7 +1303,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BGD",
@@ -1246,7 +1374,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BRB",
@@ -1301,7 +1437,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BEL",
@@ -1375,7 +1519,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BLZ",
@@ -1441,7 +1593,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BEN",
@@ -1513,7 +1673,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BTN",
@@ -1582,7 +1750,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BLR",
@@ -1659,7 +1835,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MMR",
@@ -1736,7 +1920,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BOL",
@@ -1815,7 +2007,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": true,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BIH",
@@ -1885,7 +2085,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BWA",
@@ -1958,7 +2166,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BRA",
@@ -2055,7 +2271,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BRN",
@@ -2121,7 +2345,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BGR",
@@ -2197,7 +2429,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BFA",
@@ -2277,7 +2517,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "BDI",
@@ -2346,7 +2594,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "KHM",
@@ -2419,7 +2675,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CMR",
@@ -2500,7 +2764,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CAN",
@@ -2560,7 +2832,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CHL",
@@ -2628,7 +2908,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": true,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CHN",
@@ -2747,7 +3035,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": true
     },
     {
       "code": "CYP",
@@ -2803,7 +3099,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "COL",
@@ -2879,7 +3183,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": true,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "COM",
@@ -2938,7 +3250,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "COG",
@@ -3016,7 +3336,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "COD",
@@ -3112,7 +3440,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PRK",
@@ -3180,7 +3516,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "KOR",
@@ -3241,7 +3585,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CRI",
@@ -3305,7 +3657,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CIV",
@@ -3381,7 +3741,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "HRV",
@@ -3457,7 +3825,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CUB",
@@ -3517,7 +3893,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "DNK",
@@ -3576,7 +3960,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "DJI",
@@ -3646,7 +4038,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": true,
+      "formerChineseEmpire": false
     },
     {
       "code": "DMA",
@@ -3703,7 +4103,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "EGY",
@@ -3776,7 +4184,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ARE",
@@ -3841,7 +4257,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ECU",
@@ -3905,7 +4329,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": true,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ERI",
@@ -3976,7 +4408,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": true,
+      "formerChineseEmpire": false
     },
     {
       "code": "ESP",
@@ -4051,7 +4491,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "EST",
@@ -4115,7 +4563,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SWZ",
@@ -4187,7 +4643,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "USA",
@@ -4251,7 +4715,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ETH",
@@ -4332,7 +4804,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": true,
+      "formerChineseEmpire": false
     },
     {
       "code": "FJI",
@@ -4389,7 +4869,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "FIN",
@@ -4457,7 +4945,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "FRA",
@@ -4545,7 +5041,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GAB",
@@ -4613,7 +5117,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GMB",
@@ -4674,7 +5186,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GEO",
@@ -4745,7 +5265,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GHA",
@@ -4814,7 +5342,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GRC",
@@ -4885,7 +5421,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GRD",
@@ -4940,7 +5484,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GTM",
@@ -5013,7 +5565,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GIN",
@@ -5093,7 +5653,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GNQ",
@@ -5160,7 +5728,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GNB",
@@ -5226,7 +5802,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GUY",
@@ -5296,7 +5880,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "HTI",
@@ -5357,7 +5949,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "HND",
@@ -5424,7 +6024,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "HUN",
@@ -5508,7 +6116,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MUS",
@@ -5566,7 +6182,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CPV",
@@ -5622,7 +6246,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MHL",
@@ -5678,7 +6310,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SLB",
@@ -5734,7 +6374,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "IND",
@@ -5817,7 +6465,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "IDN",
@@ -5884,7 +6540,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "IRQ",
@@ -5967,7 +6631,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "IRN",
@@ -6051,7 +6723,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "IRL",
@@ -6112,7 +6792,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ISL",
@@ -6167,7 +6855,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ISR",
@@ -6243,7 +6939,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ITA",
@@ -6323,7 +7027,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "JAM",
@@ -6379,7 +7091,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "JPN",
@@ -6433,7 +7153,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "JOR",
@@ -6510,7 +7238,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "KAZ",
@@ -6586,7 +7322,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": true
     },
     {
       "code": "KEN",
@@ -6664,7 +7408,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "KGZ",
@@ -6736,7 +7488,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": true
     },
     {
       "code": "KIR",
@@ -6798,7 +7558,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "KWT",
@@ -6863,7 +7631,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LAO",
@@ -6939,7 +7715,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LSO",
@@ -7006,7 +7790,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LVA",
@@ -7077,7 +7869,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LBN",
@@ -7142,7 +7942,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LBR",
@@ -7210,7 +8018,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LBY",
@@ -7291,7 +8107,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LIE",
@@ -7355,7 +8179,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LTU",
@@ -7427,7 +8259,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LUX",
@@ -7497,7 +8337,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MKD",
@@ -7573,7 +8421,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MDG",
@@ -7629,7 +8485,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MYS",
@@ -7699,7 +8563,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MWI",
@@ -7768,7 +8640,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MDV",
@@ -7823,7 +8703,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MLI",
@@ -7907,7 +8795,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MLT",
@@ -7962,7 +8858,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MAR",
@@ -8030,7 +8934,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MRT",
@@ -8102,7 +9014,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MEX",
@@ -8170,7 +9090,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "FSM",
@@ -8224,7 +9152,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MDA",
@@ -8288,7 +9224,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MCO",
@@ -8347,7 +9291,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MNG",
@@ -8411,7 +9363,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": true
     },
     {
       "code": "MNE",
@@ -8486,7 +9446,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "MOZ",
@@ -8568,7 +9536,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NAM",
@@ -8655,7 +9631,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NRU",
@@ -8711,7 +9695,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NPL",
@@ -8775,7 +9767,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NIC",
@@ -8838,7 +9838,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NER",
@@ -8922,7 +9930,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NGA",
@@ -8993,7 +10009,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NOR",
@@ -9063,7 +10087,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NZL",
@@ -9120,7 +10152,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "OMN",
@@ -9188,7 +10228,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "UGA",
@@ -9266,7 +10314,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "UZB",
@@ -9344,7 +10400,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PAK",
@@ -9416,7 +10480,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PLW",
@@ -9471,7 +10543,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PAN",
@@ -9540,7 +10620,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PNG",
@@ -9603,7 +10691,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PRY",
@@ -9672,7 +10768,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "NLD",
@@ -9736,7 +10840,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PER",
@@ -9813,7 +10925,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": true,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PHL",
@@ -9870,7 +10990,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "POL",
@@ -9953,7 +11081,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "PRT",
@@ -10013,7 +11149,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "QAT",
@@ -10072,7 +11216,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CAF",
@@ -10155,7 +11307,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "DOM",
@@ -10215,7 +11375,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ROU",
@@ -10291,7 +11459,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "GBR",
@@ -10351,7 +11527,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "RUS",
@@ -10463,7 +11647,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": true
     },
     {
       "code": "RWA",
@@ -10537,7 +11729,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "KNA",
@@ -10594,7 +11794,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SMR",
@@ -10653,7 +11861,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "VCT",
@@ -10708,7 +11924,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LCA",
@@ -10764,7 +11988,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SLV",
@@ -10827,7 +12059,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "WSM",
@@ -10883,7 +12123,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "STP",
@@ -10939,7 +12187,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SEN",
@@ -11015,7 +12271,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SRB",
@@ -11103,7 +12367,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SYC",
@@ -11162,7 +12434,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SLE",
@@ -11226,7 +12506,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SGP",
@@ -11283,7 +12571,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SVK",
@@ -11359,7 +12655,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SVN",
@@ -11431,7 +12735,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SOM",
@@ -11499,7 +12811,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": true,
+      "formerChineseEmpire": false
     },
     {
       "code": "SDN",
@@ -11585,7 +12905,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": true,
+      "formerChineseEmpire": false
     },
     {
       "code": "SSD",
@@ -11667,7 +12995,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "LKA",
@@ -11723,7 +13059,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SWE",
@@ -11786,7 +13130,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CHE",
@@ -11864,7 +13216,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SUR",
@@ -11933,7 +13293,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "SYR",
@@ -12010,7 +13378,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TJK",
@@ -12084,7 +13460,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": true
     },
     {
       "code": "TZA",
@@ -12174,7 +13558,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TCD",
@@ -12255,7 +13647,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "CZE",
@@ -12328,7 +13728,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "THA",
@@ -12400,7 +13808,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TLS",
@@ -12462,7 +13878,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TGO",
@@ -12531,7 +13955,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TON",
@@ -12586,7 +14018,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TTO",
@@ -12641,7 +14081,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TUN",
@@ -12704,7 +14152,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TKM",
@@ -12777,7 +14233,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TUR",
@@ -12864,7 +14328,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": true,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": true,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "TUV",
@@ -12926,7 +14398,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "UKR",
@@ -13009,7 +14489,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": true,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": true,
+      "formerAustroHungarianEmpire": true,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "URY",
@@ -13073,7 +14561,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "VUT",
@@ -13131,7 +14627,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "VEN",
@@ -13200,7 +14704,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": false,
       "formerSpanishColony": true,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "VNM",
@@ -13267,7 +14779,15 @@
       "formerBritishColony": false,
       "formerFrenchColony": true,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "YEM",
@@ -13331,7 +14851,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": true
+      "formerOttomanTerritory": true,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": true,
+      "formerChineseEmpire": false
     },
     {
       "code": "ZMB",
@@ -13420,7 +14948,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     },
     {
       "code": "ZWE",
@@ -13548,7 +15084,15 @@
       "formerBritishColony": true,
       "formerFrenchColony": false,
       "formerSpanishColony": false,
-      "formerOttomanTerritory": false
+      "formerOttomanTerritory": false,
+      "formerRomanEmpire": false,
+      "formerMongolEmpire": false,
+      "formerPersianEmpire": false,
+      "formerRussianEmpire": false,
+      "formerAustroHungarianEmpire": false,
+      "formerIncaEmpire": false,
+      "formerEthiopianEmpire": false,
+      "formerChineseEmpire": false
     }
   ]
 }
