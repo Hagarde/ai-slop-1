@@ -65,16 +65,27 @@
 
 ```
 CountryDoku/
-├── index.html               # Structure HTML5, modaux (Recherche, Rules, 1v1, Victory)
-├── styles.css               # Design system, variables CSS, grille responsive & thèmes 1v1
-├── app.js                   # Moteur de jeu, résolveur backtracking, contrôleur WebRTC 1v1
+├── index.html               # Structure HTML5, modaux (Recherche, Rules, 1v1, BR, Victory)
+├── styles.css               # Design system, variables CSS, grille responsive & thèmes 1v1/BR
+├── js/
+│   ├── main.js              # Bootstrap, routing URL (?room/?br/?seed), event listeners
+│   ├── game.js              # État, génération backtracking + seeds CD/CDH, validation coups
+│   ├── data.js              # Chargement countries.json, index de recherche, Map par code
+│   ├── criteria.js          # ~70 critères (géo/éco/ling/drapeau/histoire), filtre >= 5 pays
+│   ├── hardcore.js          # 5 modificateurs mondiaux (G20, <25M, sans A, îles, enclavés)
+│   ├── ui.js                # Rendu grille, recherche, 1v1 + Battle Royale UI, i18n apply
+│   ├── network.js           # WebRTC 1v1 PeerJS (host/guest, timer 30s, scores)
+│   ├── party_network.js     # WebRTC Battle Royale 3-8 joueurs (autorité hôte)
+│   ├── battle_royale.js     # Règles BR (bombe/vagues, vies, escalade, podium)
+│   ├── i18n.js              # FR/EN, traductions, noms de pays par langue
+│   ├── stats.js             # Stats locales + sync Supabase (rate-limited)
+│   ├── utils.js             # fold, escapeHtml, shuffle, logs session, safeClose
+│   └── elements.js          # Sélecteurs DOM centralisés
 ├── data/
 │   └── countries.json       # Base de données enrichie des 193 États membres de l'ONU
 ├── scripts/
-│   ├── enrich.js            # Script d'enrichissement initial (HSL, drapeaux, superficies)
-│   ├── enrich-v2.js         # Script d'enrichissement (OCDE, sommets > 4000m, symboles)
-│   └── audit-countries.js   # Script d'audit et de fiabilisation 100% des données ONU
-└── README.md                # Documentation explicative joueur & développeur
+│   └── verify-all-criteria.js # Audit qualité des données (npm test)
+└── README.md                # Documentation joueur & développeur
 ```
 
 ---

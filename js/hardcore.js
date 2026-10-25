@@ -81,6 +81,20 @@ export const HARDCORE_MODIFIERS = [
   }
 ];
 
+// Modificateurs bannis en 1v1 : parties trop verrouillées à 2 cerveaux sous 30s
+// (îles = 39 pays, enclavés = 43 pays pour 9 cases uniques).
+const BANNED_IN_1V1 = new Set(['island_only', 'landlocked_only']);
+
+/**
+ * Tirage Hardcore pour le 1v1 (exclut les défis îles / enclavés).
+ */
+export function getRandomHardcoreModifierFor1v1(currentId = null) {
+  const pool = HARDCORE_MODIFIERS.filter(m => m.id !== currentId && !BANNED_IN_1V1.has(m.id));
+  const candidates = pool.length > 0 ? pool : HARDCORE_MODIFIERS;
+  const index = Math.floor(Math.random() * candidates.length);
+  return candidates[index];
+}
+
 /**
  * Sélectionne un modificateur aléatoire différent du précédent si possible
  */

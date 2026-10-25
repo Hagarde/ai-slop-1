@@ -12,6 +12,27 @@ const TRANSCONTINENTAL = {
   CYP: ['Asia', 'Europe'],
 };
 
+// Pays dont au moins une langue officielle s'écrit couramment en alphabet NON latin
+// (cyrillique, grec, arménien, géorgien, arabe, hébreu, chinois, coréen, thaï, lao,
+// khmer, birman, devanagari et dérivés, cinghalais, thaana, dzongkha, ge'ez).
+// Liste conservative et vérifiable ; en cas de doute le pays est classé côté latin.
+const NON_LATIN_SCRIPT = new Set([
+  'RUS', 'UKR', 'BLR', 'BGR', 'SRB', 'MKD', 'MNE', 'BIH', // cyrillique (BIH : co-officiel)
+  'KAZ', 'KGZ', 'TJK', 'MNG',                             // cyrillique (Asie centrale / Mongolie)
+  'GRC', 'CYP',                                           // grec
+  'ARM', 'GEO',                                           // arménien, géorgien
+  'SAU', 'YEM', 'OMN', 'ARE', 'QAT', 'BHR', 'KWT',         // arabe (péninsule)
+  'IRQ', 'SYR', 'JOR', 'LBN',                             // arabe (Levant)
+  'EGY', 'LBY', 'TUN', 'DZA', 'MAR', 'MRT', 'SDN',         // arabe (Afrique du Nord)
+  'DJI', 'COM', 'IRN', 'AFG', 'PAK',                      // arabe/persan/ourdou
+  'ISR',                                                  // hébreu
+  'CHN', 'JPN', 'KOR', 'PRK',                             // sinogrammes / hangul
+  'THA', 'LAO', 'KHM', 'MMR',                             // thaï, lao, khmer, birman
+  'IND', 'BGD', 'NPL', 'LKA', 'BTN', 'MDV',               // devanagari et dérivés, thaana, dzongkha
+  'ETH', 'ERI',                                           // ge'ez
+  'SGP',                                                  // tamoul (langue officielle)
+]);
+
 function inRegion(country, targetRegion) {
   if (country.region === targetRegion) return true;
   const extra = TRANSCONTINENTAL[country.code];
@@ -50,7 +71,7 @@ export function buildCriteria(data) {
       'The country’s territory lies in the Northern Hemisphere (latitude >= 0).',
       (c) => c.hemisphere === 'Nord'
     ,
-      '🧭'),
+      '⬆️'),
     criterion(
       'Dans l’hémisphère Sud', 'In the Southern Hemisphere',
       'geography',
@@ -58,7 +79,7 @@ export function buildCriteria(data) {
       'The country’s territory lies in the Southern Hemisphere (latitude < 0).',
       (c) => c.hemisphere === 'Sud'
     ,
-      '🧭'),
+      '⬇️'),
     criterion(
       'En Afrique', 'In Africa',
       'geography',
@@ -146,7 +167,7 @@ export function buildCriteria(data) {
       'The country is situated on islands with no shared land borders.',
       (c) => c.borders.length === 0
     ,
-      '🏝️'),
+      '🏖️'),
     criterion(
       'Superficie > 1 000 000 km²', 'Area > 1,000,000 km²',
       'geography',
@@ -228,21 +249,13 @@ export function buildCriteria(data) {
     ,
       '₣'),
     criterion(
-      'Devise : Dinar (din.)', 'Currency: Dinar (din.)',
+      'Devise : Dinar ou Roupie', 'Currency: Dinar or Rupee',
       'economy',
-      'La monnaie légale du pays porte le nom officiel de Dinar (abréviation : din.).',
-      'The country’s official currency is called Dinar (abbreviation: din.).',
-      hasCurrencyName('dinar')
+      'La monnaie légale du pays porte le nom officiel de Dinar ou de Roupie (fusion de deux devises trop rares isolément : 8 pays chacune, 16 réunies).',
+      'The country’s official currency is called Dinar or Rupee (merged from two currencies too rare alone: 8 countries each, 16 combined).',
+      (c) => hasCurrencyName('dinar')(c) || hasCurrencyName('rupee')(c)
     ,
       '🪙'),
-    criterion(
-      'Devise : Roupie (₹ / ₨)', 'Currency: Rupee (₹ / ₨)',
-      'economy',
-      'La monnaie légale du pays porte le nom officiel de Roupie (symbole : ₹ ou ₨).',
-      'The country’s official currency is called Rupee (symbol: ₹ or ₨).',
-      hasCurrencyName('rupee')
-    ,
-      '₨'),
     criterion(
       'Au moins 2 langues officielles', 'At least 2 official languages',
       'linguistic',
@@ -368,6 +381,22 @@ export function buildCriteria(data) {
       (c) => /[\s-]/.test(c.name)
     ,
       '✍️'),
+    criterion(
+      'Écriture officielle latine', 'Official Latin script',
+      'linguistic',
+      'Toutes les langues officielles du pays s’écrivent en alphabet latin (aucune écriture cyrillique, arabe, chinoise, etc.).',
+      'All of the country’s official languages are written in the Latin alphabet (no Cyrillic, Arabic, Chinese or similar script).',
+      (c) => !NON_LATIN_SCRIPT.has(c.code)
+    ,
+      '🔡'),
+    criterion(
+      'Écriture officielle non latine', 'Official non-Latin script',
+      'linguistic',
+      'Au moins une langue officielle du pays s’écrit en alphabet non latin : cyrillique, grec, arabe, hébreu, chinois, coréen, thaï, devanagari, ge’ez…',
+      'At least one official language uses a non-Latin script: Cyrillic, Greek, Arabic, Hebrew, Chinese, Korean, Thai, Devanagari, Ge’ez…',
+      (c) => NON_LATIN_SCRIPT.has(c.code)
+    ,
+      '🈶'),
     criterion(
       'Présence d’un triangle sur le drapeau', 'Triangle on flag',
       'flag',

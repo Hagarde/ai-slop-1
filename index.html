@@ -10,8 +10,11 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://flagcdn.com" crossorigin />
+    <link rel="dns-prefetch" href="https://flagcdn.com" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=53" />
+    <link rel="stylesheet" href="styles-inverse.css?v=1" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -76,6 +79,12 @@
       </div>
     </section>
 
+    <!-- Timer téléphone : ligne de progression fixe (toujours visible au scroll) + chip de rappel -->
+    <div class="edge-timer-line hidden" id="edge-timer-line" aria-hidden="true"><div class="edge-timer-fill" id="edge-timer-fill"></div></div>
+    <button class="scroll-timer-chip hidden" id="scroll-timer-chip" aria-label="Retour à la grille — tour en cours">
+      <span id="scroll-timer-dot">🟢</span><span id="scroll-timer-text">À vous !</span><strong id="scroll-timer-time">30s</strong>
+    </button>
+
     <main class="main-container">
       <!-- Selecteur de Mode Principal Prominent -->
       <section class="mode-selector-section">
@@ -114,6 +123,15 @@
             </div>
             <span class="mode-badge br-badge" data-i18n="mode.br_badge">NOUVEAU 🏆</span>
           </button>
+
+          <button class="mode-tab inverse-tab" id="mode-inverse-tab">
+            <span class="mode-icon">🧭</span>
+            <div class="mode-info">
+              <strong id="mode-inverse-title" data-i18n="mode.inverse_title">Fil Rouge</strong>
+              <small id="mode-inverse-desc" data-i18n="mode.inverse_desc">Isolez un ensemble de pays</small>
+            </div>
+            <span class="mode-badge inverse-badge" data-i18n="mode.inverse_badge">ENQUÊTE 🧭</span>
+          </button>
         </div>
       </section>
 
@@ -146,6 +164,7 @@
         <div class="mp-turn-timer-pill" id="mp-turn-timer-pill">
           ⏱️ <span id="mp-turn-timer-num">30</span>s
         </div>
+        <div class="turn-progress-track" aria-hidden="true"><div class="turn-progress-fill" id="turn-progress-fill"></div></div>
       </div>
 
       <section class="intro-section" aria-labelledby="game-title">
@@ -168,7 +187,7 @@
       </section>
 
       <section class="game-section" aria-label="Grille de jeu">
-        <div class="board-card" id="board-card">
+        <div class="board-card" id="board-card" tabindex="-1">
           <div class="board" id="board" role="grid" aria-label="Grille CountryDoku 3x3"></div>
         </div>
 
@@ -196,6 +215,102 @@
             </button>
           </div>
         </div>
+      </section>
+
+      <!-- Mode Fil Rouge : isolation progressive d'un ensemble de pays -->
+      <section class="inverse-section hidden" id="inverse-section" aria-labelledby="inverse-title">
+        <div class="inverse-hero">
+          <div class="inverse-hero-copy">
+            <span class="inverse-kicker" data-i18n="inverse.kicker">MODE FIL ROUGE</span>
+            <h1 id="inverse-title" data-i18n="inverse.title">Isolez l'ensemble</h1>
+            <p data-i18n="inverse.intro">Ces pays partagent plusieurs points communs. Entrez les critères un par un : chacun doit être vrai pour TOUS les pays affichés. Vous gagnez quand l'intersection de vos critères ne laisse plus qu'eux.</p>
+          </div>
+          <div class="inverse-hud" aria-live="polite">
+            <div class="inverse-hud-item">
+              <span data-i18n="inverse.round">Manche</span>
+              <strong id="inverse-round">1/5</strong>
+            </div>
+            <div class="inverse-hud-item">
+              <span data-i18n="inverse.lives">Vies</span>
+              <strong id="inverse-lives">❤️❤️❤️🖤🖤</strong>
+            </div>
+            <div class="inverse-hud-item">
+              <span data-i18n="inverse.score">Score</span>
+              <strong id="inverse-score">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="inverse-layout">
+          <div class="inverse-main-column">
+            <section class="inverse-card inverse-target-card">
+              <div class="inverse-card-head">
+                <h2 data-i18n="inverse.target_title">L'ensemble à isoler</h2>
+                <span class="inverse-pill" id="inverse-target-count">0 pays</span>
+              </div>
+              <div class="inverse-country-grid" id="inverse-target-countries"></div>
+            </section>
+
+            <section class="inverse-card inverse-pool-card">
+              <div class="inverse-pool-head">
+                <span data-i18n="inverse.pool">Vivier actuel</span>
+                <strong id="inverse-pool-count">193 pays</strong>
+              </div>
+              <div class="inverse-progress-track" aria-hidden="true">
+                <div class="inverse-progress-fill" id="inverse-progress-fill"></div>
+              </div>
+              <p class="inverse-remaining" id="inverse-remaining"></p>
+            </section>
+
+            <section class="inverse-card">
+              <div class="inverse-card-head">
+                <h2 data-i18n="inverse.criteria_title">Vos critères</h2>
+              </div>
+              <div class="inverse-criteria-list" id="inverse-criteria-list"></div>
+              <div class="inverse-implied hidden" id="inverse-implied-wrap">
+                <h3 data-i18n="inverse.implied_title">Déjà vrais, mais sans effet</h3>
+                <div class="inverse-rule-chip-list" id="inverse-implied-list"></div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="inverse-side-column">
+            <section class="inverse-card inverse-input-card">
+              <h2 data-i18n="inverse.input_label">Ajouter un critère</h2>
+              <div class="inverse-search-row">
+                <input
+                  type="search"
+                  id="inverse-rule-input"
+                  class="inverse-rule-input"
+                  autocomplete="off"
+                  spellcheck="false"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-controls="inverse-suggestions"
+                  aria-expanded="false"
+                  data-i18n-aria-label="inverse.input_aria"
+                  data-i18n-placeholder="inverse.input_placeholder"
+                  placeholder="Tapez : enclavé, arabe, OCDE..."
+                />
+                <button type="button" class="primary-button" id="inverse-submit-btn" data-i18n="inverse.submit">Valider</button>
+              </div>
+              <div class="inverse-suggestions hidden" id="inverse-suggestions" role="listbox"></div>
+              <p class="inverse-input-note" data-i18n="inverse.input_note">Un critère inconnu ne fait jamais perdre de vie. Seul un critère faux pour au moins un pays affiché coûte une vie.</p>
+            </section>
+
+            <section class="inverse-card inverse-feedback-card">
+              <div class="inverse-feedback info" id="inverse-feedback" role="status" aria-live="polite"></div>
+            </section>
+
+            <div class="inverse-actions">
+              <button type="button" class="secondary-button" id="inverse-hint-btn" data-i18n="inverse.hint_btn">💡 Indice (−30 pts)</button>
+              <button type="button" class="secondary-button inverse-danger-btn" id="inverse-pass-btn" data-i18n="inverse.pass_btn">Passer (−1 vie)</button>
+              <button type="button" class="secondary-button" id="inverse-restart-btn" data-i18n="inverse.restart_btn">Nouvelle run</button>
+            </div>
+          </aside>
+        </div>
+
+        <section class="inverse-result-card hidden" id="inverse-round-result" aria-live="polite"></section>
       </section>
     </main>
 
@@ -676,7 +791,7 @@
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px;">
-          <button class="primary-button full-width" id="send-report-email-btn" style="font-size: 14px;" data-i18n="dialog.report_send_btn">📧 Envoyer par Email (recpetionneurdepubpourmoi@gmail.com)</button>
+          <button class="primary-button full-width" id="send-report-email-btn" style="font-size: 14px;" data-i18n="dialog.report_send_btn">📧 Envoyer par Email (support@countrydoku.com)</button>
           <button class="secondary-button full-width" id="copy-report-logs-btn" style="font-size: 13px;" data-i18n="dialog.report_copy_btn">📋 Copier le rapport complet</button>
         </div>
       </div>
@@ -734,6 +849,10 @@
             <span class="rule-number">3</span>
             <p data-i18n="dialog.rule3"><strong>Modes de jeu :</strong> Progressez en <strong>Solo</strong> (3 vies), survivez au défi mondial <strong>Hardcore</strong> (1 vie avec contrainte imposée), ou affrontez vos amis en <strong>1v1</strong> et <strong>Battle Royale</strong> !</p>
           </div>
+          <div class="rule-item">
+            <span class="rule-number">4</span>
+            <p data-i18n="dialog.rule_inverse"><strong>Fil Rouge :</strong> on vous montre 2 à 20 pays. Entrez les critères un par un : chacun doit être vrai pour <em>tous</em> les pays affichés. Vous gagnez dès que l’intersection de vos critères ne laisse plus qu’eux. Un critère vrai mais sans effet ne coûte rien ; seul un critère faux pour un pays affiché coûte une vie.</p>
+          </div>
         </div>
 
         <div style="margin-top: 14px; padding: 10px 12px; background: var(--bg-subtle); border-radius: var(--radius-md); font-size: 12.5px; color: var(--ink-secondary); line-height: 1.4; border: 1px solid var(--border-light);">
@@ -744,6 +863,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=53"></script>
+    <script type="module" src="js/main.js?v=54"></script>
   </body>
 </html>

@@ -55,6 +55,12 @@ export async function loadData() {
       aliasesFolded: (aliases[country.code] || []).map(fold),
     }));
 
+    // Index O(1) par code ISO (remplace les .find() en boucle)
+    countryByCode.clear();
+    for (const country of countries) {
+      if (country && country.code) countryByCode.set(country.code, country);
+    }
+
     return true;
   } catch (error) {
     console.error('Erreur lors du chargement des données:', error);
@@ -62,6 +68,9 @@ export async function loadData() {
   }
 }
 
+const countryByCode = new Map();
+
 export function getCountryByCode(code) {
+  if (countryByCode.has(code)) return countryByCode.get(code);
   return countries.find(c => c.code === code);
 }

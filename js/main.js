@@ -1,12 +1,13 @@
 import { loadData, getCountryByCode, countriesSearchIndex } from './data.js';
 import { setupLogging, sessionLogs, escapeHtml, fold } from './utils.js';
 import { gameState, resetGameState, validateMove, checkTicTacToeWin, cellCandidates, getMoveValidationDetails, exportGridSeed, applyGridSeed } from './game.js';
-import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, applyStaticTranslations, setFeedback, updateSearchDialogHardcoreReminder } from './ui.js';
+import { renderBoard, renderCountries, renderCountriesForSolution, updateMultiplayerUI, updateHardcoreUI, updateLivesUI, addGameFeed, searchDialog, searchDialogTitle, board, search, updateScoresUI, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, feedback, gameoverDialog, safeShowModal, safeClose, applyStaticTranslations, setFeedback, updateSearchDialogHardcoreReminder } from './ui.js';
 import { isMultiplayer, myRole, currentTurn, setCurrentTurn, safeSend, startTurnTimer, stopTurnTimer, roomScores, initPeer, connectAsGuest, handleRoomClose, forceLeaveRoom, startNextMultiplayerMatch } from './network.js';
 import { initPartyHost, joinPartyGuest, hostStartGame, hostRestartGame, hostReturnToLobby, requestReplayGuest, isBrHost, submitCountryMove, leaveParty, isPartyMode } from './party_network.js';
 import { brGameState } from './battle_royale.js';
 import { recordChoice, getChoicePercentage, syncGlobalStats } from './stats.js';
 import { initLanguage, getLanguage, setLanguage, t, getCountryName } from './i18n.js';
+import { initInverseMode, openInverseMode, closeInverseMode } from './inverse_ui.js';
 
 // Setup Global Error Handling
 window.addEventListener('error', (event) => {
@@ -36,6 +37,7 @@ async function initApp() {
 
   // Setup UI Event Listeners
   setupEventListeners();
+  initInverseMode();
 
   // Appliquer les textes traduits
   applyStaticTranslations();
@@ -116,7 +118,7 @@ function resetGame(newSeed = true, isHardcore = null) {
 
 function handleCellChoose(code) {
   if (isMultiplayer && currentTurn !== myRole) {
-    if (searchDialog && searchDialog.open) searchDialog.close();
+    safeClose(searchDialog);
     gameState.selectedCell = null;
     setFeedback(t('board.timeout_loss'), 'wrong');
     return;
@@ -128,7 +130,7 @@ function handleCellChoose(code) {
   const cellNumber = selectedCell + 1;
   const details = getMoveValidationDetails(selectedCell, code);
   const isMatch = details.isValid;
-  searchDialog.close();
+  safeClose(searchDialog);
 
   if (!isMatch) {
     const countryName = details.country ? getCountryName(details.country) : code;
@@ -215,7 +217,6 @@ function handleCellChoose(code) {
       mpVictoryDesc.textContent = t('dialog.draw_desc');
       safeShowModal(mpVictoryDialog);
     } else {
-      const nextTurn = myRole === 'host' ? 'guest' : 'host';
       setCurrentTurn(nextTurn);
       const placedSelfMsg = t('board.mp_correct_self', { country: countryName, cell: cellNumber, pct: pctText });
       setFeedback(placedSelfMsg, 'correct');
@@ -242,10 +243,12 @@ function setupEventListeners() {
   const modeSoloTab = document.querySelector('#mode-solo-tab');
   const modeHardcoreTab = document.querySelector('#mode-hardcore-tab');
   const modeBrTab = document.querySelector('#mode-br-tab');
+  const modeInverseTab = document.querySelector('#mode-inverse-tab');
   const brToggleBtn = document.querySelector('#br-toggle-btn');
   const hardcoreRerollBtn = document.querySelector('#hardcore-reroll-btn');
 
   const openMultiplayerModal = () => {
+    closeInverseMode();
     if (isPartyMode) leaveParty();
     document.querySelector('#room-options-view').classList.remove('hidden');
     document.querySelector('#room-created-view').classList.add('hidden');
@@ -254,6 +257,7 @@ function setupEventListeners() {
   };
 
   const openBattleRoyaleModal = () => {
+    closeInverseMode();
     if (isMultiplayer) handleRoomClose();
     const brDialog = document.querySelector('#battle-royale-dialog');
     if (brDialog) {
@@ -272,8 +276,25 @@ function setupEventListeners() {
   if (brToggleBtn) brToggleBtn.addEventListener('click', openBattleRoyaleModal);
   if (modeBrTab) modeBrTab.addEventListener('click', openBattleRoyaleModal);
 
+  // Le mode Fil Rouge masque la grille : on le referme dès qu'un autre onglet
+  // est cliqué, avant que les handlers historiques ne manipulent les classes.
+  document.querySelector('.mode-selector-bar')?.addEventListener('click', (event) => {
+    const tab = event.target.closest('.mode-tab');
+    if (!tab || tab.id === 'mode-inverse-tab') return;
+    closeInverseMode();
+  }, true);
+
+  if (modeInverseTab) {
+    modeInverseTab.addEventListener('click', () => {
+      if (isMultiplayer) handleRoomClose();
+      if (isPartyMode) leaveParty();
+      openInverseMode();
+    });
+  }
+
   if (modeSoloTab) {
     modeSoloTab.addEventListener('click', () => {
+      closeInverseMode();
       if (isMultiplayer) handleRoomClose();
       if (isPartyMode) leaveParty();
       if (gameState.isHardcore) {
@@ -289,6 +310,7 @@ function setupEventListeners() {
 
   if (modeHardcoreTab) {
     modeHardcoreTab.addEventListener('click', () => {
+      closeInverseMode();
       if (isMultiplayer) handleRoomClose();
       if (isPartyMode) leaveParty();
       if (!gameState.isHardcore) {
@@ -563,12 +585,15 @@ function setupEventListeners() {
     }
   });
   
-  document.querySelector('#cancel-leave-btn').addEventListener('click', () => document.querySelector('#confirm-leave-dialog').close());
+  document.querySelector('#cancel-leave-btn').addEventListener('click', () => safeClose(document.querySelector('#confirm-leave-dialog')));
   document.querySelector('#confirm-leave-btn').addEventListener('click', forceLeaveRoom);
   document.querySelector('#leave-mp-btn').addEventListener('click', forceLeaveRoom);
 
-  document.querySelector('#copy-link-btn')?.addEventListener('click', () => {
-    const url = window.location.href;
+  document.querySelector('#scroll-timer-chip')?.addEventListener('click', () => {
+    document.querySelector('#board-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  document.querySelector('#copy-link-btn')?.addEventListener('click', () => {    const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
       const btn = document.querySelector('#copy-link-btn');
       const oldText = btn.innerHTML;
@@ -594,7 +619,7 @@ function setupEventListeners() {
   // Search Dialog
   search.addEventListener('input', () => renderCountries(handleCellChoose));
   document.querySelector('#close-search').addEventListener('click', () => {
-    searchDialog.close();
+    safeClose(searchDialog);
     gameState.selectedCell = null;
     renderBoard();
   });
@@ -684,11 +709,12 @@ function setupEventListeners() {
   });
   document.querySelector('#close-report').addEventListener('click', () => {
     const reportDialog = document.querySelector('#report-dialog');
-    if (reportDialog) reportDialog.close();
+    if (reportDialog) safeClose(reportDialog);
   });
 
   document.querySelector('#brand-logo')?.addEventListener('click', (e) => {
     e.preventDefault();
+    closeInverseMode();
     if (isMultiplayer) {
       handleRoomClose();
     } else {
@@ -700,47 +726,51 @@ function setupEventListeners() {
     const d = document.querySelector('#help-dialog');
     safeShowModal(d); // F-05 FIX
   });
-  document.querySelector('#close-help')?.addEventListener('click', () => document.querySelector('#help-dialog')?.close());
-  document.querySelector('#start-button')?.addEventListener('click', () => document.querySelector('#help-dialog')?.close());
+  document.querySelector('#close-help')?.addEventListener('click', () => safeClose(document.querySelector('#help-dialog')));
+  document.querySelector('#start-button')?.addEventListener('click', () => safeClose(document.querySelector('#help-dialog')));
 
   // F-01 FIX: Utiliser le bon sélecteur #gameover-dialog
-  document.querySelector('#retry-same-btn')?.addEventListener('click', () => { document.querySelector('#gameover-dialog')?.close(); resetGame(false); });
-  document.querySelector('#new-grid-btn')?.addEventListener('click', () => { document.querySelector('#gameover-dialog')?.close(); resetGame(true); });
+  document.querySelector('#retry-same-btn')?.addEventListener('click', () => { safeClose(document.querySelector('#gameover-dialog')); resetGame(false); });
+  document.querySelector('#new-grid-btn')?.addEventListener('click', () => { safeClose(document.querySelector('#gameover-dialog')); resetGame(true); });
 
-  document.querySelector('#close-mp-victory')?.addEventListener('click', () => document.querySelector('#mp-victory-dialog')?.close());
-  document.querySelector('#mp-view-board-btn')?.addEventListener('click', () => document.querySelector('#mp-victory-dialog')?.close());
+  document.querySelector('#close-mp-victory')?.addEventListener('click', () => safeClose(document.querySelector('#mp-victory-dialog')));
+  document.querySelector('#mp-view-board-btn')?.addEventListener('click', () => safeClose(document.querySelector('#mp-victory-dialog')));
 
   document.querySelector('#mp-rematch-btn')?.addEventListener('click', () => {
     safeSend({ type: 'PROPOSE_REMATCH', sender: myRole });
-    document.querySelector('#mp-victory-dialog')?.close();
+    document.querySelector('#mp-victory-dialog') && safeClose(document.querySelector('#mp-victory-dialog'));
   });
   
   document.querySelector('#mp-new-match-btn')?.addEventListener('click', () => {
     safeSend({ type: 'PROPOSE_NEW_GRID', sender: myRole });
-    document.querySelector('#mp-victory-dialog')?.close();
+    document.querySelector('#mp-victory-dialog') && safeClose(document.querySelector('#mp-victory-dialog'));
   });
 
   document.querySelector('#accept-rematch-grid-btn')?.addEventListener('click', () => {
     safeSend({ type: 'ACCEPT_PROPOSAL', sameGrid: true });
     if (myRole === 'host') startNextMultiplayerMatch(true);
-    document.querySelector('#grid-proposal-dialog')?.close();
+    safeClose(document.querySelector('#grid-proposal-dialog'));
   });
 
   document.querySelector('#accept-new-grid-btn')?.addEventListener('click', () => {
     safeSend({ type: 'ACCEPT_PROPOSAL', sameGrid: false });
     if (myRole === 'host') startNextMultiplayerMatch(false);
-    document.querySelector('#grid-proposal-dialog')?.close();
+    safeClose(document.querySelector('#grid-proposal-dialog'));
   });
 
   document.querySelector('#decline-grid-btn')?.addEventListener('click', () => {
     safeSend({ type: 'DECLINE_PROPOSAL' });
-    document.querySelector('#grid-proposal-dialog')?.close();
+    safeClose(document.querySelector('#grid-proposal-dialog'));
   });
 
   document.querySelector('#close-grid-proposal')?.addEventListener('click', () => document.querySelector('#grid-proposal-dialog')?.close());
 
   document.querySelector('#send-report-email-btn')?.addEventListener('click', () => {
-    window.location.href = 'mailto:support@countrydoku.com?subject=Bug Report';
+    const userMsg = document.querySelector('#report-user-msg')?.value || '';
+    const logs = sessionLogs.slice(-30).join('\n').slice(0, 1500);
+    const subject = encodeURIComponent('[CountryDoku] Signalement de bug');
+    const body = encodeURIComponent(`${userMsg}\n\n--- Logs ---\n${logs}`);
+    window.location.href = `mailto:support@countrydoku.com?subject=${subject}&body=${body}`;
   });
   
   document.querySelector('#copy-report-logs-btn')?.addEventListener('click', () => {
@@ -775,7 +805,7 @@ function setupEventListeners() {
     });
   }
 
-  closeSeedDialog?.addEventListener('click', () => seedDialog?.close());
+  closeSeedDialog?.addEventListener('click', () => safeClose(seedDialog));
 
   copySeedCodeBtn?.addEventListener('click', () => {
     const seed = seedCurrentInput ? seedCurrentInput.value : exportGridSeed();
@@ -834,7 +864,7 @@ function setupEventListeners() {
         seedFeedback.classList.remove('hidden');
       }
       setTimeout(() => {
-        seedDialog?.close();
+        safeClose(seedDialog);
       }, 700);
     } else {
       if (seedFeedback) {

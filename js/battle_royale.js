@@ -115,27 +115,39 @@ export function checkEscalationNeed() {
   const alivePlayers = brGameState.players.filter((p) => p.isAlive);
   if (alivePlayers.length <= 1) return false;
 
+  // Prérequis : le premier tour est fini — chaque joueur actif a répondu au moins
+  // une fois. Sans ça, la difficulté augmenterait avant même que tout le monde ait joué.
+  const activePlayers = brGameState.players.filter((p) => p.isAlive && !p.disconnected);
+  if (activePlayers.length <= 1) return false;
+  const answeredIds = new Set(
+    (brGameState.usedCountries || []).map((u) => u.playerId).filter(Boolean)
+  );
+  const firstRoundDone = activePlayers.every((p) => answeredIds.has(p.id));
+  if (!firstRoundDone) return false;
+
+  // Déclenchement resserré (l'ancien partait dès la 1re vie perdue) :
+  // - 2 vies perdues au total (la partie s'est vraiment corsée), OU
+  // - 6 pays cités (manche installée, on corse), OU
+  // - duel final avec déjà 3 réponses (climax, pas d'escalade à froid)
   const currentTotalLives = alivePlayers.reduce((sum, p) => sum + p.lives, 0);
   const initialTotal = brGameState.initialTotalLives || (brGameState.players.length * (brGameState.initialLivesPerPlayer || 2));
+  const livesLost = initialTotal - currentTotalLives;
+  const usedCount = brGameState.usedCountries ? brGameState.usedCountries.length : 0;
+  const isFinalDuel = activePlayers.length <= 2;
 
-  // Déclencher beaucoup plus vite :
-  // - Dès la première vie perdue (currentTotalLives < initialTotal)
-  // - OU dès 5 pays cités dans la manche
-  // - OU duel final (<= 2 joueurs vivants)
-  const isLifeLost = currentTotalLives < initialTotal;
-  const isPaceReached = (brGameState.usedCountries && brGameState.usedCountries.length >= 5);
-  const isFinalDuel = alivePlayers.length <= 2;
-
-  return isLifeLost || isPaceReached || isFinalDuel;
+  return livesLost >= 2 || usedCount >= 6 || (isFinalDuel && usedCount >= 3);
 }
 
 /**
- * Calcule la durée dynamique du tour en Bombe Party
- * (La mèche de la bombe brûle plus vite au fur et à mesure que les pays sont validés)
+ * Calcule la durée dynamique du tour en Bombe Party.
+ * - Rythme : -0,5s par pays validé (mèche qui se consume).
+ * - Duel final (≤2 survivants) : -2s supplémentaires.
+ * - Plancher 6s : en dessous, le jeu devient de la loterie au pouce.
  */
-export function computeBombTurnDuration(baseDuration = 15, validCount = 0) {
-  const reduced = baseDuration - Math.floor(validCount * 0.6);
-  return Math.max(5, reduced);
+export function computeBombTurnDuration(baseDuration = 15, validCount = 0, aliveCount = null) {
+  const paceCut = Math.floor(validCount * 0.5);
+  const duelCut = aliveCount !== null && aliveCount <= 2 ? 2 : 0;
+  return Math.max(6, baseDuration - paceCut - duelCut);
 }
 
 /**
@@ -212,7 +224,8 @@ export function validateBattleRoyaleMove(countryCode) {
 export function getNextAlivePlayer(currentId) {
   const all = brGameState.players;
   if (!all || all.length === 0) return null;
-  const alive = all.filter((p) => p.isAlive);
+  // Les joueurs en grâce de reconnexion sont sautés (pas d'attente bloquée sur eux)
+  const alive = all.filter((p) => p.isAlive && !p.disconnected);
   if (alive.length === 0) return null;
   if (alive.length === 1) return alive[0];
 

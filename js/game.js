@@ -20,6 +20,43 @@ const winningLines = [
   [0, 4, 8], [2, 4, 6]
 ];
 
+/**
+ * Paires de critères impossibles à satisfaire simultanément (cellule à 0 candidat garanti).
+ * Vérifiées par construction (plages disjointes, valeurs uniques) ou mesurées sur les données.
+ * Utilisées pour écarter un tirage avant le calcul coûteux des candidats.
+ */
+const EXCLUSIVE_PAIRS = [
+  ['Dans l’hémisphère Nord', 'Dans l’hémisphère Sud'],
+  ['Pays enclavé (sans mer)', 'Possède un accès à la mer'],
+  ['Membre de l’OCDE', 'Non-membre de l’OCDE'],
+  ['Superficie > 1 000 000 km²', 'Superficie < 50 000 km²'],
+  ['Plus de 100M d’habitants', 'Entre 10M et 100M d’habitants'],
+  ['Plus de 100M d’habitants', 'Moins de 10M d’habitants'],
+  ['Entre 10M et 100M d’habitants', 'Moins de 10M d’habitants'],
+  ['Drapeau à bandes verticales', 'Drapeau à bandes horizontales'],
+  ['Écriture officielle latine', 'Écriture officielle non latine'],
+  // NOTE : pas de paires de devises ici — le Zimbabwe (multi-devises) utilise
+  // Euro + Dollar + Roupie simultanément, donc aucune paire n'est garantie vide.
+  // Paires mesurées à 0-1 pays sur la base (audit données) :
+  ['En Europe', 'Ancienne colonie espagnole'],
+  ['En Europe', 'Territoire de l’Empire inca (Tawantinsuyu)'],
+  ['En Océanie', 'Pays enclavé (sans mer)'],
+  ['En Océanie', 'Territoire de l’Empire mongol'],
+  ['Traversé par l’Équateur', 'Devise : Dinar ou Roupie'],
+  ['Traversé par l’Équateur', 'Territoire de l’Empire austro-hongrois'],
+];
+
+const exclusiveKeys = new Set(
+  EXCLUSIVE_PAIRS.map(([a, b]) => [a, b].sort().join('|||'))
+);
+
+export function isExclusivePair(critA, critB) {
+  const keyA = critA?.labelFr || critA?.label;
+  const keyB = critB?.labelFr || critB?.label;
+  if (!keyA || !keyB) return false;
+  return exclusiveKeys.has([keyA, keyB].sort().join('|||'));
+}
+
 export function cellCandidates(row, column) { 
   return countries.filter((country) => {
     if (gameState.isHardcore && gameState.hardcoreModifier && !gameState.hardcoreModifier.test(country)) {
@@ -68,6 +105,15 @@ export function generateGrid(rowIndices = null, colIndices = null) {
     const choices = shuffle(allCriteria).slice(0, 6);
     const testRows = choices.slice(0, 3);
     const testColumns = choices.slice(3);
+    // Pré-filtre : écarte les tirages contenant une paire mutuellement exclusive
+    let hasExclusive = false;
+    for (const row of testRows) {
+      for (const column of testColumns) {
+        if (isExclusivePair(row, column)) { hasExclusive = true; break; }
+      }
+      if (hasExclusive) break;
+    }
+    if (hasExclusive) continue;
     const lists = testRows.flatMap((row) => testColumns.map((column) => cellCandidates(row, column)));
     
     if (lists.some((list) => list.length < 2)) continue;
@@ -108,7 +154,16 @@ export function resetGameState(newSeed = true, isHardcore = null) {
     } else {
       gameState.hardcoreModifier = null;
     }
-    generateGrid();
+    try {
+      generateGrid();
+    } catch (e) {
+      // Fallback : contrainte hardcore trop stricte -> on retente sans modificateur
+      console.warn('[Game] Grille hardcore impossible, fallback solo standard.', e);
+      gameState.isHardcore = false;
+      gameState.hardcoreModifier = null;
+      gameState.lives = 3;
+      generateGrid();
+    }
   }
 }
 
@@ -163,6 +218,7 @@ export function parseGridSeed(seedString) {
 
 /**
  * Applique une graine pour restaurer la grille exacte
+ * Refuse les grilles insolubles (case sans candidat) pour éviter une partie bloquée.
  */
 export function applyGridSeed(seedString) {
   const parsed = parseGridSeed(seedString);
@@ -175,6 +231,15 @@ export function applyGridSeed(seedString) {
   gameState.lives = parsed.isHardcore ? 1 : 3;
 
   generateGrid(parsed.rowIndices, parsed.colIndices);
+
+  // Vérifie qu'aucune case n'est vide (solvabilité minimale, hardcore inclus)
+  for (let r = 0; r < 3; r += 1) {
+    for (let c = 0; c < 3; c += 1) {
+      if (cellCandidates(gameState.rows[r], gameState.columns[c]).length === 0) {
+        return false;
+      }
+    }
+  }
   return true;
 }
 

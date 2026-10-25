@@ -30,6 +30,25 @@ export let isBrHost = false;
 export let myBrPlayerId = null;
 export let currentBrCode = null;
 
+// Reconnexion BR : l'hôte accorde 20s de grâce, l'invité recompose le numéro
+let brCloseExpected = false;
+let lastHostPeerId = null;
+let lastPseudo = 'Joueur';
+let lastAvatar = '🌍';
+let guestRedialTimers = [];
+const pendingBrTimeouts = new Map();
+const BR_GRACE_MS = 20000;
+
+function clearBrRedialTimers() {
+  guestRedialTimers.forEach(clearTimeout);
+  guestRedialTimers = [];
+}
+
+function clearBrGrace(peerId) {
+  const t = pendingBrTimeouts.get(peerId);
+  if (t) { clearTimeout(t); pendingBrTimeouts.delete(peerId); }
+}
+
 let peer = null;
 let guestConn = null;
 let hostConnections = new Map(); // peerId -> DataConnection
@@ -44,6 +63,18 @@ function serializeCriteria(critList) {
 
 function deserializeCriteria(indices) {
   return indices.map((idx) => allCriteria[idx]).filter(Boolean);
+}
+
+function sanitizePseudo(raw, fallback) {
+  const clean = String(raw ?? '').trim().slice(0, 15);
+  return clean || fallback;
+}
+
+function sanitizeAvatar(raw) {
+  const v = String(raw ?? '').trim().slice(0, 10);
+  if (/^[a-zA-Z]{2}$/.test(v)) return v.toLowerCase();
+  if (v) return [...v].slice(0, 2).join('');
+  return '🌍';
 }
 
 /**
@@ -72,12 +103,46 @@ export function sendToHost(data) {
   return false;
 }
 
+function buildBrStateSync(rejoinPseudo = null) {
+  return {
+    type: 'STATE_SYNC',
+    status: brGameState.status,
+    round: brGameState.round,
+    mode: brGameState.mode,
+    bombDifficulty: brGameState.bombDifficulty,
+    initialLivesPerPlayer: brGameState.initialLivesPerPlayer,
+    timerDuration: brGameState.timerDuration,
+    players: brGameState.players,
+    currentTurnPlayerId: brGameState.currentTurnPlayerId,
+    turnEndTime: brGameState.turnEndTime,
+    criteriaIndices: serializeCriteria(brGameState.activeCriteria),
+    usedCountries: brGameState.usedCountries,
+    eliminatedOrder: brGameState.eliminatedOrder,
+    winner: brGameState.winner,
+    rejoinPseudo,
+  };
+}
+
+function sendStateSyncTo(conn) {
+  try { conn.send(buildBrStateSync()); } catch (e) {}
+}
+
+function broadcastStateSync(rejoinFeedMsg) {
+  const payload = buildBrStateSync();
+  if (rejoinFeedMsg) {
+    payload.feedMessage = rejoinFeedMsg;
+  }
+  broadcastToGuests(payload);
+}
+
 // ==========================================
 // 1. CRÉATION D'ARÈNE (HÔTE)
 // ==========================================
 export async function initPartyHost(customCode = null, pseudo = 'Joueur 1', avatar = '👑', mode = 'bomb', timer = 15, bombDifficulty = '1', lives = 2) {
   const code = customCode || Math.random().toString(36).substring(2, 6).toUpperCase();
   currentBrCode = code;
+  brCloseExpected = false;
+  clearBrRedialTimers();
   isPartyMode = true;
   isBrHost = true;
   resetBrState();
@@ -95,8 +160,8 @@ export async function initPartyHost(customCode = null, pseudo = 'Joueur 1', avat
   brGameState.players = [
     {
       id: peerId,
-      pseudo: pseudo.trim() || 'Hôte',
-      avatar: avatar || '👑',
+      pseudo: sanitizePseudo(pseudo, 'Hôte'),
+      avatar: sanitizeAvatar(avatar),
       isHost: true,
       lives: lives,
       isAlive: true
@@ -128,12 +193,27 @@ export async function initPartyHost(customCode = null, pseudo = 'Joueur 1', avat
       initPartyHost(null, pseudo, avatar, mode, timer, bombDifficulty, lives);
     }
   });
+
+  // Signaling transitoire : reconnexion auto, le lobby survit
+  peer.on('disconnected', () => {
+    try { peer.reconnect(); } catch (e) {}
+  });
 }
 
 function setupHostIncomingConnection(conn) {
   conn.on('open', () => {
     console.log(`[BR Host] Nouveau joueur connecté : ${conn.peer}`);
     hostConnections.set(conn.peer, conn);
+    // Retour en grâce de reconnexion ? → resync au lieu de doublon
+    clearBrGrace(conn.peer);
+    const returning = brGameState.players.find((p) => p.id === conn.peer);
+    if (returning && brGameState.status === 'playing' && returning.disconnected) {
+      returning.disconnected = false;
+      sendStateSyncTo(conn);
+      broadcastStateSync(t('br.reconnected_feed', { player: returning.pseudo }));
+      addBrFeed(t('br.reconnected_feed', { player: returning.pseudo }), 'correct');
+      updateBrArenaUI();
+    }
   });
 
   conn.on('data', (data) => {
@@ -162,41 +242,52 @@ function handlePlayerLeft(leftPeerId) {
     });
     updateBrLobbyUI();
   } else if (brGameState.status === 'playing') {
-    player.isAlive = false;
-    player.lives = 0;
-    // I3: Ajouter au classement podium les joueurs déconnectés
-    if (!brGameState.eliminatedOrder.includes(leftPeerId)) {
-      brGameState.eliminatedOrder.push(leftPeerId);
-    }
-    addBrFeed(t('br.eliminated_feed', { player: player.pseudo }), 'wrong');
+    // Grâce de reconnexion : le joueur garde ses vies 20s avant élimination
+    player.disconnected = true;
+    addBrFeed(t('br.disconnected_feed', { player: player.pseudo }), 'wrong');
 
-    const winner = checkBrWinner();
-    if (winner || brGameState.status === 'gameover') {
-      stopBrTimer();
+    if (brGameState.currentTurnPlayerId === leftPeerId) {
+      const nextPlayer = getNextAlivePlayer(leftPeerId);
+      brGameState.currentTurnPlayerId = nextPlayer ? nextPlayer.id : null;
+      hostResetTurnTimer();
       broadcastToGuests({
-        type: 'GAME_OVER',
-        winner,
+        type: 'TURN_SWITCH',
+        currentTurnPlayerId: brGameState.currentTurnPlayerId,
+        turnEndTime: brGameState.turnEndTime,
         players: brGameState.players
       });
-      updateBrPodiumUI(winner);
-    } else {
-      if (brGameState.currentTurnPlayerId === leftPeerId) {
-        const nextPlayer = getNextAlivePlayer(leftPeerId);
-        brGameState.currentTurnPlayerId = nextPlayer ? nextPlayer.id : null;
-        hostResetTurnTimer();
+    }
+    if (brGameState.mode === 'waves') {
+      checkWaveAdvancement();
+    }
+    updateBrArenaUI();
+
+    clearBrGrace(leftPeerId);
+    pendingBrTimeouts.set(leftPeerId, setTimeout(() => {
+      pendingBrTimeouts.delete(leftPeerId);
+      const stillGone = brGameState.players.find((p) => p.id === leftPeerId);
+      if (!stillGone || !stillGone.disconnected) return;
+      stillGone.isAlive = false;
+      stillGone.lives = 0;
+      // I3: Ajouter au classement podium les joueurs déconnectés
+      if (!brGameState.eliminatedOrder.includes(leftPeerId)) {
+        brGameState.eliminatedOrder.push(leftPeerId);
+      }
+      addBrFeed(t('br.eliminated_feed', { player: stillGone.pseudo }), 'wrong');
+
+      const winner = checkBrWinner();
+      if (winner || brGameState.status === 'gameover') {
+        stopBrTimer();
         broadcastToGuests({
-          type: 'TURN_SWITCH',
-          currentTurnPlayerId: brGameState.currentTurnPlayerId,
-          turnEndTime: brGameState.turnEndTime,
+          type: 'GAME_OVER',
+          winner,
           players: brGameState.players
         });
+        updateBrPodiumUI(winner);
+      } else {
+        updateBrArenaUI();
       }
-      // I4: En mode Vagues, vérifier si la manche doit avancer après la déconnexion
-      if (brGameState.mode === 'waves') {
-        checkWaveAdvancement();
-      }
-      updateBrArenaUI();
-    }
+    }, BR_GRACE_MS));
   }
 }
 
@@ -211,8 +302,8 @@ function handleHostIncomingData(conn, data) {
       return;
     }
 
-    const pseudo = (data.pseudo || `Joueur ${brGameState.players.length + 1}`).trim();
-    const avatar = data.avatar || '🌍';
+    const pseudo = sanitizePseudo(data.pseudo, `Joueur ${brGameState.players.length + 1}`);
+    const avatar = sanitizeAvatar(data.avatar);
     const guestLives = brGameState.initialLivesPerPlayer || 2;
 
     brGameState.players.push({
@@ -250,8 +341,24 @@ function handleHostIncomingData(conn, data) {
   if (data.type === 'SUBMIT_COUNTRY') {
     if (brGameState.status !== 'playing') return;
     if (brGameState.currentTurnPlayerId !== conn.peer) return;
+    if (typeof data.countryCode !== 'string' || !/^[A-Z]{3}$/.test(data.countryCode)) return;
 
     hostProcessMove(conn.peer, data.countryCode);
+  }
+
+  if (data.type === 'REJOIN') {
+    clearBrGrace(conn.peer);
+    const returning = brGameState.players.find((p) => p.id === conn.peer);
+    if (returning && brGameState.status === 'playing' && returning.disconnected) {
+      returning.disconnected = false;
+      sendStateSyncTo(conn);
+      const msg = t('br.reconnected_feed', { player: returning.pseudo });
+      broadcastStateSync(msg);
+      addBrFeed(msg, 'correct');
+      updateBrArenaUI();
+    } else if (returning && brGameState.status === 'playing') {
+      sendStateSyncTo(conn);
+    }
   }
 }
 
@@ -260,6 +367,8 @@ function handleHostIncomingData(conn, data) {
 // ==========================================
 export async function joinPartyGuest(code, pseudo = 'Joueur', avatar = '🌍') {
   currentBrCode = code.trim().toUpperCase();
+  brCloseExpected = false;
+  clearBrRedialTimers();
   isPartyMode = true;
   isBrHost = false;
   resetBrState();
@@ -278,31 +387,61 @@ export async function joinPartyGuest(code, pseudo = 'Joueur', avatar = '🌍') {
 
   peer.on('open', (id) => {
     myBrPlayerId = id;
-    guestConn = peer.connect(hostPeerId, { reliable: true });
-
-    guestConn.on('open', () => {
-      console.log(`[BR Guest] Connecté à l'hôte: ${hostPeerId}`);
-      guestConn.send({
-        type: 'JOIN_LOBBY',
-        pseudo,
-        avatar
-      });
-    });
-
-    guestConn.on('data', (data) => {
-      handleGuestIncomingData(data);
-    });
-
-    guestConn.on('close', () => {
-      console.warn('[BR Guest] Connexion avec l\'hôte perdue');
-      setBrFeedback(t('br.disconnected'), 'wrong');
-      leaveParty();
-    });
+    lastHostPeerId = hostPeerId;
+    lastPseudo = pseudo;
+    lastAvatar = avatar;
+    attachGuestConn();
   });
 
   peer.on('error', (err) => {
     console.error('[BR Guest Error]', err);
     setBrFeedback(t('br.disconnected'), 'wrong');
+  });
+
+  // Signaling transitoire : reconnexion auto sans quitter l'arène
+  peer.on('disconnected', () => {
+    setBrFeedback(t('br.reconnecting'), 'normal');
+    try { peer.reconnect(); } catch (e) {}
+  });
+}
+
+function attachGuestConn(isRedial = false) {
+  if (!peer || peer.destroyed || brCloseExpected || !isPartyMode) return;
+  guestConn = peer.connect(lastHostPeerId, { reliable: true });
+
+  guestConn.on('open', () => {
+    console.log(`[BR Guest] Connecté à l'hôte: ${lastHostPeerId}`);
+    clearBrRedialTimers();
+    guestConn.send(isRedial ? { type: 'REJOIN' } : {
+      type: 'JOIN_LOBBY',
+      pseudo: lastPseudo,
+      avatar: lastAvatar
+    });
+  });
+
+  guestConn.on('data', (data) => {
+    handleGuestIncomingData(data);
+  });
+
+  guestConn.on('close', () => {
+    if (brCloseExpected || !isPartyMode) return;
+    console.warn("[BR Guest] Connexion avec l'hôte perdue — recomposition");
+    setBrFeedback(t('br.reconnecting'), 'normal');
+    addBrFeed(t('br.reconnecting'), 'wrong');
+    clearBrRedialTimers();
+    // 3 tentatives puis abandon vers le salon
+    [2000, 6000, 12000].forEach((delay) => {
+      guestRedialTimers.push(setTimeout(() => {
+        attachGuestConn(true);
+      }, delay));
+    });
+    guestRedialTimers.push(setTimeout(() => {
+      if (brCloseExpected || !isPartyMode) return;
+      if (!guestConn || !guestConn.open) {
+        setBrFeedback(t('br.disconnected'), 'wrong');
+        leaveParty();
+      }
+    }, 20000));
   });
 }
 
@@ -395,6 +534,33 @@ function handleGuestIncomingData(data) {
     brGameState.winner = data.winner;
     brGameState.players = data.players;
     updateBrPodiumUI(data.winner);
+  }
+
+  if (data.type === 'STATE_SYNC') {
+    // Resync après reconnexion (ne reset ni vies ni classement)
+    brGameState.status = data.status || 'playing';
+    brGameState.round = data.round ?? brGameState.round;
+    brGameState.mode = data.mode || brGameState.mode;
+    brGameState.bombDifficulty = data.bombDifficulty || brGameState.bombDifficulty;
+    brGameState.initialLivesPerPlayer = data.initialLivesPerPlayer || brGameState.initialLivesPerPlayer;
+    brGameState.timerDuration = data.timerDuration || brGameState.timerDuration;
+    brGameState.players = data.players || brGameState.players;
+    brGameState.currentTurnPlayerId = data.currentTurnPlayerId;
+    brGameState.turnEndTime = data.turnEndTime;
+    brGameState.activeCriteria = deserializeCriteria(data.criteriaIndices || []);
+    brGameState.usedCountries = data.usedCountries || [];
+    brGameState.eliminatedOrder = data.eliminatedOrder || [];
+    brGameState.winner = data.winner || null;
+    if (data.feedMessage) {
+      addBrFeed(data.feedMessage, 'correct');
+    }
+    if (brGameState.status === 'gameover') {
+      stopBrTimer();
+      updateBrPodiumUI(brGameState.winner);
+    } else {
+      startClientTimer();
+      updateBrArenaUI();
+    }
   }
 }
 
@@ -518,7 +684,7 @@ function checkAndApplyEscalation() {
  */
 function checkWaveAdvancement() {
   if (brGameState.mode !== 'waves' || brGameState.status !== 'playing') return;
-  const alivePlayers = brGameState.players.filter((p) => p.isAlive);
+  const alivePlayers = brGameState.players.filter((p) => p.isAlive && !p.disconnected);
   if (alivePlayers.length === 0) return;
   const playersAnsweredInRound = new Set(brGameState.usedCountries.map((u) => u.playerId));
   const allAnswered = alivePlayers.every((p) => playersAnsweredInRound.has(p.id));
@@ -542,8 +708,9 @@ function checkWaveAdvancement() {
 }
 
 function hostResetTurnTimer() {
+  const aliveCount = brGameState.players.filter((p) => p.isAlive).length;
   const currentDuration = brGameState.mode === 'bomb'
-    ? computeBombTurnDuration(brGameState.timerDuration, brGameState.usedCountries.length)
+    ? computeBombTurnDuration(brGameState.timerDuration, brGameState.usedCountries.length, aliveCount)
     : brGameState.timerDuration;
 
   brGameState.turnEndTime = Date.now() + currentDuration * 1000;
@@ -618,7 +785,7 @@ function hostProcessMove(playerId, countryCode) {
   // C1: Vérification de tour — empêche l'hôte de jouer pendant le tour d'un invité
   if (brGameState.currentTurnPlayerId !== playerId) return;
   const player = brGameState.players.find((p) => p.id === playerId);
-  if (!player || !player.isAlive) return;
+  if (!player || !player.isAlive || player.disconnected) return;
 
   const result = validateBattleRoyaleMove(countryCode);
 
@@ -640,7 +807,8 @@ function hostProcessMove(playerId, countryCode) {
     // Vérifier si la manche doit avancer (en mode Vagues ou si un tour complet est fait)
     if (brGameState.mode === 'waves') {
       // C3: Utiliser playerId au lieu de pseudo pour éviter les homonymes
-      const alivePlayers = brGameState.players.filter((p) => p.isAlive);
+      // (les déconnectés en grâce ne bloquent pas l'avancement de manche)
+      const alivePlayers = brGameState.players.filter((p) => p.isAlive && !p.disconnected);
       const playersAnsweredInRound = new Set(brGameState.usedCountries.map((u) => u.playerId));
       const allAnswered = alivePlayers.every((p) => playersAnsweredInRound.has(p.id));
 
@@ -747,6 +915,10 @@ export function stopBrTimer() {
 }
 
 export function leaveParty() {
+  brCloseExpected = true;
+  clearBrRedialTimers();
+  pendingBrTimeouts.forEach(clearTimeout);
+  pendingBrTimeouts.clear();
   stopBrTimer();
   if (peer) {
     try { peer.destroy(); } catch (e) {}

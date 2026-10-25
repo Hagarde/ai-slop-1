@@ -15,6 +15,8 @@ const BASELINE_STATS = {
 // Cache mémoire — chargé une seule fois, mis à jour depuis Supabase et lu depuis la RAM
 let memoryStats = null;
 let isSyncedWithSupabase = false;
+let lastSupabaseSend = 0;
+let pendingSupabaseFlush = null;
 
 function loadStats() {
   if (memoryStats) return memoryStats;
@@ -105,6 +107,14 @@ export function recordChoice(rowLabel, colLabel, countryCode) {
 }
 
 async function sendChoiceToSupabase(pairKey, countryCode) {
+  // Rate-limit : max 1 envoi / 800ms pour éviter le spam du RPC
+  const now = Date.now();
+  if (now - lastSupabaseSend < 800) {
+    clearTimeout(pendingSupabaseFlush);
+    pendingSupabaseFlush = setTimeout(() => sendChoiceToSupabase(pairKey, countryCode), 800);
+    return;
+  }
+  lastSupabaseSend = now;
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/rpc/record_country_choice`, {
       method: 'POST',
@@ -122,17 +132,31 @@ async function sendChoiceToSupabase(pairKey, countryCode) {
 
 export function getChoicePercentage(rowLabel, colLabel, countryCode) {
   if (!rowLabel || !colLabel || !countryCode) return null;
-  
+
   const stats = loadStats();
   const key = makeKey(rowLabel, colLabel);
   const cellStat = stats[key];
-  
+
   if (!cellStat || !cellStat.total || cellStat.total <= 0) {
     return null;
   }
-  
+
   const count = cellStat.countries[countryCode] || 0;
   if (count <= 0) return 0;
-  
+
   return Math.round((count / cellStat.total) * 100);
+}
+
+export function getChoiceCounts(rowLabel, colLabel, countryCode) {
+  if (!rowLabel || !colLabel || !countryCode) return null;
+
+  const stats = loadStats();
+  const key = makeKey(rowLabel, colLabel);
+  const cellStat = stats[key];
+
+  if (!cellStat || !cellStat.total || cellStat.total <= 0) {
+    return null;
+  }
+
+  return { count: cellStat.countries[countryCode] || 0, total: cellStat.total };
 }

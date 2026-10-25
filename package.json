@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node scripts/verify-all-criteria.js",
+    "test:inverse": "node scripts/test-inverse.js",
     "audit": "node scripts/audit-and-fix-database.js"
   },
   "dependencies": {

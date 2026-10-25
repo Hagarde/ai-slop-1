@@ -1,8 +1,9 @@
 import { gameState, cellCandidates, resetGameState, validateMove } from './game.js';
 import { countries, aliases, countriesSearchIndex } from './data.js';
-import { escapeHtml, sessionLogs } from './utils.js';
+import { escapeHtml, fold, sessionLogs } from './utils.js';
+import { brGameState, computeBombTurnDuration, getNextAlivePlayer } from './battle_royale.js';
 import { isMultiplayer, myRole, currentTurn, roomScores, startTurnTimer, stopTurnTimer, turnTimeLeft, safeSend, startNextMultiplayerMatch, handleRoomClose, forceLeaveRoom, currentRoomCode } from './network.js';
-import { getChoicePercentage } from './stats.js';
+import { getChoicePercentage, getChoiceCounts } from './stats.js';
 import { t, getLanguage, setLanguage, getCountryName, getCriterionLabel, getCriterionDesc, onLanguageChange } from './i18n.js';
 import { 
   board, countriesEl, feedback, search, searchDialog, searchDialogTitle, searchDialogClues, 
@@ -25,8 +26,9 @@ export {
 const feedHistory = [];
 const maxFeedHistory = 40;
 
-// O-04: fold reste ici pour la query utilisateur uniquement (appelé 1 seule fois par frappe)
-const fold = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+// Module party_network chargé à la demande (évite l'import circulaire statique ui <-> party_network)
+let _partyNetPromise = null;
+const getPartyNet = () => (_partyNetPromise ??= import('./party_network.js'));
 
 // --- Focus Trap logic pour l'accessibilité ---
 export function setupFocusTrap(dialogElement) {
@@ -52,15 +54,35 @@ export function setupFocusTrap(dialogElement) {
   });
 }
 
+// Mémorise l'élément ayant ouvert chaque dialog (retour focus au close)
+const openerByDialog = new WeakMap();
+
 // Initialisation des traps sur les modals existants
 document.querySelectorAll('.custom-dialog').forEach(dialogElement => {
   setupFocusTrap(dialogElement);
+
+  // Retour focus à l'ouverture d'origine (clavier / lecteur d'écran)
+  dialogElement.addEventListener('close', () => {
+    const opener = openerByDialog.get(dialogElement);
+    openerByDialog.delete(dialogElement);
+    if (opener && document.contains(opener)) {
+      opener.focus({ preventScroll: true });
+    } else if (dialogElement.id === 'search-dialog') {
+      document.querySelector('#board-card')?.focus?.({ preventScroll: true });
+    }
+  });
   
-  // Fermer la modale si on clique à l'extérieur
+  // Fermer la modale si on clique à l'extérieur — sauf dialogs en pleine partie
+  // (un clic à côté ferait perdre le tour en 1v1/BR ou coincerait selectedCell).
+  const NO_OUTSIDE_CLOSE = new Set([
+    'search-dialog', 'room-dialog', 'battle-royale-dialog',
+    'mp-victory-dialog', 'grid-proposal-dialog', 'mp-hardcore-intro-dialog'
+  ]);
   dialogElement.addEventListener('click', (e) => {
+    if (NO_OUTSIDE_CLOSE.has(dialogElement.id)) return;
     const rect = dialogElement.getBoundingClientRect();
     const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-    if (!isInDialog) dialogElement.close();
+    if (!isInDialog) safeClose(dialogElement);
   });
 });
 
@@ -197,8 +219,13 @@ export function updateSearchDialogHardcoreReminder() {
     if (iconEl) iconEl.textContent = mod.icon || '🔥';
     if (titleEl) titleEl.textContent = `${t('mp.hc_reminder_tag')} ${isEn ? mod.titleEn : mod.titleFr}`;
     if (descEl) descEl.textContent = isEn ? mod.descEn : mod.descFr;
+    // Rappel aussi dans le placeholder de recherche (visible au moment de taper)
+    if (search) {
+      search.placeholder = `🔥 ${isEn ? mod.titleEn : mod.titleFr} — ${t('dialog.search_placeholder')}`;
+    }
   } else {
     reminderEl.classList.add('hidden');
+    if (search) search.placeholder = t('dialog.search_placeholder');
   }
 }
 
@@ -248,11 +275,30 @@ export function showHardcore1v1Intro(modifier) {
   safeShowModal(dialog);
 }
 
+const BASE_DOC_TITLE = document.title;
+let lastVibSecond = -1;
+
 export function updateTimerUI() {
   if (turnTimerDisplay) turnTimerDisplay.textContent = `⏱️ ${turnTimeLeft}s`;
-  
+
   const timerNumEl = document.querySelector('#mp-turn-timer-num');
   if (timerNumEl) timerNumEl.textContent = turnTimeLeft;
+
+  // Barre de progression du tour (30s en 1v1) : impossible à rater
+  const turnFill = document.querySelector('#turn-progress-fill');
+  if (turnFill) {
+    const pct = Math.max(0, Math.min(100, (turnTimeLeft / 30) * 100));
+    turnFill.style.width = `${pct}%`;
+    turnFill.classList.toggle('critical', turnTimeLeft <= 10);
+  }
+
+  // Ligne fixe + chip flottante : lisibles même bannière scrollée (téléphone)
+  const edgeLine = document.querySelector('#edge-timer-line');
+  const edgeFill = document.querySelector('#edge-timer-fill');
+  const chip = document.querySelector('#scroll-timer-chip');
+  const chipDot = document.querySelector('#scroll-timer-dot');
+  const chipText = document.querySelector('#scroll-timer-text');
+  const chipTime = document.querySelector('#scroll-timer-time');
 
   if (isMultiplayer) {
     const isMyTurn = currentTurn === myRole;
@@ -265,8 +311,17 @@ export function updateTimerUI() {
       try {
         if ('vibrate' in navigator) navigator.vibrate([120, 60, 120]);
       } catch (e) {}
+      lastVibSecond = -1;
     }
     lastKnownTurn = currentTurn;
+
+    // Escalade haptique : vibration à chaque seconde des 5 dernières (mon tour)
+    if (isMyTurn && turnTimeLeft <= 5 && turnTimeLeft > 0 && turnTimeLeft !== lastVibSecond) {
+      lastVibSecond = turnTimeLeft;
+      try {
+        if ('vibrate' in navigator) navigator.vibrate(60);
+      } catch (e) {}
+    }
 
     const turnBadgeIcon = document.querySelector('#mp-turn-badge-icon');
     const turnTitleEl = document.querySelector('#mp-turn-title');
@@ -323,6 +378,36 @@ export function updateTimerUI() {
         mpTurnText.textContent = `${t('mp.opponent_turn_banner')} (${activeRoleName} - ⏱️ ${turnTimeLeft}s)`;
       }
     }
+
+    // Onglet navigateur : tour + chrono toujours visibles même onglet inactif
+    try {
+      document.title = isMyTurn
+        ? `🟢 ${turnTimeLeft}s — ${getLanguage() === 'en' ? 'YOUR TURN' : 'À VOUS !'}`
+        : `⏳ ${turnTimeLeft}s — ${activeRoleName}`;
+    } catch (e) {}
+
+    // Teinte de fond + ligne fixe + chip : état du tour compréhensible d'un coup d'œil
+    const isCritical = turnTimeLeft <= 10;
+    document.body.classList.toggle('turn-my', isMyTurn && !isCritical);
+    document.body.classList.toggle('turn-critical', isCritical);
+    if (edgeLine) {
+      edgeLine.classList.remove('hidden');
+      edgeFill.style.width = `${Math.max(0, Math.min(100, (turnTimeLeft / 30) * 100))}%`;
+      edgeLine.classList.toggle('is-opponent', !isMyTurn);
+      edgeLine.classList.toggle('critical', isCritical);
+    }
+    if (chip) {
+      chip.classList.remove('hidden');
+      chip.classList.toggle('is-opponent', !isMyTurn);
+      chip.classList.toggle('critical', isCritical);
+      if (chipDot) chipDot.textContent = isMyTurn ? '🟢' : '⏳';
+      if (chipText) chipText.textContent = isMyTurn
+        ? (getLanguage() === 'en' ? 'Your turn!' : 'À vous !')
+        : activeRoleName;
+      if (chipTime) chipTime.textContent = `${turnTimeLeft}s`;
+    }
+  } else if (document.title !== BASE_DOC_TITLE) {
+    try { document.title = BASE_DOC_TITLE; } catch (e) {}
   }
 }
 
@@ -353,7 +438,12 @@ export function updateMultiplayerUI() {
     if (modeMultiTab) modeMultiTab.classList.remove('active');
     if (modeBrTab) modeBrTab.classList.remove('active');
     lastKnownTurn = null;
+    lastVibSecond = -1;
     stopTurnTimer();
+    try { document.title = BASE_DOC_TITLE; } catch (e) {}
+    document.body.classList.remove('turn-my', 'turn-critical');
+    document.querySelector('#edge-timer-line')?.classList.add('hidden');
+    document.querySelector('#scroll-timer-chip')?.classList.add('hidden');
     updateHardcoreUI();
     return;
   }
@@ -434,8 +524,30 @@ export function showTooltip(label, description) {
 }
 
 // F-05 FIX: Safe showModal helper
+// Un seul modal ludique à la fois (pas d'empilement victoire/proposition/défaite)
+const EXCLUSIVE_MODALS = new Set([
+  'search-dialog', 'mp-victory-dialog', 'grid-proposal-dialog',
+  'mp-hardcore-intro-dialog', 'gameover-dialog'
+]);
 export function safeShowModal(dialog) {
-  if (dialog && !dialog.open) dialog.showModal();
+  if (!dialog || dialog.open) return;
+  if (EXCLUSIVE_MODALS.has(dialog.id)) {
+    EXCLUSIVE_MODALS.forEach((id) => {
+      if (id !== dialog.id) {
+        const other = document.getElementById(id);
+        if (other && other.open) other.close();
+      }
+    });
+  }
+  if (document.activeElement && document.activeElement !== document.body) {
+    openerByDialog.set(dialog, document.activeElement);
+  }
+  dialog.showModal();
+}
+
+// F-05 FIX (bis): Safe close helper — dialog.close() sur un dialog fermé lève InvalidStateError
+export function safeClose(dialog) {
+  if (dialog && dialog.open) dialog.close();
 }
 
 // O-05 FIX: Single innerHTML pour renderBoard
@@ -553,13 +665,17 @@ export function renderCountriesForSolution(candidates) {
 
   countriesEl.innerHTML = candidates.map((country) => {
     const pct = getChoicePercentage(rowLabel, colLabel, country.code);
+    const counts = getChoiceCounts(rowLabel, colLabel, country.code);
     const pctTitle = getLanguage() === 'en' ? `${pct}% of choices` : `${pct}% des choix`;
-    const pctBadge = (pct !== null && pct !== undefined) ? `<span class="country-stat-badge" title="${pctTitle}">📊 ${pct}%</span>` : '';
+    // Badge affiché uniquement si des joueurs ont déjà choisi ce pays (0% = bruit visuel)
+    const pctBadge = (pct !== null && pct !== undefined && pct > 0)
+      ? `<span class="country-stat-badge" title="${pctTitle}" data-pct="${pct}" data-count="${counts?.count ?? 0}" data-total="${counts?.total ?? 0}" data-showing="pct">📊 ${pct}%</span>`
+      : '';
     const name = getCountryName(country);
     return `
     <div class="country-option-btn solution-item" style="cursor: default; background: var(--bg-app); border: 1px solid var(--border-medium); margin-bottom: 6px; padding: 8px 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px;">
       <img class="country-option-flag" src="${country.flagUrl}" alt="${escapeHtml(name)}" loading="lazy" style="width: 32px; height: 22px; object-fit: cover; border-radius: 3px; flex-shrink: 0;" />
-      <div style="display: flex; flex-direction: column; text-align: left;">
+      <div class="solution-text" style="display: flex; flex-direction: column; text-align: left; flex: 1; min-width: 0;">
         <strong class="country-option-name" style="font-size: 14px; color: var(--ink-primary);">${escapeHtml(name)}</strong>
         <small style="font-size: 11.5px; color: var(--ink-secondary);">${capitalLabel}${escapeHtml(country.capital || 'N/A')} • ${(country.population || 0).toLocaleString(locale)} ${inhabLabel}</small>
       </div>
@@ -567,6 +683,7 @@ export function renderCountriesForSolution(candidates) {
     </div>
   `;
   }).join('');
+  countriesEl.classList.add('solutions-mode');
 }
 
 // O-02 FIX: Variable pour stocker le callback de choix (pour délégation d'événements)
@@ -575,6 +692,22 @@ let _currentChooseCallback = null;
 // O-02 FIX: Délégation d'événements — un seul listener sur countriesEl
 if (countriesEl) {
   countriesEl.addEventListener('click', (e) => {
+    // Tap sur le badge stat : bascule % ↔ effectif (tactile, pas de hover)
+    const badge = e.target.closest('.country-stat-badge');
+    if (badge && badge.dataset.count !== undefined) {
+      const showing = badge.dataset.showing || 'pct';
+      if (showing === 'pct') {
+        badge.dataset.showing = 'count';
+        badge.textContent = `${badge.dataset.count}/${badge.dataset.total}`;
+      } else {
+        badge.dataset.showing = 'pct';
+        badge.textContent = `📊 ${badge.dataset.pct}%`;
+      }
+      e.stopPropagation();
+      return;
+    }
+    // Lignes solution (post-défaite) : consultation seule, jamais un coup
+    if (e.target.closest('.solution-item')) return;
     const btn = e.target.closest('.country-option-btn:not(.used)');
     if (btn && _currentChooseCallback) {
       _currentChooseCallback(btn.dataset.code);
@@ -633,6 +766,7 @@ export function renderCountries(onChooseCallback) {
   }
 
   const usedText = t('dialog.search_used');
+  countriesEl.classList.remove('solutions-mode');
   countriesEl.innerHTML = sliced.map(({ country, isUsed }) => {
     const displayName = getCountryName(country);
     return `
@@ -641,6 +775,10 @@ export function renderCountries(onChooseCallback) {
       </button>
     `;
   }).join('');
+  // Remonte le premier résultat jouable sous le clavier virtuel (sans saut s'il est visible)
+  if (query) {
+    countriesEl.querySelector('.country-option-btn:not(.used)')?.scrollIntoView({ block: 'nearest' });
+  }
 }
 
 // Application de toutes les traductions statiques et dynamiques
@@ -658,6 +796,11 @@ export function applyStaticTranslations() {
   document.querySelectorAll('[data-i18n-title]').forEach(el => {
     const key = el.dataset.i18nTitle;
     if (key) el.title = t(key);
+  });
+
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.dataset.i18nAriaLabel;
+    if (key) el.setAttribute('aria-label', t(key));
   });
 
   const langBtn = document.querySelector('#lang-toggle-btn');
@@ -713,8 +856,7 @@ export function updateBrLobbyUI() {
   document.querySelector('#br-arena-view')?.classList.add('hidden');
   document.querySelector('#br-podium-view')?.classList.add('hidden');
 
-  import('./battle_royale.js').then(({ brGameState }) => {
-    import('./party_network.js').then(({ isBrHost, currentBrCode }) => {
+  getPartyNet().then(({ isBrHost, currentBrCode }) => {
       const codeVal = document.querySelector('#br-lobby-code-val');
       if (codeVal) codeVal.textContent = currentBrCode || '---';
 
@@ -758,7 +900,6 @@ export function updateBrLobbyUI() {
         if (hostControls) hostControls.classList.add('hidden');
         if (guestWaiting) guestWaiting.classList.remove('hidden');
       }
-    });
   });
 }
 
@@ -768,8 +909,7 @@ export function updateBrArenaUI() {
   document.querySelector('#br-arena-view')?.classList.remove('hidden');
   document.querySelector('#br-podium-view')?.classList.add('hidden');
 
-  import('./battle_royale.js').then(({ brGameState }) => {
-    import('./party_network.js').then(({ myBrPlayerId }) => {
+  getPartyNet().then(({ myBrPlayerId }) => {
       // Met à jour l'arène visuelle circulaire avec l'aiguille rotative
       updateBrCircleArena(brGameState.currentTurnPlayerId);
 
@@ -799,16 +939,28 @@ export function updateBrArenaUI() {
       const survivorsList = document.querySelector('#br-survivors-list');
       if (survivorsList) {
         survivorsList.innerHTML = '';
+        // Compteur de réponses cette manche + marquage du prochain joueur
+        const roundCounts = {};
+        brGameState.usedCountries.forEach((u) => {
+          if (u.playerId) roundCounts[u.playerId] = (roundCounts[u.playerId] || 0) + 1;
+        });
+        const nextUp = getNextAlivePlayer(brGameState.currentTurnPlayerId);
         brGameState.players.forEach((p) => {
           const pill = document.createElement('div');
           const isCurrentTurn = p.id === brGameState.currentTurnPlayerId;
-          pill.className = `br-survivor-pill ${isCurrentTurn ? 'active-turn' : ''} ${!p.isAlive ? 'eliminated' : ''}`;
+          const isNextUp = !isCurrentTurn && nextUp && p.id === nextUp.id;
+          pill.className = `br-survivor-pill ${isCurrentTurn ? 'active-turn' : ''} ${isNextUp ? 'next-up' : ''} ${!p.isAlive ? 'eliminated' : ''}`;
+          if (isNextUp) pill.title = t('br.next_up_title');
 
           const hearts = p.isAlive ? '❤️'.repeat(p.lives) : '💀';
+          const roundTag = p.isAlive && roundCounts[p.id]
+            ? `<span class="br-round-count" title="${t('br.round_count_title', { count: roundCounts[p.id] })}">✓${roundCounts[p.id]}</span>`
+            : '';
           pill.innerHTML = `
             <span class="br-survivor-avatar">${renderPlayerAvatar(p.avatar || '🌍')}</span>
             <span class="br-survivor-pseudo">${escapeHtml(p.pseudo)}</span>
-            <span class="br-survivor-hearts">${hearts}</span>
+            <span class="br-survivor-hearts">${hearts}${p.disconnected ? ' 🔌' : ''}</span>
+            ${roundTag}
           `;
           survivorsList.appendChild(pill);
         });
@@ -876,7 +1028,6 @@ export function updateBrArenaUI() {
           });
         }
       }
-    });
   });
 }
 
@@ -890,8 +1041,7 @@ export function updateBrCircleArena(activePlayerId) {
   const linearTimer = document.querySelector('#br-linear-timer-container');
   if (!circleArenaWrapper) return;
 
-  import('./battle_royale.js').then(({ brGameState }) => {
-    import('./party_network.js').then(({ myBrPlayerId }) => {
+  getPartyNet().then(({ myBrPlayerId }) => {
       // Affiche l'arène circulaire uniquement en mode Bombe, sinon minuteur classique
       if (brGameState.mode === 'bomb') {
         circleArenaWrapper.classList.remove('hidden');
@@ -940,13 +1090,12 @@ export function updateBrCircleArena(activePlayerId) {
           node.innerHTML = `
             <span class="br-circle-node-avatar">${renderPlayerAvatar(p.avatar || '🌍')}</span>
             <span class="br-circle-node-pseudo" title="${escapeHtml(p.pseudo)}">${escapeHtml(p.pseudo)}</span>
-            <span class="br-circle-node-hearts">${hearts}</span>
+            <span class="br-circle-node-hearts">${hearts}${p.disconnected ? ' 🔌' : ''}</span>
             ${isMe ? `<span class="br-circle-you-badge">${t('br.you_badge')}</span>` : ''}
           `;
           ringEl.appendChild(node);
         });
       }
-    });
   });
 }
 
@@ -964,9 +1113,8 @@ export function updateBrTimerUI(remaining) {
   const circleHub = document.querySelector('#br-circle-center-hub');
   const fuseBadge = document.querySelector('#br-circle-fuse-badge');
 
-  import('./battle_royale.js').then(({ brGameState }) => {
-    const total = brGameState.timerDuration || 15;
-    const pct = Math.max(0, Math.min(100, (remaining / total) * 100));
+  const total = brGameState.timerDuration || 15;
+  const pct = Math.max(0, Math.min(100, (remaining / total) * 100));
 
     if (timerBar) {
       timerBar.style.width = `${pct}%`;
@@ -1009,14 +1157,16 @@ export function updateBrTimerUI(remaining) {
     }
 
     if (fuseBadge) {
-      const currentTurnDuration = Math.max(5, (brGameState.timerDuration || 15) - ((brGameState.usedCountries?.length || 0) * 0.6));
+      const aliveCount = brGameState.players.filter((p) => p.isAlive).length;
+      const currentTurnDuration = brGameState.mode === 'bomb'
+        ? computeBombTurnDuration(brGameState.timerDuration || 15, brGameState.usedCountries?.length || 0, aliveCount)
+        : (brGameState.timerDuration || 15);
       if (currentTurnDuration <= 8 || remaining <= 4) {
         fuseBadge.classList.remove('hidden');
       } else {
         fuseBadge.classList.add('hidden');
       }
     }
-  });
 }
 
 export function renderPlayerAvatar(avatar, className = '') {
@@ -1055,11 +1205,11 @@ export function updateBrPodiumUI(winner) {
     if (podiumDesc) podiumDesc.textContent = t('br.draw_desc') || 'Aucun survivant...';
   }
 
-  import('./party_network.js').then(({ isBrHost }) => {
+  getPartyNet().then(({ isBrHost }) => {
     if (replayBtn) {
       replayBtn.disabled = false;
       // M2: innerHTML avec emoji au lieu de textContent
-      replayBtn.innerHTML = isBrHost ? `🔄 ${t('br.restart_game_host')}` : `🙋 ${t('br.request_rematch_guest')}`;
+      replayBtn.textContent = isBrHost ? `🔄 ${t('br.restart_game_host')}` : `🙋 ${t('br.request_rematch_guest')}`;
     }
     if (lobbyReturnBtn) {
       if (isBrHost) {
@@ -1071,8 +1221,7 @@ export function updateBrPodiumUI(winner) {
     }
   });
 
-  import('./battle_royale.js').then(({ brGameState }) => {
-    if (podiumList) {
+  if (podiumList) {
       podiumList.innerHTML = '';
       if (winner) {
         const row1 = document.createElement('div');
@@ -1093,7 +1242,6 @@ export function updateBrPodiumUI(winner) {
         }
       });
     }
-  });
 }
 
 export function addBrFeed(message, type = 'info') {

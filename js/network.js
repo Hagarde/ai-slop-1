@@ -1,10 +1,10 @@
 import { gameState, generateGrid, checkTicTacToeWin, validateMove, resetGameState } from './game.js';
-import { countries } from './data.js';
+import { countries, allCriteria } from './data.js';
 import { escapeHtml } from './utils.js';
-import { addGameFeed, updateScoresUI, updateMultiplayerUI, updateHardcoreUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal, setFeedback, showHardcore1v1Intro } from './ui.js';
+import { addGameFeed, updateScoresUI, updateMultiplayerUI, updateHardcoreUI, updateTimerUI, board, searchDialog, mpVictoryDialog, mpVictoryTitle, mpVictoryDesc, gridProposalDialog, gridProposalDesc, feedback, renderBoard, mpStatusMsg, safeShowModal, safeClose, setFeedback, showHardcore1v1Intro } from './ui.js';
 import { recordChoice, getChoicePercentage } from './stats.js';
 import { t, getLanguage, getCountryName } from './i18n.js';
-import { getRandomHardcoreModifier, getHardcoreModifierById } from './hardcore.js';
+import { getRandomHardcoreModifier, getRandomHardcoreModifierFor1v1, getHardcoreModifierById } from './hardcore.js';
 
 export let isMultiplayer = false;
 export let isHardcoreRoom = false;
@@ -24,6 +24,9 @@ let roomChannel = null;
 let turnEndTime = null;
 
 const METERED_API_URL = 'https://countrydoku.metered.live/api/v1/turn/credentials';
+// NOTE SÉCU : clé publique Metered exposée côté client (risque de pillage de quota).
+// TODO : la déplacer derrière un proxy serveur ou générer des credentials scoped courte durée.
+// En attendant, les credentials TURN sont mis en cache 24h pour limiter les appels.
 const METERED_API_KEY = 'aa340d9ab8937dc2645bfb6845b86c60c969';
 const STUN_SERVERS = [
   { urls: 'stun:stun.l.google.com:19302' },
@@ -52,14 +55,24 @@ function updateStatus(msg, state = 'info') {
 }
 
 export async function buildPeerConfig() {
-  // F-03: Tentative d'utilisation des serveurs TURN via Metered API
+  // F-03: Tentative d'utilisation des serveurs TURN via Metered API (cache 24h)
   let iceServers = [...STUN_SERVERS];
   try {
+    const cached = sessionStorage.getItem('cdoku_turn_cache');
+    if (cached) {
+      const { expires, servers } = JSON.parse(cached);
+      if (expires > Date.now() && Array.isArray(servers) && servers.length > 0) {
+        return { debug: 2, config: { iceServers: [...STUN_SERVERS, ...servers], iceCandidatePoolSize: 10 } };
+      }
+    }
     const resp = await fetch(`${METERED_API_URL}?apiKey=${METERED_API_KEY}`);
     if (resp.ok) {
       const turnServers = await resp.json();
       if (Array.isArray(turnServers) && turnServers.length > 0) {
         iceServers = [...STUN_SERVERS, ...turnServers];
+        try {
+          sessionStorage.setItem('cdoku_turn_cache', JSON.stringify({ expires: Date.now() + 24 * 3600 * 1000, servers: turnServers }));
+        } catch (e) {}
         console.log('[WebRTC] Serveurs TURN Metered chargés avec succès');
       }
     }
@@ -78,6 +91,8 @@ export async function buildPeerConfig() {
 export async function initPeer(customCode = null, isCreating = false, isHardcore = false) {
   const code = customCode || Math.random().toString(36).substring(2, 7).toUpperCase();
   currentRoomCode = code;
+  closeExpected = false;
+  clearRejoinTimers();
   isHardcoreRoom = isHardcore;
   const peerId = `cdoku-1v1-${code}`;
 
@@ -99,7 +114,7 @@ export async function initPeer(customCode = null, isCreating = false, isHardcore
 
       if (isHardcoreRoom) {
         gameState.isHardcore = true;
-        gameState.hardcoreModifier = getRandomHardcoreModifier();
+        gameState.hardcoreModifier = getRandomHardcoreModifierFor1v1();
       } else {
         gameState.isHardcore = false;
         gameState.hardcoreModifier = null;
@@ -137,10 +152,23 @@ export async function initPeer(customCode = null, isCreating = false, isHardcore
       updateStatus(`⚠️ Erreur : ${err.type}`, "error");
     }
   });
+
+  // Déconnexion transitoire du serveur de signaling (ID conservé) → reconnexion auto
+  peer.on('disconnected', () => {
+    updateStatus(t('mp.reconnecting'), 'connecting');
+    try { peer.reconnect(); } catch (e) {
+      updateStatus(`⚠️ Erreur : reconnect`, 'error');
+    }
+  });
+  peer.on('close', () => {
+    updateStatus(t('mp.conn_lost'), 'error');
+  });
 }
 
 export async function connectAsGuest(code) {
   currentRoomCode = code;
+  closeExpected = false;
+  clearRejoinTimers();
   myRole = 'guest';
   currentTurn = 'host';
   isMultiplayer = true;
@@ -163,6 +191,11 @@ export async function connectAsGuest(code) {
     myRole = null;
     updateStatus(`⚠️ Erreur : ${err.type}`, "error");
   });
+
+  peer.on('disconnected', () => {
+    updateStatus(t('mp.reconnecting'), 'connecting');
+    try { peer.reconnect(); } catch (e) {}
+  });
 }
 
 function setupConnectionListeners() {
@@ -170,8 +203,8 @@ function setupConnectionListeners() {
 
   const onConnected = () => {
     updateStatus(t('mp.connected'), "success");
-    const roomDialog = document.querySelector('#room-dialog');
-    if (roomDialog && roomDialog.open) roomDialog.close();
+    clearRejoinTimers();
+    safeClose(document.querySelector('#room-dialog'));
 
     if (myRole === 'guest') {
       safeSend({ type: 'GUEST_JOINED' });
@@ -189,16 +222,16 @@ function setupConnectionListeners() {
   });
 
   conn.on('close', () => {
-    isMultiplayer = false;
-    isHardcoreRoom = false;
-    gameState.isHardcore = false;
-    gameState.hardcoreModifier = null;
-    stopTurnTimer();
-    addGameFeed(t('mp.disconnected'), "wrong");
-    feedback.textContent = t('mp.conn_lost');
-    updateMultiplayerUI();
-    updateHardcoreUI();
-    renderBoard();
+    if (closeExpected) {
+      fullMultiplayerCleanup();
+      return;
+    }
+    // Fermeture inattendue : tentative de reconnexion au lieu de tout jeter
+    if (myRole === 'guest') {
+      guestUnexpectedClose();
+    } else {
+      hostUnexpectedClose();
+    }
   });
 }
 
@@ -215,18 +248,110 @@ export function setCurrentTurn(newTurn) {
   currentTurn = newTurn;
 }
 
+export function setRoomScores(scores) {
+  if (scores && Number.isFinite(scores.host) && Number.isFinite(scores.guest)) {
+    roomScores = { host: scores.host, guest: scores.guest };
+    updateScoresUI();
+  }
+}
+
+// --- Reconnexion 1v1 : l'hôte garde le salon ouvert, l'invité recompose le numéro ---
+let closeExpected = false;
+let hostWaitTimeout = null;
+let guestRedialTimers = [];
+
+function clearRejoinTimers() {
+  if (hostWaitTimeout) { clearTimeout(hostWaitTimeout); hostWaitTimeout = null; }
+  guestRedialTimers.forEach(clearTimeout);
+  guestRedialTimers = [];
+}
+
+function serializeAnswers() {
+  return gameState.answers.map((a) => {
+    if (!a) return null;
+    const country = a.country || a;
+    return { code: country.code, player: a.player || null };
+  });
+}
+
+function buildStateSync() {
+  return {
+    type: 'STATE_SYNC',
+    rowIndices: gameState.currentGridIndices?.rowIndices,
+    colIndices: gameState.currentGridIndices?.colIndices,
+    startingPlayer,
+    currentTurn,
+    isHardcore: isHardcoreRoom,
+    hardcoreModifierId: gameState.hardcoreModifier ? gameState.hardcoreModifier.id : null,
+    answers: serializeAnswers(),
+    scores: { ...roomScores },
+  };
+}
+
+function fullMultiplayerCleanup() {
+  clearRejoinTimers();
+  isMultiplayer = false;
+  isHardcoreRoom = false;
+  gameState.isHardcore = false;
+  gameState.hardcoreModifier = null;
+  stopTurnTimer();
+  addGameFeed(t('mp.disconnected'), 'wrong');
+  feedback.textContent = t('mp.conn_lost');
+  updateMultiplayerUI();
+  updateHardcoreUI();
+  renderBoard();
+}
+
+function guestUnexpectedClose() {
+  stopTurnTimer();
+  updateStatus(t('mp.reconnecting'), 'connecting');
+  addGameFeed(t('mp.reconnecting'), 'info');
+  clearRejoinTimers();
+  const hostPeerId = `cdoku-1v1-${currentRoomCode}`;
+  // 3 tentatives de recomposition (le salon hôte survit 60s)
+  [2000, 6000, 12000].forEach((delay) => {
+    guestRedialTimers.push(setTimeout(() => {
+      if (closeExpected || !isMultiplayer || !peer || peer.destroyed) return;
+      try {
+        conn = peer.connect(hostPeerId, { reliable: true });
+        setupConnectionListeners();
+      } catch (e) {}
+    }, delay));
+  });
+  // Échec définitif après 20s
+  guestRedialTimers.push(setTimeout(() => {
+    if (closeExpected || !isMultiplayer) return;
+    if (!conn || !conn.open) fullMultiplayerCleanup();
+  }, 20000));
+}
+
+function hostUnexpectedClose() {
+  stopTurnTimer();
+  clearRejoinTimers();
+  updateStatus(t('mp.waiting_reconnect'), 'connecting');
+  const msg = t('mp.waiting_reconnect');
+  addGameFeed(msg, 'info');
+  setFeedback(msg, 'normal');
+  updateMultiplayerUI();
+  renderBoard();
+  // L'adversaire a 60s pour revenir avec le même lien/code, sinon nettoyage
+  hostWaitTimeout = setTimeout(() => {
+    if (!closeExpected && isMultiplayer) fullMultiplayerCleanup();
+  }, 60000);
+}
+
 // F-02 FIX: Timer basé sur Date.now()
 export function startTurnTimer() {
   stopTurnTimer();
   turnTimeLeft = 30;
   turnEndTime = Date.now() + 30000;
-  import('./ui.js').then(ui => ui.updateTimerUI());
+  updateTimerUI();
 
   if (!isMultiplayer) return;
 
   turnTimerInterval = setInterval(() => {
     turnTimeLeft = Math.max(0, Math.round((turnEndTime - Date.now()) / 1000));
-    import('./ui.js').then(ui => ui.updateTimerUI());
+    updateTimerUI();
 
     if (turnTimeLeft <= 0) {
       stopTurnTimer();
@@ -234,7 +359,7 @@ export function startTurnTimer() {
         if (searchDialog && searchDialog.open) searchDialog.close();
         gameState.selectedCell = null;
         currentTurn = currentTurn === 'host' ? 'guest' : 'host';
-        safeSend({ type: 'TIMEOUT_PASS' });
+        safeSend({ type: 'TIMEOUT_PASS', player: myRole });
         const senderName = myRole === 'host' 
           ? (getLanguage() === 'en' ? '🟢 Player 1 (Host)' : '🟢 Joueur 1 (Hôte)') 
           : (getLanguage() === 'en' ? '🔵 Player 2 (Guest)' : '🔵 Joueur 2 (Invité)');
@@ -269,7 +394,7 @@ export function startNextMultiplayerMatch(sameGrid = false) {
   if (!sameGrid) {
     if (isHardcoreRoom) {
       gameState.isHardcore = true;
-      gameState.hardcoreModifier = getRandomHardcoreModifier(gameState.hardcoreModifier?.id);
+      gameState.hardcoreModifier = getRandomHardcoreModifierFor1v1(gameState.hardcoreModifier?.id);
     }
     generateGrid();
   }
@@ -304,10 +429,22 @@ export function handleIncomingData(data) {
   console.log("[WebRTC] Données reçues:", data);
 
   if (data.type === 'GUEST_JOINED' && myRole === 'host') {
+    // Retour d'un invité déconnecté en pleine partie → resync au lieu de reset
+    if (gameState.answers.some(Boolean)) {
+      clearRejoinTimers();
+      safeSend(buildStateSync());
+      const backMsg = t('mp.opponent_back');
+      addGameFeed(backMsg, 'correct');
+      setFeedback(backMsg, 'correct');
+      updateMultiplayerUI();
+      renderBoard();
+      startTurnTimer();
+      return;
+    }
     if (isHardcoreRoom) {
       gameState.isHardcore = true;
       if (!gameState.hardcoreModifier) {
-        gameState.hardcoreModifier = getRandomHardcoreModifier();
+        gameState.hardcoreModifier = getRandomHardcoreModifierFor1v1();
       }
     } else {
       gameState.isHardcore = false;
@@ -327,6 +464,36 @@ export function handleIncomingData(data) {
     updateHardcoreUI();
   }
 
+  if (data.type === 'STATE_SYNC' && myRole === 'guest') {
+    const validIndices = (arr) => Array.isArray(arr) && arr.length === 3
+      && arr.every((i) => Number.isInteger(i) && i >= 0 && i < allCriteria.length);
+    if (!validIndices(data.rowIndices) || !validIndices(data.colIndices)) return;
+    clearRejoinTimers();
+    isHardcoreRoom = !!data.isHardcore;
+    gameState.isHardcore = isHardcoreRoom;
+    gameState.hardcoreModifier = (isHardcoreRoom && data.hardcoreModifierId)
+      ? getHardcoreModifierById(data.hardcoreModifierId)
+      : null;
+    generateGrid(data.rowIndices, data.colIndices);
+    gameState.answers = (data.answers || []).map((a) => {
+      if (!a) return null;
+      const country = countries.find((c) => c.code === a.code);
+      return country ? { country, player: a.player } : null;
+    });
+    gameState.selectedCell = null;
+    startingPlayer = data.startingPlayer || 'host';
+    currentTurn = data.currentTurn || startingPlayer;
+    setRoomScores(data.scores);
+    updateMultiplayerUI();
+    updateHardcoreUI();
+    renderBoard();
+    startTurnTimer();
+    const backMsg = t('mp.reconnected');
+    addGameFeed(backMsg, 'correct');
+    setFeedback(backMsg, 'correct');
+    updateStatus(t('mp.connected'), 'success');
+  }
+
   if (data.type === 'GUEST_READY') {
     updateMultiplayerUI();
     addGameFeed(t('mp.guest_connected'));
@@ -338,6 +505,13 @@ export function handleIncomingData(data) {
   }
 
   if (data.type === 'INIT_GAME') {
+    // Validation stricte des indices (anti-désync / anti-crash)
+    const validIndices = (arr) => Array.isArray(arr) && arr.length === 3
+      && arr.every((i) => Number.isInteger(i) && i >= 0 && i < allCriteria.length);
+    if (!validIndices(data.rowIndices) || !validIndices(data.colIndices)) {
+      console.warn("⚠️ INIT_GAME rejeté : indices invalides.", data);
+      return;
+    }
     isHardcoreRoom = !!data.isHardcore;
     gameState.isHardcore = isHardcoreRoom;
     if (isHardcoreRoom && data.hardcoreModifierId) {
@@ -362,6 +536,10 @@ export function handleIncomingData(data) {
 
   // VALIDATION STRICTE
   if (data.type === 'MAKE_MOVE') {
+    if (typeof data.countryCode !== 'string' || !/^[A-Z]{3}$/.test(data.countryCode)) {
+      console.warn("⚠️ MAKE_MOVE rejeté : code pays invalide.", data);
+      return;
+    }
     const targetCellId = data.cellId;
     const isTurnValid = currentTurn === data.player;
     const isCellValid = targetCellId >= 0 && targetCellId < 9 && !gameState.answers[targetCellId];
@@ -410,7 +588,7 @@ export function handleIncomingData(data) {
         addGameFeed(feedMsg, 'info');
         const oppPlacedMsg = t('board.mp_correct_opp', { country: safeName, cell: cellNumber, pct: pctText });
         setFeedback(oppPlacedMsg, 'correct');
-        currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
+        currentTurn = data.player === 'host' ? 'guest' : 'host';
         updateMultiplayerUI();
         startTurnTimer();
       }
@@ -422,7 +600,9 @@ export function handleIncomingData(data) {
 
   if (data.type === 'WRONG_MOVE') {
     if (typeof data.cellId !== 'number' || data.cellId < 0 || data.cellId > 8) return;
-    currentTurn = data.nextTurn || (data.player === 'host' ? 'guest' : 'host');
+    if (data.player !== 'host' && data.player !== 'guest') return;
+    // Tour recalculé localement : l'erreur fait perdre la main, point.
+    currentTurn = data.player === 'host' ? 'guest' : 'host';
     if (searchDialog && searchDialog.open) searchDialog.close();
     const cellNumber = (data.cellId || 0) + 1;
     const safeCountryName = escapeHtml(data.countryName || (getLanguage() === 'en' ? 'a country' : 'un pays'));
@@ -439,6 +619,11 @@ export function handleIncomingData(data) {
   }
 
   if (data.type === 'TIMEOUT_PASS') {
+    // N'accepte le timeout que si c'était bien le tour de l'expéditeur
+    if (data.player !== currentTurn) {
+      console.warn("⚠️ TIMEOUT_PASS rejeté : pas le tour de l'expéditeur.", data);
+      return;
+    }
     currentTurn = currentTurn === 'host' ? 'guest' : 'host';
     if (searchDialog && searchDialog.open) searchDialog.close();
     updateMultiplayerUI();
@@ -447,6 +632,8 @@ export function handleIncomingData(data) {
   }
 
   if (data.type === 'PROPOSE_REMATCH' || data.type === 'PROPOSE_NEW_GRID') {
+    // Anti-spam : une proposition à la fois
+    if (gridProposalDialog && gridProposalDialog.open) return;
     const isRematch = data.type === 'PROPOSE_REMATCH';
     if (gridProposalDesc) {
       gridProposalDesc.textContent = isRematch ? t('dialog.proposal_desc_rematch') : t('dialog.proposal_desc_new');
@@ -476,6 +663,8 @@ export function handleIncomingData(data) {
 }
 
 export function forceLeaveRoom() {
+  closeExpected = true;
+  clearRejoinTimers();
   if (peer) {
     try { peer.destroy(); } catch (e) {}
     peer = null;

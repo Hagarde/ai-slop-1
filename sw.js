@@ -1,9 +1,10 @@
-const CACHE_NAME = 'countrydoku-cache-v53';
+const CACHE_NAME = 'countrydoku-cache-v55';
 
 const urlsToCache = [
   './',
   './index.html',
   './styles.css',
+  './styles-inverse.css',
   './favicon.svg',
   './manifest.json',
   './js/main.js',
@@ -19,6 +20,9 @@ const urlsToCache = [
   './js/stats.js',
   './js/i18n.js',
   './js/elements.js',
+  './js/inverse_rules.js',
+  './js/inverse.js',
+  './js/inverse_ui.js',
   './data/countries.json'
 ];
 
