@@ -5,6 +5,7 @@ import { escapeHtml } from './utils.js';
 import { getCountryName, getLanguage, onLanguageChange, t } from './i18n.js';
 import {
   buildRuleLibrary,
+  getRuleDescription,
   getRuleLabel,
   getTypeIcon,
   getTypeLabel,
@@ -25,6 +26,9 @@ let suggestions = [];
 let suggestionIndex = -1;
 let feedbackState = { render: () => '', kind: 'info' };
 let active = false;
+let catalogOpen = false;
+
+const TYPE_ORDER = ['geography', 'economy', 'linguistic', 'flag', 'history'];
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -170,6 +174,7 @@ function renderAll() {
   renderCriteria();
   renderFeedback();
   renderResult();
+  if (catalogOpen) renderCatalog();
 }
 
 function renderSuggestions() {
@@ -228,6 +233,110 @@ function highlightSuggestion(nextIndex) {
     button.classList.toggle('active', index === suggestionIndex);
     button.setAttribute('aria-selected', index === suggestionIndex ? 'true' : 'false');
   });
+}
+
+function sortRulesByType(ruleList) {
+  const locale = getLanguage() === 'en' ? 'en' : 'fr';
+  return [...ruleList].sort((a, b) => {
+    const typeDelta = TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type);
+    if (typeDelta !== 0) return typeDelta;
+    return getRuleLabel(a).localeCompare(getRuleLabel(b), locale);
+  });
+}
+
+function groupLabel(count) {
+  return count > 1
+    ? t('inverse.catalog_count', { count })
+    : t('inverse.catalog_count_one', { count });
+}
+
+function renderCatalog() {
+  const list = $('#inverse-catalog-list');
+  const countEl = $('#inverse-browse-count');
+  if (countEl) countEl.textContent = ready ? String(rules.length) : '…';
+  if (!list) return;
+
+  if (!ready) {
+    list.innerHTML = `<p class="inverse-muted">${escapeHtml(t('inverse.loading'))}</p>`;
+    return;
+  }
+
+  const query = ($('#inverse-catalog-search')?.value || '').trim();
+  const matching = query
+    ? searchRules(rules, query, rules.length)
+    : sortRulesByType(rules);
+
+  if (matching.length === 0) {
+    list.innerHTML = `<p class="inverse-catalog-empty">${escapeHtml(t('inverse.catalog_empty'))}</p>`;
+    return;
+  }
+
+  const usedIds = engine?.usedRuleIds || new Set();
+  const groups = new Map();
+  matching.forEach((rule) => {
+    if (!groups.has(rule.type)) groups.set(rule.type, []);
+    groups.get(rule.type).push(rule);
+  });
+
+  list.innerHTML = [...groups.entries()].map(([type, items]) => `
+    <div class="inverse-catalog-group">
+      <h4 class="inverse-catalog-group-title">
+        <span aria-hidden="true">${escapeHtml(getTypeIcon(type))}</span>
+        <span>${escapeHtml(getTypeLabel(type))}</span>
+        <span class="inverse-catalog-group-count">${escapeHtml(groupLabel(items.length))}</span>
+      </h4>
+      ${items.map((rule) => {
+        const used = usedIds.has(rule.id);
+        return `
+          <button
+            type="button"
+            class="inverse-catalog-item${used ? ' used' : ''}"
+            data-rule-id="${escapeHtml(rule.id)}"
+            title="${escapeHtml(getRuleDescription(rule))}"
+            ${used ? 'disabled aria-disabled="true"' : ''}
+          >
+            <span class="inverse-catalog-copy">
+              <strong>${escapeHtml(getRuleLabel(rule))}</strong>
+              <small>${escapeHtml(getRuleDescription(rule))}</small>
+            </span>
+            ${used ? `<span class="inverse-catalog-used">${escapeHtml(t('inverse.catalog_used'))}</span>` : ''}
+          </button>
+        `;
+      }).join('')}
+    </div>
+  `).join('');
+}
+
+function setCatalogOpen(open) {
+  catalogOpen = open;
+  const panel = $('#inverse-catalog');
+  const button = $('#inverse-browse-btn');
+  if (panel) panel.classList.toggle('hidden', !open);
+  if (button) {
+    button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    button.classList.toggle('active', open);
+  }
+  // La colonne latérale est sticky : avec le catalogue ouvert elle peut
+  // dépasser la hauteur de l'écran et devenir inaccessible.
+  $('.inverse-side-column')?.classList.toggle('catalog-open', open);
+  if (open) {
+    hideSuggestions();
+    renderCatalog();
+    requestAnimationFrame(() => {
+      panel?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+}
+
+function chooseRuleFromCatalog(rule) {
+  if (!engine || engine.roundDone || engine.usedRuleIds.has(rule.id)) return;
+  const input = $('#inverse-rule-input');
+  if (!input) return;
+  input.value = getRuleLabel(rule);
+  hideSuggestions();
+  setCatalogOpen(false);
+  input.focus();
+  input.select();
 }
 
 function setControlsEnabled(enabled) {
@@ -497,6 +606,7 @@ export function openInverseMode() {
 export function closeInverseMode() {
   if (!active) return;
   active = false;
+  setCatalogOpen(false);
   document.getElementById(SECTION_ID)?.classList.add('hidden');
   document.querySelector('.intro-section')?.classList.remove('hidden');
   document.querySelector('.game-section')?.classList.remove('hidden');
@@ -545,6 +655,31 @@ export function initInverseMode() {
     hideSuggestions();
     applyRule(rule);
     focusInput();
+  });
+
+  $('#inverse-browse-btn')?.addEventListener('click', () => {
+    setCatalogOpen(!catalogOpen);
+  });
+
+  $('#inverse-catalog-close')?.addEventListener('click', () => {
+    setCatalogOpen(false);
+    focusInput();
+  });
+
+  $('#inverse-catalog-search')?.addEventListener('input', renderCatalog);
+  $('#inverse-catalog')?.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setCatalogOpen(false);
+      focusInput();
+    }
+  });
+
+  $('#inverse-catalog-list')?.addEventListener('click', (event) => {
+    const button = event.target.closest('.inverse-catalog-item');
+    if (!button || button.disabled) return;
+    const rule = rules.find((item) => item.id === button.dataset.ruleId);
+    if (rule) chooseRuleFromCatalog(rule);
   });
 
   $('#inverse-hint-btn')?.addEventListener('click', () => {

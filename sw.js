@@ -1,4 +1,4 @@
-const CACHE_NAME = 'countrydoku-cache-v55';
+const CACHE_NAME = 'countrydoku-cache-v56';
 
 const urlsToCache = [
   './',

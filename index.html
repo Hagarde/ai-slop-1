@@ -14,7 +14,7 @@
     <link rel="dns-prefetch" href="https://flagcdn.com" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=53" />
-    <link rel="stylesheet" href="styles-inverse.css?v=1" />
+    <link rel="stylesheet" href="styles-inverse.css?v=2" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -296,6 +296,45 @@
               </div>
               <div class="inverse-suggestions hidden" id="inverse-suggestions" role="listbox"></div>
               <p class="inverse-input-note" data-i18n="inverse.input_note">Un critère inconnu ne fait jamais perdre de vie. Seul un critère faux pour au moins un pays affiché coûte une vie.</p>
+
+              <button
+                type="button"
+                class="inverse-browse-btn"
+                id="inverse-browse-btn"
+                aria-expanded="false"
+                aria-controls="inverse-catalog"
+              >
+                <span class="inverse-browse-label" data-i18n="inverse.browse_btn">📚 Voir toutes les conditions</span>
+                <span class="inverse-browse-count" id="inverse-browse-count" aria-hidden="true">…</span>
+              </button>
+
+              <section class="inverse-catalog hidden" id="inverse-catalog" aria-labelledby="inverse-catalog-title">
+                <div class="inverse-catalog-head">
+                  <div>
+                    <h3 id="inverse-catalog-title" data-i18n="inverse.catalog_title">Toutes les conditions possibles</h3>
+                    <p class="inverse-muted" data-i18n="inverse.catalog_hint">Cliquez sur une condition pour la préparer, puis validez.</p>
+                  </div>
+                  <button
+                    type="button"
+                    class="inverse-catalog-close"
+                    id="inverse-catalog-close"
+                    data-i18n-aria-label="inverse.catalog_close"
+                    aria-label="Fermer la liste"
+                  >×</button>
+                </div>
+                <input
+                  type="search"
+                  class="inverse-catalog-search"
+                  id="inverse-catalog-search"
+                  autocomplete="off"
+                  spellcheck="false"
+                  data-i18n-aria-label="inverse.catalog_search_aria"
+                  data-i18n-placeholder="inverse.catalog_search_placeholder"
+                  aria-label="Filtrer la liste des conditions"
+                  placeholder="Filtrer : monnaie, arabe, île…"
+                />
+                <div class="inverse-catalog-list" id="inverse-catalog-list"></div>
+              </section>
             </section>
 
             <section class="inverse-card inverse-feedback-card">
@@ -863,6 +902,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=54"></script>
+    <script type="module" src="js/main.js?v=55"></script>
   </body>
 </html>
