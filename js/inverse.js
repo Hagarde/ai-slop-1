@@ -455,6 +455,7 @@ export class InverseEngine {
       canonicalCoverage: this.canonicalCoverage,
       alternativeSolutions: this.alternativeSolutionCount,
       playerCoverage: this.selected.map((entry) => entry.rule),
+      playerEntries: this.selected.map(({ rule, removed }) => ({ rule, removed })),
     };
   }
 
@@ -472,6 +473,9 @@ export class InverseEngine {
       wrong: this.wrongCount,
       won: this.roundWon,
       score: this.score,
+      canonicalCoverage: this.canonicalCoverage,
+      playerCoverage: this.selected.map((entry) => entry.rule),
+      playerEntries: this.selected.map(({ rule, removed }) => ({ rule, removed })),
     });
   }
 
@@ -493,9 +497,12 @@ export class InverseEngine {
     }
     this.hintUsed = true;
     this.score = Math.max(0, this.score - 30);
+    // L'indice ne révèle plus le critère exact : uniquement sa catégorie.
+    // On vise un critère de la solution que le joueur n'a pas encore trouvé.
+    const foundIds = new Set(this.selected.map((entry) => entry.rule.id));
     const coverage = this.canonicalCoverage;
-    const suggestion = coverage.find((rule) => !this.usedRuleIds.has(rule.id)) || coverage[0] || null;
-    return { status: 'ok', rule: suggestion, score: this.score };
+    const missing = coverage.find((rule) => !foundIds.has(rule.id)) || coverage[0] || null;
+    return { status: 'ok', type: missing ? missing.type : null, score: this.score };
   }
 
   continueAfterRound() {

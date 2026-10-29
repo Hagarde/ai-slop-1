@@ -442,6 +442,21 @@ function coverageChips(coverage) {
   return `<div class="inverse-rule-chip-list">${coverage.map((rule) => ruleChip(rule)).join('')}</div>`;
 }
 
+function playerEntryChips(entries) {
+  return `<div class="inverse-rule-chip-list">${entries.map(({ rule, removed }) => `
+    <span class="inverse-rule-chip">
+      <span aria-hidden="true">${escapeHtml(getTypeIcon(rule.type))}</span>
+      <span>${escapeHtml(getRuleLabel(rule))}</span>
+      ${Number.isFinite(removed) ? `<span class="inverse-rule-chip-meta">−${removed}</span>` : ''}
+    </span>
+  `).join('')}</div>`;
+}
+
+function getPlayerEntries(summary) {
+  if (Array.isArray(summary.playerEntries)) return summary.playerEntries;
+  return (summary.playerCoverage || []).map((rule) => ({ rule }));
+}
+
 function renderResult() {
   const card = $('#inverse-round-result');
   if (!card) return;
@@ -458,18 +473,18 @@ function renderResult() {
 
   const summary = engine.roundSummary;
   const won = summary.won;
+  const playerEntries = getPlayerEntries(summary);
   card.classList.remove('hidden');
   card.classList.toggle('won', won);
   card.classList.toggle('lost', !won);
 
   const canonicalIds = summary.canonicalCoverage.map((rule) => rule.id).sort().join(',');
-  const playerIds = summary.playerCoverage.map((rule) => rule.id).sort().join(',');
-  const showPlayer = won && playerIds && playerIds !== canonicalIds;
+  const playerIds = playerEntries.map(({ rule }) => rule.id).sort().join(',');
+  const showPlayer = playerEntries.length > 0 && (!won || playerIds !== canonicalIds);
 
-  const bonusLines = [];
-  if (summary.bonus === 50) bonusLines.push(t('inverse.result_bonus_par'));
-  else if (summary.bonus === 25) bonusLines.push(t('inverse.result_bonus_extra'));
-  if (summary.perfectLife) bonusLines.push(t('inverse.result_perfect'));
+  const solutionTitle = won
+    ? t('inverse.result_canonical', { par: summary.par })
+    : t('inverse.result_solution');
 
   const nextLabel = engine.lives <= 0 ? t('inverse.see_results') : t('inverse.next_round');
 
@@ -480,27 +495,62 @@ function renderResult() {
       <p>${escapeHtml(t('inverse.result_stats', {
         used: summary.used,
         wrong: summary.wrong,
-        score: summary.score,
       }))}</p>
     </div>
     ${won ? `<p class="inverse-result-note">${escapeHtml(t('inverse.result_par_won', { par: summary.par }))}</p>` : ''}
-    <div class="inverse-result-block">
-      <h3>${escapeHtml(t('inverse.result_canonical', { par: summary.par }))}</h3>
+    <div class="inverse-result-block inverse-solution-block">
+      <h3>${escapeHtml(solutionTitle)}</h3>
       ${coverageChips(summary.canonicalCoverage)}
+      ${won ? '' : `<p class="inverse-muted">${escapeHtml(t('inverse.result_solution_note', { count: summary.canonicalCoverage.length }))}</p>`}
       ${summary.alternativeSolutions > 0
         ? `<p class="inverse-muted">${escapeHtml(t('inverse.result_alternatives', { count: summary.alternativeSolutions }))}</p>`
         : ''}
     </div>
     ${showPlayer ? `
       <div class="inverse-result-block">
-        <h3>${escapeHtml(t('inverse.result_your_solution'))}</h3>
-        ${coverageChips(summary.playerCoverage)}
+        <h3>${escapeHtml(t(won ? 'inverse.result_your_solution' : 'inverse.result_good_answers'))}</h3>
+        ${playerEntryChips(playerEntries)}
       </div>
-    ` : ''}
-    ${bonusLines.length > 0 ? `<div class="inverse-result-bonuses">${bonusLines.map((line) => `<span>${escapeHtml(line)}</span>`).join('')}</div>` : ''}
+    ` : (!won ? `
+      <div class="inverse-result-block">
+        <h3>${escapeHtml(t('inverse.result_good_answers'))}</h3>
+        <p class="inverse-muted">${escapeHtml(t('inverse.result_no_good_answers'))}</p>
+      </div>
+    ` : '')}
+    ${summary.perfectLife ? `<div class="inverse-result-bonuses"><span>${escapeHtml(t('inverse.result_perfect'))}</span></div>` : ''}
     <button type="button" class="primary-button inverse-next-btn" data-inverse-action="next">${escapeHtml(nextLabel)}</button>
   `;
   setControlsEnabled(false);
+}
+
+function renderRunRound(entry) {
+  const won = entry.won;
+  const solution = won
+    ? (entry.playerCoverage || [])
+    : (entry.canonicalCoverage || []);
+  const playerEntries = Array.isArray(entry.playerEntries)
+    ? entry.playerEntries
+    : (entry.playerCoverage || []).map((rule) => ({ rule }));
+
+  return `
+    <div class="inverse-run-round ${won ? 'won' : 'lost'}">
+      <div class="inverse-run-round-head">
+        <strong>${escapeHtml(t('inverse.run_round', { round: entry.round }))}</strong>
+        <span class="inverse-run-round-status">${escapeHtml(t(won ? 'inverse.run_round_won' : 'inverse.run_round_lost'))}</span>
+        <span class="inverse-run-round-count">${escapeHtml(t('inverse.result_stats', { used: entry.used, wrong: entry.wrong }))}</span>
+      </div>
+      <div class="inverse-run-round-line">
+        <span class="inverse-run-round-label">${escapeHtml(t(won ? 'inverse.run_round_your_solution' : 'inverse.run_round_solution'))}</span>
+        ${coverageChips(solution)}
+      </div>
+      ${!won && playerEntries.length > 0 ? `
+        <div class="inverse-run-round-line">
+          <span class="inverse-run-round-label">${escapeHtml(t('inverse.run_round_good_answers'))}</span>
+          ${playerEntryChips(playerEntries)}
+        </div>
+      ` : ''}
+    </div>
+  `;
 }
 
 function renderRunOver(card) {
@@ -513,7 +563,8 @@ function renderRunOver(card) {
   const bestBefore = getBestScore();
   const isNewBest = saveBestScore(engine.score);
   const best = Math.max(bestBefore, engine.score);
-  const roundsWon = engine.roundHistory.filter((entry) => entry.won).length;
+  const history = engine.roundHistory || [];
+  const roundsWon = history.filter((entry) => entry.won).length;
 
   card.classList.remove('hidden');
   card.classList.remove('lost');
@@ -524,11 +575,10 @@ function renderRunOver(card) {
       <h2>${escapeHtml(engine.completed ? t('inverse.run_win_title') : t('inverse.run_over_title'))}</h2>
       <p>${escapeHtml(t('inverse.run_rounds', { won: roundsWon, total: engine.roundPlan.length }))}</p>
     </div>
-    <div class="inverse-final-score">
-      <span>${escapeHtml(t('inverse.run_score'))}</span>
-      <strong>${engine.score}</strong>
+    <div class="inverse-run-recap">
+      <h3>${escapeHtml(t('inverse.run_recap_title'))}</h3>
+      ${history.map(renderRunRound).join('')}
     </div>
-    ${engine.finalBonus > 0 ? `<p class="inverse-muted">${escapeHtml(t('inverse.run_bonus', { count: engine.finalBonus }))}</p>` : ''}
     <p class="inverse-muted">${escapeHtml(t('inverse.run_best', { score: best }))}${isNewBest ? ` • ${escapeHtml(t('inverse.run_new_best'))}` : ''}</p>
     <button type="button" class="primary-button inverse-next-btn" data-inverse-action="again">${escapeHtml(t('inverse.play_again'))}</button>
   `;
@@ -685,19 +735,15 @@ export function initInverseMode() {
   $('#inverse-hint-btn')?.addEventListener('click', () => {
     if (!engine || engine.roundDone) return;
     const result = engine.hint();
-    if (result.status !== 'ok' || !result.rule) {
+    if (result.status !== 'ok' || !result.type) {
       setFeedbackKey('inverse.feedback_hint_empty', {}, 'info');
       return;
     }
-    setFeedback(() => t('inverse.feedback_hint', { rule: getRuleLabel(result.rule) }), 'info');
-    const input = $('#inverse-rule-input');
-    if (input) {
-      input.value = getRuleLabel(result.rule);
-      input.focus();
-      input.select();
-    }
+    const category = `${getTypeIcon(result.type)} ${getTypeLabel(result.type)}`;
+    setFeedback(() => t('inverse.feedback_hint', { category }), 'info');
     renderHud();
     setControlsEnabled(true);
+    focusInput();
   });
 
   $('#inverse-pass-btn')?.addEventListener('click', () => {

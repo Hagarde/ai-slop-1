@@ -354,6 +354,17 @@ img.inverse-chip-flag {
   color: var(--ink-muted);
 }
 
+.inverse-rule-chip-meta {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--ink-muted);
+  background: #ffffff;
+  border: 1px solid #ddd6fe;
+  border-radius: 999px;
+  padding: 0 5px;
+}
+
 .inverse-muted {
   font-size: 11.5px;
   color: var(--ink-muted);
@@ -811,6 +822,32 @@ img.inverse-chip-flag {
   margin-bottom: 7px;
 }
 
+/* La bonne réponse ressort clairement après une manche perdue. */
+.inverse-solution-block {
+  border: 1px solid #ddd6fe;
+  background: #faf8ff;
+  border-radius: var(--radius-md);
+  padding: 11px 12px;
+}
+
+.inverse-solution-block h3 {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6d28d9;
+}
+
+.inverse-solution-block .inverse-muted {
+  margin-top: 7px;
+}
+
+.inverse-result-card.lost .inverse-solution-block {
+  border-color: #c4b5fd;
+  background: #ffffff;
+}
+
 .inverse-result-bonuses {
   display: flex;
   flex-wrap: wrap;
@@ -832,28 +869,106 @@ img.inverse-chip-flag {
   width: 100%;
 }
 
-.inverse-final-score {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-  padding: 12px 0;
+.inverse-run-recap {
   margin: 14px 0 10px;
+  border-top: 1px solid var(--border-light);
+  padding-top: 12px;
 }
 
-.inverse-final-score span {
+.inverse-run-recap > h3 {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ink-secondary);
+  margin-bottom: 9px;
 }
 
-.inverse-final-score strong {
+.inverse-run-round {
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  background: var(--bg-app);
+  padding: 9px 11px;
+}
+
+.inverse-run-round + .inverse-run-round {
+  margin-top: 8px;
+}
+
+.inverse-run-round.won {
+  border-left-color: #10b981;
+}
+
+.inverse-run-round.lost {
+  border-left-color: #ef4444;
+}
+
+.inverse-run-round-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 11.5px;
+}
+
+.inverse-run-round-head strong {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-primary);
+}
+
+.inverse-run-round-status {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.inverse-run-round.won .inverse-run-round-status {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.inverse-run-round.lost .inverse-run-round-status {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.inverse-run-round-count {
+  margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 34px;
-  line-height: 1;
-  color: #4c1d95;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.inverse-run-round-line {
+  margin-top: 7px;
+}
+
+.inverse-run-round-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.inverse-run-round-line .inverse-rule-chip {
+  font-size: 10.5px;
+  padding: 3px 8px;
+}
+
+@media (max-width: 580px) {
+  .inverse-run-round-count {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
 }
 
 @media (max-width: 992px) {
