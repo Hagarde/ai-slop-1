@@ -198,7 +198,6 @@
 .inverse-country-chip {
   display: flex;
   align-items: center;
-  gap: 7px;
   min-width: 0;
   background: var(--bg-app);
   border: 1px solid var(--border-light);
@@ -216,21 +215,6 @@
 @keyframes inverse-chip-in {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.inverse-chip-flag {
-  font-size: 17px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-img.inverse-chip-flag {
-  width: 22px;
-  height: 15px;
-  object-fit: cover;
-  border-radius: 2px;
-  border: 1px solid var(--border-light);
-  background: var(--bg-subtle);
 }
 
 .inverse-pool-head {

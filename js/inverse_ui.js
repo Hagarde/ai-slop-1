@@ -10,6 +10,7 @@ import {
   getTypeIcon,
   getTypeLabel,
   maskFromRule,
+  scoreRules,
   searchRules,
 } from './inverse_rules.js';
 import { buildPuzzleCatalog, InverseEngine, ROUND_PLAN } from './inverse.js';
@@ -68,11 +69,8 @@ function saveBestScore(score) {
 }
 
 function countryChip(country) {
-  const flagUrl = country?.flagUrl || '';
-  const flag = flagUrl
-    ? `<img class="inverse-chip-flag" src="${escapeHtml(flagUrl)}" alt="" loading="lazy" />`
-    : `<span class="inverse-chip-flag" aria-hidden="true">${escapeHtml(country?.flag || '')}</span>`;
-  return `<span class="inverse-country-chip">${flag}<span>${escapeHtml(getCountryName(country))}</span></span>`;
+  // Pas de drapeau ici : il donnerait des indices sur les critères « drapeau ».
+  return `<span class="inverse-country-chip">${escapeHtml(getCountryName(country))}</span>`;
 }
 
 function ruleChip(rule, extraClass = '') {
@@ -366,16 +364,27 @@ function submitCurrentRule() {
   const query = input.value.trim();
   if (!query) return;
 
-  const selected = suggestionIndex >= 0 ? suggestions[suggestionIndex] : null;
-  const rule = selected || searchRules(rules, query, 1)[0] || null;
-  if (!rule) {
+  const ranked = scoreRules(rules, query, 8);
+  if (ranked.length === 0) {
     setFeedbackKey('inverse.no_match', {}, 'info');
+    return;
+  }
+
+  // Si plusieurs critères se valent et que le joueur n'en a pas choisi un
+  // explicitement, on ne devine pas à sa place (source d'erreurs de critère).
+  const chosenIndex = suggestionIndex >= 0 ? suggestionIndex : 0;
+  const chosen = ranked[chosenIndex] || ranked[0];
+  const topScore = ranked[0].score;
+  const tied = ranked.filter((item) => item.score === topScore).length > 1;
+  if (chosenIndex === 0 && tied) {
+    setFeedbackKey('inverse.multiple_matches', {}, 'info');
+    renderSuggestions();
     return;
   }
 
   input.value = '';
   hideSuggestions();
-  applyRule(rule);
+  applyRule(chosen.rule);
   focusInput();
 }
 
@@ -385,14 +394,15 @@ function applyRule(rule) {
   switch (result.status) {
     case 'wrong': {
       const examples = result.examples.join(', ');
+      const label = getRuleLabel(rule);
       if (result.counterExampleCount > result.examples.length) {
         setFeedback(
-          () => t('inverse.feedback_wrong_many', { count: result.counterExampleCount, countries: examples }),
+          () => t('inverse.feedback_wrong_many', { rule: label, count: result.counterExampleCount, countries: examples }),
           'wrong'
         );
       } else {
         setFeedback(
-          () => t('inverse.feedback_wrong', { countries: examples }),
+          () => t('inverse.feedback_wrong', { rule: label, countries: examples }),
           'wrong'
         );
       }

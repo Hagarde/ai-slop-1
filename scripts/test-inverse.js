@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { buildCriteria } from '../js/criteria.js';
-import { buildRuleLibrary, maskFromRule, maskKey, maskAnd, maskCount } from '../js/inverse_rules.js';
+import { buildRuleLibrary, maskFromRule, maskKey, maskAnd, maskCount, scoreRules, searchRules } from '../js/inverse_rules.js';
 import { buildPuzzleCatalog, InverseEngine, ROUND_PLAN } from '../js/inverse.js';
 
 const C = JSON.parse(fs.readFileSync(new URL('../data/countries.json', import.meta.url), 'utf8')).countries;
@@ -152,6 +152,54 @@ result = engine3.submitRule(wrong.id);
 check(result.status === 'wrong', 'un critère faux doit être refusé');
 check(engine3.lives === livesBeforeWrong - 1, 'un critère faux coûte une vie');
 check(result.examples.length > 0, 'un critère faux doit afficher un contre-exemple');
+
+// Les contre-exemples doivent être exactement des pays de la cible qui ne
+// vérifient PAS le critère (et non l'inverse).
+const expectedFailures = targetCodes.filter((code) => !wrong.set.has(code));
+check(
+  result.counterExampleCount === expectedFailures.length,
+  'le nombre de contre-exemples doit correspondre aux pays de la cible qui échouent'
+);
+const expectedNames = expectedFailures
+  .slice(0, 3)
+  .map((code) => C.find((country) => country.code === code)?.name);
+check(
+  JSON.stringify(result.examples) === JSON.stringify(expectedNames),
+  'les contre-exemples affichés doivent être les pays qui ne vérifient pas le critère'
+);
+
+// Recherche : les mots courts ne doivent pas matcher au milieu d'un mot.
+const topLabel = (query) => searchRules(rules, query, 1)[0]?.labelFr;
+check(topLabel('ile') === 'Sans frontière terrestre', '« ile » doit proposer le critère des pays sans frontière terrestre');
+check(topLabel('île') === 'Sans frontière terrestre', '« île » doit proposer le critère des îles');
+check(topLabel('iles') === 'Sans frontière terrestre', '« iles » doit proposer le critère des îles');
+check(
+  !searchRules(rules, 'ile', 8).some((rule) => rule.labelFr === 'Au moins une étoile sur le drapeau'),
+  '« ile » ne doit pas matcher « étoile »'
+);
+check(topLabel('symbole') === 'Symbole sur le drapeau', '« symbole » doit proposer le critère du symbole sur le drapeau');
+check(topLabel('sans accès à la mer') === 'Pays enclavé (sans mer)', 'une requête niée doit proposer le pays enclavé');
+check(topLabel('accès à la mer') === 'Possède un accès à la mer', 'une requête affirmative doit proposer l’accès à la mer');
+
+// Requête ambiguë : plusieurs critères à égalité, l'interface doit demander un choix.
+const currencyScores = scoreRules(rules, 'monnaie', 8);
+check(currencyScores.length > 1, '« monnaie » doit proposer plusieurs critères');
+check(
+  currencyScores.filter((item) => item.score === currencyScores[0].score).length > 1,
+  '« monnaie » doit rester ambigu (plusieurs scores identiques)'
+);
+const islandScores = scoreRules(rules, 'ile', 8);
+check(islandScores.length === 1 && islandScores[0].score >= 60, '« ile » doit avoir une seule correspondance forte');
+
+// Données : cohérence îles / enclavement / symboles.
+check(
+  C.every((country) => !(country.borders.length === 0 && country.landlocked === true)),
+  'aucune île ne doit être marquée comme pays enclavé'
+);
+check(
+  C.every((country) => !(country.flagStar === true && country.symbolOnFlag !== true)),
+  'un drapeau avec étoile doit être marqué comme portant un symbole'
+);
 
 // Critère vrai mais sans effet : aucune pénalité.
 // En Océanie (14) ⊆ Possède un accès à la mer (150).

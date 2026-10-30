@@ -29,9 +29,9 @@ const LOCALE_DEPENDENT_LABELS = new Set([
 const EXTRA_ALIASES = [
   { match: 'hémisphère Nord', aliases: ['nord', 'north', 'hemisphere'] },
   { match: 'hémisphère Sud', aliases: ['sud', 'south', 'hemisphere'] },
-  { match: 'Pays enclavé', aliases: ['sans mer', 'landlock', 'enclave'] },
+  { match: 'Pays enclavé', aliases: ['sans mer', 'landlock', 'enclave', 'sans acces a la mer', 'pas d acces a la mer', 'sans ocean', 'sans littoral', 'sans cote'] },
   { match: 'accès à la mer', aliases: ['mer', 'littoral', 'coast', 'sea'] },
-  { match: 'sans frontière terrestre', aliases: ['ile', 'île', 'island', 'insulaire'] },
+  { match: 'sans frontière terrestre', aliases: ['ile', 'iles', 'île', 'îles', 'island', 'insulaire'] },
   { match: 'sommets > 4 000', aliases: ['montagne', 'peak', '4000', 'altitude'] },
   { match: 'Devise : Euro', aliases: ['monnaie', 'currency', 'euro'] },
   { match: 'Devise : Dollar', aliases: ['monnaie', 'currency', 'dollar'] },
@@ -78,10 +78,12 @@ function aliasesFor(labelFr, labelEn, descriptionFr, descriptionEn) {
     if (!text) return;
     result.add(fold(text));
   });
+  const foldedLabel = fold(labelFr || '');
   for (const entry of EXTRA_ALIASES) {
-    if (labelFr.includes(entry.match)) {
-      entry.aliases.forEach((alias) => result.add(fold(alias)));
-    }
+    // Comparaison sans casse ni accents : sinon « Sans frontière terrestre »
+    // ne recevait pas ses alias (île, island...).
+    if (!foldedLabel.includes(fold(entry.match))) continue;
+    entry.aliases.forEach((alias) => result.add(fold(alias)));
   }
   return [...result];
 }
@@ -154,8 +156,20 @@ export function getTypeIcon(type) {
   return (RULE_TYPES[type] || RULE_TYPES.geography).icon;
 }
 
-// Recherche tolérante (accents, casse, alias, mots partiels).
-export function searchRules(rules, rawQuery, limit = 8) {
+// Découpe un texte replié en mots (minuscules, sans accents ni ponctuation).
+function foldWords(text) {
+  return fold(text).split(/[^a-z0-9]+/).filter(Boolean);
+}
+
+// Vrai si chaque mot tapé est le début d'un mot du texte.
+// Évite les correspondances au milieu d'un mot : « ile » ne matche pas « étoile ».
+function matchesWordPrefixes(text, tokens) {
+  const words = foldWords(text);
+  return tokens.every((token) => words.some((word) => word.startsWith(token)));
+}
+
+// Recherche tolérante (accents, casse, alias, mots partiels), avec scores.
+export function scoreRules(rules, rawQuery, limit = 8) {
   const query = fold((rawQuery || '').trim());
   if (!query) return [];
   const tokens = query.split(/[^a-z0-9]+/).filter(Boolean);
@@ -163,17 +177,14 @@ export function searchRules(rules, rawQuery, limit = 8) {
 
   for (const rule of rules) {
     const label = fold(getRuleLabel(rule));
-    const labelWords = label.split(/[^a-z0-9]+/).filter(Boolean);
     let score = 0;
 
     if (label === query) score = 100;
     else if (label.startsWith(query)) score = 80;
-    else if (labelWords.some((word) => word.startsWith(query))) score = 65;
+    else if (matchesWordPrefixes(label, tokens)) score = 65;
     else if (rule.aliases.some((alias) => alias === query)) score = 60;
-    else if (rule.aliases.some((alias) => alias.startsWith(query))) score = 45;
-    else if (label.includes(query)) score = 35;
-    else if (rule.aliases.some((alias) => alias.includes(query))) score = 25;
-    else if (tokens.length > 1 && tokens.every((token) => rule.aliases.some((alias) => alias.includes(token)))) score = 20;
+    else if (rule.aliases.some((alias) => alias.startsWith(query))) score = 50;
+    else if (rule.aliases.some((alias) => matchesWordPrefixes(alias, tokens))) score = 25;
 
     if (score > 0) scored.push({ rule, score });
   }
@@ -182,7 +193,11 @@ export function searchRules(rules, rawQuery, limit = 8) {
     if (b.score !== a.score) return b.score - a.score;
     return getRuleLabel(a.rule).localeCompare(getRuleLabel(b.rule), getLanguage() === 'en' ? 'en' : 'fr');
   });
-  return scored.slice(0, limit).map((item) => item.rule);
+  return scored.slice(0, limit);
+}
+
+export function searchRules(rules, rawQuery, limit = 8) {
+  return scoreRules(rules, rawQuery, limit).map((item) => item.rule);
 }
 
 // --- Bitsets -----------------------------------------------------------------
