@@ -14,7 +14,7 @@
     <link rel="dns-prefetch" href="https://flagcdn.com" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=53" />
-    <link rel="stylesheet" href="styles-inverse.css?v=4" />
+    <link rel="stylesheet" href="styles-inverse.css?v=5" />
     <link rel="manifest" href="manifest.json" />
     <!-- PeerJS CDN pour le multijoueur WebRTC direct -->
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -242,14 +242,25 @@
         </div>
 
         <div class="inverse-layout">
-          <div class="inverse-main-column">
-            <section class="inverse-card inverse-target-card">
-              <div class="inverse-card-head">
-                <h2 data-i18n="inverse.target_title">L'ensemble à isoler</h2>
-                <span class="inverse-pill" id="inverse-target-count">0 pays</span>
-              </div>
-              <div class="inverse-country-grid" id="inverse-target-countries"></div>
+          <section class="inverse-card inverse-target-card">
+            <div class="inverse-card-head">
+              <h2 data-i18n="inverse.target_title">L'ensemble à isoler</h2>
+              <span class="inverse-pill" id="inverse-target-count">0 pays</span>
+            </div>
+            <div class="inverse-country-grid" id="inverse-target-countries"></div>
+          </section>
+
+          <div class="inverse-side-stack">
+            <section class="inverse-card inverse-feedback-card">
+              <div class="inverse-feedback info" id="inverse-feedback" role="status" aria-live="polite"></div>
             </section>
+
+            <div class="inverse-actions">
+              <button type="button" class="secondary-button" id="inverse-hint-btn" data-i18n="inverse.hint_btn">💡 Indice (−30 pts)</button>
+              <button type="button" class="secondary-button" id="inverse-reveal-btn" data-i18n="inverse.reveal_btn">🔍 Contre-exemple (−20 pts)</button>
+              <button type="button" class="secondary-button inverse-danger-btn" id="inverse-pass-btn" data-i18n="inverse.pass_btn">Passer (−1 vie)</button>
+              <button type="button" class="secondary-button" id="inverse-restart-btn" data-i18n="inverse.restart_btn">Nouvelle run</button>
+            </div>
 
             <section class="inverse-card inverse-pool-card">
               <div class="inverse-pool-head">
@@ -261,92 +272,48 @@
               </div>
               <p class="inverse-remaining" id="inverse-remaining"></p>
             </section>
-
-            <section class="inverse-card">
-              <div class="inverse-card-head">
-                <h2 data-i18n="inverse.criteria_title">Vos critères</h2>
-              </div>
-              <div class="inverse-criteria-list" id="inverse-criteria-list"></div>
-              <div class="inverse-implied hidden" id="inverse-implied-wrap">
-                <h3 data-i18n="inverse.implied_title">Déjà vrais, mais sans effet</h3>
-                <div class="inverse-rule-chip-list" id="inverse-implied-list"></div>
-              </div>
-            </section>
           </div>
 
-          <aside class="inverse-side-column">
-            <section class="inverse-card inverse-input-card">
-              <h2 data-i18n="inverse.input_label">Ajouter un critère</h2>
-              <div class="inverse-search-row">
-                <input
-                  type="search"
-                  id="inverse-rule-input"
-                  class="inverse-rule-input"
-                  autocomplete="off"
-                  spellcheck="false"
-                  role="combobox"
-                  aria-autocomplete="list"
-                  aria-controls="inverse-suggestions"
-                  aria-expanded="false"
-                  data-i18n-aria-label="inverse.input_aria"
-                  data-i18n-placeholder="inverse.input_placeholder"
-                  placeholder="Tapez : enclavé, arabe, OCDE..."
-                />
-                <button type="button" class="primary-button" id="inverse-submit-btn" data-i18n="inverse.submit">Valider</button>
-              </div>
-              <div class="inverse-suggestions hidden" id="inverse-suggestions" role="listbox"></div>
-              <p class="inverse-input-note" data-i18n="inverse.input_note">Un critère inconnu ne fait jamais perdre de vie. Seul un critère faux pour au moins un pays affiché coûte une vie.</p>
-
-              <button
-                type="button"
-                class="inverse-browse-btn"
-                id="inverse-browse-btn"
-                aria-expanded="false"
-                aria-controls="inverse-catalog"
-              >
-                <span class="inverse-browse-label" data-i18n="inverse.browse_btn">📚 Voir toutes les conditions</span>
-                <span class="inverse-browse-count" id="inverse-browse-count" aria-hidden="true">…</span>
-              </button>
-
-              <section class="inverse-catalog hidden" id="inverse-catalog" aria-labelledby="inverse-catalog-title">
-                <div class="inverse-catalog-head">
-                  <div>
-                    <h3 id="inverse-catalog-title" data-i18n="inverse.catalog_title">Toutes les conditions possibles</h3>
-                    <p class="inverse-muted" data-i18n="inverse.catalog_hint">Cliquez sur une condition pour la préparer, puis validez.</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="inverse-catalog-close"
-                    id="inverse-catalog-close"
-                    data-i18n-aria-label="inverse.catalog_close"
-                    aria-label="Fermer la liste"
-                  >×</button>
-                </div>
-                <input
-                  type="search"
-                  class="inverse-catalog-search"
-                  id="inverse-catalog-search"
-                  autocomplete="off"
-                  spellcheck="false"
-                  data-i18n-aria-label="inverse.catalog_search_aria"
-                  data-i18n-placeholder="inverse.catalog_search_placeholder"
-                  aria-label="Filtrer la liste des conditions"
-                  placeholder="Filtrer : monnaie, arabe, île…"
-                />
-                <div class="inverse-catalog-list" id="inverse-catalog-list"></div>
-              </section>
-            </section>
-
-            <section class="inverse-card inverse-feedback-card">
-              <div class="inverse-feedback info" id="inverse-feedback" role="status" aria-live="polite"></div>
-            </section>
-
-            <div class="inverse-actions">
-              <button type="button" class="secondary-button" id="inverse-hint-btn" data-i18n="inverse.hint_btn">💡 Indice (−30 pts)</button>
-              <button type="button" class="secondary-button inverse-danger-btn" id="inverse-pass-btn" data-i18n="inverse.pass_btn">Passer (−1 vie)</button>
-              <button type="button" class="secondary-button" id="inverse-restart-btn" data-i18n="inverse.restart_btn">Nouvelle run</button>
+          <section class="inverse-card inverse-picker-card">
+            <div class="inverse-card-head">
+              <h2 data-i18n="inverse.picker_title">Choisir un critère</h2>
+              <span class="inverse-pill" id="inverse-rule-count">…</span>
             </div>
-          </aside>
+            <input
+              type="search"
+              class="inverse-rule-filter"
+              id="inverse-rule-filter"
+              autocomplete="off"
+              spellcheck="false"
+              data-i18n-aria-label="inverse.rule_filter_aria"
+              data-i18n-placeholder="inverse.rule_filter_placeholder"
+              aria-label="Filtrer les critères"
+              placeholder="Filtrer : monnaie, arabe, île…"
+            />
+            <p class="inverse-input-note" data-i18n="inverse.picker_hint">Cliquez sur un critère pour le tester. Un critère faux pour au moins un pays affiché coûte une vie.</p>
+            <div
+              class="inverse-rule-table"
+              id="inverse-rule-table"
+              role="group"
+              data-i18n-aria-label="inverse.picker_title"
+              aria-label="Critères disponibles"
+            ></div>
+          </section>
+
+          <section class="inverse-card inverse-criteria-card">
+            <div class="inverse-card-head">
+              <h2 data-i18n="inverse.criteria_title">Vos critères</h2>
+            </div>
+            <div class="inverse-criteria-list" id="inverse-criteria-list"></div>
+            <div class="inverse-implied hidden" id="inverse-implied-wrap">
+              <h3 data-i18n="inverse.implied_title">Déjà vrais, mais sans effet</h3>
+              <div class="inverse-rule-chip-list" id="inverse-implied-list"></div>
+            </div>
+            <div class="inverse-revealed hidden" id="inverse-revealed-wrap">
+              <h3 data-i18n="inverse.revealed_title">Contre-exemples révélés</h3>
+              <div class="inverse-country-grid" id="inverse-revealed-list"></div>
+            </div>
+          </section>
         </div>
 
         <section class="inverse-result-card hidden" id="inverse-round-result" aria-live="polite"></section>
@@ -902,6 +869,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="js/main.js?v=57"></script>
+    <script type="module" src="js/main.js?v=58"></script>
   </body>
 </html>

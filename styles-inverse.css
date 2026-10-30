@@ -126,26 +126,24 @@
 .inverse-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(280px, 1fr);
+  grid-template-areas:
+    "target side"
+    "picker picker"
+    "criteria criteria";
   gap: 16px;
   align-items: start;
 }
 
-.inverse-main-column,
-.inverse-side-column {
+.inverse-target-card { grid-area: target; }
+.inverse-picker-card { grid-area: picker; }
+.inverse-criteria-card { grid-area: criteria; }
+
+.inverse-side-stack {
+  grid-area: side;
   display: flex;
   flex-direction: column;
   gap: 14px;
   min-width: 0;
-}
-
-.inverse-side-column {
-  position: sticky;
-  top: 18px;
-}
-
-/* Le catalogue peut être plus haut que l'écran : on libère la colonne sticky. */
-.inverse-side-column.catalog-open {
-  position: static;
 }
 
 .inverse-card {
@@ -257,8 +255,8 @@
 }
 
 .inverse-criteria-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 7px;
 }
 
@@ -305,6 +303,18 @@
   border-radius: 999px;
   padding: 3px 7px;
   white-space: nowrap;
+}
+
+.inverse-revealed {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.inverse-revealed-chip {
+  border-color: #fcd34d;
+  background: #fffbeb;
+  animation: inverse-chip-in 0.25s ease;
 }
 
 .inverse-implied {
@@ -355,322 +365,147 @@
   line-height: 1.45;
 }
 
-.inverse-input-card h2 {
-  margin-bottom: 10px;
+/* --- Sélecteur de critères : tableau par type de contrainte --- */
+
+.inverse-picker-card .inverse-card-head {
+  margin-bottom: 8px;
 }
 
-.inverse-search-row {
-  display: flex;
-  gap: 8px;
-}
-
-.inverse-rule-input {
-  flex: 1;
-  min-width: 0;
+.inverse-rule-filter {
+  width: 100%;
   border: 1.5px solid var(--border-medium);
   background: var(--bg-app);
   border-radius: var(--radius-md);
-  padding: 11px 12px;
-  font-size: 13.5px;
+  padding: 10px 12px;
+  font-size: 13px;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
-.inverse-rule-input:focus {
+.inverse-rule-filter:focus {
   background: #ffffff;
   border-color: #7c3aed;
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.14);
-}
-
-.inverse-search-row .primary-button {
-  white-space: nowrap;
-  padding: 11px 15px;
-}
-
-.inverse-suggestions {
-  margin-top: 8px;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  background: #ffffff;
-  box-shadow: var(--shadow-md);
-  max-height: 280px;
-  overflow-y: auto;
-  padding: 5px;
-}
-
-.inverse-suggestion {
-  width: 100%;
-  border: none;
-  background: transparent;
-  border-radius: 8px;
-  padding: 8px 9px;
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.12s ease;
-}
-
-.inverse-suggestion:hover,
-.inverse-suggestion.active {
-  background: #f5f3ff;
-}
-
-.inverse-suggestion-icon {
-  font-size: 16px;
-  line-height: 1.3;
-  flex-shrink: 0;
-}
-
-.inverse-suggestion-copy {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.inverse-suggestion-copy strong {
-  font-size: 12.5px;
-  line-height: 1.3;
-  color: var(--ink-primary);
-}
-
-.inverse-suggestion-copy small {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--ink-muted);
-}
-
-.inverse-suggestion-empty {
-  padding: 10px;
-  font-size: 12px;
-  color: var(--ink-muted);
-  line-height: 1.45;
 }
 
 .inverse-input-note {
-  margin-top: 9px;
+  margin: 7px 0 10px;
   font-size: 10.5px;
   line-height: 1.45;
   color: var(--ink-muted);
 }
 
-.inverse-browse-btn {
-  margin-top: 11px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.inverse-rule-table {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
-  border: 1.5px dashed #c4b5fd;
-  background: #faf8ff;
-  color: #5b21b6;
-  border-radius: var(--radius-md);
-  padding: 10px 12px;
-  font-size: 12.5px;
-  font-weight: 700;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.inverse-browse-btn:hover,
-.inverse-browse-btn.active {
-  background: #f5f3ff;
-  border-color: #7c3aed;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.12);
-}
-
-.inverse-browse-count {
-  flex-shrink: 0;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 800;
-  color: #6d28d9;
-  background: #ede9fe;
-  border: 1px solid #ddd6fe;
-  border-radius: 999px;
-  padding: 2px 8px;
-}
-
-.inverse-catalog {
-  margin-top: 10px;
-  border: 1px solid #ddd6fe;
-  border-radius: var(--radius-md);
-  background: #ffffff;
-  box-shadow: var(--shadow-md);
-  padding: 10px;
-  animation: inverse-fade-in 0.2s ease;
-}
-
-.inverse-catalog-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.inverse-catalog-head h3 {
-  margin: 0 0 2px;
-  font-size: 13.5px;
-  font-weight: 800;
-  color: var(--ink-primary);
-}
-
-.inverse-catalog-head p {
-  margin: 0;
-}
-
-.inverse-catalog-close {
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border-light);
-  background: var(--bg-app);
-  color: var(--ink-secondary);
-  border-radius: 999px;
-  font-size: 17px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.inverse-catalog-close:hover {
-  background: #f5f3ff;
-  border-color: #c4b5fd;
-  color: #5b21b6;
-}
-
-.inverse-catalog-search {
-  width: 100%;
-  margin: 9px 0 8px;
-  border: 1.5px solid var(--border-medium);
-  background: var(--bg-app);
-  border-radius: var(--radius-md);
-  padding: 9px 10px;
-  font-size: 12.5px;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-}
-
-.inverse-catalog-search:focus {
-  background: #ffffff;
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.14);
-}
-
-.inverse-catalog-list {
-  max-height: min(52vh, 430px);
+  align-items: start;
+  max-height: min(430px, 52vh);
   overflow-y: auto;
-  overscroll-behavior: contain;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   padding-right: 4px;
 }
 
-.inverse-catalog-group-title {
+.inverse-rule-column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.inverse-rule-column-head {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 0 4px;
-  padding: 4px 2px;
-  background: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-
-.inverse-catalog-group-count {
-  margin-left: auto;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-transform: none;
-  color: #6d28d9;
+  padding: 6px 8px;
   background: #f5f3ff;
-  border-radius: 999px;
-  padding: 1px 7px;
-}
-
-.inverse-catalog-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--border-light);
-  background: var(--bg-app);
-  border-radius: 9px;
-  padding: 8px 9px;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.12s ease, border-color 0.12s ease;
-}
-
-.inverse-catalog-item + .inverse-catalog-item {
-  margin-top: 4px;
-}
-
-.inverse-catalog-item:hover {
-  background: #f5f3ff;
-  border-color: #c4b5fd;
-}
-
-.inverse-catalog-item.used {
-  opacity: 0.6;
-  cursor: not-allowed;
-  background: var(--bg-subtle);
-}
-
-.inverse-catalog-copy {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  flex: 1;
-}
-
-.inverse-catalog-copy strong {
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--ink-primary);
-}
-
-.inverse-catalog-copy small {
-  margin-top: 1px;
-  font-size: 10.5px;
-  line-height: 1.35;
-  color: var(--ink-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.inverse-catalog-used {
-  flex-shrink: 0;
-  font-size: 9px;
+  border: 1px solid #ddd6fe;
+  border-radius: 8px;
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--ink-muted);
-  background: var(--bg-app);
-  border: 1px solid var(--border-light);
-  border-radius: 999px;
-  padding: 2px 7px;
+  color: #5b21b6;
 }
 
-.inverse-catalog-empty {
-  padding: 14px 4px;
+.inverse-rule-column-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inverse-rule-column-count {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--ink-muted);
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+
+.inverse-rule-column-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inverse-rule-cell {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-app);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  color: var(--ink-primary);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+}
+
+.inverse-rule-cell:hover:not(:disabled) {
+  background: #f5f3ff;
+  border-color: #a78bfa;
+  transform: translateY(-1px);
+}
+
+.inverse-rule-cell.used {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #047857;
+}
+
+.inverse-rule-cell-mark {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 800;
+  color: #047857;
+}
+
+.inverse-rule-table.filtered {
+  display: block;
+  max-height: none;
+  overflow: visible;
+}
+
+.inverse-rule-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 5px;
+}
+
+.inverse-rule-empty {
+  padding: 16px 4px;
   font-size: 12px;
   color: var(--ink-muted);
   line-height: 1.45;
@@ -975,7 +810,7 @@
     flex: 1;
   }
 
-  /* Une seule colonne, mais l'entrée de critère remonte juste sous la cible. */
+  /* Une seule colonne, avec le sélecteur de critères juste sous la cible. */
   .inverse-layout {
     display: flex;
     flex-direction: column;
@@ -983,17 +818,21 @@
     gap: 12px;
   }
 
-  .inverse-main-column,
-  .inverse-side-column {
+  .inverse-side-stack {
     display: contents;
   }
 
+  .inverse-rule-table {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: 46vh;
+  }
+
   .inverse-target-card { order: 1; }
-  .inverse-input-card { order: 2; }
+  .inverse-picker-card { order: 2; }
   .inverse-feedback-card { order: 3; }
-  .inverse-side-column > .inverse-actions { order: 4; }
+  .inverse-side-stack > .inverse-actions { order: 4; }
   .inverse-pool-card { order: 5; }
-  .inverse-main-column > .inverse-card:last-child { order: 6; }
+  .inverse-criteria-card { order: 6; }
 }
 
 @media (max-width: 580px) {
@@ -1015,12 +854,15 @@
     padding: 6px 8px;
   }
 
-  .inverse-search-row {
-    flex-direction: column;
+  .inverse-rule-table {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    max-height: 42vh;
   }
 
-  .inverse-actions .secondary-button {
-    flex: 1 1 100%;
+  .inverse-rule-cell {
+    font-size: 10.5px;
+    padding: 6px 7px;
   }
 
   .inverse-result-card {

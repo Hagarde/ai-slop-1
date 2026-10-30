@@ -238,6 +238,8 @@ export class InverseEngine {
     this.allMask = allCountriesMask(this.words, countryList.length);
     this.maxLives = MAX_LIVES;
     this.startLives = START_LIVES;
+    this.revealedCodes = new Set();
+    this.revealed = [];
     this.resetRun();
   }
 
@@ -286,6 +288,8 @@ export class InverseEngine {
     this.usedRuleIds = new Set();
     this.wrongCount = 0;
     this.hintUsed = false;
+    this.revealedCodes = new Set();
+    this.revealed = [];
     this.roundDone = false;
     this.roundWon = false;
     this.roundSummary = null;
@@ -503,6 +507,42 @@ export class InverseEngine {
     const coverage = this.canonicalCoverage;
     const missing = coverage.find((rule) => !foundIds.has(rule.id)) || coverage[0] || null;
     return { status: 'ok', type: missing ? missing.type : null, score: this.score };
+  }
+
+  // Révèle un pays qui satisfait tous les critères déjà énoncés mais qui ne
+  // fait pas partie de l'ensemble à isoler. C'est une aide « par l'extérieur » :
+  // elle ne dévoile aucun critère, seulement un pays encore présent dans le
+  // vivier, donc à exclure pour isoler l'ensemble.
+  revealCounterExample() {
+    if (!this.puzzle || this.roundDone) {
+      return { status: 'unavailable' };
+    }
+
+    const candidates = [];
+    for (const code of this.currentPoolCodes) {
+      if (this.puzzle.codeSet.has(code)) continue;
+      if (this.revealedCodes.has(code)) continue;
+      candidates.push(code);
+    }
+
+    if (candidates.length === 0) {
+      return { status: 'none', remaining: 0 };
+    }
+
+    const code = candidates[Math.floor(Math.random() * candidates.length)];
+    this.revealedCodes.add(code);
+    this.revealed.push(code);
+    this.score = Math.max(0, this.score - 20);
+    const country = this.countries.find((item) => item.code === code) || null;
+
+    return {
+      status: 'ok',
+      code,
+      country,
+      // Pays encore à exclure, hors contre-exemples déjà révélés.
+      remaining: candidates.length - 1,
+      score: this.score,
+    };
   }
 
   continueAfterRound() {

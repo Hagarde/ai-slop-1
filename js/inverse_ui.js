@@ -10,7 +10,6 @@ import {
   getTypeIcon,
   getTypeLabel,
   maskFromRule,
-  scoreRules,
   searchRules,
 } from './inverse_rules.js';
 import { buildPuzzleCatalog, InverseEngine, ROUND_PLAN } from './inverse.js';
@@ -23,11 +22,8 @@ let catalog = null;
 let engine = null;
 let ready = false;
 let building = false;
-let suggestions = [];
-let suggestionIndex = -1;
 let feedbackState = { render: () => '', kind: 'info' };
 let active = false;
-let catalogOpen = false;
 
 const TYPE_ORDER = ['geography', 'economy', 'linguistic', 'flag', 'history'];
 
@@ -165,72 +161,114 @@ function renderCriteria() {
   }
 }
 
+function renderRevealed() {
+  const wrap = $('#inverse-revealed-wrap');
+  const list = $('#inverse-revealed-list');
+  if (!wrap || !list) return;
+
+  const codes = engine?.revealed || [];
+  if (codes.length === 0) {
+    wrap.classList.add('hidden');
+    list.innerHTML = '';
+    return;
+  }
+
+  wrap.classList.remove('hidden');
+  list.innerHTML = codes.map((code) => {
+    const country = countries.find((item) => item.code === code);
+    return `<span class="inverse-country-chip inverse-revealed-chip">${escapeHtml(country ? getCountryName(country) : code)}</span>`;
+  }).join('');
+}
+
 function renderAll() {
   renderHud();
   renderTarget();
   renderPool();
   renderCriteria();
+  renderRevealed();
+  renderRuleTable();
   renderFeedback();
   renderResult();
-  if (catalogOpen) renderCatalog();
 }
 
-function renderSuggestions() {
-  const input = $('#inverse-rule-input');
-  const list = $('#inverse-suggestions');
-  if (!input || !list || !ready) return;
-
-  const query = input.value.trim();
-  if (!query) {
-    suggestions = [];
-    suggestionIndex = -1;
-    list.classList.add('hidden');
-    list.innerHTML = '';
-    input.setAttribute('aria-expanded', 'false');
-    return;
-  }
-
-  suggestions = searchRules(rules, query, 8);
-  suggestionIndex = suggestions.length > 0 ? 0 : -1;
-  if (suggestions.length === 0) {
-    list.innerHTML = `<div class="inverse-suggestion-empty">${escapeHtml(t('inverse.no_match'))}</div>`;
-    list.classList.remove('hidden');
-    input.setAttribute('aria-expanded', 'true');
-    return;
-  }
-
-  list.innerHTML = suggestions.map((rule, index) => `
-    <button type="button" class="inverse-suggestion ${index === suggestionIndex ? 'active' : ''}" data-rule-id="${escapeHtml(rule.id)}" role="option" aria-selected="${index === suggestionIndex ? 'true' : 'false'}">
-      <span class="inverse-suggestion-icon" aria-hidden="true">${escapeHtml(getTypeIcon(rule.type))}</span>
-      <span class="inverse-suggestion-copy">
-        <strong>${escapeHtml(getRuleLabel(rule))}</strong>
-        <small>${escapeHtml(getTypeLabel(rule.type))}</small>
-      </span>
+function ruleCell(rule, used, locked) {
+  const disabled = used || locked;
+  return `
+    <button
+      type="button"
+      class="inverse-rule-cell${used ? ' used' : ''}"
+      data-rule-id="${escapeHtml(rule.id)}"
+      title="${escapeHtml(getRuleDescription(rule))}"
+      ${disabled ? 'disabled aria-disabled="true"' : ''}
+    >
+      <span class="inverse-rule-cell-label">${escapeHtml(getRuleLabel(rule))}</span>
+      ${used ? `<span class="inverse-rule-cell-mark" aria-hidden="true">✓</span>` : ''}
     </button>
-  `).join('');
-  list.classList.remove('hidden');
-  input.setAttribute('aria-expanded', 'true');
+  `;
 }
 
-function hideSuggestions() {
-  const list = $('#inverse-suggestions');
-  if (list) {
-    list.classList.add('hidden');
-    list.innerHTML = '';
+// Tableau des critères : une colonne par catégorie de contrainte.
+// Avec un filtre actif, on bascule sur une liste plate triée par pertinence.
+function renderRuleTable() {
+  const table = $('#inverse-rule-table');
+  const countEl = $('#inverse-rule-count');
+  if (!table) return;
+
+  if (!ready) {
+    table.classList.remove('filtered');
+    table.innerHTML = `<p class="inverse-muted">${escapeHtml(t('inverse.loading'))}</p>`;
+    return;
   }
-  const input = $('#inverse-rule-input');
-  if (input) input.setAttribute('aria-expanded', 'false');
-  suggestions = [];
-  suggestionIndex = -1;
+
+  const query = ($('#inverse-rule-filter')?.value || '').trim();
+  const usedIds = engine?.usedRuleIds || new Set();
+  const locked = !engine || engine.roundDone || Boolean(engine.runOver);
+
+  if (query) {
+    const matching = searchRules(rules, query, rules.length);
+    if (countEl) countEl.textContent = t('inverse.rule_count', { count: matching.length });
+    table.classList.add('filtered');
+    if (matching.length === 0) {
+      table.innerHTML = `<p class="inverse-rule-empty">${escapeHtml(t('inverse.rule_none'))}</p>`;
+      return;
+    }
+    table.innerHTML = `<div class="inverse-rule-results">${matching
+      .map((rule) => ruleCell(rule, usedIds.has(rule.id), locked))
+      .join('')}</div>`;
+    return;
+  }
+
+  table.classList.remove('filtered');
+  if (countEl) countEl.textContent = t('inverse.rule_count', { count: rules.length });
+
+  const byType = new Map(TYPE_ORDER.map((type) => [type, []]));
+  sortRulesByType(rules).forEach((rule) => {
+    if (!byType.has(rule.type)) byType.set(rule.type, []);
+    byType.get(rule.type).push(rule);
+  });
+
+  table.innerHTML = [...byType.entries()]
+    .filter(([, items]) => items.length > 0)
+    .map(([type, items]) => `
+      <div class="inverse-rule-column">
+        <div class="inverse-rule-column-head">
+          <span class="inverse-rule-column-icon" aria-hidden="true">${escapeHtml(getTypeIcon(type))}</span>
+          <span class="inverse-rule-column-name">${escapeHtml(getTypeLabel(type))}</span>
+          <span class="inverse-rule-column-count">${items.length}</span>
+        </div>
+        <div class="inverse-rule-column-list">
+          ${items.map((rule) => ruleCell(rule, usedIds.has(rule.id), locked)).join('')}
+        </div>
+      </div>
+    `)
+    .join('');
 }
 
-function highlightSuggestion(nextIndex) {
-  if (suggestions.length === 0) return;
-  suggestionIndex = (nextIndex + suggestions.length) % suggestions.length;
-  document.querySelectorAll('#inverse-suggestions .inverse-suggestion').forEach((button, index) => {
-    button.classList.toggle('active', index === suggestionIndex);
-    button.setAttribute('aria-selected', index === suggestionIndex ? 'true' : 'false');
-  });
+function applyRuleFromTable(ruleId) {
+  if (!engine || engine.roundDone) return;
+  const rule = rules.find((item) => item.id === ruleId);
+  if (!rule || engine.usedRuleIds.has(rule.id)) return;
+  applyRule(rule);
 }
 
 function sortRulesByType(ruleList) {
@@ -242,103 +280,15 @@ function sortRulesByType(ruleList) {
   });
 }
 
-function groupLabel(count) {
-  return count > 1
-    ? t('inverse.catalog_count', { count })
-    : t('inverse.catalog_count_one', { count });
-}
-
-function renderCatalog() {
-  const list = $('#inverse-catalog-list');
-  const countEl = $('#inverse-browse-count');
-  if (countEl) countEl.textContent = ready ? String(rules.length) : '…';
-  if (!list) return;
-
-  if (!ready) {
-    list.innerHTML = `<p class="inverse-muted">${escapeHtml(t('inverse.loading'))}</p>`;
-    return;
-  }
-
-  const query = ($('#inverse-catalog-search')?.value || '').trim();
-  const matching = query
-    ? searchRules(rules, query, rules.length)
-    : sortRulesByType(rules);
-
-  if (matching.length === 0) {
-    list.innerHTML = `<p class="inverse-catalog-empty">${escapeHtml(t('inverse.catalog_empty'))}</p>`;
-    return;
-  }
-
-  const usedIds = engine?.usedRuleIds || new Set();
-  const groups = new Map();
-  matching.forEach((rule) => {
-    if (!groups.has(rule.type)) groups.set(rule.type, []);
-    groups.get(rule.type).push(rule);
-  });
-
-  list.innerHTML = [...groups.entries()].map(([type, items]) => `
-    <div class="inverse-catalog-group">
-      <h4 class="inverse-catalog-group-title">
-        <span aria-hidden="true">${escapeHtml(getTypeIcon(type))}</span>
-        <span>${escapeHtml(getTypeLabel(type))}</span>
-        <span class="inverse-catalog-group-count">${escapeHtml(groupLabel(items.length))}</span>
-      </h4>
-      ${items.map((rule) => {
-        const used = usedIds.has(rule.id);
-        return `
-          <button
-            type="button"
-            class="inverse-catalog-item${used ? ' used' : ''}"
-            data-rule-id="${escapeHtml(rule.id)}"
-            title="${escapeHtml(getRuleDescription(rule))}"
-            ${used ? 'disabled aria-disabled="true"' : ''}
-          >
-            <span class="inverse-catalog-copy">
-              <strong>${escapeHtml(getRuleLabel(rule))}</strong>
-              <small>${escapeHtml(getRuleDescription(rule))}</small>
-            </span>
-            ${used ? `<span class="inverse-catalog-used">${escapeHtml(t('inverse.catalog_used'))}</span>` : ''}
-          </button>
-        `;
-      }).join('')}
-    </div>
-  `).join('');
-}
-
-function setCatalogOpen(open) {
-  catalogOpen = open;
-  const panel = $('#inverse-catalog');
-  const button = $('#inverse-browse-btn');
-  if (panel) panel.classList.toggle('hidden', !open);
-  if (button) {
-    button.setAttribute('aria-expanded', open ? 'true' : 'false');
-    button.classList.toggle('active', open);
-  }
-  // La colonne latérale est sticky : avec le catalogue ouvert elle peut
-  // dépasser la hauteur de l'écran et devenir inaccessible.
-  $('.inverse-side-column')?.classList.toggle('catalog-open', open);
-  if (open) {
-    hideSuggestions();
-    renderCatalog();
-    requestAnimationFrame(() => {
-      panel?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-  }
-}
-
-function chooseRuleFromCatalog(rule) {
-  if (!engine || engine.roundDone || engine.usedRuleIds.has(rule.id)) return;
-  const input = $('#inverse-rule-input');
-  if (!input) return;
-  input.value = getRuleLabel(rule);
-  hideSuggestions();
-  setCatalogOpen(false);
-  input.focus();
-  input.select();
+// Sur mobile, le tableau occupe presque tout l'écran : on remonte le retour
+// d'action pour qu'il soit visible juste après le clic.
+function bringFeedbackIntoView() {
+  if (!window.matchMedia('(max-width: 900px)').matches) return;
+  $('#inverse-feedback')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function setControlsEnabled(enabled) {
-  ['#inverse-rule-input', '#inverse-submit-btn', '#inverse-hint-btn', '#inverse-pass-btn'].forEach((selector) => {
+  ['#inverse-rule-filter', '#inverse-hint-btn', '#inverse-reveal-btn', '#inverse-pass-btn'].forEach((selector) => {
     const element = $(selector);
     if (!element) return;
     if (selector === '#inverse-hint-btn') {
@@ -349,8 +299,8 @@ function setControlsEnabled(enabled) {
   });
 }
 
-function focusInput() {
-  const input = $('#inverse-rule-input');
+function focusFilter() {
+  const input = $('#inverse-rule-filter');
   if (input && !input.disabled) {
     input.focus({ preventScroll: true });
   }
@@ -358,34 +308,27 @@ function focusInput() {
 
 function submitCurrentRule() {
   if (!ready || !engine || engine.roundDone || engine.runOver) return;
-  const input = $('#inverse-rule-input');
+  const input = $('#inverse-rule-filter');
   if (!input) return;
 
   const query = input.value.trim();
   if (!query) return;
 
-  const ranked = scoreRules(rules, query, 8);
-  if (ranked.length === 0) {
+  const matching = searchRules(rules, query, rules.length);
+  if (matching.length === 0) {
     setFeedbackKey('inverse.no_match', {}, 'info');
     return;
   }
-
-  // Si plusieurs critères se valent et que le joueur n'en a pas choisi un
-  // explicitement, on ne devine pas à sa place (source d'erreurs de critère).
-  const chosenIndex = suggestionIndex >= 0 ? suggestionIndex : 0;
-  const chosen = ranked[chosenIndex] || ranked[0];
-  const topScore = ranked[0].score;
-  const tied = ranked.filter((item) => item.score === topScore).length > 1;
-  if (chosenIndex === 0 && tied) {
+  if (matching.length > 1) {
+    // Pas de devinette : le joueur clique le critère exact dans la liste filtrée.
     setFeedbackKey('inverse.multiple_matches', {}, 'info');
-    renderSuggestions();
+    renderRuleTable();
     return;
   }
 
   input.value = '';
-  hideSuggestions();
-  applyRule(chosen.rule);
-  focusInput();
+  applyRule(matching[0]);
+  focusFilter();
 }
 
 function applyRule(rule) {
@@ -445,7 +388,9 @@ function applyRule(rule) {
     if (resultCard) {
       setTimeout(() => resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 40);
     }
+    return;
   }
+  bringFeedbackIntoView();
 }
 
 function coverageChips(coverage) {
@@ -603,10 +548,12 @@ function setInitialFeedback() {
 function startNewRun() {
   if (!engine) return;
   engine.resetRun();
+  const filter = $('#inverse-rule-filter');
+  if (filter) filter.value = '';
   setInitialFeedback();
   renderAll();
   setControlsEnabled(!engine.roundDone);
-  focusInput();
+  focusFilter();
 }
 
 function buildMode() {
@@ -629,7 +576,7 @@ function buildMode() {
       setInitialFeedback();
       renderAll();
       setControlsEnabled(true);
-      focusInput();
+      focusFilter();
     } catch (error) {
       building = false;
       console.error('Mode Fil Rouge : impossible de construire le vivier.', error);
@@ -660,13 +607,12 @@ export function openInverseMode() {
 
   renderAll();
   setControlsEnabled(!engine.roundDone);
-  if (!engine.roundDone) focusInput();
+  if (!engine.roundDone) focusFilter();
 }
 
 export function closeInverseMode() {
   if (!active) return;
   active = false;
-  setCatalogOpen(false);
   document.getElementById(SECTION_ID)?.classList.add('hidden');
   document.querySelector('.intro-section')?.classList.remove('hidden');
   document.querySelector('.game-section')?.classList.remove('hidden');
@@ -686,60 +632,22 @@ export function isInverseModeOpen() {
 export function initInverseMode() {
   if (!$(`#${SECTION_ID}`)) return;
 
-  $('#inverse-submit-btn')?.addEventListener('click', submitCurrentRule);
-  $('#inverse-rule-input')?.addEventListener('input', renderSuggestions);
-  $('#inverse-rule-input')?.addEventListener('focus', renderSuggestions);
-  $('#inverse-rule-input')?.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      highlightSuggestion(suggestionIndex + 1);
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      highlightSuggestion(suggestionIndex - 1);
-    } else if (event.key === 'Enter') {
+  $('#inverse-rule-filter')?.addEventListener('input', renderRuleTable);
+  $('#inverse-rule-filter')?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
       event.preventDefault();
       submitCurrentRule();
     } else if (event.key === 'Escape') {
-      hideSuggestions();
+      const input = $('#inverse-rule-filter');
+      if (input) input.value = '';
+      renderRuleTable();
     }
   });
 
-  $('#inverse-suggestions')?.addEventListener('mousedown', (event) => {
-    event.preventDefault();
-    const button = event.target.closest('.inverse-suggestion');
-    if (!button) return;
-    const rule = rules.find((item) => item.id === button.dataset.ruleId);
-    if (!rule) return;
-    const input = $('#inverse-rule-input');
-    if (input) input.value = '';
-    hideSuggestions();
-    applyRule(rule);
-    focusInput();
-  });
-
-  $('#inverse-browse-btn')?.addEventListener('click', () => {
-    setCatalogOpen(!catalogOpen);
-  });
-
-  $('#inverse-catalog-close')?.addEventListener('click', () => {
-    setCatalogOpen(false);
-    focusInput();
-  });
-
-  $('#inverse-catalog-search')?.addEventListener('input', renderCatalog);
-  $('#inverse-catalog')?.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      setCatalogOpen(false);
-      focusInput();
-    }
-  });
-
-  $('#inverse-catalog-list')?.addEventListener('click', (event) => {
-    const button = event.target.closest('.inverse-catalog-item');
+  $('#inverse-rule-table')?.addEventListener('click', (event) => {
+    const button = event.target.closest('.inverse-rule-cell');
     if (!button || button.disabled) return;
-    const rule = rules.find((item) => item.id === button.dataset.ruleId);
-    if (rule) chooseRuleFromCatalog(rule);
+    applyRuleFromTable(button.dataset.ruleId);
   });
 
   $('#inverse-hint-btn')?.addEventListener('click', () => {
@@ -753,7 +661,29 @@ export function initInverseMode() {
     setFeedback(() => t('inverse.feedback_hint', { category }), 'info');
     renderHud();
     setControlsEnabled(true);
-    focusInput();
+    focusFilter();
+  });
+
+  $('#inverse-reveal-btn')?.addEventListener('click', () => {
+    if (!engine || engine.roundDone) return;
+    const result = engine.revealCounterExample();
+    if (result.status === 'ok') {
+      const name = getCountryName(result.country) || result.code;
+      setFeedback(
+        () => t('inverse.feedback_reveal', {
+          country: name,
+          count: Math.max(0, engine.remainingToExclude),
+        }),
+        'info'
+      );
+    } else if (result.status === 'none') {
+      setFeedbackKey('inverse.feedback_reveal_none', {}, 'info');
+    } else {
+      return;
+    }
+    renderAll();
+    setControlsEnabled(true);
+    focusFilter();
   });
 
   $('#inverse-pass-btn')?.addEventListener('click', () => {
@@ -789,22 +719,18 @@ export function initInverseMode() {
         renderAll();
         return;
       }
+      const filter = $('#inverse-rule-filter');
+      if (filter) filter.value = '';
       setInitialFeedback();
       renderAll();
       setControlsEnabled(true);
-      focusInput();
+      focusFilter();
     }
-  });
-
-  // Fermer les suggestions au clic extérieur.
-  document.addEventListener('click', (event) => {
-    if (!event.target.closest('.inverse-input-card')) hideSuggestions();
   });
 
   onLanguageChange(() => {
     if (!ready) return;
     renderAll();
-    if (suggestions.length > 0) renderSuggestions();
   });
 
   // Si l'utilisateur arrive directement sur l'onglet (rechargement avec hash).

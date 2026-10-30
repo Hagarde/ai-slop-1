@@ -218,4 +218,51 @@ check(result.status === 'implied', 'un critère déjà impliqué doit être sign
 check(engine2.poolSize === beforeImplied && engine2.lives === livesBeforeImplied, 'un critère impliqué ne change ni vivier ni vie');
 check(engine2.implied.some((rule) => rule.id === seaAccess.id), 'le critère impliqué doit être conservé pour l’affichage');
 
+// ---------------------------------------------------------------------------
+// Aide « révéler un contre-exemple » : pays du vivier qui satisfait tous les
+// critères déjà énoncés mais qui ne fait pas partie de l'ensemble à isoler.
+// ---------------------------------------------------------------------------
+const makeRevealEngine = () => {
+  const instance = new InverseEngine({ countryList: C, rules, catalog, roundPlan: ROUND_PLAN });
+  loadPuzzle(instance, makePuzzle(targetCodes, [south, dollar], 2));
+  instance.revealedCodes = new Set();
+  instance.revealed = [];
+  return instance;
+};
+
+const engine4 = makeRevealEngine();
+engine4.score = 100;
+const poolBeforeReveal = engine4.poolSize;
+const livesBeforeReveal = engine4.lives;
+let reveal = engine4.revealCounterExample();
+check(reveal.status === 'ok', 'un contre-exemple doit être proposé');
+check(!targetSet.has(reveal.code), 'le pays révélé ne doit jamais appartenir à l’ensemble');
+check(engine4.revealedCodes.has(reveal.code), 'le pays révélé doit être mémorisé');
+check(engine4.score === 80, 'un contre-exemple coûte 20 points');
+check(engine4.poolSize === poolBeforeReveal && engine4.lives === livesBeforeReveal, 'un contre-exemple ne touche ni au vivier ni aux vies');
+
+const engine5 = makeRevealEngine();
+result = engine5.submitRule(south.id);
+check(result.status === 'useful', 'hémisphère Sud doit réduire le vivier avant la révélation');
+const revealedAfterSouth = engine5.revealCounterExample();
+check(revealedAfterSouth.status === 'ok', 'un contre-exemple doit exister après un critère');
+check(south.set.has(revealedAfterSouth.code), 'le contre-exemple doit satisfaire le critère déjà énoncé');
+check(!targetSet.has(revealedAfterSouth.code), 'le contre-exemple ne doit pas être dans l’ensemble');
+check(engine5.currentPoolCodes.has(revealedAfterSouth.code), 'le contre-exemple doit encore être dans le vivier');
+
+// Aucun doublon, et épuisement propre quand tous les pays hors ensemble ont
+// été révélés.
+let exhausted = engine5.revealCounterExample();
+while (exhausted.status === 'ok') {
+  check(!targetSet.has(exhausted.code), 'un contre-exemple révélé ne doit pas être dans l’ensemble');
+  exhausted = engine5.revealCounterExample();
+}
+check(exhausted.status === 'none', 'la révélation doit s’arrêter quand tous les candidats sont épuisés');
+check(engine5.revealed.length === new Set(engine5.revealed).size, 'les contre-exemples révélés doivent être uniques');
+check(
+  engine5.revealed.length === engine5.currentPoolCodes.size - targetSet.size,
+  'tous les pays du vivier hors ensemble doivent pouvoir être révélés'
+);
+
+
 console.log(`✅ ${checks} vérifications réussies.`);
