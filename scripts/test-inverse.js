@@ -178,6 +178,9 @@ check(
   '« ile » ne doit pas matcher « étoile »'
 );
 check(topLabel('symbole') === 'Symbole sur le drapeau', '« symbole » doit proposer le critère du symbole sur le drapeau');
+check(topLabel('drapeau sans symbole') === 'Aucun symbole sur le drapeau', '« drapeau sans symbole » doit proposer le critère négatif');
+check(topLabel('blanc') === 'Drapeau avec du blanc', '« blanc » doit proposer le critère de la couleur blanche');
+check(topLabel('drapeau blanc') === 'Drapeau avec du blanc', '« drapeau blanc » doit proposer le critère de la couleur blanche');
 check(topLabel('sans accès à la mer') === 'Pays enclavé (sans mer)', 'une requête niée doit proposer le pays enclavé');
 check(topLabel('accès à la mer') === 'Possède un accès à la mer', 'une requête affirmative doit proposer l’accès à la mer');
 
@@ -190,6 +193,28 @@ check(
 );
 const islandScores = scoreRules(rules, 'ile', 8);
 check(islandScores.length === 1 && islandScores[0].score >= 60, '« ile » doit avoir une seule correspondance forte');
+
+// Nouveaux critères négatifs / manquants sur le drapeau.
+const noSymbol = ruleByLabel('Aucun symbole sur le drapeau');
+const white = ruleByLabel('Drapeau avec du blanc');
+check(noSymbol.size === C.filter((country) => country.symbolOnFlag === false).length, 'le critère « aucun symbole » doit couvrir tous les drapeaux sans symbole');
+check(white.size === C.filter((country) => (country.flagColors || []).includes('#ffffff')).length, 'le critère « blanc » doit couvrir tous les drapeaux contenant du blanc');
+check(noSymbol.set.has('FRA') && !noSymbol.set.has('CHE'), 'la France n’a pas de symbole, la Suisse en a un');
+check(white.set.has('FRA') && !white.set.has('CHN'), 'la France a du blanc, la Chine n’en a pas');
+check(noSymbol.size >= 5 && white.size >= 5, 'les nouveaux critères doivent rester jouables (au moins 5 pays)');
+
+const noStar = ruleByLabel('Aucune étoile sur le drapeau');
+const twoColors = ruleByLabel('Drapeau de 2 couleurs ou moins');
+const tinyPopulation = ruleByLabel('Moins de 1M d’habitants');
+check(noStar.size === C.filter((country) => country.flagStar === false).length, 'le critère « aucune étoile » doit couvrir tous les drapeaux sans étoile');
+check(twoColors.size === C.filter((country) => (country.flagColorCount || 0) <= 2).length, 'le critère « 2 couleurs ou moins » doit être cohérent avec les données');
+check(tinyPopulation.size === C.filter((country) => country.population > 0 && country.population < 1_000_000).length, 'le critère « moins de 1M » doit couvrir les pays sous le million');
+check(noStar.set.has('FRA') && !noStar.set.has('USA'), 'la France n’a pas d’étoile, les États-Unis en ont');
+check(twoColors.set.has('CHE') && !twoColors.set.has('FRA'), 'la Suisse a 2 couleurs, la France 3');
+check(tinyPopulation.set.has('AND') && !tinyPopulation.set.has('FRA'), 'Andorre a moins d’un million d’habitants, pas la France');
+check(topLabel('drapeau sans étoile') === 'Aucune étoile sur le drapeau', '« drapeau sans étoile » doit proposer le critère négatif');
+check(topLabel('deux couleurs') === 'Drapeau de 2 couleurs ou moins', '« deux couleurs » doit proposer le critère des drapeaux bicolores');
+check(topLabel('moins de 1 million') === 'Moins de 1M d’habitants', '« moins de 1 million » doit proposer le critère démographique');
 
 // Données : cohérence îles / enclavement / symboles.
 check(

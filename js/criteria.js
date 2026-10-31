@@ -201,6 +201,14 @@ export function buildCriteria(data) {
     ,
       '👥'),
     criterion(
+      'Moins de 1M d’habitants', 'Population < 1 million',
+      'economy',
+      'La population du pays est inférieure à un million d’habitants.',
+      'Country population is under one million people.',
+      (c) => c.population > 0 && c.population < 1_000_000
+    ,
+      '🧍'),
+    criterion(
       'Moins de 10M d’habitants', 'Population < 10 million',
       'economy',
       'La population du pays est inférieure à 10 millions d’habitants.',
@@ -294,6 +302,14 @@ export function buildCriteria(data) {
     ,
       '⚜️'),
     criterion(
+      'Aucun symbole sur le drapeau', 'No symbol on flag',
+      'flag',
+      'Le drapeau national ne comporte aucun symbole distinctif : ni étoile, ni croissant, ni soleil, ni armoiries, ni emblème.',
+      'The national flag features no distinctive symbol: no star, crescent, sun, coat of arms, or emblem.',
+      (c) => c.symbolOnFlag === false
+    ,
+      '🚩'),
+    criterion(
       'Drapeau à bandes verticales', 'Vertical stripes on flag',
       'flag',
       'Le motif officiel du drapeau national est principalement composé de bandes verticales.',
@@ -318,6 +334,14 @@ export function buildCriteria(data) {
     ,
       '🌈'),
     criterion(
+      'Drapeau de 2 couleurs ou moins', 'Flag with 2 colors or fewer',
+      'flag',
+      'Le drapeau comporte au plus 2 couleurs principales distinctes.',
+      'The flag contains at most 2 distinct main colors.',
+      (c) => (c.flagColorCount || 0) <= 2
+    ,
+      '🎨'),
+    criterion(
       'Drapeau avec du rouge', 'Flag contains red',
       'flag',
       'Le drapeau officiel comporte de la couleur rouge.',
@@ -333,6 +357,14 @@ export function buildCriteria(data) {
       hasColor('#005eb8')
     ,
       '🟦'),
+    criterion(
+      'Drapeau avec du blanc', 'Flag contains white',
+      'flag',
+      'Le drapeau officiel comporte de la couleur blanche.',
+      'The official flag contains the color white.',
+      hasColor('#ffffff')
+    ,
+      '⬜'),
     criterion(
       'Drapeau avec du vert', 'Flag contains green',
       'flag',
@@ -461,6 +493,14 @@ export function buildCriteria(data) {
       (c) => c.flagStar === true
     ,
       '⭐'),
+    criterion(
+      'Aucune étoile sur le drapeau', 'No star on flag',
+      'flag',
+      'Le drapeau officiel national ne comporte aucune étoile dans son dessin.',
+      'The official national flag features no star in its design.',
+      (c) => c.flagStar === false
+    ,
+      '🚫'),
     criterion(
       'Sens de circulation : conduite à gauche', 'Drives on the left',
       'history',
