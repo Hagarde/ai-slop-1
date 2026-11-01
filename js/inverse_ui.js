@@ -191,18 +191,35 @@ function renderAll() {
   renderResult();
 }
 
-function ruleCell(rule, used, locked) {
-  const disabled = used || locked;
+function ruleCell(rule, status, locked) {
+  const disabled = Boolean(status) || locked;
+  const statusLabel = status === 'valid'
+    ? t('inverse.rule_valid')
+    : status === 'invalid'
+      ? t('inverse.rule_invalid')
+      : status === 'implied'
+        ? t('inverse.rule_implied')
+        : '';
+  const mark = status === 'valid'
+    ? '<span class="inverse-rule-cell-mark valid" aria-hidden="true">✓</span>'
+    : status === 'invalid'
+      ? '<span class="inverse-rule-cell-mark invalid" aria-hidden="true">✗</span>'
+      : status === 'implied'
+        ? '<span class="inverse-rule-cell-mark implied" aria-hidden="true">➖</span>'
+        : '';
+  const ariaLabel = statusLabel
+    ? ` aria-label="${escapeHtml(`${getRuleLabel(rule)} — ${statusLabel}`)}"`
+    : '';
   return `
     <button
       type="button"
-      class="inverse-rule-cell${used ? ' used' : ''}"
+      class="inverse-rule-cell${status ? ` ${status}` : ''}"
       data-rule-id="${escapeHtml(rule.id)}"
       title="${escapeHtml(getRuleDescription(rule))}"
-      ${disabled ? 'disabled aria-disabled="true"' : ''}
+      ${disabled ? 'disabled aria-disabled="true"' : ''}${ariaLabel}
     >
       <span class="inverse-rule-cell-label">${escapeHtml(getRuleLabel(rule))}</span>
-      ${used ? `<span class="inverse-rule-cell-mark" aria-hidden="true">✓</span>` : ''}
+      ${mark}
     </button>
   `;
 }
@@ -222,6 +239,14 @@ function renderRuleTable() {
 
   const query = ($('#inverse-rule-filter')?.value || '').trim();
   const usedIds = engine?.usedRuleIds || new Set();
+  const selectedIds = new Set((engine?.selected || []).map((entry) => entry.rule.id));
+  const impliedIds = new Set((engine?.implied || []).map((rule) => rule.id));
+  const statusOf = (ruleId) => {
+    if (!usedIds.has(ruleId)) return null;
+    if (selectedIds.has(ruleId)) return 'valid';
+    if (impliedIds.has(ruleId)) return 'implied';
+    return 'invalid';
+  };
   const locked = !engine || engine.roundDone || Boolean(engine.runOver);
 
   if (query) {
@@ -233,7 +258,7 @@ function renderRuleTable() {
       return;
     }
     table.innerHTML = `<div class="inverse-rule-results">${matching
-      .map((rule) => ruleCell(rule, usedIds.has(rule.id), locked))
+      .map((rule) => ruleCell(rule, statusOf(rule.id), locked))
       .join('')}</div>`;
     return;
   }
@@ -257,7 +282,7 @@ function renderRuleTable() {
           <span class="inverse-rule-column-count">${items.length}</span>
         </div>
         <div class="inverse-rule-column-list">
-          ${items.map((rule) => ruleCell(rule, usedIds.has(rule.id), locked)).join('')}
+          ${items.map((rule) => ruleCell(rule, statusOf(rule.id), locked)).join('')}
         </div>
       </div>
     `)
